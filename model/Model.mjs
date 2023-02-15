@@ -6,6 +6,8 @@ import {Textures} from "./data/Textures.mjs";
 import {TextureAnimations} from "./data/TextureAnimations.mjs";
 import {Materials} from "./data/Materials.mjs";
 import {Geosets} from "./data/Geosets.mjs";
+import {Bones} from "./data/Bones.mjs";
+import {PivotPoints} from "./data/PivotPoints.mjs";
 
 export class Model {
 
@@ -43,10 +45,21 @@ export class Model {
 				case 'GEOS':
 					this.datas.push(new Geosets(key, this));
 					break;
+				case 'BONE':
+					this.datas.push(new Bones(key, this));
+					break;
+				case 'PIVT':
+					this.datas.push(new PivotPoints(key, this));
+					break;
+
 				default:
 					console.error('Parse Error:', key, keyName);
 					break parse;
 			}
+		}
+
+		if (this.byteOffset !== this.dataView.byteLength) {
+			console.error('Model Parse Unctomplete:', this.byteOffset, this.dataView.byteLength)
 		}
 
 		console.log(this.datas);

@@ -1,6 +1,6 @@
 import {ModelData} from "../ModelData.mjs";
 
-export class TextureScalings extends ModelData {
+export class Scalings extends ModelData {
 	/**
 	 *  @param key
 	 *  @param {Model} model
@@ -11,7 +11,7 @@ export class TextureScalings extends ModelData {
 		this.InterpolationType = model.dword();
 		this.GlobalSequenceId = model.dword();
 		for (let i = 0; i < this.NrOfTracks; i++) {
-			this.scalings.push(new TextureScaling(model, this.InterpolationType));
+			this.scalings.push(new Scaling(model, this.InterpolationType));
 		}
 	}
 
@@ -24,10 +24,10 @@ export class TextureScalings extends ModelData {
 	 */
 	InterpolationType;
 
-	/** @type TextureScaling[] */ scalings = [];
+	/** @type Scaling[] */ scalings = [];
 }
 
-class TextureScaling {
+class Scaling {
 	/**
 	 * @param {Model} model
 	 * @param {number} InterpolationType

@@ -1,6 +1,6 @@
 import {ModelData} from "../ModelData.mjs";
 
-export class TextureTranslations extends ModelData {
+export class Translations extends ModelData {
 	/**
 	 *  @param key
 	 *  @param {Model} model
@@ -11,7 +11,7 @@ export class TextureTranslations extends ModelData {
 		this.InterpolationType = model.dword();
 		this.GlobalSequenceId = model.dword();
 		for (let i = 0; i < this.NrOfTracks; i++) {
-			this.translations.push(new TextureTranslation(model, this.InterpolationType));
+			this.translations.push(new Translation(model, this.InterpolationType));
 		}
 	}
 
@@ -24,11 +24,11 @@ export class TextureTranslations extends ModelData {
 	 */
 	InterpolationType;
 
-	/** @type TextureTranslation[] */
+	/** @type Translation[] */
 	translations = [];
 }
 
-class TextureTranslation {
+class Translation {
 	/**
 	 * @param {Model} model
 	 * @param {number} InterpolationType

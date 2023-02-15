@@ -1,4 +1,8 @@
-export class Node {
+import {Translations} from "./Translations.mjs";
+import {Rotations} from "./Rotations.mjs";
+import {Scalings} from "./Scalings.mjs";
+
+export class NodeData {
 
 	/** @param {Model} model */
 	constructor(model) {
@@ -8,6 +12,28 @@ export class Node {
 		this.ObjectId = model.dword();
 		this.ParentId = model.dword();
 		this.Flags = model.dword();
+
+		let i = 0;
+		parse: while (model.byteOffset < end) {
+			i++;
+			//if (i > 1) break;
+			const keyName = model.keyName();
+
+			switch (keyName) {
+				case 'KGTR':
+					this.translations = new Translations(model.dword(), model);
+					break;
+				case 'KGRT':
+					this.rotations = new Rotations(model.dword(), model);
+					break;
+				case 'KGSC':
+					this.scalings = new Scalings(model.dword(), model);
+					break;
+				default:
+					console.error('NodeData Parse:', keyName);
+					break parse;
+			}
+		}
 	}
 
 	/**
@@ -36,41 +62,9 @@ export class Node {
 	 * @type {number}
 	 */
 	Flags;
+
+	/** @type {Translations} */ translations;
+	/** @type {Rotations} */ rotations;
+	/** @type {Scalings} */ scalings;
 }
 
-/*
-  {GeosetTranslation}
-  {GeosetRotation}
-  {GeosetScaling}
-};
- */
-
-/*
-//+-----------------------------------------------------------------------------
-//| Animated geoset translation
-//+-----------------------------------------------------------------------------
-struct GeosetTranslation
-{
-  DWORD 'KGTR';
-
-  DWORD NrOfTracks;
-  DWORD InterpolationType;             //0 - None
-                                       //1 - Linear
-                                       //2 - Hermite
-                                       //3 - Bezier
-  DWORD GlobalSequenceId;
-
-  struct TranslationTrack[NrOfTracks]
-  {
-    DWORD Time;
-    FLOAT3 Translation;
-
-    if(InterpolationType > 1)
-    {
-      FLOAT3 InTan;
-      FLOAT3 OutTan;
-    }
-  };
-};
-
- */

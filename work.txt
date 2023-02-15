@@ -2,69 +2,12 @@
   {LightChunk};
   {HelperChunk};
   {AttachmentChunk};
-  {PivotPointChunk};
   {ParticleEmitterChunk};
   {ParticleEmitter2Chunk};
   {RibbonEmitterChunk};
   {EventObjectChunk};
   {CameraChunk};
   {CollisionShapeChunk};
-
-//+-----------------------------------------------------------------------------
-//| Animated geoset rotation
-//+-----------------------------------------------------------------------------
-struct GeosetRotation
-{
-  DWORD 'KGRT';
-
-  DWORD NrOfTracks;
-  DWORD InterpolationType;             //0 - None
-                                       //1 - Linear
-                                       //2 - Hermite
-                                       //3 - Bezier
-  DWORD GlobalSequenceId;
-
-  struct RotationTrack[NrOfTracks]
-  {
-    DWORD Time;
-    FLOAT4 Rotation;
-
-    if(InterpolationType > 1)
-    {
-      FLOAT4 InTan;
-      FLOAT4 OutTan;
-    }
-  };
-};
-
-
-//+-----------------------------------------------------------------------------
-//| Animated geoset scaling
-//+-----------------------------------------------------------------------------
-struct GeosetScaling
-{
-  DWORD 'KGSC';
-
-  DWORD NrOfTracks;
-  DWORD InterpolationType;             //0 - None
-                                       //1 - Linear
-                                       //2 - Hermite
-                                       //3 - Bezier
-  DWORD GlobalSequenceId;
-
-  struct ScalingTrack[NrOfTracks]
-  {
-    DWORD Time;
-    FLOAT3 Scaling;
-
-    if(InterpolationType > 1)
-    {
-      FLOAT3 InTan;
-      FLOAT3 OutTan;
-    }
-  };
-};
-
 
 //+-----------------------------------------------------------------------------
 //| Animated geoset alpha
@@ -715,22 +658,6 @@ struct AttachmentChunk
     {AttachmentVisibility}
   };
 };
-
-
-//+-----------------------------------------------------------------------------
-//| Pivot points
-//+-----------------------------------------------------------------------------
-struct PivotPointChunk
-{
-  DWORD 'PIVT';
-  DWORD ChunkSize;
-
-  struct PivotPoint[NrOfPivotPoints]   //NrOfPivotPoints = ChunkSize / 12
-  {
-    FLOAT3 Position;
-  };
-};
-
 
 //+-----------------------------------------------------------------------------
 //| Particle emitters

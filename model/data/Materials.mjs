@@ -78,6 +78,7 @@ class Layer {
 		this.Alpha = model.float();
 
 		if (model.byteOffset !== end) {
+			//FIXME
 			console.error('Layer Parser Uncomplete');
 		}
 	}
@@ -109,78 +110,92 @@ class Layer {
 }
 
 /*
- //+-----------------------------------------------------------------------------
- //| Layers
- //+-----------------------------------------------------------------------------
- struct LayerChunk
- {
- DWORD 'LAYS';
- DWORD NrOfLayers;
+struct LayerChunk
+{
+  DWORD 'LAYS';
+  DWORD NrOfLayers;
 
- struct Layer[NrOfLayers]
- {
+  struct Layer[NrOfLayers]
+  {
+    DWORD InclusiveSize;
 
- {MaterialAlpha}
- {MaterialTextureId}
- };
- };
+    DWORD FilterMode;                  //0 - None
+                                       //1 - Transparent
+                                       //2 - Blend
+                                       //3 - Additive
+                                       //4 - AddAlpha
+                                       //5 - Modulate
+                                       //6 - Modulate2x
 
+    DWORD ShadingFlags;                //#1   - Unshaded
+                                       //#2   - SphereEnvironmentMap
+                                       //#4   - ???
+                                       //#8   - ???
+                                       //#16  - TwoSided
+                                       //#32  - Unfogged
+                                       //#64  - NoDepthTest
+                                       //#128 - NoDepthSet
+
+    DWORD TextureId;
+    DWORD TextureAnimationId;
+    DWORD CoordId;
+    FLOAT Alpha;
+
+    {MaterialAlpha}
+    {MaterialTextureId}
+  };
+};
  */
 
+
 /*
- //+-----------------------------------------------------------------------------
- //| Animated material alpha
- //+-----------------------------------------------------------------------------
  struct MaterialAlpha
- {
- DWORD 'KMTA';
+{
+  DWORD 'KMTA';
 
- DWORD NrOfTracks;
- DWORD InterpolationType;             //0 - None
- //1 - Linear
- //2 - Hermite
- //3 - Bezier
- DWORD GlobalSequenceId;
+  DWORD NrOfTracks;
+  DWORD InterpolationType;             //0 - None
+                                       //1 - Linear
+                                       //2 - Hermite
+                                       //3 - Bezier
+  DWORD GlobalSequenceId;
 
- struct ScalingTrack[NrOfTracks]
- {
- DWORD Time;
- FLOAT Alpha;
+  struct ScalingTrack[NrOfTracks]
+  {
+    DWORD Time;
+    FLOAT Alpha;
 
- if(InterpolationType > 1)
- {
- FLOAT InTan;
- FLOAT OutTan;
- }
- };
- };
+    if(InterpolationType > 1)
+    {
+      FLOAT InTan;
+      FLOAT OutTan;
+    }
+  };
+};
  */
 
 /*
- //+-----------------------------------------------------------------------------
- //| Animated material texture ID
- //+-----------------------------------------------------------------------------
  struct MaterialTextureId
- {
- DWORD 'KMTF';
+{
+  DWORD 'KMTF';
 
- DWORD NrOfTracks;
- DWORD InterpolationType;             //0 - None
- //1 - Linear
- //2 - Hermite
- //3 - Bezier
- DWORD GlobalSequenceId;
+  DWORD NrOfTracks;
+  DWORD InterpolationType;             //0 - None
+                                       //1 - Linear
+                                       //2 - Hermite
+                                       //3 - Bezier
+  DWORD GlobalSequenceId;
 
- struct ScalingTrack[NrOfTracks]
- {
- DWORD Time;
- DWORD TextureId;
+  struct ScalingTrack[NrOfTracks]
+  {
+    DWORD Time;
+    DWORD TextureId;
 
- if(InterpolationType > 1)
- {
- DWORD InTan;
- DWORD OutTan;
- }
- };
- };
- */
+    if(InterpolationType > 1)
+    {
+      DWORD InTan;
+      DWORD OutTan;
+    }
+  };
+};
+*/

@@ -22,7 +22,7 @@ export class Model {
 			const [key, keyName] = this.keys();
 			switch (keyName) {
 				case 'MDLX':
-					this.datas.push(new Format(key));
+					this.datas.push(new Format(key, this));
 					break;
 				case 'VERS':
 					this.datas.push(new Version(key, this));
@@ -61,14 +61,12 @@ export class Model {
 		if (this.byteOffset !== this.dataView.byteLength) {
 			console.error('Model Parse Unctomplete:', this.byteOffset, this.dataView.byteLength)
 		}
-
-		console.log(this.datas);
 	}
 
 	/** @type ModelData[] **/
 	datas = [];
 
-	output = [];
+	output = new ArrayBuffer(0);
 
 	/**  @type {DataView} */ dataView;
 
@@ -94,11 +92,13 @@ export class Model {
 		return d;
 	};
 
+	/** @param {number} dword */
 	writeDWORD(dword) {
-		const list = new Uint32Array(4);
-		const view = new DataView(list);
-		view.setUint32(0, dword, true);
-		this.output.push(list);
+		const ol = this.output.byteLength;
+		const nb = new ArrayBuffer(ol + 4);
+		new DataView(nb).setUint32(ol, dword, true);
+		(new Uint8Array(nb, 0, ol)).set(new Uint8Array(this.output, 0, ol));
+		this.output = nb;
 	}
 
 	/** @return {number} */
@@ -144,14 +144,12 @@ export class Model {
 
 	/** @return {ArrayBuffer} */
 	toArrayBuffer() {
-		const buffer = new ArrayBuffer(1);
-
 		for (const d of this.datas) {
-			console.log(d);
+			if (d.save) {
+				d.save();
+			}
 		}
-
-
-		return buffer;
+		return this.output;
 	}
 }
 

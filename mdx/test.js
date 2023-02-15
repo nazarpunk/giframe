@@ -1,7 +1,9 @@
 import * as fs from 'fs';
 import {Model} from "./../model/Model.mjs";
+import * as cp from 'child_process';
 
-const buffer = fs.readFileSync('sprite.mdx');
+const f1 = 'sprite.mdx';
+const buffer = fs.readFileSync(f1);
 
 const arrayBuffer = new ArrayBuffer(buffer.length);
 const view = new Uint8Array(arrayBuffer);
@@ -13,6 +15,13 @@ const model = new Model(arrayBuffer);
 
 const ab = model.toArrayBuffer();
 
-const path = 'sprite_test.mdx';
-fs.writeFileSync(path, '', {flag: 'w+'});
-fs.appendFileSync(path, Buffer.from(arrayBuffer));
+const f2 = 'sprite_test.mdx';
+fs.writeFileSync(f2, '', {flag: 'w+'});
+fs.appendFileSync(f2, Buffer.from(ab));
+
+const cwd = process.cwd();
+
+cp.exec(
+	`osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
+    do script "vbindiff ${cwd}/${f1} ${cwd}/${f2}"
+end tell'`);

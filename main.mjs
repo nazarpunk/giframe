@@ -5,7 +5,7 @@ import {Model} from "./model/Model.mjs";
 const response = await fetch('mdx/sprite.mdx');
 const buffer = await response.arrayBuffer();
 
-const model = new Model(buffer);
+new Model(buffer);
 
 //const a = Array.from(Uint32Array.from(buffer));
 
@@ -21,8 +21,3 @@ a.setAttribute('download', filename) // Set download filename
 a.click() // Start downloading
 }
 */
-
-
-//const bfr = new ArrayBuffer(2**30);
-//console.log(bfr);
-

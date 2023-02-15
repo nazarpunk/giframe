@@ -7,7 +7,7 @@ export class PivotPoints extends ModelData {
 	 */
 	constructor(key, model) {
 		super(key);
-		this.ChunkSize = model.dword();
+		this.ChunkSize = model.readDWORD();
 		const num = this.ChunkSize / 12;
 		for (let i = 0; i < num; i++) {
 			this.points.push([model.float(), model.float(), model.float()]);

@@ -8,7 +8,7 @@ export class Bones extends ModelData {
 	 */
 	constructor(key, model) {
 		super(key);
-		this.ChunkSize = model.dword();
+		this.ChunkSize = model.readDWORD();
 		const end = model.byteOffset + this.ChunkSize;
 
 		let i = 0;
@@ -27,7 +27,7 @@ class Bone {
 	/** @param {Model} model */
 	constructor(model) {
 		this.node = new NodeData(model);
-		this.GeosetId = model.dword();
-		this.GeosetAnimationId = model.dword();
+		this.GeosetId = model.readDWORD();
+		this.GeosetAnimationId = model.readDWORD();
 	}
 }

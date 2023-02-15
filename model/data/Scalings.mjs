@@ -7,9 +7,9 @@ export class Scalings extends ModelData {
 	 */
 	constructor(key, model) {
 		super(key);
-		this.NrOfTracks = model.dword();
-		this.InterpolationType = model.dword();
-		this.GlobalSequenceId = model.dword();
+		this.NrOfTracks = model.readDWORD();
+		this.InterpolationType = model.readDWORD();
+		this.GlobalSequenceId = model.readDWORD();
 		for (let i = 0; i < this.NrOfTracks; i++) {
 			this.scalings.push(new Scaling(model, this.InterpolationType));
 		}
@@ -33,7 +33,7 @@ class Scaling {
 	 * @param {number} InterpolationType
 	 */
 	constructor(model, InterpolationType) {
-		this.Time = model.dword();
+		this.Time = model.readDWORD();
 		this.Scaling = [model.float(), model.float(), model.float()];
 		if (InterpolationType > 1) {
 			this.InTan = [model.float(), model.float(), model.float()];

@@ -12,7 +12,7 @@ export class TextureAnimations extends ModelData {
 	 */
 	constructor(key, model) {
 		super(key);
-		this.ChunkSize = model.dword();
+		this.ChunkSize = model.readDWORD();
 
 		const end = model.byteOffset + this.ChunkSize;
 
@@ -28,17 +28,17 @@ export class TextureAnimations extends ModelData {
 class TextureAnimation {
 	/**  @param {Model} model */
 	constructor(model) {
-		this.InclusiveSize = model.dword();
+		this.InclusiveSize = model.readDWORD();
 		const keyName = model.keyName();
 		switch (keyName) {
 			case 'KTAT':
-				this.translations = new Translations(model.dword(), model);
+				this.translations = new Translations(model.readDWORD(), model);
 				break;
 			case 'KTAR':
-				this.rotations = new Rotations(model.dword(), model);
+				this.rotations = new Rotations(model.readDWORD(), model);
 				break;
 			case 'KTAS':
-				this.scalings = new Scalings(model.dword(), model);
+				this.scalings = new Scalings(model.readDWORD(), model);
 				break;
 			default:
 				console.error('TextureAnimation Parse Error: ', keyName);

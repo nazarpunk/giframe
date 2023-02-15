@@ -6,12 +6,12 @@ export class NodeData {
 
 	/** @param {Model} model */
 	constructor(model) {
-		this.InclusiveSize = model.dword();
+		this.InclusiveSize = model.readDWORD();
 		const end = model.byteOffset - 4 + this.InclusiveSize;
 		this.Name = model.char(80);
-		this.ObjectId = model.dword();
-		this.ParentId = model.dword();
-		this.Flags = model.dword();
+		this.ObjectId = model.readDWORD();
+		this.ParentId = model.readDWORD();
+		this.Flags = model.readDWORD();
 
 		let i = 0;
 		parse: while (model.byteOffset < end) {
@@ -21,13 +21,13 @@ export class NodeData {
 
 			switch (keyName) {
 				case 'KGTR':
-					this.translations = new Translations(model.dword(), model);
+					this.translations = new Translations(model.readDWORD(), model);
 					break;
 				case 'KGRT':
-					this.rotations = new Rotations(model.dword(), model);
+					this.rotations = new Rotations(model.readDWORD(), model);
 					break;
 				case 'KGSC':
-					this.scalings = new Scalings(model.dword(), model);
+					this.scalings = new Scalings(model.readDWORD(), model);
 					break;
 				default:
 					console.error('NodeData Parse:', keyName);

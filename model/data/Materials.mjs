@@ -7,7 +7,7 @@ export class Materials extends ModelData {
 	 */
 	constructor(key, model) {
 		super(key);
-		this.ChunkSize = model.dword();
+		this.ChunkSize = model.readDWORD();
 
 		const end = model.byteOffset + this.ChunkSize;
 
@@ -24,12 +24,12 @@ export class Materials extends ModelData {
 class Material {
 	/** @param {Model} model */
 	constructor(model) {
-		this.InclusiveSize = model.dword();
-		this.PriorityPlane = model.dword();
-		this.Flags = model.dword();
+		this.InclusiveSize = model.readDWORD();
+		this.PriorityPlane = model.readDWORD();
+		this.Flags = model.readDWORD();
 		const keyName = model.keyName();
 		if (model.keyName() === 'LAYS') {
-			this.layer = new Layers(model.dword(), model);
+			this.layer = new Layers(model.readDWORD(), model);
 		}
 	}
 
@@ -55,7 +55,7 @@ class Layers extends ModelData {
 	 */
 	constructor(key, model) {
 		super(key);
-		this.NrOfLayers = model.dword();
+		this.NrOfLayers = model.readDWORD();
 		for (let i = 0; i < this.NrOfLayers; i++) {
 			this.layers.push(new Layer(model));
 		}
@@ -68,13 +68,13 @@ class Layers extends ModelData {
 class Layer {
 	/** @param {Model} model */
 	constructor(model) {
-		this.InclusiveSize = model.dword();
+		this.InclusiveSize = model.readDWORD();
 		const end = model.byteOffset - 4 + this.InclusiveSize;
-		this.FilterMode = model.dword();
-		this.ShadingFlags = model.dword();
-		this.TextureId = model.dword();
-		this.TextureAnimationId = model.dword();
-		this.CoordId = model.dword();
+		this.FilterMode = model.readDWORD();
+		this.ShadingFlags = model.readDWORD();
+		this.TextureId = model.readDWORD();
+		this.TextureAnimationId = model.readDWORD();
+		this.CoordId = model.readDWORD();
 		this.Alpha = model.float();
 
 		if (model.byteOffset !== end) {

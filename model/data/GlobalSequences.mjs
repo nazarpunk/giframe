@@ -11,7 +11,7 @@ export class GlobalSequences extends ModelData {
 	constructor(key, model) {
 		super(key);
 
-		this.ChunkSize = model.dword();
+		this.ChunkSize = model.readDWORD();
 
 		const n = this.ChunkSize / 4;
 		for (let i = 0; i < n; i++) {
@@ -23,6 +23,6 @@ export class GlobalSequences extends ModelData {
 class GlobalSequence {
 	/**  @param {Model} model */
 	constructor(model) {
-		this.Duration = model.dword();
+		this.Duration = model.readDWORD();
 	}
 }

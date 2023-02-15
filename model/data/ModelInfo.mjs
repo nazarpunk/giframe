@@ -8,12 +8,12 @@ export class ModelInfo extends ModelData {
 	 */
 	constructor(key, model) {
 		super(key);
-		this.ChunkSize = model.dword();
+		this.ChunkSize = model.readDWORD();
 		this.Name = model.char(80);
 		this.AnimationFileName = model.char(260);
 		this.BoundsRadius = model.float();
 		this.MinimumExtent = [model.float(), model.float(), model.float()];
 		this.MaximumExtent = [model.float(), model.float(), model.float()];
-		this.BlendTime = model.dword();
+		this.BlendTime = model.readDWORD();
 	}
 }

@@ -7,7 +7,7 @@ export class Textures extends ModelData {
 	 */
 	constructor(key, model) {
 		super(key);
-		this.ChunkSize = model.dword();
+		this.ChunkSize = model.readDWORD();
 		const n = this.ChunkSize / 268;
 		for (let i = 0; i < n; i++) {
 			this.textures.push(new Texture(model));
@@ -21,9 +21,9 @@ export class Textures extends ModelData {
 class Texture {
 	/**  @param {Model} model */
 	constructor(model) {
-		this.ReplaceableId = model.dword();
+		this.ReplaceableId = model.readDWORD();
 		this.FileName = model.char(260);
-		this.Flags = model.dword();
+		this.Flags = model.readDWORD();
 	}
 
 	/**

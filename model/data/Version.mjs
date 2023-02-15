@@ -7,7 +7,10 @@ export class Version extends ModelData {
 	 */
 	constructor(key, model) {
 		super(key);
-		this.ChunkSize = model.dword();
-		this.version = model.dword();
+		this.ChunkSize = model.readDWORD();
+		this.version = model.readDWORD();
+	}
+	save(){
+
 	}
 }

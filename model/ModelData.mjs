@@ -10,3 +10,7 @@ export class ModelData {
 	key;
 
 }
+
+export class ToBuffer {
+	
+}

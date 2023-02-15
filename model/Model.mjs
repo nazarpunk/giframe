@@ -68,6 +68,8 @@ export class Model {
 	/** @type ModelData[] **/
 	datas = [];
 
+	output = [];
+
 	/**  @type {DataView} */ dataView;
 
 	byteOffset = 0;
@@ -86,11 +88,18 @@ export class Model {
 	}
 
 	/** @return {number} */
-	dword() {
+	readDWORD() {
 		const d = this.dataView.getUint32(this.byteOffset, true);
 		this.byteOffset += 4;
 		return d;
 	};
+
+	writeDWORD(dword) {
+		const list = new Uint32Array(4);
+		const view = new DataView(list);
+		view.setUint32(0, dword, true);
+		this.output.push(list);
+	}
 
 	/** @return {number} */
 	word() {
@@ -132,6 +141,18 @@ export class Model {
 		}
 		return s.join('');
 	};
+
+	/** @return {ArrayBuffer} */
+	toArrayBuffer() {
+		const buffer = new ArrayBuffer(1);
+
+		for (const d of this.datas) {
+			console.log(d);
+		}
+
+
+		return buffer;
+	}
 }
 
 

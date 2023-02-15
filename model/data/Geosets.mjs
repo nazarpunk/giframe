@@ -7,7 +7,7 @@ export class Geosets extends ModelData {
 	 */
 	constructor(key, model) {
 		super(key);
-		this.ChunkSize = model.dword();
+		this.ChunkSize = model.readDWORD();
 
 		const end = model.byteOffset + this.ChunkSize;
 		let i = 0;
@@ -26,7 +26,7 @@ export class Geosets extends ModelData {
 class Geoset {
 	/** @param {Model} model */
 	constructor(model) {
-		this.InclusiveSize = model.dword();
+		this.InclusiveSize = model.readDWORD();
 		const end = model.byteOffset - 4 + this.InclusiveSize;
 		let len;
 
@@ -41,70 +41,70 @@ class Geoset {
 		};
 
 		keyCheck('VRTX');
-		len = model.dword();
+		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
 			this.vertexPositions.push([model.float(), model.float(), model.float()]);
 		}
 
 		keyCheck('NRMS');
-		len = model.dword();
+		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
 			this.vertexNormals.push([model.float(), model.float(), model.float()]);
 		}
 
 		keyCheck('PTYP');
-		len = model.dword();
+		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
-			this.faceTypeGroups.push(model.dword());
+			this.faceTypeGroups.push(model.readDWORD());
 		}
 
 		keyCheck('PCNT');
-		len = model.dword();
+		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
-			this.faceGroups.push(model.dword());
+			this.faceGroups.push(model.readDWORD());
 		}
 
 		keyCheck('PVTX');
-		len = model.dword() / 3;
+		len = model.readDWORD() / 3;
 		for (let i = 0; i < len; i++) {
 			this.face.push([model.word(), model.word(), model.word()]);
 		}
 
 		keyCheck('GNDX');
-		len = model.dword();
+		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
 			this.vertexGroups.push(model.byte());
 		}
 
 		keyCheck('MTGC');
-		len = model.dword();
+		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
-			this.matrixGroup.push(model.dword());
+			this.matrixGroup.push(model.readDWORD());
 		}
 
 		keyCheck('MATS');
-		len = model.dword();
+		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
-			this.matrixIndex.push(model.dword());
+			this.matrixIndex.push(model.readDWORD());
 		}
 
-		this.MaterialId = model.dword();
-		this.SelectionGroup = model.dword();
-		this.SelectionFlags = model.dword();
+		this.MaterialId = model.readDWORD();
+		this.SelectionGroup = model.readDWORD();
+		this.SelectionFlags = model.readDWORD();
 		this.BoundsRadius = model.float();
 		this.MinimumExtent = [model.float(), model.float(), model.float()];
 		this.MaximumExtent = [model.float(), model.float(), model.float()];
 
-		len = model.dword();
+		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
 			this.extent.push([[model.float(), model.float(), model.float()], [model.float(), model.float(), model.float()]]);
 		}
 
 		keyCheck('UVAS');
-		this.NrOfTextureVertexGroups = model.dword();
+		this.NrOfTextureVertexGroups = model.readDWORD();
 
 		keyCheck('UVBS');
-		len = model.dword();
+		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
 			this.vertexTexturePosition.push([model.float(),model.float()]);
 		}

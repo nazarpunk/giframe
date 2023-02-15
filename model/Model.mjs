@@ -170,8 +170,8 @@ export class Model {
 	/** @return {ArrayBuffer} */
 	toArrayBuffer() {
 		for (const d of this.datas) {
-			if (d.save) {
-				d.save();
+			if (d.write) {
+				d.write();
 			}
 		}
 		return this.output;

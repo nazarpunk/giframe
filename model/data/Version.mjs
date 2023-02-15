@@ -11,7 +11,7 @@ export class Version extends ModelData {
 		this.version = model.readDWORD();
 	}
 
-	save() {
+	write() {
 		this.model.writeDWORD(this.key);
 		this.model.writeDWORD(this.ChunkSize);
 		this.model.writeDWORD(this.version);

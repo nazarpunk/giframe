@@ -16,11 +16,22 @@ export class Sequences extends ModelData {
 
 	/** @type {Sequence[]} */
 	sequences = [];
+
+	write() {
+		const n = this.model;
+		n.writeDWORD(this.key);
+		n.writeDWORD(this.sequences.length * 132);
+		for (const s of this.sequences) {
+			s.write();
+		}
+	}
 }
 
 export class Sequence {
 	/**  @param {Model} model */
 	constructor(model) {
+		this.model = model;
+
 		this.Name = model.readCHAR(80);
 		this.IntervalStart = model.readDWORD();
 		this.IntervalEnd = model.readDWORD();
@@ -39,4 +50,11 @@ export class Sequence {
 	 * @type {number}
 	 */
 	Flags;
+
+	write() {
+		const m = this.model;
+		m.writeCHAR(this.Name, 80);
+		m.writeDWORD(this.IntervalStart);
+
+	}
 }

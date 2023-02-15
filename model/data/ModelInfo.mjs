@@ -17,7 +17,7 @@ export class ModelInfo extends ModelData {
 		this.BlendTime = model.readDWORD();
 	}
 
-	save() {
+	write() {
 		const m = this.model;
 		m.writeDWORD(this.key);
 		m.writeDWORD(this.ChunkSize);

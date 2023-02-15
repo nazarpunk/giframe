@@ -1,7 +1,7 @@
 import {ModelData} from "../ModelData.mjs";
 
 export class Format extends ModelData {
-	save() {
+	write() {
 		this.model.writeDWORD(this.key);
 	}
 }

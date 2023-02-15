@@ -1,0 +1,186 @@
+import {ModelData} from "../ModelData.mjs";
+
+export class Materials extends ModelData {
+	/**
+	 *  @param key
+	 *  @param {Model} model
+	 */
+	constructor(key, model) {
+		super(key);
+		this.ChunkSize = model.dword();
+
+		const end = model.byteOffset + this.ChunkSize;
+
+		while (model.byteOffset < end) {
+			this.materials.push(new Material(model));
+		}
+
+	}
+
+	/** @type {Material[]} */
+	materials = [];
+}
+
+class Material {
+	/** @param {Model} model */
+	constructor(model) {
+		this.InclusiveSize = model.dword();
+		this.PriorityPlane = model.dword();
+		this.Flags = model.dword();
+		const keyName = model.keyName();
+		if (model.keyName() === 'LAYS') {
+			this.layer = new Layers(model.dword(), model);
+		}
+	}
+
+	/**
+	 * 1  - ConstantColor
+	 * 2  - ???
+	 * 4  - ???
+	 * 8  - SortPrimitivesNearZ
+	 * 16 - SortPrimitivesFarZ
+	 * 32 - FullResolution
+	 * @type {number}
+	 */
+	Flags;
+
+	/** @type {Layers} */
+	layer;
+}
+
+class Layers extends ModelData {
+	/**
+	 *  @param key
+	 *  @param {Model} model
+	 */
+	constructor(key, model) {
+		super(key);
+		this.NrOfLayers = model.dword();
+		for (let i = 0; i < this.NrOfLayers; i++) {
+			this.layers.push(new Layer(model));
+		}
+	}
+
+	/** @type {Layer[]} */
+	layers = [];
+}
+
+class Layer {
+	/** @param {Model} model */
+	constructor(model) {
+		this.InclusiveSize = model.dword();
+		const end = model.byteOffset - 4 + this.InclusiveSize;
+		this.FilterMode = model.dword();
+		this.ShadingFlags = model.dword();
+		this.TextureId = model.dword();
+		this.TextureAnimationId = model.dword();
+		this.CoordId = model.dword();
+		this.Alpha = model.float();
+
+		if (model.byteOffset !== end) {
+			console.error('Layer Parser Uncomplete');
+		}
+	}
+
+	/**
+	 * 0 - None
+	 * 1 - Transparent
+	 * 2 - Blend
+	 * 3 - Additive
+	 * 4 - AddAlpha
+	 * 5 - Modulate
+	 * 6 - Modulate2x
+	 * @type {number}
+	 */
+	FilterMode;
+
+	/**
+	 * 1   - Unshaded
+	 * 2   - SphereEnvironmentMap
+	 * 4   - ???
+	 * 8   - ???
+	 * 16  - TwoSided
+	 * 32  - Unfogged
+	 * 64  - NoDepthTest
+	 * 128 - NoDepthSet
+	 * @type {number}
+	 */
+	ShadingFlags
+}
+
+/*
+ //+-----------------------------------------------------------------------------
+ //| Layers
+ //+-----------------------------------------------------------------------------
+ struct LayerChunk
+ {
+ DWORD 'LAYS';
+ DWORD NrOfLayers;
+
+ struct Layer[NrOfLayers]
+ {
+
+ {MaterialAlpha}
+ {MaterialTextureId}
+ };
+ };
+
+ */
+
+/*
+ //+-----------------------------------------------------------------------------
+ //| Animated material alpha
+ //+-----------------------------------------------------------------------------
+ struct MaterialAlpha
+ {
+ DWORD 'KMTA';
+
+ DWORD NrOfTracks;
+ DWORD InterpolationType;             //0 - None
+ //1 - Linear
+ //2 - Hermite
+ //3 - Bezier
+ DWORD GlobalSequenceId;
+
+ struct ScalingTrack[NrOfTracks]
+ {
+ DWORD Time;
+ FLOAT Alpha;
+
+ if(InterpolationType > 1)
+ {
+ FLOAT InTan;
+ FLOAT OutTan;
+ }
+ };
+ };
+ */
+
+/*
+ //+-----------------------------------------------------------------------------
+ //| Animated material texture ID
+ //+-----------------------------------------------------------------------------
+ struct MaterialTextureId
+ {
+ DWORD 'KMTF';
+
+ DWORD NrOfTracks;
+ DWORD InterpolationType;             //0 - None
+ //1 - Linear
+ //2 - Hermite
+ //3 - Bezier
+ DWORD GlobalSequenceId;
+
+ struct ScalingTrack[NrOfTracks]
+ {
+ DWORD Time;
+ DWORD TextureId;
+
+ if(InterpolationType > 1)
+ {
+ DWORD InTan;
+ DWORD OutTan;
+ }
+ };
+ };
+ */

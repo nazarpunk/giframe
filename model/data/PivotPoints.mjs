@@ -10,7 +10,7 @@ export class PivotPoints extends ModelData {
 		this.ChunkSize = model.readDWORD();
 		const num = this.ChunkSize / 12;
 		for (let i = 0; i < num; i++) {
-			this.points.push([model.float(), model.float(), model.float()]);
+			this.points.push([model.readFLOAT(), model.readFLOAT(), model.readFLOAT()]);
 		}
 	}
 

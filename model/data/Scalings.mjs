@@ -34,10 +34,10 @@ class Scaling {
 	 */
 	constructor(model, InterpolationType) {
 		this.Time = model.readDWORD();
-		this.Scaling = [model.float(), model.float(), model.float()];
+		this.Scaling = [model.readFLOAT(), model.readFLOAT(), model.readFLOAT()];
 		if (InterpolationType > 1) {
-			this.InTan = [model.float(), model.float(), model.float()];
-			this.OutTan = [model.float(), model.float(), model.float()];
+			this.InTan = [model.readFLOAT(), model.readFLOAT(), model.readFLOAT()];
+			this.OutTan = [model.readFLOAT(), model.readFLOAT(), model.readFLOAT()];
 		}
 	}
 }

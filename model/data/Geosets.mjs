@@ -43,13 +43,13 @@ class Geoset {
 		keyCheck('VRTX');
 		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
-			this.vertexPositions.push([model.float(), model.float(), model.float()]);
+			this.vertexPositions.push([model.readFLOAT(), model.readFLOAT(), model.readFLOAT()]);
 		}
 
 		keyCheck('NRMS');
 		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
-			this.vertexNormals.push([model.float(), model.float(), model.float()]);
+			this.vertexNormals.push([model.readFLOAT(), model.readFLOAT(), model.readFLOAT()]);
 		}
 
 		keyCheck('PTYP');
@@ -91,13 +91,13 @@ class Geoset {
 		this.MaterialId = model.readDWORD();
 		this.SelectionGroup = model.readDWORD();
 		this.SelectionFlags = model.readDWORD();
-		this.BoundsRadius = model.float();
-		this.MinimumExtent = [model.float(), model.float(), model.float()];
-		this.MaximumExtent = [model.float(), model.float(), model.float()];
+		this.BoundsRadius = model.readFLOAT();
+		this.MinimumExtent = [model.readFLOAT(), model.readFLOAT(), model.readFLOAT()];
+		this.MaximumExtent = [model.readFLOAT(), model.readFLOAT(), model.readFLOAT()];
 
 		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
-			this.extent.push([[model.float(), model.float(), model.float()], [model.float(), model.float(), model.float()]]);
+			this.extent.push([[model.readFLOAT(), model.readFLOAT(), model.readFLOAT()], [model.readFLOAT(), model.readFLOAT(), model.readFLOAT()]]);
 		}
 
 		keyCheck('UVAS');
@@ -106,7 +106,7 @@ class Geoset {
 		keyCheck('UVBS');
 		len = model.readDWORD();
 		for (let i = 0; i < len; i++) {
-			this.vertexTexturePosition.push([model.float(),model.float()]);
+			this.vertexTexturePosition.push([model.readFLOAT(),model.readFLOAT()]);
 		}
 	}
 

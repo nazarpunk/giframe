@@ -75,7 +75,7 @@ class Layer {
 		this.TextureId = model.readDWORD();
 		this.TextureAnimationId = model.readDWORD();
 		this.CoordId = model.readDWORD();
-		this.Alpha = model.float();
+		this.Alpha = model.readFLOAT();
 
 		if (model.byteOffset !== end) {
 			//FIXME

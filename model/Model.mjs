@@ -74,7 +74,7 @@ export class Model {
 
 	/** @return {[number, string]} */
 	keys() {
-		return [this.dataView.getUint32(this.byteOffset, true), this.char(4)];
+		return [this.dataView.getUint32(this.byteOffset, true), this.readCHAR(4)];
 	}
 
 	keyName() {
@@ -83,6 +83,18 @@ export class Model {
 			s.push(String.fromCharCode(this.dataView.getUint8(this.byteOffset + i)));
 		}
 		return s.join('');
+	}
+
+	/**
+	 * @param {number} length
+	 * @return {DataView}
+	 */
+	outputData(length) {
+		const l = this.output.byteLength;
+		const b = new ArrayBuffer(l + length);
+		(new Uint8Array(b, 0, l)).set(new Uint8Array(this.output, 0, l));
+		this.output = b;
+		return new DataView(this.output, l);
 	}
 
 	/** @return {number} */
@@ -94,11 +106,7 @@ export class Model {
 
 	/** @param {number} dword */
 	writeDWORD(dword) {
-		const ol = this.output.byteLength;
-		const nb = new ArrayBuffer(ol + 4);
-		new DataView(nb).setUint32(ol, dword, true);
-		(new Uint8Array(nb, 0, ol)).set(new Uint8Array(this.output, 0, ol));
-		this.output = nb;
+		this.outputData(4).setUint32(0, dword, true);
 	}
 
 	/** @return {number} */
@@ -116,17 +124,22 @@ export class Model {
 	};
 
 	/** @return {number} */
-	float() {
+	readFLOAT() {
 		const d = this.dataView.getFloat32(this.byteOffset, true);
 		this.byteOffset += 4;
 		return d;
 	};
 
+	/** @param {number} float */
+	writeFLOAT(float) {
+		this.outputData(4).setFloat32(0, float, true);
+	}
+
 	/**
 	 * @param {number} length
 	 * @return {string}
 	 */
-	char(length) {
+	readCHAR(length) {
 		const s = [];
 		for (let i = 0; i < length; i++) {
 			s.push(String.fromCharCode(this.dataView.getUint8(this.byteOffset)));
@@ -141,6 +154,18 @@ export class Model {
 		}
 		return s.join('');
 	};
+
+	/**
+	 * @param {string} str
+	 * @param {number} length
+	 */
+	writeCHAR(str, length) {
+		str = str.padEnd(length, '\x00');
+		const view = this.outputData(length);
+		for (let i = 0; i < length; i++) {
+			view.setInt8(i, str.charCodeAt(i));
+		}
+	}
 
 	/** @return {ArrayBuffer} */
 	toArrayBuffer() {

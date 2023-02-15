@@ -22,7 +22,7 @@ class Texture {
 	/**  @param {Model} model */
 	constructor(model) {
 		this.ReplaceableId = model.readDWORD();
-		this.FileName = model.char(260);
+		this.FileName = model.readCHAR(260);
 		this.Flags = model.readDWORD();
 	}
 

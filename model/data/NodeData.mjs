@@ -8,7 +8,7 @@ export class NodeData {
 	constructor(model) {
 		this.InclusiveSize = model.readDWORD();
 		const end = model.byteOffset - 4 + this.InclusiveSize;
-		this.Name = model.char(80);
+		this.Name = model.readCHAR(80);
 		this.ObjectId = model.readDWORD();
 		this.ParentId = model.readDWORD();
 		this.Flags = model.readDWORD();

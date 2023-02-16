@@ -19,6 +19,7 @@ export class Model {
 
 	write() {
 		this.key.write();
+		//FIXME ChunkSize.write()
 		this.ChunkSize.write();
 		this.Name.write();
 		this.AnimationFileName.write();

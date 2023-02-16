@@ -10,6 +10,7 @@ export class Version {
 	}
 	write() {
 		this.key.write();
+		//FIXME ChunkSize.write()
 		this.ChunkSize.write();
 		this.version.write();
 	}

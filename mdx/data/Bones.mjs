@@ -19,6 +19,7 @@ export class Bones {
 
 	write() {
 		this.key.write();
+		//FIXME ChunkSize.write()
 		this.ChunkSize.write();
 		for (const b of this.bones) {
 			b.write();

@@ -21,7 +21,7 @@ export class Materials {
 	write() {
 		this.key.write();
 		//const offset = this.key.reader.byteOffset;
-		//FIXME
+		//FIXME ChunkSize.write()
 		this.ChunkSize.write();
 		for (const m of this.materials) {
 			m.write();
@@ -99,7 +99,6 @@ class Layer {
 	/** @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new InclusiveSize(reader);
-		const end = reader.byteOffset - 4 + this.inclusiveSize.value;
 		this.FilterMode = new DWORD(reader);
 		this.ShadingFlags = new DWORD(reader);
 		this.TextureId = new DWORD(reader);

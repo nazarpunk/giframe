@@ -22,6 +22,7 @@ export class TextureAnimations {
 
 	write() {
 		this.key.write();
+		//FIXME ChunkSize.write()
 		this.ChunkSize.write();
 		for (const a of this.animations) {
 			a.write();

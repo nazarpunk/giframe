@@ -21,6 +21,7 @@ export class Geosets {
 
 	write() {
 		this.key.write();
+		//FIXME ChunkSize.write()
 		this.ChunkSize.write();
 		for (const g of this.geosets) {
 			g.write();

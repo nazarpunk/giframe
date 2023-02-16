@@ -3,6 +3,7 @@ import {Rotations} from "./Rotations.mjs";
 import {Scalings} from "./Scalings.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {KEY} from "../type/KEY.mjs";
+import {InclusiveSize} from "../type/InclusiveSize.mjs";
 
 export class TextureAnimations {
 	/** @param {KEY} key */
@@ -31,10 +32,8 @@ export class TextureAnimations {
 class TextureAnimation {
 	/**  @param {Reader} reader */
 	constructor(reader) {
-		this.InclusiveSize = new DWORD(reader);
-		const end = reader.byteOffset - 4 + this.InclusiveSize.value;
-
-		parse: while (reader.byteOffset < end) {
+		this.inclusiveSize = new InclusiveSize(reader);
+		parse: while (reader.byteOffset < this.inclusiveSize.end) {
 			const key = new KEY(reader);
 			switch (key.valueName) {
 				case 'KTAT':
@@ -51,6 +50,7 @@ class TextureAnimation {
 					break parse;
 			}
 		}
+		this.inclusiveSize.check();
 	}
 
 	/** @type {Translations} */ translations;
@@ -58,9 +58,10 @@ class TextureAnimation {
 	/** @type {Scalings} */ scalings;
 
 	write() {
-		this.InclusiveSize.write();
+		this.inclusiveSize.save();
 		this.translations?.write();
 		this.rotations?.write();
 		this.scalings?.write();
+		this.inclusiveSize.write();
 	}
 }

@@ -21,7 +21,7 @@ fs.appendFileSync(f2, Buffer.from(ab));
 
 const cwd = process.cwd();
 
-cp.exec(
+if (1) cp.exec(
 	`osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
     do script "vbindiff ${cwd}/${f1} ${cwd}/${f2}"
 end tell'`);

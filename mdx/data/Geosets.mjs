@@ -3,6 +3,7 @@ import {VECTOR} from "../type/VECTOR.mjs";
 import {BYTE} from "../type/BYTE.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {KEY} from "../type/KEY.mjs";
+import {InclusiveSize} from "../type/InclusiveSize.mjs";
 
 export class Geosets {
 	/** @param {KEY} key */
@@ -30,8 +31,7 @@ export class Geosets {
 class Geoset {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.InclusiveSize = new DWORD(reader);
-		//const end = reader.byteOffset - 4 + this.InclusiveSize;
+		this.inclusiveSize = new InclusiveSize(reader);
 
 		let len;
 
@@ -104,6 +104,8 @@ class Geoset {
 		for (let i = 0; i < len; i++) {
 			this.vertexTexturePosition.push(new VECTOR(reader, 2));
 		}
+
+		this.inclusiveSize.check();
 	}
 
 	/** @type {VECTOR[]} */ vertexPositions = [];
@@ -139,7 +141,7 @@ class Geoset {
 	/** @type {VECTOR[]} */ vertexTexturePosition = [];
 
 	write() {
-		this.InclusiveSize.write();
+		this.inclusiveSize.save();
 
 		/**
 		 * @param {KEY} key
@@ -181,5 +183,7 @@ class Geoset {
 		this.NrOfTextureVertexGroups.write();
 
 		simpleList(this.vertexTexturePositionKey, this.vertexTexturePosition);
+
+		this.inclusiveSize.write();
 	}
 }

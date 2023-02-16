@@ -4,18 +4,18 @@ import {Scalings} from "./Scalings.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {KEY} from "../type/KEY.mjs";
+import {InclusiveSize} from "../type/InclusiveSize.mjs";
 
 export class NodeData {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.InclusiveSize = new DWORD(reader);
-		const end = reader.byteOffset - 4 + this.InclusiveSize.value;
+		this.inclusiveSize = new InclusiveSize(reader);
 		this.Name = new CHAR(reader, 80);
 		this.ObjectId = new DWORD(reader);
 		this.ParentId = new DWORD(reader);
 		this.Flags = new DWORD(reader);
 
-		parse: while (reader.byteOffset < end) {
+		parse: while (reader.byteOffset < this.inclusiveSize.end) {
 			const key = new KEY(reader);
 			switch (key.valueName) {
 				case 'KGTR':
@@ -32,6 +32,8 @@ export class NodeData {
 					break parse;
 			}
 		}
+
+		this.inclusiveSize.check();
 	}
 
 	/**
@@ -66,7 +68,7 @@ export class NodeData {
 	/** @type {Scalings} */ scalings;
 
 	write() {
-		this.InclusiveSize.write();
+		this.inclusiveSize.save();
 		this.Name.write();
 		this.ObjectId.write();
 		this.ParentId.write();
@@ -74,6 +76,7 @@ export class NodeData {
 		this.translations?.write();
 		this.rotations?.write();
 		this.scalings?.write();
+		this.inclusiveSize.write();
 	}
 }
 

@@ -1,6 +1,7 @@
 import {DWORD} from "../type/DWORD.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {KEY} from "../type/KEY.mjs";
+import {InclusiveSize} from "../type/InclusiveSize.mjs";
 
 export class Materials {
 	/** @param {KEY} key */
@@ -31,12 +32,11 @@ export class Materials {
 class Material {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.InclusiveSize = new DWORD(reader);
-		const end = reader.byteOffset - 4 + this.InclusiveSize.value;
+		this.inclusiveSize = new InclusiveSize(reader);
 		this.PriorityPlane = new DWORD(reader);
 		this.Flags = new DWORD(reader);
 
-		parse: while (reader.byteOffset < end) {
+		parse: while (reader.byteOffset < this.inclusiveSize.end) {
 			const key = new KEY(reader);
 			switch (key.valueName) {
 				case 'LAYS':
@@ -47,6 +47,8 @@ class Material {
 					break parse;
 			}
 		}
+
+		this.inclusiveSize.check();
 	}
 
 	/**
@@ -63,11 +65,11 @@ class Material {
 	/** @type {Layers} */ layers;
 
 	write() {
-		// FIXME
-		this.InclusiveSize.write();
+		this.inclusiveSize.save();
 		this.PriorityPlane.write();
 		this.Flags.write();
 		this.layers?.write();
+		this.inclusiveSize.write();
 	}
 }
 
@@ -96,19 +98,22 @@ class Layers {
 class Layer {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.InclusiveSize = new DWORD(reader);
-		const end = reader.byteOffset - 4 + this.InclusiveSize.value;
+		this.inclusiveSize = new InclusiveSize(reader);
+		const end = reader.byteOffset - 4 + this.inclusiveSize.value;
 		this.FilterMode = new DWORD(reader);
 		this.ShadingFlags = new DWORD(reader);
 		this.TextureId = new DWORD(reader);
 		this.TextureAnimationId = new DWORD(reader);
 		this.CoordId = new DWORD(reader);
 		this.Alpha = new FLOAT(reader);
-
-		if (reader.byteOffset !== end) {
+		// noinspection LoopStatementThatDoesntLoopJS
+		while (reader.byteOffset < this.inclusiveSize.end) {
 			//FIXME
 			console.error('Layer Parser Uncomplete');
+			break;
 		}
+
+		this.inclusiveSize.check();
 	}
 
 	/**
@@ -137,14 +142,14 @@ class Layer {
 	ShadingFlags;
 
 	write() {
-		//FIXME
-		this.InclusiveSize.write();
+		this.inclusiveSize.save();
 		this.FilterMode.write();
 		this.ShadingFlags.write();
 		this.TextureId.write();
 		this.TextureAnimationId.write();
 		this.CoordId.write();
 		this.Alpha.write();
+		this.inclusiveSize.write();
 	}
 }
 

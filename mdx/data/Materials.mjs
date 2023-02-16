@@ -1,18 +1,18 @@
 import {DWORD} from "../type/DWORD.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {InclusiveSize} from "../type/InclusiveSize.mjs";
+import {StructSize} from "../type/StructSize.mjs";
 
 export class Materials {
 	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;
-		this.ChunkSize = new DWORD(r);
-		const end = r.byteOffset + this.ChunkSize.value;
-		while (r.byteOffset < end) {
+		this.chunkSize = new StructSize(r, {chunk: true});
+		while (r.byteOffset < this.chunkSize.end) {
 			this.materials.push(new Material(r));
 		}
+		this.chunkSize.check();
 	}
 
 	/** @type {Material[]} */
@@ -20,19 +20,18 @@ export class Materials {
 
 	write() {
 		this.key.write();
-		//const offset = this.key.reader.byteOffset;
-		//FIXME ChunkSize.write()
-		this.ChunkSize.write();
+		this.chunkSize.save();
 		for (const m of this.materials) {
 			m.write();
 		}
+		this.chunkSize.write();
 	}
 }
 
 class Material {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.inclusiveSize = new InclusiveSize(reader);
+		this.inclusiveSize = new StructSize(reader, {inclusive: true});
 		this.PriorityPlane = new DWORD(reader);
 		this.Flags = new DWORD(reader);
 
@@ -98,7 +97,7 @@ class Layers {
 class Layer {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.inclusiveSize = new InclusiveSize(reader);
+		this.inclusiveSize = new StructSize(reader, {inclusive: true});
 		this.FilterMode = new DWORD(reader);
 		this.ShadingFlags = new DWORD(reader);
 		this.TextureId = new DWORD(reader);
@@ -107,7 +106,7 @@ class Layer {
 		this.Alpha = new FLOAT(reader);
 		// noinspection LoopStatementThatDoesntLoopJS
 		while (reader.byteOffset < this.inclusiveSize.end) {
-			//FIXME
+			//FIXME Material Layer Parse
 			console.error('Layer Parser Uncomplete');
 			break;
 		}

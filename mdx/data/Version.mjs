@@ -1,17 +1,20 @@
 import {DWORD} from "../type/DWORD.mjs";
+import {StructSize} from "../type/StructSize.mjs";
 
 export class Version {
 	/** @param {KEY} key */
 	constructor(key) {
 		const m = key.reader;
 		this.key = key;
-		this.ChunkSize = new DWORD(m);
+		this.chunkSize = new StructSize(m, {chunk: true});
 		this.version = new DWORD(m);
+		this.chunkSize.check();
 	}
+
 	write() {
 		this.key.write();
-		//FIXME ChunkSize.write()
-		this.ChunkSize.write();
+		this.chunkSize.save();
 		this.version.write();
+		this.chunkSize.write();
 	}
 }

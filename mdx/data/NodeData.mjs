@@ -4,12 +4,12 @@ import {Scalings} from "./Scalings.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {InclusiveSize} from "../type/InclusiveSize.mjs";
+import {StructSize} from "../type/StructSize.mjs";
 
 export class NodeData {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.inclusiveSize = new InclusiveSize(reader);
+		this.inclusiveSize = new StructSize(reader, {inclusive: true});
 		this.Name = new CHAR(reader, 80);
 		this.ObjectId = new DWORD(reader);
 		this.ParentId = new DWORD(reader);

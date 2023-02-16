@@ -3,36 +3,36 @@ import {VECTOR} from "../type/VECTOR.mjs";
 import {BYTE} from "../type/BYTE.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {InclusiveSize} from "../type/InclusiveSize.mjs";
+import {StructSize} from "../type/StructSize.mjs";
 
 export class Geosets {
 	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;
-		this.ChunkSize = new DWORD(r);
-		const end = r.byteOffset + this.ChunkSize.value;
-		while (r.byteOffset < end) {
+		this.chunkSize = new StructSize(r, {chunk: true});
+		while (r.byteOffset < this.chunkSize.end) {
 			this.geosets.push(new Geoset(r));
 		}
+		this.chunkSize.check();
 	}
 
 	/** @type {Geoset[]} */ geosets = [];
 
 	write() {
 		this.key.write();
-		//FIXME ChunkSize.write()
-		this.ChunkSize.write();
+		this.chunkSize.save();
 		for (const g of this.geosets) {
 			g.write();
 		}
+		this.chunkSize.write();
 	}
 }
 
 class Geoset {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.inclusiveSize = new InclusiveSize(reader);
+		this.inclusiveSize = new StructSize(reader, {inclusive: true});
 
 		let len;
 

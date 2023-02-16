@@ -1,17 +1,17 @@
 import {NodeData} from "./NodeData.mjs";
 import {DWORD} from "../type/DWORD.mjs";
+import {StructSize} from "../type/StructSize.mjs";
 
 export class Bones {
 	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;
-		this.ChunkSize = new DWORD(r);
-		const end = r.byteOffset + this.ChunkSize.value;
-
-		while (r.byteOffset < end) {
+		this.chunkSize = new StructSize(r, {chunk: true});
+		while (r.byteOffset < this.chunkSize.end) {
 			this.bones.push(new Bone(r));
 		}
+		this.chunkSize.check();
 	}
 
 	/** @type {Bone[]} */
@@ -19,11 +19,11 @@ export class Bones {
 
 	write() {
 		this.key.write();
-		//FIXME ChunkSize.write()
-		this.ChunkSize.write();
+		this.chunkSize.save();
 		for (const b of this.bones) {
 			b.write();
 		}
+		this.chunkSize.write();
 	}
 }
 

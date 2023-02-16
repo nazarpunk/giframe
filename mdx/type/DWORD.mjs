@@ -13,7 +13,7 @@ export class DWORD {
 			s.push(String.fromCharCode(view.getUint8(reader.byteOffset + i)));
 		}
 		this.valueName = s.join('');
-		reader.byteOffset += byteOffset;
+		this.reader.byteOffset += byteOffset;
 
 		if (valueName && this.valueName !== valueName) {
 			console.error('DWORD valueName:', valueName, this.valueName);

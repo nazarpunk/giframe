@@ -20,9 +20,8 @@ export class MDX {
 		this.reader = new Reader(buffer);
 
 		this.dataView = new DataView(buffer);
-		this.dataView.byteOffset;
 
-		parse: while (this.byteOffset < this.dataView.byteLength) {
+		parse: while (this.reader.byteOffset < this.dataView.byteLength) {
 			const key = new DWORD(this.reader);
 			switch (key.valueName) {
 				case 'MDLX':
@@ -49,92 +48,26 @@ export class MDX {
 				case 'GEOS':
 					this.geosets = new Geosets(key);
 					break;
+				case 'BONE':
+					this.bones = new Bones(key);
+					break;
+				case 'PIVT':
+					this.pivotPoints = new PivotPoints(key);
+					break;
 				default:
 					console.error('MDX:', key.valueName);
 					break parse;
 			}
 		}
 
-		return;
-
-		parse: while (this.byteOffset < this.dataView.byteLength) {
-			const [key, keyName] = this.keys();
-			switch (keyName) {
-				case 'BONE':
-					this.datas.push(new Bones(key, this));
-					break;
-				case 'PIVT':
-					this.datas.push(new PivotPoints(key, this));
-					break;
-
-				default:
-					console.error('Parse Error:', key, keyName);
-					break parse;
-			}
-		}
-
-		if (this.byteOffset !== this.dataView.byteLength) {
-			console.error('Model Parse Unctomplete:', this.byteOffset, this.dataView.byteLength)
+		if (this.reader.byteOffset !== this.dataView.byteLength) {
+			console.error('Model Parse Unctomplete:', this.reader.byteOffset, this.dataView.byteLength)
 		}
 	}
-
-	/** @type ModelData[] **/
-	datas = [];
-
-	/**  @type {DataView} */ dataView;
-
-	byteOffset = 0;
-
-	/** @return {[number, string]} */
-	keys() {
-		return [this.dataView.getUint32(this.byteOffset, true), this.readCHAR(4)];
-	}
-
-	keyName() {
-		const s = [];
-		for (let i = 0; i < 4; i++) {
-			s.push(String.fromCharCode(this.dataView.getUint8(this.byteOffset + i)));
-		}
-		return s.join('');
-	}
-
-	/** @return {number} */
-	readDWORD() {
-		const d = this.dataView.getUint32(this.byteOffset, true);
-		this.byteOffset += 4;
-		return d;
-	};
-
-	/** @return {number} */
-	readFLOAT() {
-		const d = this.dataView.getFloat32(this.byteOffset, true);
-		this.byteOffset += 4;
-		return d;
-	};
-
-	/**
-	 * @param {number} length
-	 * @return {string}
-	 */
-	readCHAR(length) {
-		const s = [];
-		for (let i = 0; i < length; i++) {
-			s.push(String.fromCharCode(this.dataView.getUint8(this.byteOffset)));
-			this.byteOffset++;
-		}
-		for (let i = s.length - 1; i >= 0; i--) {
-			if (s[i] === '\x00') {
-				s.length -= 1;
-			} else {
-				break;
-			}
-		}
-		return s.join('');
-	};
 
 	/** @return {ArrayBuffer} */
 	toArrayBuffer() {
-		this.format?.write();
+		this.format.write();
 		this.version?.write();
 		this.model?.write();
 		this.sequences?.write();
@@ -142,6 +75,8 @@ export class MDX {
 		this.textures?.write();
 		this.textureAnimations?.write();
 		this.geosets?.write();
+		this.bones?.write();
+		this.pivotPoints?.write();
 
 		return this.reader.output;
 	}

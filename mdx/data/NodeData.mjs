@@ -1,36 +1,33 @@
 import {Translations} from "./Translations.mjs";
 import {Rotations} from "./Rotations.mjs";
 import {Scalings} from "./Scalings.mjs";
+import {DWORD} from "../type/DWORD.mjs";
+import {CHAR} from "../type/CHAR.mjs";
 
 export class NodeData {
+	/** @param {Reader} reader */
+	constructor(reader) {
+		this.InclusiveSize = new DWORD(reader);
+		const end = reader.byteOffset - 4 + this.InclusiveSize.value;
+		this.Name = new CHAR(reader, 80);
+		this.ObjectId = new DWORD(reader);
+		this.ParentId = new DWORD(reader);
+		this.Flags = new DWORD(reader);
 
-	/** @param {MDX} model */
-	constructor(model) {
-		this.InclusiveSize = model.readDWORD();
-		const end = model.byteOffset - 4 + this.InclusiveSize;
-		this.Name = model.readCHAR(80);
-		this.ObjectId = model.readDWORD();
-		this.ParentId = model.readDWORD();
-		this.Flags = model.readDWORD();
-
-		let i = 0;
-		parse: while (model.byteOffset < end) {
-			i++;
-			//if (i > 1) break;
-			const keyName = model.keyName();
-
-			switch (keyName) {
+		parse: while (reader.byteOffset < end) {
+			const key = new DWORD(reader, {byteOffset: 0});
+			switch (key.valueName) {
 				case 'KGTR':
-					this.translations = new Translations(model.readDWORD(), model);
+					this.translations = new Translations(new DWORD(reader));
 					break;
 				case 'KGRT':
-					this.rotations = new Rotations(model.readDWORD(), model);
+					this.rotations = new Rotations(new DWORD(reader));
 					break;
 				case 'KGSC':
-					this.scalings = new Scalings(model.readDWORD(), model);
+					this.scalings = new Scalings(new DWORD(reader));
 					break;
 				default:
-					console.error('NodeData Parse:', keyName);
+					console.error('NodeData Parse:', key.valueName);
 					break parse;
 			}
 		}
@@ -59,12 +56,23 @@ export class NodeData {
 	 * 262144  - Unfogged
 	 * 524288  - ModelSpace
 	 * 1048576 - XYQuad
-	 * @type {number}
+	 * @type {DWORD}
 	 */
 	Flags;
 
 	/** @type {Translations} */ translations;
 	/** @type {Rotations} */ rotations;
 	/** @type {Scalings} */ scalings;
+
+	write(){
+		this.InclusiveSize.write();
+		this.Name.write();
+		this.ObjectId.write();
+		this.ParentId.write();
+		this.Flags.write();
+		this.translations?.write();
+		this.rotations?.write();
+		this.scalings?.write();
+	}
 }
 

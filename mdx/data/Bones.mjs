@@ -1,33 +1,42 @@
-import {ModelData} from "../ModelData.mjs";
 import {NodeData} from "./NodeData.mjs";
+import {DWORD} from "../type/DWORD.mjs";
 
-export class Bones extends ModelData {
-	/**
-	 *  @param key
-	 *  @param {MDX} model
-	 */
-	constructor(key, model) {
-		super(key);
-		this.ChunkSize = model.readDWORD();
-		const end = model.byteOffset + this.ChunkSize;
+export class Bones {
+	/** @param {DWORD} key */
+	constructor(key) {
+		const r = key.reader;
+		this.key = key;
+		this.ChunkSize = new DWORD(r);
+		const end = r.byteOffset + this.ChunkSize.value;
 
-		let i = 0;
-		while (model.byteOffset < end) {
-			i++;
-			if (i > 1) break;
-			this.bones.push(new Bone(model));
+		while (r.byteOffset < end) {
+			this.bones.push(new Bone(r));
 		}
 	}
 
 	/** @type {Bone[]} */
 	bones = [];
+
+	write() {
+		this.key.write();
+		this.ChunkSize.write();
+		for (const b of this.bones) {
+			b.write();
+		}
+	}
 }
 
 class Bone {
-	/** @param {MDX} model */
-	constructor(model) {
-		this.node = new NodeData(model);
-		this.GeosetId = model.readDWORD();
-		this.GeosetAnimationId = model.readDWORD();
+	/** @param {Reader} reader */
+	constructor(reader) {
+		this.node = new NodeData(reader);
+		this.GeosetId = new DWORD(reader);
+		this.GeosetAnimationId = new DWORD(reader);
+	}
+
+	write() {
+		this.node.write();
+		this.GeosetId.write();
+		this.GeosetAnimationId.write();
 	}
 }

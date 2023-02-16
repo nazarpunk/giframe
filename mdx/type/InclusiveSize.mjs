@@ -23,6 +23,7 @@ export class InclusiveSize {
 			console.error('InclusiveSize not saved');
 			return;
 		}
+		this.value = this.reader.output.byteLength - this.start;
 		new DataView(this.reader.output, this.start, 4).setUint32(0, this.value, true);
 	}
 }

@@ -8,6 +8,7 @@ export class Version {
 		this.key = key;
 		this.chunkSize = new StructSize(m, {chunk: true});
 		this.version = new DWORD(m);
+		console.log('version', this.version.value);
 		this.chunkSize.check();
 	}
 

@@ -2,7 +2,9 @@ import * as fs from 'fs';
 import {MDX} from "../mdx/MDX.mjs";
 import * as cp from 'child_process';
 
-const f1 = 'sprite.mdx';
+const name = 'arthas';
+
+const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);
 
 const arrayBuffer = new ArrayBuffer(ba.length);
@@ -10,7 +12,6 @@ const view = new Uint8Array(arrayBuffer);
 for (let i = 0; i < ba.length; ++i) {
 	view[i] = ba[i];
 }
-
 
 let model;
 let bb;
@@ -21,7 +22,7 @@ try {
 	console.log(e);
 }
 if (bb) {
-	const f2 = 'sprite_test.mdx';
+	const f2 = `${name}_test.mdx`;
 	fs.writeFileSync(f2, '', {flag: 'w+'});
 	fs.appendFileSync(f2, Buffer.from(bb));
 

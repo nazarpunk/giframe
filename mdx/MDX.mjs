@@ -10,6 +10,7 @@ import {Bones} from "./data/Bones.mjs";
 import {PivotPoints} from "./data/PivotPoints.mjs";
 import {Reader} from "./type/Reader.mjs";
 import {KEY} from "./type/KEY.mjs";
+import {GlobalSequences} from "./data/GlobalSequences.mjs";
 
 export class MDX {
 
@@ -23,6 +24,7 @@ export class MDX {
 
 		while (this.reader.byteOffset < this.dataView.byteLength) {
 			const key = new KEY(this.reader);
+			console.log('key', key.name);
 			switch (key.name) {
 				case 'MDLX':
 					this.format = new Format(key);
@@ -35,6 +37,9 @@ export class MDX {
 					break;
 				case 'SEQS':
 					this.sequences = new Sequences(key);
+					break;
+				case 'GLBS':
+					this.globalSequences = new GlobalSequences(key);
 					break;
 				case 'MTLS':
 					this.materials = new Materials(key);

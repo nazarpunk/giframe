@@ -11,23 +11,24 @@ for (let i = 0; i < ba.length; ++i) {
 	view[i] = ba[i];
 }
 
-const model = new MDX(arrayBuffer);
 
+let model;
 let bb;
 try {
+	model = new MDX(arrayBuffer);
 	bb = model.write();
 } catch (e) {
 	console.log(e);
 }
+if (bb) {
+	const f2 = 'sprite_test.mdx';
+	fs.writeFileSync(f2, '', {flag: 'w+'});
+	fs.appendFileSync(f2, Buffer.from(bb));
 
+	const cwd = process.cwd();
 
-const f2 = 'sprite_test.mdx';
-fs.writeFileSync(f2, '', {flag: 'w+'});
-fs.appendFileSync(f2, Buffer.from(bb));
-
-const cwd = process.cwd();
-
-if (0) cp.exec(
-	`osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
+	if (1) cp.exec(
+		`osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
     do script "vbindiff ${cwd}/${f1} ${cwd}/${f2}"
 end tell'`);
+}

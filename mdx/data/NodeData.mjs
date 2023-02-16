@@ -4,7 +4,7 @@ import {Scalings} from "./Scalings.mjs";
 
 export class NodeData {
 
-	/** @param {Model} model */
+	/** @param {MDX} model */
 	constructor(model) {
 		this.InclusiveSize = model.readDWORD();
 		const end = model.byteOffset - 4 + this.InclusiveSize;

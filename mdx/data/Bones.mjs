@@ -4,7 +4,7 @@ import {NodeData} from "./NodeData.mjs";
 export class Bones extends ModelData {
 	/**
 	 *  @param key
-	 *  @param {Model} model
+	 *  @param {MDX} model
 	 */
 	constructor(key, model) {
 		super(key);
@@ -24,7 +24,7 @@ export class Bones extends ModelData {
 }
 
 class Bone {
-	/** @param {Model} model */
+	/** @param {MDX} model */
 	constructor(model) {
 		this.node = new NodeData(model);
 		this.GeosetId = model.readDWORD();

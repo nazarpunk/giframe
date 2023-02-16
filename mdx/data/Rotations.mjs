@@ -3,7 +3,7 @@ import {ModelData} from "../ModelData.mjs";
 export class Rotations extends ModelData {
 	/**
 	 *  @param key
-	 *  @param {Model} model
+	 *  @param {MDX} model
 	 */
 	constructor(key, model) {
 		super(key);
@@ -29,7 +29,7 @@ export class Rotations extends ModelData {
 
 class Rotation {
 	/**
-	 * @param {Model} model
+	 * @param {MDX} model
 	 * @param {number} InterpolationType
 	 */
 	constructor(model, InterpolationType) {

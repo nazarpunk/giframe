@@ -6,7 +6,7 @@ export class GlobalSequences extends ModelData {
 
 	/**
 	 * @param {number} key
-	 * @param {Model} model
+	 * @param {MDX} model
 	 */
 	constructor(key, model) {
 		super(key);
@@ -21,7 +21,7 @@ export class GlobalSequences extends ModelData {
 }
 
 class GlobalSequence {
-	/**  @param {Model} model */
+	/**  @param {MDX} model */
 	constructor(model) {
 		this.Duration = model.readDWORD();
 	}

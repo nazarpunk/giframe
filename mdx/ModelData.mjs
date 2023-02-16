@@ -1,7 +1,7 @@
 export class ModelData {
 	/**
 	 * @param {number} key
-	 * @param {Model} model
+	 * @param {MDX} model
 	 */
 	constructor(key, model) {
 		this.key = key;
@@ -9,5 +9,5 @@ export class ModelData {
 	}
 
 	/** @type {number} */ key;
-	/** @type {Model} */ model;
+	/** @type {MDX} */ model;
 }

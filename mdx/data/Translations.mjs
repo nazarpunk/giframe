@@ -3,7 +3,7 @@ import {ModelData} from "../ModelData.mjs";
 export class Translations extends ModelData {
 	/**
 	 *  @param key
-	 *  @param {Model} model
+	 *  @param {MDX} model
 	 */
 	constructor(key, model) {
 		super(key);
@@ -30,7 +30,7 @@ export class Translations extends ModelData {
 
 class Translation {
 	/**
-	 * @param {Model} model
+	 * @param {MDX} model
 	 * @param {number} InterpolationType
 	 */
 	constructor(model, InterpolationType) {

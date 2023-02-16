@@ -1,35 +1,50 @@
-import {ModelData} from "../ModelData.mjs";
+import {DWORD} from "../type/DWORD.mjs";
+import {FLOAT} from "../type/FLOAT.mjs";
 
-export class Materials extends ModelData {
-	/**
-	 *  @param key
-	 *  @param {Model} model
-	 */
-	constructor(key, model) {
-		super(key);
-		this.ChunkSize = model.readDWORD();
-
-		const end = model.byteOffset + this.ChunkSize;
-
-		while (model.byteOffset < end) {
-			this.materials.push(new Material(model));
+export class Materials {
+	/** @param {DWORD} key */
+	constructor(key) {
+		const r = key.reader;
+		this.key = key;
+		this.ChunkSize = new DWORD(r);
+		const end = r.byteOffset + this.ChunkSize.value;
+		while (r.byteOffset < end) {
+			this.materials.push(new Material(r));
 		}
-
 	}
 
 	/** @type {Material[]} */
 	materials = [];
+
+	write() {
+		this.key.write();
+		//const offset = this.key.reader.byteOffset;
+		//FIXME
+		this.ChunkSize.write();
+		for (const m of this.materials) {
+			m.write();
+		}
+	}
 }
 
 class Material {
-	/** @param {Model} model */
-	constructor(model) {
-		this.InclusiveSize = model.readDWORD();
-		this.PriorityPlane = model.readDWORD();
-		this.Flags = model.readDWORD();
-		const keyName = model.keyName();
-		if (model.keyName() === 'LAYS') {
-			this.layer = new Layers(model.readDWORD(), model);
+	/** @param {Reader} reader */
+	constructor(reader) {
+		this.InclusiveSize = new DWORD(reader);
+		const end = reader.byteOffset - 4 + this.InclusiveSize.value;
+		this.PriorityPlane = new DWORD(reader);
+		this.Flags = new DWORD(reader);
+
+		parse: while (reader.byteOffset < end) {
+			const key = new DWORD(reader, {byteOffset: 0});
+			switch (key.valueName) {
+				case 'LAYS':
+					this.layers = new Layers(new DWORD(reader));
+					break;
+				default:
+					console.error('Material:', key.valueName);
+					break parse;
+			}
 		}
 	}
 
@@ -40,44 +55,56 @@ class Material {
 	 * 8  - SortPrimitivesNearZ
 	 * 16 - SortPrimitivesFarZ
 	 * 32 - FullResolution
-	 * @type {number}
+	 * @type {DWORD}
 	 */
 	Flags;
 
-	/** @type {Layers} */
-	layer;
+	/** @type {Layers} */ layers;
+
+	write() {
+		// FIXME
+		this.InclusiveSize.write();
+		this.PriorityPlane.write();
+		this.Flags.write();
+		this.layers?.write();
+	}
 }
 
-class Layers extends ModelData {
-	/**
-	 *  @param key
-	 *  @param {Model} model
-	 */
-	constructor(key, model) {
-		super(key);
-		this.NrOfLayers = model.readDWORD();
-		for (let i = 0; i < this.NrOfLayers; i++) {
-			this.layers.push(new Layer(model));
+class Layers {
+	/** @param {DWORD} key */
+	constructor(key) {
+		const r = key.reader;
+		this.key = key;
+		this.NrOfLayers = new DWORD(r);
+		for (let i = 0; i < this.NrOfLayers.value; i++) {
+			this.layers.push(new Layer(r));
 		}
 	}
 
-	/** @type {Layer[]} */
-	layers = [];
+	/** @type {Layer[]} */ layers = [];
+
+	write() {
+		this.key.write();
+		this.NrOfLayers.writeValue(this.layers.length);
+		for (const l of this.layers) {
+			l.write();
+		}
+	}
 }
 
 class Layer {
-	/** @param {Model} model */
-	constructor(model) {
-		this.InclusiveSize = model.readDWORD();
-		const end = model.byteOffset - 4 + this.InclusiveSize;
-		this.FilterMode = model.readDWORD();
-		this.ShadingFlags = model.readDWORD();
-		this.TextureId = model.readDWORD();
-		this.TextureAnimationId = model.readDWORD();
-		this.CoordId = model.readDWORD();
-		this.Alpha = model.readFLOAT();
+	/** @param {Reader} reader */
+	constructor(reader) {
+		this.InclusiveSize = new DWORD(reader);
+		const end = reader.byteOffset - 4 + this.InclusiveSize.value;
+		this.FilterMode = new DWORD(reader);
+		this.ShadingFlags = new DWORD(reader);
+		this.TextureId = new DWORD(reader);
+		this.TextureAnimationId = new DWORD(reader);
+		this.CoordId = new DWORD(reader);
+		this.Alpha = new FLOAT(reader);
 
-		if (model.byteOffset !== end) {
+		if (reader.byteOffset !== end) {
 			//FIXME
 			console.error('Layer Parser Uncomplete');
 		}
@@ -91,7 +118,7 @@ class Layer {
 	 * 4 - AddAlpha
 	 * 5 - Modulate
 	 * 6 - Modulate2x
-	 * @type {number}
+	 * @type {DWORD}
 	 */
 	FilterMode;
 
@@ -104,9 +131,20 @@ class Layer {
 	 * 32  - Unfogged
 	 * 64  - NoDepthTest
 	 * 128 - NoDepthSet
-	 * @type {number}
+	 * @type {DWORD}
 	 */
-	ShadingFlags
+	ShadingFlags;
+
+	write() {
+		//FIXME
+		this.InclusiveSize.write();
+		this.FilterMode.write();
+		this.ShadingFlags.write();
+		this.TextureId.write();
+		this.TextureAnimationId.write();
+		this.CoordId.write();
+		this.Alpha.write();
+	}
 }
 
 /*

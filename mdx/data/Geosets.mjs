@@ -3,7 +3,7 @@ import {ModelData} from "../ModelData.mjs";
 export class Geosets extends ModelData {
 	/**
 	 *  @param key
-	 *  @param {Model} model
+	 *  @param {MDX} model
 	 */
 	constructor(key, model) {
 		super(key);
@@ -24,7 +24,7 @@ export class Geosets extends ModelData {
 }
 
 class Geoset {
-	/** @param {Model} model */
+	/** @param {MDX} model */
 	constructor(model) {
 		this.InclusiveSize = model.readDWORD();
 		const end = model.byteOffset - 4 + this.InclusiveSize;

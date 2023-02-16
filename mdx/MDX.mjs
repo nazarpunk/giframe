@@ -1,6 +1,6 @@
 import {Format} from "./data/Format.mjs";
 import {Version} from "./data/Version.mjs";
-import {ModelInfo} from "./data/ModelInfo.mjs";
+import {Model} from "./data/Model.mjs";
 import {Sequences} from "./data/Sequences.mjs";
 import {Textures} from "./data/Textures.mjs";
 import {TextureAnimations} from "./data/TextureAnimations.mjs";
@@ -8,37 +8,52 @@ import {Materials} from "./data/Materials.mjs";
 import {Geosets} from "./data/Geosets.mjs";
 import {Bones} from "./data/Bones.mjs";
 import {PivotPoints} from "./data/PivotPoints.mjs";
+import {DWORD} from "./type/DWORD.mjs";
+import {Reader} from "./type/Reader.mjs";
 
-export class Model {
+export class MDX {
 
 	/**
 	 * @param {ArrayBuffer} buffer
 	 */
 	constructor(buffer) {
+		this.reader = new Reader(buffer);
+
 		this.dataView = new DataView(buffer);
 		this.dataView.byteOffset;
 
 		parse: while (this.byteOffset < this.dataView.byteLength) {
-			const [key, keyName] = this.keys();
-			switch (keyName) {
+			const key = new DWORD(this.reader);
+			switch (key.valueName) {
 				case 'MDLX':
-					this.datas.push(new Format(key, this));
+					this.format = new Format(key);
 					break;
 				case 'VERS':
-					this.datas.push(new Version(key, this));
+					this.version = new Version(key);
 					break;
 				case 'MODL':
-					this.datas.push(new ModelInfo(key, this));
+					this.model = new Model(key);
 					break;
 				case 'SEQS':
-					this.datas.push(new Sequences(key, this));
+					this.sequences = new Sequences(key);
 					break;
 				case 'MTLS':
-					this.datas.push(new Materials(key, this));
+					this.materials = new Materials(key);
 					break;
 				case 'TEXS':
-					this.datas.push(new Textures(key, this));
+					this.textures = new Textures(key);
 					break;
+				default:
+					console.error('MDX:', key.valueName);
+					break parse;
+			}
+		}
+
+		return;
+
+		parse: while (this.byteOffset < this.dataView.byteLength) {
+			const [key, keyName] = this.keys();
+			switch (keyName) {
 				case 'TXAN':
 					this.datas.push(new TextureAnimations(key, this));
 					break;
@@ -66,8 +81,6 @@ export class Model {
 	/** @type ModelData[] **/
 	datas = [];
 
-	output = new ArrayBuffer(0);
-
 	/**  @type {DataView} */ dataView;
 
 	byteOffset = 0;
@@ -85,29 +98,12 @@ export class Model {
 		return s.join('');
 	}
 
-	/**
-	 * @param {number} length
-	 * @return {DataView}
-	 */
-	outputData(length) {
-		const l = this.output.byteLength;
-		const b = new ArrayBuffer(l + length);
-		(new Uint8Array(b, 0, l)).set(new Uint8Array(this.output, 0, l));
-		this.output = b;
-		return new DataView(this.output, l);
-	}
-
 	/** @return {number} */
 	readDWORD() {
 		const d = this.dataView.getUint32(this.byteOffset, true);
 		this.byteOffset += 4;
 		return d;
 	};
-
-	/** @param {number} dword */
-	writeDWORD(dword) {
-		this.outputData(4).setUint32(0, dword, true);
-	}
 
 	/** @return {number} */
 	word() {
@@ -130,11 +126,6 @@ export class Model {
 		return d;
 	};
 
-	/** @param {number} float */
-	writeFLOAT(float) {
-		this.outputData(4).setFloat32(0, float, true);
-	}
-
 	/**
 	 * @param {number} length
 	 * @return {string}
@@ -155,27 +146,15 @@ export class Model {
 		return s.join('');
 	};
 
-	/**
-	 * @param {string} str
-	 * @param {number} length
-	 */
-	writeCHAR(str, length) {
-		str = str.padEnd(length, '\x00');
-		const view = this.outputData(length);
-		for (let i = 0; i < length; i++) {
-			view.setInt8(i, str.charCodeAt(i));
-		}
-	}
-
 	/** @return {ArrayBuffer} */
 	toArrayBuffer() {
-		for (const d of this.datas) {
-			if (d.write) {
-				d.write();
-			}
-		}
-		return this.output;
+		this.format?.write();
+		this.version?.write();
+		this.model?.write();
+		this.sequences?.write();
+		this.materials?.write();
+		this.textures?.write();
+
+		return this.reader.output;
 	}
 }
-
-

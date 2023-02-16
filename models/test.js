@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import {Model} from "./../model/Model.mjs";
+import {MDX} from "../mdx/MDX.mjs";
 import * as cp from 'child_process';
 
 const f1 = 'sprite.mdx';
@@ -11,7 +11,7 @@ for (let i = 0; i < buffer.length; ++i) {
 	view[i] = buffer[i];
 }
 
-const model = new Model(arrayBuffer);
+const model = new MDX(arrayBuffer);
 
 const ab = model.toArrayBuffer();
 

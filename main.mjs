@@ -1,11 +1,9 @@
-// noinspection JSUnusedGlobalSymbols
-
-import {Model} from "./model/Model.mjs";
+import {MDX} from "./mdx/MDX.mjs";
 
 const response = await fetch('mdx/sprite.mdx');
 const buffer = await response.arrayBuffer();
 
-new Model(buffer);
+new MDX(buffer);
 
 //const a = Array.from(Uint32Array.from(buffer));
 

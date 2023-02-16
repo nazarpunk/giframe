@@ -5,9 +5,8 @@ export class Reader {
 		this.input = buffer;
 		this.view = new DataView(this.input);
 		this.output = new ArrayBuffer(0);
+		this.byteOffset = 0;
 	}
-
-	byteOffset = 0;
 
 	/**
 	 * @param {number} length

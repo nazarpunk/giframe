@@ -1,17 +1,16 @@
-import {ModelData} from "../ModelData.mjs";
+import {DWORD} from "../type/DWORD.mjs";
+import {VECTOR} from "../type/VECTOR.mjs";
 
-export class Translations extends ModelData {
-	/**
-	 *  @param key
-	 *  @param {MDX} model
-	 */
-	constructor(key, model) {
-		super(key);
-		this.NrOfTracks = model.readDWORD();
-		this.InterpolationType = model.readDWORD();
-		this.GlobalSequenceId = model.readDWORD();
-		for (let i = 0; i < this.NrOfTracks; i++) {
-			this.translations.push(new Translation(model, this.InterpolationType));
+export class Translations {
+	/** @param {DWORD} key */
+	constructor(key) {
+		const r = key.reader;
+		this.key = key;
+		this.NrOfTracks = new DWORD(r);
+		this.InterpolationType = new DWORD(r);
+		this.GlobalSequenceId = new DWORD(r);
+		for (let i = 0; i < this.NrOfTracks.value; i++) {
+			this.translations.push(new Translation(this));
 		}
 	}
 
@@ -20,25 +19,42 @@ export class Translations extends ModelData {
 	 * 1 - Linear
 	 * 2 - Hermite
 	 * 3 - Bezier
-	 * @type {number}
+	 * @type {DWORD}
 	 */
 	InterpolationType;
 
 	/** @type Translation[] */
 	translations = [];
+
+	write() {
+		this.key.write();
+		this.NrOfTracks.writeValue(this.translations.length);
+		this.InterpolationType.write();
+		this.GlobalSequenceId.write();
+		for (const t of this.translations) {
+			t.write();
+		}
+	}
 }
 
 class Translation {
 	/**
-	 * @param {MDX} model
-	 * @param {number} InterpolationType
+	 * @param {Translations} parent
 	 */
-	constructor(model, InterpolationType) {
-		this.Time = model.readDWORD();
-		this.Translation = [model.readFLOAT(), model.readFLOAT(), model.readFLOAT()];
-		if (InterpolationType > 1) {
-			this.InTan = [model.readFLOAT(), model.readFLOAT(), model.readFLOAT()];
-			this.OutTan = [model.readFLOAT(), model.readFLOAT(), model.readFLOAT()];
+	constructor(parent) {
+		const r = parent.key.reader;
+		this.time = new DWORD(r);
+		this.translation = new VECTOR(r, 3);
+		if (parent.InterpolationType.value > 1) {
+			this.InTan = new VECTOR(r, 3);
+			this.OutTan = new VECTOR(r, 3);
 		}
+	}
+
+	write() {
+		this.time.write();
+		this.translation.write();
+		this.InTan?.write();
+		this.OutTan?.write();
 	}
 }

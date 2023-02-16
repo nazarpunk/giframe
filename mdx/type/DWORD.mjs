@@ -2,8 +2,9 @@ export class DWORD {
 	/**
 	 * @param {Reader} reader
 	 * @param {number} byteOffset
+	 * @param {string?} valueName
 	 */
-	constructor(reader, {byteOffset = 4} = {}) {
+	constructor(reader, {byteOffset = 4, valueName} = {}) {
 		this.reader = reader;
 		const view = this.reader.view;
 		this.value = view.getUint32(reader.byteOffset, true);
@@ -13,6 +14,10 @@ export class DWORD {
 		}
 		this.valueName = s.join('');
 		reader.byteOffset += byteOffset;
+
+		if (valueName && this.valueName !== valueName) {
+			console.error('DWORD valueName:', valueName, this.valueName);
+		}
 	}
 
 	/** @type {number} */ value;
@@ -20,6 +25,11 @@ export class DWORD {
 
 	write() {
 		this.reader.outputView(4).setUint32(0, this.value, true);
+	}
+
+	/** @param {number} int */
+	writeInt(int) {
+		this.reader.outputView(4).setUint32(0, int, true);
 	}
 
 	/** @param {number} value */

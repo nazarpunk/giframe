@@ -43,6 +43,12 @@ export class MDX {
 				case 'TEXS':
 					this.textures = new Textures(key);
 					break;
+				case 'TXAN':
+					this.textureAnimations = new TextureAnimations(key);
+					break;
+				case 'GEOS':
+					this.geosets = new Geosets(key);
+					break;
 				default:
 					console.error('MDX:', key.valueName);
 					break parse;
@@ -54,12 +60,6 @@ export class MDX {
 		parse: while (this.byteOffset < this.dataView.byteLength) {
 			const [key, keyName] = this.keys();
 			switch (keyName) {
-				case 'TXAN':
-					this.datas.push(new TextureAnimations(key, this));
-					break;
-				case 'GEOS':
-					this.datas.push(new Geosets(key, this));
-					break;
 				case 'BONE':
 					this.datas.push(new Bones(key, this));
 					break;
@@ -106,20 +106,6 @@ export class MDX {
 	};
 
 	/** @return {number} */
-	word() {
-		const d = this.dataView.getUint16(this.byteOffset, true);
-		this.byteOffset += 2;
-		return d;
-	};
-
-	/** @return {number} */
-	byte() {
-		const d = this.dataView.getUint8(this.byteOffset);
-		this.byteOffset += 1;
-		return d;
-	};
-
-	/** @return {number} */
 	readFLOAT() {
 		const d = this.dataView.getFloat32(this.byteOffset, true);
 		this.byteOffset += 4;
@@ -154,6 +140,8 @@ export class MDX {
 		this.sequences?.write();
 		this.materials?.write();
 		this.textures?.write();
+		this.textureAnimations?.write();
+		this.geosets?.write();
 
 		return this.reader.output;
 	}

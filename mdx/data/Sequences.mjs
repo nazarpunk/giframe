@@ -4,7 +4,7 @@ import {FLOAT} from "../type/FLOAT.mjs";
 import {VECTOR} from "../type/VECTOR.mjs";
 
 export class Sequences {
-	/** @param {DWORD} key */
+	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;

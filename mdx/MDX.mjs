@@ -8,8 +8,8 @@ import {Materials} from "./data/Materials.mjs";
 import {Geosets} from "./data/Geosets.mjs";
 import {Bones} from "./data/Bones.mjs";
 import {PivotPoints} from "./data/PivotPoints.mjs";
-import {DWORD} from "./type/DWORD.mjs";
 import {Reader} from "./type/Reader.mjs";
+import {KEY} from "./type/KEY.mjs";
 
 export class MDX {
 
@@ -22,7 +22,7 @@ export class MDX {
 		this.dataView = new DataView(buffer);
 
 		parse: while (this.reader.byteOffset < this.dataView.byteLength) {
-			const key = new DWORD(this.reader);
+			const key = new KEY(this.reader);
 			switch (key.valueName) {
 				case 'MDLX':
 					this.format = new Format(key);

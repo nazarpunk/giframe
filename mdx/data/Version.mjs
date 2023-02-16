@@ -1,7 +1,7 @@
 import {DWORD} from "../type/DWORD.mjs";
 
 export class Version {
-	/** @param {DWORD} key */
+	/** @param {KEY} key */
 	constructor(key) {
 		const m = key.reader;
 		this.key = key;

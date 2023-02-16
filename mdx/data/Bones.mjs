@@ -2,7 +2,7 @@ import {NodeData} from "./NodeData.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 
 export class Bones {
-	/** @param {DWORD} key */
+	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;

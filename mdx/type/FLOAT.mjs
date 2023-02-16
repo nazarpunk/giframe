@@ -3,7 +3,7 @@ export class FLOAT {
 	constructor(reader) {
 		this.reader = reader;
 		this.value = this.reader.view.getFloat32(reader.byteOffset, true);
-		reader.byteOffset += 4;
+		this.reader.byteOffset += 4;
 	}
 
 	write() {

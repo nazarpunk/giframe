@@ -2,9 +2,10 @@ import {Translations} from "./Translations.mjs";
 import {Rotations} from "./Rotations.mjs";
 import {Scalings} from "./Scalings.mjs";
 import {DWORD} from "../type/DWORD.mjs";
+import {KEY} from "../type/KEY.mjs";
 
 export class TextureAnimations {
-	/** @param {DWORD} key */
+	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;
@@ -34,16 +35,16 @@ class TextureAnimation {
 		const end = reader.byteOffset - 4 + this.InclusiveSize.value;
 
 		parse: while (reader.byteOffset < end) {
-			const key = new DWORD(reader, {byteOffset: 0});
+			const key = new KEY(reader);
 			switch (key.valueName) {
 				case 'KTAT':
-					this.translations = new Translations(new DWORD(reader));
+					this.translations = new Translations(key);
 					break;
 				case 'KTAR':
-					this.rotations = new Rotations(new DWORD(reader));
+					this.rotations = new Rotations(key);
 					break;
 				case 'KTAS':
-					this.scalings = new Scalings(new DWORD(reader));
+					this.scalings = new Scalings(key);
 					break;
 				default:
 					console.error('TextureAnimation:', key.valueName);
@@ -56,7 +57,7 @@ class TextureAnimation {
 	/** @type {Rotations} */ rotations;
 	/** @type {Scalings} */ scalings;
 
-	write(){
+	write() {
 		this.InclusiveSize.write();
 		this.translations?.write();
 		this.rotations?.write();

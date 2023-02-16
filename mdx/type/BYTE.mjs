@@ -3,7 +3,7 @@ export class BYTE {
 	constructor(reader) {
 		this.reader = reader;
 		this.value = reader.view.getUint8(reader.byteOffset);
-		reader.byteOffset += 1;
+		this.reader.byteOffset += 1;
 	}
 
 	/** @type {number} */ value;

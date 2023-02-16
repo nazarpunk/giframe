@@ -1,8 +1,9 @@
 import {DWORD} from "../type/DWORD.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
+import {KEY} from "../type/KEY.mjs";
 
 export class Materials {
-	/** @param {DWORD} key */
+	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;
@@ -36,10 +37,10 @@ class Material {
 		this.Flags = new DWORD(reader);
 
 		parse: while (reader.byteOffset < end) {
-			const key = new DWORD(reader, {byteOffset: 0});
+			const key = new KEY(reader);
 			switch (key.valueName) {
 				case 'LAYS':
-					this.layers = new Layers(new DWORD(reader));
+					this.layers = new Layers(key);
 					break;
 				default:
 					console.error('Material:', key.valueName);
@@ -71,7 +72,7 @@ class Material {
 }
 
 class Layers {
-	/** @param {DWORD} key */
+	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;

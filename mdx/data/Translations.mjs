@@ -2,7 +2,7 @@ import {DWORD} from "../type/DWORD.mjs";
 import {VECTOR} from "../type/VECTOR.mjs";
 
 export class Translations {
-	/** @param {DWORD} key */
+	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;

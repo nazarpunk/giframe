@@ -3,7 +3,7 @@ export class WORD {
 	constructor(reader) {
 		this.reader = reader;
 		this.value = reader.view.getUint16(reader.byteOffset, true);
-		reader.byteOffset += 2;
+		this.reader.byteOffset += 2;
 	}
 
 	/** @type {number} */ value;

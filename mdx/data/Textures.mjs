@@ -2,7 +2,7 @@ import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 
 export class Textures {
-	/** @param {DWORD} key */
+	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;

@@ -1,7 +1,7 @@
 import {DWORD} from "../type/DWORD.mjs";
 
 export class GlobalSequences {
-	/** @param {DWORD} key */
+	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;
 		this.key = key;

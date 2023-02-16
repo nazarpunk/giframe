@@ -21,9 +21,9 @@ export class MDX {
 
 		this.dataView = new DataView(buffer);
 
-		parse: while (this.reader.byteOffset < this.dataView.byteLength) {
+		while (this.reader.byteOffset < this.dataView.byteLength) {
 			const key = new KEY(this.reader);
-			switch (key.valueName) {
+			switch (key.name) {
 				case 'MDLX':
 					this.format = new Format(key);
 					break;
@@ -55,18 +55,17 @@ export class MDX {
 					this.pivotPoints = new PivotPoints(key);
 					break;
 				default:
-					console.error('MDX:', key.valueName);
-					break parse;
+					throw `MDX child wrong key : ${key.name}`;
 			}
 		}
 
 		if (this.reader.byteOffset !== this.dataView.byteLength) {
-			console.error('Model Parse Unctomplete:', this.reader.byteOffset, this.dataView.byteLength)
+			throw `MDX end offset ${this.reader.byteOffset} not equal length ${this.dataView.byteLength}`;
 		}
 	}
 
 	/** @return {ArrayBuffer} */
-	toArrayBuffer() {
+	write() {
 		this.format.write();
 		this.version?.write();
 		this.model?.write();

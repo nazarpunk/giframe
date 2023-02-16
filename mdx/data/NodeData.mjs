@@ -15,9 +15,9 @@ export class NodeData {
 		this.ParentId = new DWORD(reader);
 		this.Flags = new DWORD(reader);
 
-		parse: while (reader.byteOffset < this.inclusiveSize.end) {
+		while (reader.byteOffset < this.inclusiveSize.end) {
 			const key = new KEY(reader);
-			switch (key.valueName) {
+			switch (key.name) {
 				case 'KGTR':
 					this.translations = new Translations(key);
 					break;
@@ -28,8 +28,7 @@ export class NodeData {
 					this.scalings = new Scalings(key);
 					break;
 				default:
-					console.error('NodeData Parse:', key.valueName);
-					break parse;
+					throw `NodeData key error: ${key.name}`;
 			}
 		}
 

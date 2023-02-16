@@ -33,9 +33,9 @@ class TextureAnimation {
 	/**  @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});
-		parse: while (reader.byteOffset < this.inclusiveSize.end) {
+		while (reader.byteOffset < this.inclusiveSize.end) {
 			const key = new KEY(reader);
-			switch (key.valueName) {
+			switch (key.name) {
 				case 'KTAT':
 					this.translations = new Translations(key);
 					break;
@@ -46,8 +46,7 @@ class TextureAnimation {
 					this.scalings = new Scalings(key);
 					break;
 				default:
-					console.error('TextureAnimation:', key.valueName);
-					break parse;
+					throw `TextureAnimation wrong key: ${key.name}`;
 			}
 		}
 		this.inclusiveSize.check();

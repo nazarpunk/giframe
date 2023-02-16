@@ -19,7 +19,7 @@ export class StructSize {
 
 	check() {
 		if (this.reader.byteOffset !== this.end) {
-			console.error(`StructSize not check`)
+			throw 'StructSize check error!';
 		}
 	}
 
@@ -30,8 +30,7 @@ export class StructSize {
 
 	write() {
 		if (!this.start) {
-			console.error('StructSize not save');
-			return;
+			throw 'StructSize write without save!';
 		}
 		this.value = this.reader.output.byteLength - this.start + this._add;
 		new DataView(this.reader.output, this.start, 4).setUint32(0, this.value, true);

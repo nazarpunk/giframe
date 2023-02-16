@@ -12,16 +12,16 @@ export class KEY {
 		for (let i = 0; i < 4; i++) {
 			s.push(String.fromCharCode(view.getUint8(reader.byteOffset + i)));
 		}
-		this.valueName = s.join('');
+		this.name = s.join('');
 		this.reader.byteOffset += byteOffset;
 
-		if (valueName && this.valueName !== valueName) {
-			console.error('DWORD valueName:', valueName, this.valueName);
+		if (valueName && this.name !== valueName) {
+			throw `KEY ${valueName} not equal ${this.name}`;
 		}
 	}
 
 	/** @type {number} */ value;
-	/** @type {string} */ valueName;
+	/** @type {string} */ name;
 
 	write() {
 		this.reader.outputView(4).setUint32(0, this.value, true);

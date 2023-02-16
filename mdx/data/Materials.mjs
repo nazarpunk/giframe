@@ -35,15 +35,14 @@ class Material {
 		this.PriorityPlane = new DWORD(reader);
 		this.Flags = new DWORD(reader);
 
-		parse: while (reader.byteOffset < this.inclusiveSize.end) {
+		while (reader.byteOffset < this.inclusiveSize.end) {
 			const key = new KEY(reader);
-			switch (key.valueName) {
+			switch (key.name) {
 				case 'LAYS':
 					this.layers = new Layers(key);
 					break;
 				default:
-					console.error('Material:', key.valueName);
-					break parse;
+					throw `Material wrong key: ${key.name}`;
 			}
 		}
 
@@ -107,10 +106,8 @@ class Layer {
 		// noinspection LoopStatementThatDoesntLoopJS
 		while (reader.byteOffset < this.inclusiveSize.end) {
 			//FIXME Material Layer Parse
-			console.error('Layer Parser Uncomplete');
-			break;
+			throw `Layer Parser Uncomplete`;
 		}
-
 		this.inclusiveSize.check();
 	}
 

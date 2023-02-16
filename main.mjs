@@ -7,7 +7,6 @@ new MDX(buffer);
 
 //const a = Array.from(Uint32Array.from(buffer));
 
-//console.log(a);
 /*
 const a = document.createElement('a');
 const blob = new Blob();

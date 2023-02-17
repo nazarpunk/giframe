@@ -7,6 +7,7 @@ export class Reader {
 		this.view = new DataView(buffer);
 		this.byteOffset = 0;
 		this.output = new ArrayBuffer(0);
+		this.version = 800;
 	}
 
 	/**

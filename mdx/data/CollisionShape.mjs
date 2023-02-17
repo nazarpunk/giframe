@@ -2,7 +2,6 @@
 
 import {NodeData} from "./NodeData.mjs";
 import {DWORD} from "../type/DWORD.mjs";
-import {VECTOR} from "../type/VECTOR.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 
 export class CollisionShape {
@@ -22,7 +21,7 @@ export class CollisionShape {
 		}
 
 		for (let i = 0; i < len; i++) {
-			this.positions.push(new VECTOR(reader, 3));
+			this.positions.push(new FLOAT(reader, 3));
 		}
 
 		if (this.Type.value === 2) {
@@ -38,7 +37,7 @@ export class CollisionShape {
 	 */
 	Type;
 
-	/** @type {VECTOR[]} */
+	/** @type {FLOAT[]} */
 	positions = [];
 
 	write() {

@@ -3,7 +3,6 @@
 import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
-import {VECTOR} from "../type/VECTOR.mjs";
 import {StructSize} from "../type/StructSize.mjs";
 
 export class Model {
@@ -15,8 +14,8 @@ export class Model {
 		this.Name = new CHAR(r, 80);
 		this.AnimationFileName = new CHAR(r, 260);
 		this.BoundsRadius = new FLOAT(r);
-		this.MinimumExtent = new VECTOR(r, 3);
-		this.MaximumExtent = new VECTOR(r, 3);
+		this.MinimumExtent = new FLOAT(r, 3);
+		this.MaximumExtent = new FLOAT(r, 3);
 		this.BlendTime = new DWORD(r);
 	}
 

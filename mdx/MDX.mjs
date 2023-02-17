@@ -12,7 +12,7 @@ import {Attachment} from "./data/Attachment.mjs";
 import {RibbonEmitter} from "./data/RibbonEmitter.mjs";
 import {EventObject} from "./data/EventObject.mjs";
 import {GeosetAnimation} from "./data/GeosetAnimation.mjs";
-import {ChunkedList} from "./model/ChunkedList.js";
+import {CountedList} from "./model/CountedList.js";
 import {NodeData} from "./data/NodeData.mjs";
 import {Bone} from "./data/Bone.mjs";
 import {CollisionShape} from "./data/CollisionShape.mjs";
@@ -48,66 +48,66 @@ export class MDX {
 					this.model = new Model(key);
 					break;
 				case 'SEQS':
-					this.sequences = new ChunkedList(key, Sequence);
+					this.sequences = new CountedList(key, Sequence, {chunk: true});
 					break;
 				case 'GLBS':
-					this.globalSequences = new ChunkedList(key, DWORD);
+					this.globalSequences = new CountedList(key, DWORD, {chunk: true});
 					break;
 				case 'LITE':
-					this.lights = new ChunkedList(key, Light);
+					this.lights = new CountedList(key, Light, {chunk: true});
 					break;
 				case 'MTLS':
-					this.materials = new ChunkedList(key, Material);
+					this.materials = new CountedList(key, Material, {chunk: true});
 					break;
 				case 'TEXS':
-					this.textures = new ChunkedList(key, Texture);
+					this.textures = new CountedList(key, Texture, {chunk: true});
 					break;
 				case 'TXAN':
-					this.textureAnimations = new ChunkedList(key, TextureAnimation);
+					this.textureAnimations = new CountedList(key, TextureAnimation, {chunk: true});
 					break;
 				case 'GEOS':
-					this.geosets = new ChunkedList(key, Geoset);
+					this.geosets = new CountedList(key, Geoset, {chunk: true});
 					break;
 				case 'GEOA':
-					this.geosetAnimations = new ChunkedList(key, GeosetAnimation);
+					this.geosetAnimations = new CountedList(key, GeosetAnimation, {chunk: true});
 					break;
 				case 'BONE':
-					this.bones = new ChunkedList(key, Bone);
+					this.bones = new CountedList(key, Bone, {chunk: true});
 					break;
 				case 'HELP':
-					this.helper = new ChunkedList(key, NodeData);
+					this.helper = new CountedList(key, NodeData, {chunk: true});
 					break;
 				case 'ATCH':
-					this.attachments = new ChunkedList(key, Attachment);
+					this.attachments = new CountedList(key, Attachment, {chunk: true});
 					break;
 				case 'PIVT':
-					this.pivotPoints = new ChunkedList(key, PivotPoint);
+					this.pivotPoints = new CountedList(key, PivotPoint, {chunk: true});
 					break;
 				case 'PREM':
-					this.particleEmitters = new ChunkedList(key, ParticleEmitter);
+					this.particleEmitters = new CountedList(key, ParticleEmitter, {chunk: true});
 					break;
 				case 'PRE2':
-					this.particleEmitters2 = new ChunkedList(key, ParticleEmitter2);
+					this.particleEmitters2 = new CountedList(key, ParticleEmitter2, {chunk: true});
 					break;
 				case 'CAMS':
-					this.cameras = new ChunkedList(key, Camera);
+					this.cameras = new CountedList(key, Camera, {chunk: true});
 					break;
 				case 'RIBB':
-					this.ribbinEmitters = new ChunkedList(key, RibbonEmitter);
+					this.ribbinEmitters = new CountedList(key, RibbonEmitter, {chunk: true});
 					break;
 				case 'EVTS':
-					this.eventObjects = new ChunkedList(key, EventObject);
+					this.eventObjects = new CountedList(key, EventObject, {chunk: true});
 					break;
 				case 'CLID':
-					this.collisionShapes = new ChunkedList(key, CollisionShape);
+					this.collisionShapes = new CountedList(key, CollisionShape, {chunk: true});
 					break;
 				default:
-					throw `MDX child wrong key : ${key.name}`;
+					throw new Error(`MDX child wrong key : ${key.name}`);
 			}
 		}
 
 		if (this.reader.byteOffset !== this.dataView.byteLength) {
-			throw `MDX end offset ${this.reader.byteOffset} not equal length ${this.dataView.byteLength}`;
+			throw new Error(`MDX end offset ${this.reader.byteOffset} not equal length ${this.dataView.byteLength}`);
 		}
 	}
 

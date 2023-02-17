@@ -1,12 +1,11 @@
 /** @module MDX */
 
-import {Translations} from "./Translations.mjs";
-import {Rotations} from "./Rotations.mjs";
-import {Scalings} from "./Scalings.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {KEY} from "../type/KEY.mjs";
 import {StructSize} from "../type/StructSize.mjs";
+import {Interpolation} from "../model/Interpolation.mjs";
+import {FLOAT} from "../type/FLOAT.mjs";
 
 export class NodeData {
 	/** @param {Reader} reader */
@@ -21,16 +20,16 @@ export class NodeData {
 			const key = new KEY(reader);
 			switch (key.name) {
 				case 'KGTR':
-					this.translations = new Translations(key);
+					this.translations = new Interpolation(key, FLOAT, 3);
 					break;
 				case 'KGRT':
-					this.rotations = new Rotations(key);
+					this.rotations = new Interpolation(key, FLOAT, 4);
 					break;
 				case 'KGSC':
-					this.scalings = new Scalings(key);
+					this.scalings = new Interpolation(key, FLOAT, 3);
 					break;
 				default:
-					throw `NodeData key error: ${key.name}`;
+					throw new Error(`NodeData key error: ${key.name}`);
 			}
 		}
 
@@ -64,9 +63,9 @@ export class NodeData {
 	 */
 	Flags;
 
-	/** @type {Translations} */ translations;
-	/** @type {Rotations} */ rotations;
-	/** @type {Scalings} */ scalings;
+	/** @type {Interpolation} */ translations;
+	/** @type {Interpolation} */ rotations;
+	/** @type {Interpolation} */ scalings;
 
 	write() {
 		this.inclusiveSize.save();

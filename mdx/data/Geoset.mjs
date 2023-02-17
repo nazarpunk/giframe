@@ -1,11 +1,11 @@
 /** @module MDX */
 
 import {DWORD} from "../type/DWORD.mjs";
-import {VECTOR} from "../type/VECTOR.mjs";
 import {BYTE} from "../type/BYTE.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {KEY} from "../type/KEY.mjs";
 import {StructSize} from "../type/StructSize.mjs";
+import {WORD} from "../type/WORD.mjs";
 
 export class Geoset {
 	/** @param {Reader} reader */
@@ -18,13 +18,13 @@ export class Geoset {
 		this.vertexPositionKey = new KEY(reader, {name: 'VRTX'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
-			this.vertexPositions.push(new VECTOR(reader, 3));
+			this.vertexPositions.push(new FLOAT(reader, 3));
 		}
 
 		this.vertexNormalsKey = new KEY(reader, {name: 'NRMS'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
-			this.vertexNormals.push(new VECTOR(reader, 3));
+			this.vertexNormals.push(new FLOAT(reader, 3));
 		}
 
 		this.faceTypeGroupsKey = new KEY(reader, {name: 'PTYP'});
@@ -42,7 +42,7 @@ export class Geoset {
 		this.faceKey = new KEY(reader, {name: 'PVTX'});
 		len = new DWORD(reader).value / 3;
 		for (let i = 0; i < len; i++) {
-			this.face.push(new VECTOR(reader, 3, {word: true}));
+			this.face.push(new WORD(reader, 3));
 		}
 
 		this.vertexGroupsKey = new KEY(reader, {name: 'GNDX'});
@@ -67,12 +67,12 @@ export class Geoset {
 		this.SelectionGroup = new DWORD(reader);
 		this.SelectionFlags = new DWORD(reader);
 		this.BoundsRadius = new FLOAT(reader);
-		this.MinimumExtent = new VECTOR(reader, 3);
-		this.MaximumExtent = new VECTOR(reader, 3);
+		this.MinimumExtent = new FLOAT(reader, 3);
+		this.MaximumExtent = new FLOAT(reader, 3);
 
 		this.extentLength = new DWORD(reader);
 		for (let i = 0; i < this.extentLength.value; i++) {
-			this.extent.push([new FLOAT(reader), new VECTOR(reader, 3), new VECTOR(reader, 3)]);
+			this.extent.push([new FLOAT(reader), new FLOAT(reader, 3), new FLOAT(reader, 3)]);
 		}
 
 		this.NrOfTextureVertexGroupsKey = new KEY(reader, {name: 'UVAS'});
@@ -81,14 +81,14 @@ export class Geoset {
 		this.vertexTexturePositionKey = new KEY(reader, {name: 'UVBS'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
-			this.vertexTexturePosition.push(new VECTOR(reader, 2));
+			this.vertexTexturePosition.push(new FLOAT(reader, 2));
 		}
 
 		this.inclusiveSize.check();
 	}
 
-	/** @type {VECTOR[]} */ vertexPositions = [];
-	/** @type {VECTOR[]} */ vertexNormals = [];
+	/** @type {FLOAT[]} */ vertexPositions = [];
+	/** @type {FLOAT[]} */ vertexNormals = [];
 
 	/**
 	 * 4   - Triangles
@@ -101,7 +101,7 @@ export class Geoset {
 	faceTypeGroups = [];
 
 	/** @type {DWORD[]} */ faceGroups = [];
-	/** @type {VECTOR[]} */ face = [];
+	/** @type {WORD[]} */ face = [];
 	/** @type {BYTE[]} */ vertexGroups = [];
 	/** @type {DWORD[]} */ matrixGroup = [];
 	/** @type {DWORD[]} */ matrixIndex = [];
@@ -114,10 +114,10 @@ export class Geoset {
 	 * @type {DWORD}
 	 */
 	SelectionFlags;
-	/** @type {[FLOAT, VECTOR,VECTOR][]} */ extent = [];
+	/** @type {[FLOAT,FLOAT,FLOAT][]} */ extent = [];
 
 
-	/** @type {VECTOR[]} */ vertexTexturePosition = [];
+	/** @type {FLOAT[]} */ vertexTexturePosition = [];
 
 	write() {
 		this.inclusiveSize.save();

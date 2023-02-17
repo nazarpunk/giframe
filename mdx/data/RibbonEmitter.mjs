@@ -3,10 +3,9 @@
 import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
-import {VECTOR} from "../type/VECTOR.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {Alpha} from "./Alpha.mjs";
+import {Interpolation} from "../model/Interpolation.mjs";
 
 export class RibbonEmitter {
 	/** @param {Reader} reader */
@@ -16,7 +15,7 @@ export class RibbonEmitter {
 		this.HeightAbove = new FLOAT(reader);
 		this.HeightBelow = new FLOAT(reader);
 		this.alpha = new FLOAT(reader);
-		this.Color = new VECTOR(reader, 3);
+		this.Color = new FLOAT(reader, 3);
 		this.LifeSpan = new FLOAT(reader);
 		this.TextureSlot = new DWORD(reader);
 		this.EmissionRate = new DWORD(reader);
@@ -29,16 +28,16 @@ export class RibbonEmitter {
 			const key = new KEY(reader);
 			switch (key.name) {
 				case 'KRVS':
-					this.Visibility = new Alpha(key);
+					this.Visibility = new Interpolation(key, FLOAT);
 					break;
 				case 'KRHA':
-					this.HeightAboveStruct = new Alpha(key);
+					this.HeightAboveStruct = new Interpolation(key, FLOAT);
 					break;
 				case 'KRHB':
-					this.HeightBelowStruct = new Alpha(key);
+					this.HeightBelowStruct = new Interpolation(key, FLOAT);
 					break;
 				default:
-					throw `RibbonEmitter wrong key: ${key.name}`;
+					throw new Error(`RibbonEmitter wrong key: ${key.name}`);
 			}
 		}
 		this.inclusiveSize.check();

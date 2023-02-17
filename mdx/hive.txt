@@ -1,3 +1,67 @@
+// Node
+KGTR: float[3] translation
+KGRT: float[4] rotation
+KGSC: float[3] scaling
+// Layer
+KMTF: uint32 textureId
+KMTA: float alpha
+KMTE: float emissiveGain
+KFC3: float[3] fresnelColor
+KFCA: float fresnelAlpha
+KFTC: float fresnelTeamColor
+// Texture animation
+KTAT: float[3] translation
+KTAR: float[4] rotation
+KTAS: float[3] scaling
+//Geoset animation
+KGAO: float alpha
+KGAC: float[3] color
+// Light
+KLAS: float attenuationStart
+KLAE: float attenuationStartEnd
+KLAC: float[3] color
+KLAI: float intensity
+KLBI: float ambientIntensity
+KLBC: float[3] ambientColor
+KLAV: float visibility
+// Attachment
+KATV: float visibility
+// Particle emitter
+KPEE: float emissionRate
+KPEG: float gravity
+KPLN: float longitude
+KPLT: float latitude
+KPEL: float lifespan
+KPES: float speed
+KPEV: float visibility
+// Particle emitter 2
+KP2E: float emissionRate
+KP2G: float gravity
+KP2L: float latitude
+KP2S: float speed
+KP2V: float visibility
+KP2R: float variation
+KP2N: float length
+KP2W: float width
+// Ribbon emitter
+KRVS: float visibility
+KRHA: float heightAbove
+KRHB: float heightBelow
+KRAL: float alpha
+KRCO: float[3] color
+KRTX: uint32 textureSlot
+// Camera
+KCTR: float[3] translation
+KCRL: float rotation
+KTTR: float[3] targetTranslation
+// Corn emitter
+KPPA: float alpha
+KPPC: float[3] color
+KPPE: float emissionRate
+KPPL: float lifespan
+KPPS: float speed
+KPPV: float visibility
+
 Extent {
   float boundsRadius
   float[3] minimum

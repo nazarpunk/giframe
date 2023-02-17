@@ -5,7 +5,7 @@ import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {Alpha} from "./Alpha.mjs";
+import {Interpolation} from "../model/Interpolation.mjs";
 
 export class ParticleEmitter {
 	/** @param {Reader} reader */
@@ -25,10 +25,10 @@ export class ParticleEmitter {
 			const key = new KEY(reader);
 			switch (key.name) {
 				case 'KPEV':
-					this.visibility = new Alpha(key);
+					this.visibility = new Interpolation(key, FLOAT);
 					break;
 				default:
-					throw `ParticleEmitter wrong key: ${key.name}`;
+					throw new Error(`ParticleEmitter wrong key: ${key.name}`);
 			}
 		}
 

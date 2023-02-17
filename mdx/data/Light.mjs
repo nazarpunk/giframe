@@ -2,11 +2,9 @@
 import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {DWORD} from "../type/DWORD.mjs";
-import {VECTOR} from "../type/VECTOR.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {Alpha} from "./Alpha.mjs";
-import {Translations} from "./Translations.mjs";
+import {Interpolation} from "../model/Interpolation.mjs";
 
 export class Light {
 	/** @param {Reader} reader */
@@ -16,30 +14,30 @@ export class Light {
 		this.Type = new DWORD(reader);
 		this.AttenuationStart = new DWORD(reader);
 		this.AttenuationEnd = new DWORD(reader);
-		this.color = new VECTOR(reader, 3);
+		this.color = new FLOAT(reader, 3);
 		this.Intensity = new FLOAT(reader);
-		this.AmbientColor = new VECTOR(reader, 3);
+		this.AmbientColor = new FLOAT(reader, 3);
 		this.AmbientIntensity = new FLOAT(reader);
 		while (reader.byteOffset < this.inclusiveSize.end) {
 			const key = new KEY(reader);
 			switch (key.name) {
 				case 'KLAV':
-					this.Visibility = new Alpha(key);
+					this.Visibility = new Interpolation(key, FLOAT);
 					break;
 				case 'KLAC':
-					this.colorStruct = new Translations(key);
+					this.colorStruct = new Interpolation(key, FLOAT, 3);
 					break;
 				case 'KLAI':
-					this.IntensityStruct = new Alpha(key);
+					this.IntensityStruct = new Interpolation(key, FLOAT);
 					break;
 				case 'KLBC':
-					this.AmbientColorStruct = new Translations(key);
+					this.AmbientColorStruct = new Interpolation(key, FLOAT, 3);
 					break;
 				case 'KLBI':
-					this.AmbientIntensityStruct = new Alpha(key);
+					this.AmbientIntensityStruct = new Interpolation(key, FLOAT);
 					break;
 				default:
-					throw `Camera wrong key: ${key.name}`;
+					throw new Error(`Camera wrong key: ${key.name}`);
 			}
 		}
 		this.inclusiveSize.check();

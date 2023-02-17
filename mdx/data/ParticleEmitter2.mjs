@@ -4,9 +4,9 @@ import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {DWORD} from "../type/DWORD.mjs";
-import {VECTOR} from "../type/VECTOR.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {Alpha} from "./Alpha.mjs";
+import {Interpolation} from "../model/Interpolation.mjs";
+import {BYTE} from "../type/BYTE.mjs";
 
 export class ParticleEmitter2 {
 	/** @param {Reader} reader */
@@ -27,9 +27,9 @@ export class ParticleEmitter2 {
 		this.HeadOrTail = new DWORD(reader);
 		this.TailLength = new FLOAT(reader);
 		this.Time = new FLOAT(reader);
-		this.SegmentColor = new VECTOR(reader, 9);
-		this.SegmentAlpha = new VECTOR(reader, 3, {byte: true});
-		this.SegmentScaling = new VECTOR(reader, 3);
+		this.SegmentColor = new FLOAT(reader, 9);
+		this.SegmentAlpha = new BYTE(reader, 3);
+		this.SegmentScaling = new FLOAT(reader, 3);
 		this.HeadIntervalStart = new DWORD(reader);
 		this.HeadIntervalEnd = new DWORD(reader);
 		this.HeadIntervalRepeat = new DWORD(reader);
@@ -51,22 +51,22 @@ export class ParticleEmitter2 {
 			const key = new KEY(reader);
 			switch (key.name) {
 				case 'KP2V':
-					this.visibility = new Alpha(key);
+					this.visibility = new Interpolation(key, FLOAT);
 					break;
 				case 'KP2E':
-					this.EmissionRateStruct = new Alpha(key);
+					this.EmissionRateStruct = new Interpolation(key, FLOAT);
 					break;
 				case 'KP2W':
-					this.width = new Alpha(key);
+					this.width = new Interpolation(key, FLOAT);
 					break;
 				case 'KP2N':
-					this.LengthStruct = new Alpha(key);
+					this.LengthStruct = new Interpolation(key, FLOAT);
 					break;
 				case 'KP2S':
-					this.SpeedStruct = new Alpha(key);
+					this.SpeedStruct = new Interpolation(key, FLOAT);
 					break;
 				default:
-					throw `ParticleEmitter2 wrong key: ${key.name}`;
+					throw new Error(`ParticleEmitter2 wrong key: ${key.name}`);
 			}
 		}
 

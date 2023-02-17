@@ -3,7 +3,6 @@
 import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
-import {VECTOR} from "../type/VECTOR.mjs";
 
 export class Sequence {
 	/**  @param {Reader} reader */
@@ -16,8 +15,8 @@ export class Sequence {
 		this.Rarity = new FLOAT(reader);
 		this.SyncPoint = new DWORD(reader);
 		this.BoundsRadius = new FLOAT(reader);
-		this.MinimumExtent = new VECTOR(reader, 3);
-		this.MaximumExtent = new VECTOR(reader, 3);
+		this.MinimumExtent = new FLOAT(reader, 3);
+		this.MaximumExtent = new FLOAT(reader, 3);
 	}
 
 	/**

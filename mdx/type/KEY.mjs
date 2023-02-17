@@ -18,7 +18,7 @@ export class KEY {
 		this.reader.byteOffset += offset;
 
 		if (name && this.name !== name) {
-			throw `KEY ${name} not equal ${this.name}`;
+			throw new Error(`KEY ${name} not equal ${this.name}`);
 		}
 	}
 

@@ -5,7 +5,8 @@ import {NodeData} from "./NodeData.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {Alpha} from "./Alpha.mjs";
+import {Interpolation} from "../model/Interpolation.mjs";
+import {FLOAT} from "../type/FLOAT.mjs";
 
 export class Attachment {
 	/** @param {Reader} reader */
@@ -17,7 +18,7 @@ export class Attachment {
 
 		if (reader.byteOffset < this.inclusiveSize.end) {
 			const key = new KEY(reader, {name: 'KATV'});
-			this.AttachmentVisibility = new Alpha(key);
+			this.AttachmentVisibility = new Interpolation(key, FLOAT);
 		}
 
 		this.inclusiveSize.check();

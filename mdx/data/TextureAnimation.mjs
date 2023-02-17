@@ -1,10 +1,9 @@
 /** @module MDX */
 
-import {Translations} from "./Translations.mjs";
-import {Rotations} from "./Rotations.mjs";
-import {Scalings} from "./Scalings.mjs";
 import {KEY} from "../type/KEY.mjs";
 import {StructSize} from "../type/StructSize.mjs";
+import {Interpolation} from "../model/Interpolation.mjs";
+import {FLOAT} from "../type/FLOAT.mjs";
 
 export class TextureAnimation {
 	/**  @param {Reader} reader */
@@ -14,24 +13,24 @@ export class TextureAnimation {
 			const key = new KEY(reader);
 			switch (key.name) {
 				case 'KTAT':
-					this.translations = new Translations(key);
+					this.translations = new Interpolation(key, FLOAT, 3);
 					break;
 				case 'KTAR':
-					this.rotations = new Rotations(key);
+					this.rotations = new Interpolation(key, FLOAT, 4);
 					break;
 				case 'KTAS':
-					this.scalings = new Scalings(key);
+					this.scalings = new Interpolation(key, FLOAT, 3);
 					break;
 				default:
-					throw `TextureAnimation wrong key: ${key.name}`;
+					throw new Error(`TextureAnimation wrong key: ${key.name}`);
 			}
 		}
 		this.inclusiveSize.check();
 	}
 
-	/** @type {Translations} */ translations;
-	/** @type {Rotations} */ rotations;
-	/** @type {Scalings} */ scalings;
+	/** @type {Interpolation} */ translations;
+	/** @type {Interpolation} */ rotations;
+	/** @type {Interpolation} */ scalings;
 
 	write() {
 		this.inclusiveSize.save();

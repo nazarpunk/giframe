@@ -1,10 +1,10 @@
 export class KEY {
 	/**
 	 * @param {Reader} reader
-	 * @param {number} byteOffset
-	 * @param {string?} valueName
+	 * @param {string?} name
+	 * @param {number} offset
 	 */
-	constructor(reader, {byteOffset = 4, valueName} = {}) {
+	constructor(reader, {name, offset = 4} = {}) {
 		this.reader = reader;
 		const view = this.reader.view;
 		this.value = view.getUint32(reader.byteOffset, true);
@@ -13,10 +13,10 @@ export class KEY {
 			s.push(String.fromCharCode(view.getUint8(reader.byteOffset + i)));
 		}
 		this.name = s.join('');
-		this.reader.byteOffset += byteOffset;
+		this.reader.byteOffset += offset;
 
-		if (valueName && this.name !== valueName) {
-			throw `KEY ${valueName} not equal ${this.name}`;
+		if (name && this.name !== name) {
+			throw `KEY ${name} not equal ${this.name}`;
 		}
 	}
 

@@ -11,6 +11,12 @@ import {PivotPoints} from "./data/PivotPoints.mjs";
 import {Reader} from "./type/Reader.mjs";
 import {KEY} from "./type/KEY.mjs";
 import {GlobalSequences} from "./data/GlobalSequences.mjs";
+import {Helper} from "./data/Helper.mjs";
+import {Attachments} from "./data/Attachments.mjs";
+import {ParticleEmitters2} from "./data/ParticleEmitters2.mjs";
+import {RibbonEmitters} from "./data/RibbonEmitters.mjs";
+import {EventObjects} from "./data/EventObjects.mjs";
+import {CollisionShapes} from "./data/CollisionShapes.mjs";
 
 export class MDX {
 
@@ -56,8 +62,26 @@ export class MDX {
 				case 'BONE':
 					this.bones = new Bones(key);
 					break;
+				case 'HELP':
+					this.helper = new Helper(key);
+					break;
+				case 'ATCH':
+					this.attachments = new Attachments(key);
+					break;
 				case 'PIVT':
 					this.pivotPoints = new PivotPoints(key);
+					break;
+				case 'PRE2':
+					this.particleEmitters2 = new ParticleEmitters2(key);
+					break;
+				case 'RIBB':
+					this.ribbinEmitters = new RibbonEmitters(key);
+					break;
+				case 'EVTS':
+					this.eventObjects = new EventObjects(key);
+					break;
+				case 'CLID':
+					this.collisionShapes = new CollisionShapes(key);
 					break;
 				default:
 					throw `MDX child wrong key : ${key.name}`;
@@ -75,13 +99,19 @@ export class MDX {
 		this.version?.write();
 		this.model?.write();
 		this.sequences?.write();
+		this.globalSequences?.write();
 		this.materials?.write();
 		this.textures?.write();
 		this.textureAnimations?.write();
 		this.geosets?.write();
 		this.bones?.write();
+		this.helper?.write();
+		this.attachments?.write();
 		this.pivotPoints?.write();
-
+		this.particleEmitters2?.write();
+		this.ribbinEmitters?.write();
+		this.eventObjects?.write();
+		this.collisionShapes?.write();
 		return this.reader.output;
 	}
 }

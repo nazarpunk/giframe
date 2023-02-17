@@ -13,4 +13,12 @@ export class GlobalSequences {
 	}
 
 	/** @type {DWORD[]} */ durations = [];
+
+	write() {
+		this.key.write();
+		this.ChunkSize.writeValue(this.durations.length * 4);
+		for (const d of this.durations) {
+			d.write();
+		}
+	}
 }

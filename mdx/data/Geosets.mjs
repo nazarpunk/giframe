@@ -37,49 +37,49 @@ class Geoset {
 		let len;
 
 		// TODO move to generic structure
-		this.vertexPositionKey = new KEY(reader, {valueName: 'VRTX'});
+		this.vertexPositionKey = new KEY(reader, {name: 'VRTX'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
 			this.vertexPositions.push(new VECTOR(reader, 3));
 		}
 
-		this.vertexNormalsKey = new KEY(reader, {valueName: 'NRMS'});
+		this.vertexNormalsKey = new KEY(reader, {name: 'NRMS'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
 			this.vertexNormals.push(new VECTOR(reader, 3));
 		}
 
-		this.faceTypeGroupsKey = new KEY(reader, {valueName: 'PTYP'});
+		this.faceTypeGroupsKey = new KEY(reader, {name: 'PTYP'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
 			this.faceTypeGroups.push(new DWORD(reader));
 		}
 
-		this.faceGroupsKey = new KEY(reader, {valueName: 'PCNT'});
+		this.faceGroupsKey = new KEY(reader, {name: 'PCNT'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
 			this.faceGroups.push(new DWORD(reader));
 		}
 
-		this.faceKey = new KEY(reader, {valueName: 'PVTX'});
+		this.faceKey = new KEY(reader, {name: 'PVTX'});
 		len = new DWORD(reader).value / 3;
 		for (let i = 0; i < len; i++) {
 			this.face.push(new VECTOR(reader, 3, {word: true}));
 		}
 
-		this.vertexGroupsKey = new KEY(reader, {valueName: 'GNDX'});
+		this.vertexGroupsKey = new KEY(reader, {name: 'GNDX'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
 			this.vertexGroups.push(new BYTE(reader));
 		}
 
-		this.matrixGroupKey = new KEY(reader, {valueName: 'MTGC'});
+		this.matrixGroupKey = new KEY(reader, {name: 'MTGC'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
 			this.matrixGroup.push(new DWORD(reader));
 		}
 
-		this.matrixIndexKey = new KEY(reader, {valueName: 'MATS'});
+		this.matrixIndexKey = new KEY(reader, {name: 'MATS'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
 			this.matrixIndex.push(new DWORD(reader));
@@ -94,13 +94,13 @@ class Geoset {
 
 		this.extentLength = new DWORD(reader);
 		for (let i = 0; i < this.extentLength.value; i++) {
-			this.extent.push([new VECTOR(reader, 3), new VECTOR(reader, 3)]);
+			this.extent.push([new FLOAT(reader), new VECTOR(reader, 3), new VECTOR(reader, 3)]);
 		}
 
-		this.NrOfTextureVertexGroupsKey = new KEY(reader, {valueName: 'UVAS'});
+		this.NrOfTextureVertexGroupsKey = new KEY(reader, {name: 'UVAS'});
 		this.NrOfTextureVertexGroups = new DWORD(reader);
 
-		this.vertexTexturePositionKey = new KEY(reader, {valueName: 'UVBS'});
+		this.vertexTexturePositionKey = new KEY(reader, {name: 'UVBS'});
 		len = new DWORD(reader).value;
 		for (let i = 0; i < len; i++) {
 			this.vertexTexturePosition.push(new VECTOR(reader, 2));
@@ -136,7 +136,7 @@ class Geoset {
 	 * @type {DWORD}
 	 */
 	SelectionFlags;
-	/** @type {[VECTOR,VECTOR][]} */ extent = [];
+	/** @type {[FLOAT, VECTOR,VECTOR][]} */ extent = [];
 
 
 	/** @type {VECTOR[]} */ vertexTexturePosition = [];

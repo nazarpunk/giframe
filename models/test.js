@@ -3,6 +3,7 @@ import {MDX} from "../mdx/MDX.mjs";
 import * as cp from 'child_process';
 
 const name = 'arthas';
+//const name = 'sprite';
 
 const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);

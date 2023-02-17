@@ -19,7 +19,7 @@ export class StructSize {
 
 	check() {
 		if (this.reader.byteOffset !== this.end) {
-			throw 'StructSize check error!';
+			throw `StructSize offset ${this.reader.byteOffset}! not equal end ${this.end}`;
 		}
 	}
 

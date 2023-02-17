@@ -1,26 +1,28 @@
+/** @module MDX */
+
 import {Format} from "./data/Format.mjs";
 import {Version} from "./data/Version.mjs";
 import {Model} from "./data/Model.mjs";
-import {Sequences} from "./data/Sequences.mjs";
-import {Textures} from "./data/Textures.mjs";
-import {TextureAnimations} from "./data/TextureAnimations.mjs";
-import {Materials} from "./data/Materials.mjs";
-import {Geosets} from "./data/Geosets.mjs";
-import {Bones} from "./data/Bones.mjs";
-import {PivotPoints} from "./data/PivotPoints.mjs";
+import {Sequence} from "./data/Sequence.mjs";
+import {Geoset} from "./data/Geoset.mjs";
+import {PivotPoint} from "./data/PivotPoint.mjs";
 import {Reader} from "./type/Reader.mjs";
 import {KEY} from "./type/KEY.mjs";
-import {GlobalSequences} from "./data/GlobalSequences.mjs";
-import {Helper} from "./data/Helper.mjs";
-import {Attachments} from "./data/Attachments.mjs";
-import {ParticleEmitters2} from "./data/ParticleEmitters2.mjs";
-import {RibbonEmitters} from "./data/RibbonEmitters.mjs";
-import {EventObjects} from "./data/EventObjects.mjs";
-import {CollisionShapes} from "./data/CollisionShapes.mjs";
-import {GeosetAnimations} from "./data/GeosetAnimations.mjs";
+import {Attachment} from "./data/Attachment.mjs";
+import {RibbonEmitter} from "./data/RibbonEmitter.mjs";
+import {EventObject} from "./data/EventObject.mjs";
+import {GeosetAnimation} from "./data/GeosetAnimation.mjs";
+import {ChunkedList} from "./model/ChunkedList.js";
+import {NodeData} from "./data/NodeData.mjs";
+import {Bone} from "./data/Bone.mjs";
+import {CollisionShape} from "./data/CollisionShape.mjs";
+import {DWORD} from "./type/DWORD.mjs";
+import {Material} from "./data/Material.mjs";
+import {Texture} from "./data/Texture.mjs";
+import {TextureAnimation} from "./data/TextureAnimation.mjs";
+import {ParticleEmitter2} from "./data/ParticleEmitter2.mjs";
 
 export class MDX {
-
 	/**
 	 * @param {ArrayBuffer} buffer
 	 */
@@ -43,49 +45,49 @@ export class MDX {
 					this.model = new Model(key);
 					break;
 				case 'SEQS':
-					this.sequences = new Sequences(key);
+					this.sequences = new ChunkedList(key, Sequence);
 					break;
 				case 'GLBS':
-					this.globalSequences = new GlobalSequences(key);
+					this.globalSequences = new ChunkedList(key, DWORD);
 					break;
 				case 'MTLS':
-					this.materials = new Materials(key);
+					this.materials = new ChunkedList(key, Material);
 					break;
 				case 'TEXS':
-					this.textures = new Textures(key);
+					this.textures = new ChunkedList(key, Texture);
 					break;
 				case 'TXAN':
-					this.textureAnimations = new TextureAnimations(key);
+					this.textureAnimations = new ChunkedList(key, TextureAnimation);
 					break;
 				case 'GEOS':
-					this.geosets = new Geosets(key);
+					this.geosets = new ChunkedList(key, Geoset);
 					break;
 				case 'GEOA':
-					this.geosetAnimations = new GeosetAnimations(key);
+					this.geosetAnimations = new ChunkedList(key, GeosetAnimation);
 					break;
 				case 'BONE':
-					this.bones = new Bones(key);
+					this.bones = new ChunkedList(key, Bone);
 					break;
 				case 'HELP':
-					this.helper = new Helper(key);
+					this.helper = new ChunkedList(key, NodeData);
 					break;
 				case 'ATCH':
-					this.attachments = new Attachments(key);
+					this.attachments = new ChunkedList(key, Attachment);
 					break;
 				case 'PIVT':
-					this.pivotPoints = new PivotPoints(key);
+					this.pivotPoints = new ChunkedList(key, PivotPoint);
 					break;
 				case 'PRE2':
-					this.particleEmitters2 = new ParticleEmitters2(key);
+					this.particleEmitters2 = new ChunkedList(key, ParticleEmitter2);
 					break;
 				case 'RIBB':
-					this.ribbinEmitters = new RibbonEmitters(key);
+					this.ribbinEmitters = new ChunkedList(key, RibbonEmitter);
 					break;
 				case 'EVTS':
-					this.eventObjects = new EventObjects(key);
+					this.eventObjects = new ChunkedList(key, EventObject);
 					break;
 				case 'CLID':
-					this.collisionShapes = new CollisionShapes(key);
+					this.collisionShapes = new ChunkedList(key, CollisionShape);
 					break;
 				default:
 					throw `MDX child wrong key : ${key.name}`;
@@ -99,7 +101,7 @@ export class MDX {
 
 	/** @return {ArrayBuffer} */
 	write() {
-		this.format.write();
+		this.format?.write();
 		this.version?.write();
 		this.model?.write();
 		this.sequences?.write();

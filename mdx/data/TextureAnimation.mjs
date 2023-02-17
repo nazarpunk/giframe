@@ -1,35 +1,12 @@
+/** @module MDX */
+
 import {Translations} from "./Translations.mjs";
 import {Rotations} from "./Rotations.mjs";
 import {Scalings} from "./Scalings.mjs";
 import {KEY} from "../type/KEY.mjs";
 import {StructSize} from "../type/StructSize.mjs";
 
-export class TextureAnimations {
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.chunkSize = new StructSize(r, {chunk: true});
-		while (r.byteOffset < this.chunkSize.end) {
-			this.animations.push(new TextureAnimation(r));
-		}
-		this.chunkSize.check();
-	}
-
-	/** @type {TextureAnimation[]} */
-	animations = [];
-
-	write() {
-		this.key.write();
-		this.chunkSize.save();
-		for (const a of this.animations) {
-			a.write();
-		}
-		this.chunkSize.write();
-	}
-}
-
-class TextureAnimation {
+export class TextureAnimation {
 	/**  @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});

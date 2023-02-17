@@ -1,35 +1,11 @@
-import {StructSize} from "../type/StructSize.mjs";
+/** @module MDX */
+
 import {NodeData} from "./NodeData.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {VECTOR} from "../type/VECTOR.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 
-//TODO chunk container
-export class CollisionShapes {
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.chunkSize = new StructSize(r, {chunk: true});
-		while (r.byteOffset < this.chunkSize.end) {
-			this.list.push(new CollisionShape(r));
-		}
-		this.chunkSize.check();
-	}
-
-	/** @type {CollisionShape[]} */ list = [];
-
-	write() {
-		this.key.write();
-		this.chunkSize.save();
-		for (const e of this.list) {
-			e.write();
-		}
-		this.chunkSize.write();
-	}
-}
-
-class CollisionShape {
+export class CollisionShape {
 	/** @param {Reader} reader */
 	constructor(reader) {
 		this.node = new NodeData(reader);

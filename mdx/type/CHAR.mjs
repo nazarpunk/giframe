@@ -1,3 +1,4 @@
+/** @module MDX */
 export class CHAR {
 	/**
 	 * @param {Reader} reader

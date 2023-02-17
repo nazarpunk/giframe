@@ -1,3 +1,5 @@
+/** @module MDX */
+
 export class KEY {
 	/**
 	 * @param {Reader} reader

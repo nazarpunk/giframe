@@ -1,3 +1,5 @@
+/** @module MDX */
+
 import {Translations} from "./Translations.mjs";
 import {Rotations} from "./Rotations.mjs";
 import {Scalings} from "./Scalings.mjs";

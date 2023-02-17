@@ -1,3 +1,5 @@
+/** @module MDX */
+
 import {DWORD} from "../type/DWORD.mjs";
 import {VECTOR} from "../type/VECTOR.mjs";
 import {BYTE} from "../type/BYTE.mjs";
@@ -5,31 +7,7 @@ import {FLOAT} from "../type/FLOAT.mjs";
 import {KEY} from "../type/KEY.mjs";
 import {StructSize} from "../type/StructSize.mjs";
 
-export class Geosets {
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.chunkSize = new StructSize(r, {chunk: true});
-		while (r.byteOffset < this.chunkSize.end) {
-			this.geosets.push(new Geoset(r));
-		}
-		this.chunkSize.check();
-	}
-
-	/** @type {Geoset[]} */ geosets = [];
-
-	write() {
-		this.key.write();
-		this.chunkSize.save();
-		for (const g of this.geosets) {
-			g.write();
-		}
-		this.chunkSize.write();
-	}
-}
-
-class Geoset {
+export class Geoset {
 	/** @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});

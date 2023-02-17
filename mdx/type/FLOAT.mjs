@@ -1,3 +1,5 @@
+/** @module MDX */
+
 export class FLOAT {
 	/** @param {Reader} reader */
 	constructor(reader) {

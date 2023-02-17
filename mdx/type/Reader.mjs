@@ -1,3 +1,5 @@
+/** @module MDX */
+
 export class Reader {
 
 	/** @param {ArrayBuffer} buffer */

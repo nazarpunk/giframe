@@ -1,34 +1,11 @@
+/** @module MDX */
+
 import {DWORD} from "../type/DWORD.mjs";
 import {KEY} from "../type/KEY.mjs";
 import {StructSize} from "../type/StructSize.mjs";
 import {MaterialLayers} from "./MaterialLayers.mjs";
 
-export class Materials {
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.chunkSize = new StructSize(r, {chunk: true});
-		while (r.byteOffset < this.chunkSize.end) {
-			this.materials.push(new Material(r));
-		}
-		this.chunkSize.check();
-	}
-
-	/** @type {Material[]} */
-	materials = [];
-
-	write() {
-		this.key.write();
-		this.chunkSize.save();
-		for (const m of this.materials) {
-			m.write();
-		}
-		this.chunkSize.write();
-	}
-}
-
-class Material {
+export class Material {
 	/** @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});

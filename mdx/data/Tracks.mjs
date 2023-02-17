@@ -1,3 +1,5 @@
+/** @module MDX */
+
 import {KEY} from "../type/KEY.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 

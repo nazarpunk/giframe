@@ -1,3 +1,5 @@
+/** @module MDX */
+
 import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
@@ -6,32 +8,7 @@ import {VECTOR} from "../type/VECTOR.mjs";
 import {KEY} from "../type/KEY.mjs";
 import {Alpha} from "./Alpha.mjs";
 
-//TODO chunk container
-export class ParticleEmitters2 {
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.chunkSize = new StructSize(r, {chunk: true});
-		while (r.byteOffset < this.chunkSize.end) {
-			this.emmiters.push(new ParticleEmitter2(r));
-		}
-		this.chunkSize.check();
-	}
-
-	/** @type {ParticleEmitter2[]} */ emmiters = [];
-
-	write() {
-		this.key.write();
-		this.chunkSize.save();
-		for (const e of this.emmiters) {
-			e.write();
-		}
-		this.chunkSize.write();
-	}
-}
-
-class ParticleEmitter2 {
+export class ParticleEmitter2 {
 	/** @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});

@@ -1,3 +1,5 @@
+/** @module MDX */
+
 import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
@@ -6,33 +8,7 @@ import {DWORD} from "../type/DWORD.mjs";
 import {KEY} from "../type/KEY.mjs";
 import {Alpha} from "./Alpha.mjs";
 
-//TODO chunk container
-export class RibbonEmitters {
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.chunkSize = new StructSize(r, {chunk: true});
-		while (r.byteOffset < this.chunkSize.end) {
-			this.ribbons.push(new RibbonEmitter(r));
-		}
-		this.chunkSize.check();
-	}
-
-	/** @type {RibbonEmitter[]} */
-	ribbons = [];
-
-	write() {
-		this.key.write();
-		this.chunkSize.save();
-		for (const r of this.ribbons) {
-			r.write();
-		}
-		this.chunkSize.write();
-	}
-}
-
-class RibbonEmitter {
+export class RibbonEmitter {
 	/** @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});

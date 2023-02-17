@@ -1,32 +1,9 @@
+/** @module MDX */
+
 import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {VECTOR} from "../type/VECTOR.mjs";
-
-export class Sequences {
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.ChunkSize = new DWORD(r);
-
-		const n = this.ChunkSize.value / 132;
-		for (let i = 0; i < n; i++) {
-			this.sequences.push(new Sequence(r));
-		}
-	}
-
-	/** @type {Sequence[]} */
-	sequences = [];
-
-	write() {
-		this.key.write();
-		this.ChunkSize.writeValue(this.sequences.length * 132);
-		for (const s of this.sequences) {
-			s.write();
-		}
-	}
-}
 
 export class Sequence {
 	/**  @param {Reader} reader */

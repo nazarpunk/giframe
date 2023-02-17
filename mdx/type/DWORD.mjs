@@ -1,3 +1,5 @@
+/** @module MDX */
+
 export class DWORD {
 	/** @param {Reader} reader */
 	constructor(reader) {
@@ -5,7 +7,7 @@ export class DWORD {
 		this.value = this.reader.view.getUint32(reader.byteOffset, true);
 		this.reader.byteOffset += 4;
 	}
-	
+
 	write() {
 		this.reader.outputView(4).setUint32(0, this.value, true);
 	}

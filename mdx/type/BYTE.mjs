@@ -1,3 +1,5 @@
+/** @module MDX */
+
 export class BYTE {
 	/** @param {Reader} reader */
 	constructor(reader) {

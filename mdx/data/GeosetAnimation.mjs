@@ -1,3 +1,5 @@
+/** @module MDX */
+
 //TODO chunk container
 import {StructSize} from "../type/StructSize.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
@@ -7,31 +9,7 @@ import {KEY} from "../type/KEY.mjs";
 import {Alpha} from "./Alpha.mjs";
 import {Translations} from "./Translations.mjs";
 
-export class GeosetAnimations {
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.chunkSize = new StructSize(r, {chunk: true});
-		while (r.byteOffset < this.chunkSize.end) {
-			this.list.push(new GeosetAnimation(r));
-		}
-		this.chunkSize.check();
-	}
-
-	/** @type {GeosetAnimation[]} */ list = [];
-
-	write() {
-		this.key.write();
-		this.chunkSize.save();
-		for (const e of this.list) {
-			e.write();
-		}
-		this.chunkSize.write();
-	}
-}
-
-class GeosetAnimation {
+export class GeosetAnimation {
 	/** @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});

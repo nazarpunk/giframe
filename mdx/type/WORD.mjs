@@ -1,3 +1,5 @@
+/** @module MDX */
+
 export class WORD {
 	/** @param {Reader} reader */
 	constructor(reader) {

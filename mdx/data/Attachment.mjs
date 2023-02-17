@@ -1,3 +1,5 @@
+/** @module MDX */
+
 import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {CHAR} from "../type/CHAR.mjs";
@@ -5,33 +7,7 @@ import {DWORD} from "../type/DWORD.mjs";
 import {KEY} from "../type/KEY.mjs";
 import {Alpha} from "./Alpha.mjs";
 
-export class Attachments {
-
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.chunkSize = new StructSize(r, {chunk: true});
-		while (r.byteOffset < this.chunkSize.end) {
-			this.attachments.push(new Attachment(r));
-		}
-		this.chunkSize.check();
-	}
-
-	/** @type {Attachment[]} */
-	attachments = [];
-
-	write() {
-		this.key.write();
-		this.chunkSize.save();
-		for (const a of this.attachments) {
-			a.write();
-		}
-		this.chunkSize.write();
-	}
-}
-
-class Attachment {
+export class Attachment {
 	/** @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});

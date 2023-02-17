@@ -1,3 +1,5 @@
+/** @module MDX */
+
 import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";

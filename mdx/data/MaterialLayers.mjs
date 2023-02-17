@@ -1,3 +1,5 @@
+/** @module MDX */
+
 import {DWORD} from "../type/DWORD.mjs";
 import {StructSize} from "../type/StructSize.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";

@@ -1,3 +1,4 @@
+/** @module MDX */
 export class Format {
 	/** @param {KEY} key */
 	constructor(key) {

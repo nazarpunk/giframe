@@ -1,3 +1,5 @@
+/** @module MDX */
+
 export class StructSize {
 	/** @param {Reader} reader
 	 * @param {boolean} inclusive

@@ -2,8 +2,22 @@
 
 import {StructSize} from "../type/StructSize.mjs";
 import {DWORD} from "../type/DWORD.mjs";
+import {KEY} from "../type/KEY.mjs";
 
 export class CountedList {
+	/**
+	 * @param {Reader} reader
+	 * @param {string} keyName
+	 * @param {ReadWrite.} child
+	 * @param {boolean?} chunk
+	 * @param {boolean?} count
+	 * @return {?CountedList}
+	 */
+	static fromKey(reader, keyName, child, {chunk, count}) {
+		const key = new KEY(reader, {offset: 0});
+		return key.name === keyName ? new CountedList(new KEY(reader), child, {chunk: chunk, count: count}) : null;
+	}
+
 	/**
 	 * @param {KEY} key
 	 * @param {ReadWrite.} child

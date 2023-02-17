@@ -1,8 +1,22 @@
 /** @module MDX */
 
 import {DWORD} from "../type/DWORD.mjs";
+import {KEY} from "../type/KEY.mjs";
 
 export class Interpolation {
+
+	/**
+	 * @param {Reader} reader
+	 * @param {string} keyName
+	 * @param {ReadWrite.} child
+	 * @param {number} length
+	 * @return {?Interpolation}
+	 */
+	static fromKey(reader, keyName, child, length = 1) {
+		const key = new KEY(reader, {offset: 0});
+		return key.name === keyName ? new Interpolation(new KEY(reader), child, length) : null;
+	}
+
 	/**
 	 * @param {KEY} key
 	 * @param {ReadWrite.} child

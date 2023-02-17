@@ -4,8 +4,19 @@ import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {StructSize} from "../type/StructSize.mjs";
+import {KEY} from "../type/KEY.mjs";
 
 export class Model {
+	/**
+	 * @param {Reader} reader
+	 * @param {string} keyName
+	 * @return {?Model}
+	 */
+	static fromKey(reader, keyName) {
+		const key = new KEY(reader, {offset: 0});
+		return key.name === keyName ? new Model(new KEY(reader)) : null;
+	}
+
 	/** @param {KEY} key */
 	constructor(key) {
 		const r = key.reader;

@@ -3,7 +3,6 @@
 import {DWORD} from "../type/DWORD.mjs";
 import {StructSize} from "../type/StructSize.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
-import {KEY} from "../type/KEY.mjs";
 import {Interpolation} from "../model/Interpolation.mjs";
 
 export class Layer {
@@ -16,25 +15,13 @@ export class Layer {
 		this.TextureAnimationId = new DWORD(reader);
 		this.CoordId = new DWORD(reader);
 		this.alpha = new FLOAT(reader);
-
 		if (reader.version > 800) {
 			this.emissiveGain = new FLOAT(reader);
 			this.fresnelColor = new FLOAT(reader, 3);
 			this.fresnelOpacity = new FLOAT(reader);
 			this.fresnelTeamColor = new FLOAT(reader);
 		}
-
-		while (reader.byteOffset < this.inclusiveSize.end) {
-			const key = new KEY(reader);
-			switch (key.name) {
-				case 'KMTA':
-					this.materialAlpha = new Interpolation(key, FLOAT);
-					break;
-				default:
-					throw new Error(`MaterialLayer key error: ${key.name}`);
-			}
-
-		}
+		this.materialAlpha = Interpolation.fromKey(reader, 'KMTA', FLOAT);
 		/*
 	(KMTF)
     (KMTA)
@@ -47,7 +34,6 @@ export class Layer {
         (KFTC)
     }
 		 */
-
 		this.inclusiveSize.check();
 	}
 

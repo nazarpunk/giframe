@@ -10,17 +10,8 @@ export class CollisionShape {
 		this.node = new NodeData(reader);
 		this.Type = new DWORD(reader);
 
-		let len = 0;
-		switch (this.Type.value) {
-			case 0:
-				len = 2;
-				break;
-			case 2:
-				len = 1;
-				break;
-		}
-
-		for (let i = 0; i < len; i++) {
+		const list = [2, 0, 1];
+		for (let i = 0; i < list[this.Type.value]; i++) {
 			this.positions.push(new FLOAT(reader, 3));
 		}
 

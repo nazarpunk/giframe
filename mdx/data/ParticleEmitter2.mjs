@@ -4,7 +4,6 @@ import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {DWORD} from "../type/DWORD.mjs";
-import {KEY} from "../type/KEY.mjs";
 import {Interpolation} from "../model/Interpolation.mjs";
 import {BYTE} from "../type/BYTE.mjs";
 
@@ -46,30 +45,11 @@ export class ParticleEmitter2 {
 		this.Squirt = new DWORD(reader);
 		this.PriorityPlane = new DWORD(reader);
 		this.ReplaceableId = new DWORD(reader);
-
-		while (reader.byteOffset < this.inclusiveSize.end) {
-			const key = new KEY(reader);
-			switch (key.name) {
-				case 'KP2V':
-					this.visibility = new Interpolation(key, FLOAT);
-					break;
-				case 'KP2E':
-					this.EmissionRateStruct = new Interpolation(key, FLOAT);
-					break;
-				case 'KP2W':
-					this.width = new Interpolation(key, FLOAT);
-					break;
-				case 'KP2N':
-					this.LengthStruct = new Interpolation(key, FLOAT);
-					break;
-				case 'KP2S':
-					this.SpeedStruct = new Interpolation(key, FLOAT);
-					break;
-				default:
-					throw new Error(`ParticleEmitter2 wrong key: ${key.name}`);
-			}
-		}
-
+		this.visibility = Interpolation.fromKey(reader, 'KP2V', FLOAT);
+		this.EmissionRateStruct = Interpolation.fromKey(reader, 'KP2E', FLOAT);
+		this.width = Interpolation.fromKey(reader, 'KP2W', FLOAT);
+		this.LengthStruct = Interpolation.fromKey(reader, 'KP2N', FLOAT);
+		this.SpeedStruct = Interpolation.fromKey(reader, 'KP2S', FLOAT);
 		this.inclusiveSize.check();
 	}
 

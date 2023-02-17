@@ -13,22 +13,10 @@ export class Material {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});
 		this.PriorityPlane = new DWORD(reader);
 		this.Flags = new DWORD(reader);
-
 		if (reader.version > 800) {
 			this.shader = new CHAR(reader, 80);
 		}
-
-		while (reader.byteOffset < this.inclusiveSize.end) {
-			const key = new KEY(reader);
-			switch (key.name) {
-				case 'LAYS':
-					this.layers = new CountedList(key, Layer, {count: true});
-					break;
-				default:
-					throw new Error(`Material wrong key: ${key.name}`);
-			}
-		}
-
+		this.layers = CountedList.fromKey(reader,'LAYS', Layer, {count: true});
 		this.inclusiveSize.check();
 	}
 

@@ -2,7 +2,6 @@
 
 import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
-import {KEY} from "../type/KEY.mjs";
 import {StructSize} from "../type/StructSize.mjs";
 import {Interpolation} from "../model/Interpolation.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
@@ -15,24 +14,9 @@ export class NodeData {
 		this.ObjectId = new DWORD(reader);
 		this.ParentId = new DWORD(reader);
 		this.Flags = new DWORD(reader);
-
-		while (reader.byteOffset < this.inclusiveSize.end) {
-			const key = new KEY(reader);
-			switch (key.name) {
-				case 'KGTR':
-					this.translations = new Interpolation(key, FLOAT, 3);
-					break;
-				case 'KGRT':
-					this.rotations = new Interpolation(key, FLOAT, 4);
-					break;
-				case 'KGSC':
-					this.scalings = new Interpolation(key, FLOAT, 3);
-					break;
-				default:
-					throw new Error(`NodeData key error: ${key.name}`);
-			}
-		}
-
+		this.translations = Interpolation.fromKey(reader, 'KGTR', FLOAT, 3);
+		this.rotations = Interpolation.fromKey(reader, 'KGRT', FLOAT, 4);
+		this.scalings = Interpolation.fromKey(reader, 'KGSC', FLOAT, 3);
 		this.inclusiveSize.check();
 	}
 

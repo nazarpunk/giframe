@@ -3,7 +3,6 @@
 import {StructSize} from "../type/StructSize.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {DWORD} from "../type/DWORD.mjs";
-import {KEY} from "../type/KEY.mjs";
 import {Interpolation} from "../model/Interpolation.mjs";
 
 export class GeosetAnimation {
@@ -14,20 +13,8 @@ export class GeosetAnimation {
 		this.Flags = new DWORD(reader);
 		this.Color = new FLOAT(reader, 3);
 		this.GeosetId = new DWORD(reader);
-
-		while (reader.byteOffset < this.inclusiveSize.end) {
-			const key = new KEY(reader);
-			switch (key.name) {
-				case 'KGAO':
-					this.AlphaStruct = new Interpolation(key, FLOAT);
-					break;
-				case 'KGAC':
-					this.ColorStruct = new Interpolation(key, FLOAT, 3);
-					break;
-				default:
-					throw new Error(`GeosetAnimation wrong key: ${key.name}`);
-			}
-		}
+		this.AlphaStruct = Interpolation.fromKey(reader, 'KGAO', FLOAT);
+		this.ColorStruct = Interpolation.fromKey(reader, 'KGAC', FLOAT, 3);
 	}
 
 	/**

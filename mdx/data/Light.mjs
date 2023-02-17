@@ -3,7 +3,6 @@ import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
-import {KEY} from "../type/KEY.mjs";
 import {Interpolation} from "../model/Interpolation.mjs";
 
 export class Light {
@@ -18,28 +17,11 @@ export class Light {
 		this.Intensity = new FLOAT(reader);
 		this.AmbientColor = new FLOAT(reader, 3);
 		this.AmbientIntensity = new FLOAT(reader);
-		while (reader.byteOffset < this.inclusiveSize.end) {
-			const key = new KEY(reader);
-			switch (key.name) {
-				case 'KLAV':
-					this.Visibility = new Interpolation(key, FLOAT);
-					break;
-				case 'KLAC':
-					this.colorStruct = new Interpolation(key, FLOAT, 3);
-					break;
-				case 'KLAI':
-					this.IntensityStruct = new Interpolation(key, FLOAT);
-					break;
-				case 'KLBC':
-					this.AmbientColorStruct = new Interpolation(key, FLOAT, 3);
-					break;
-				case 'KLBI':
-					this.AmbientIntensityStruct = new Interpolation(key, FLOAT);
-					break;
-				default:
-					throw new Error(`Camera wrong key: ${key.name}`);
-			}
-		}
+		this.Visibility = Interpolation.fromKey(reader, 'KLAV', FLOAT);
+		this.colorStruct = Interpolation.fromKey(reader, 'KLAC', FLOAT, 3);
+		this.IntensityStruct = Interpolation.fromKey(reader, 'KLAI', FLOAT);
+		this.AmbientColorStruct = Interpolation.fromKey(reader, 'KLBC', FLOAT, 3);
+		this.AmbientIntensityStruct = Interpolation.fromKey(reader, 'KLBI', FLOAT);
 		this.inclusiveSize.check();
 	}
 

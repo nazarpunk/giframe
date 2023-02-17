@@ -4,7 +4,6 @@ import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {DWORD} from "../type/DWORD.mjs";
-import {KEY} from "../type/KEY.mjs";
 import {Interpolation} from "../model/Interpolation.mjs";
 
 export class RibbonEmitter {
@@ -23,23 +22,9 @@ export class RibbonEmitter {
 		this.Columns = new DWORD(reader);
 		this.MaterialId = new DWORD(reader);
 		this.Gravity = new FLOAT(reader);
-
-		while (reader.byteOffset < this.inclusiveSize.end) {
-			const key = new KEY(reader);
-			switch (key.name) {
-				case 'KRVS':
-					this.Visibility = new Interpolation(key, FLOAT);
-					break;
-				case 'KRHA':
-					this.HeightAboveStruct = new Interpolation(key, FLOAT);
-					break;
-				case 'KRHB':
-					this.HeightBelowStruct = new Interpolation(key, FLOAT);
-					break;
-				default:
-					throw new Error(`RibbonEmitter wrong key: ${key.name}`);
-			}
-		}
+		this.Visibility = Interpolation.fromKey(reader, 'KRVS', FLOAT);
+		this.HeightAboveStruct = Interpolation.fromKey(reader, 'KRHA', FLOAT);
+		this.HeightBelowStruct = Interpolation.fromKey(reader, 'KRHB', FLOAT);
 		this.inclusiveSize.check();
 	}
 

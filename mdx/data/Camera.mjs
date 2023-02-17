@@ -2,7 +2,6 @@
 import {StructSize} from "../type/StructSize.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {DWORD} from "../type/DWORD.mjs";
-import {KEY} from "../type/KEY.mjs";
 import {Interpolation} from "../model/Interpolation.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 
@@ -16,22 +15,9 @@ export class Camera {
 		this.FarClippingPlane = new DWORD(reader);
 		this.NearClippingPlane = new DWORD(reader);
 		this.TargetPosition = new FLOAT(reader, 3);
-		while (reader.byteOffset < this.inclusiveSize.end) {
-			const key = new KEY(reader);
-			switch (key.name) {
-				case 'KCTR':
-					this.positionTranslation = new Interpolation(key, FLOAT, 3);
-					break;
-				case 'KTTR':
-					this.targetTranslation = new Interpolation(key, FLOAT, 3);
-					break;
-				case 'KCRL':
-					this.rotation = new Interpolation(key, FLOAT);
-					break;
-				default:
-					throw new Error(`Camera wrong key: ${key.name}`);
-			}
-		}
+		this.positionTranslation = Interpolation.fromKey(reader, 'KCTR', FLOAT, 3);
+		this.targetTranslation = Interpolation.fromKey(reader, 'KTTR', FLOAT, 3);
+		this.rotation = Interpolation.fromKey(reader, 'KCRL', FLOAT);
 		this.inclusiveSize.check();
 	}
 

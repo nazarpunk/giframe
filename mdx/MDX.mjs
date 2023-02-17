@@ -7,7 +7,6 @@ import {Sequence} from "./data/Sequence.mjs";
 import {Geoset} from "./data/Geoset.mjs";
 import {PivotPoint} from "./data/PivotPoint.mjs";
 import {Reader} from "./type/Reader.mjs";
-import {KEY} from "./type/KEY.mjs";
 import {Attachment} from "./data/Attachment.mjs";
 import {RibbonEmitter} from "./data/RibbonEmitter.mjs";
 import {EventObject} from "./data/EventObject.mjs";
@@ -34,77 +33,27 @@ export class MDX {
 
 		this.dataView = new DataView(buffer);
 
-		while (this.reader.byteOffset < this.dataView.byteLength) {
-			const key = new KEY(this.reader);
-			console.log('key', key.name);
-			switch (key.name) {
-				case 'MDLX':
-					this.format = new Format(key);
-					break;
-				case 'VERS':
-					this.version = new Version(key);
-					break;
-				case 'MODL':
-					this.model = new Model(key);
-					break;
-				case 'SEQS':
-					this.sequences = new CountedList(key, Sequence, {chunk: true});
-					break;
-				case 'GLBS':
-					this.globalSequences = new CountedList(key, DWORD, {chunk: true});
-					break;
-				case 'LITE':
-					this.lights = new CountedList(key, Light, {chunk: true});
-					break;
-				case 'MTLS':
-					this.materials = new CountedList(key, Material, {chunk: true});
-					break;
-				case 'TEXS':
-					this.textures = new CountedList(key, Texture, {chunk: true});
-					break;
-				case 'TXAN':
-					this.textureAnimations = new CountedList(key, TextureAnimation, {chunk: true});
-					break;
-				case 'GEOS':
-					this.geosets = new CountedList(key, Geoset, {chunk: true});
-					break;
-				case 'GEOA':
-					this.geosetAnimations = new CountedList(key, GeosetAnimation, {chunk: true});
-					break;
-				case 'BONE':
-					this.bones = new CountedList(key, Bone, {chunk: true});
-					break;
-				case 'HELP':
-					this.helper = new CountedList(key, NodeData, {chunk: true});
-					break;
-				case 'ATCH':
-					this.attachments = new CountedList(key, Attachment, {chunk: true});
-					break;
-				case 'PIVT':
-					this.pivotPoints = new CountedList(key, PivotPoint, {chunk: true});
-					break;
-				case 'PREM':
-					this.particleEmitters = new CountedList(key, ParticleEmitter, {chunk: true});
-					break;
-				case 'PRE2':
-					this.particleEmitters2 = new CountedList(key, ParticleEmitter2, {chunk: true});
-					break;
-				case 'CAMS':
-					this.cameras = new CountedList(key, Camera, {chunk: true});
-					break;
-				case 'RIBB':
-					this.ribbinEmitters = new CountedList(key, RibbonEmitter, {chunk: true});
-					break;
-				case 'EVTS':
-					this.eventObjects = new CountedList(key, EventObject, {chunk: true});
-					break;
-				case 'CLID':
-					this.collisionShapes = new CountedList(key, CollisionShape, {chunk: true});
-					break;
-				default:
-					throw new Error(`MDX child wrong key : ${key.name}`);
-			}
-		}
+		this.format = Format.fromKey(this.reader, 'MDLX');
+		this.version = Version.fromKey(this.reader, 'VERS');
+		this.model = Model.fromKey(this.reader, 'MODL');
+		this.sequences = CountedList.fromKey(this.reader, 'SEQS', Sequence, {chunk: true});
+		this.globalSequences = CountedList.fromKey(this.reader, 'GLBS', DWORD, {chunk: true});
+		this.lights = CountedList.fromKey(this.reader, 'LITE', Light, {chunk: true});
+		this.materials = CountedList.fromKey(this.reader, 'MTLS', Material, {chunk: true});
+		this.textures = CountedList.fromKey(this.reader, 'TEXS', Texture, {chunk: true});
+		this.textureAnimations = CountedList.fromKey(this.reader, 'TXAN', TextureAnimation, {chunk: true});
+		this.geosets = CountedList.fromKey(this.reader, 'GEOS', Geoset, {chunk: true});
+		this.geosetAnimations = CountedList.fromKey(this.reader, 'GEOA', GeosetAnimation, {chunk: true});
+		this.bones = CountedList.fromKey(this.reader, 'BONE', Bone, {chunk: true});
+		this.helper = CountedList.fromKey(this.reader, 'HELP', NodeData, {chunk: true});
+		this.attachments = CountedList.fromKey(this.reader, 'ATCH', Attachment, {chunk: true});
+		this.pivotPoints = CountedList.fromKey(this.reader, 'PIVT', PivotPoint, {chunk: true});
+		this.particleEmitters = CountedList.fromKey(this.reader, 'PREM', ParticleEmitter, {chunk: true});
+		this.particleEmitters2 = CountedList.fromKey(this.reader, 'PRE2', ParticleEmitter2, {chunk: true});
+		this.cameras = CountedList.fromKey(this.reader, 'CAMS', Camera, {chunk: true});
+		this.ribbinEmitters = CountedList.fromKey(this.reader, 'RIBB', RibbonEmitter, {chunk: true});
+		this.eventObjects = CountedList.fromKey(this.reader, 'EVTS', EventObject, {chunk: true});
+		this.collisionShapes = CountedList.fromKey(this.reader, 'CLID', CollisionShape, {chunk: true});
 
 		if (this.reader.byteOffset !== this.dataView.byteLength) {
 			throw new Error(`MDX end offset ${this.reader.byteOffset} not equal length ${this.dataView.byteLength}`);

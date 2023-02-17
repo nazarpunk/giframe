@@ -2,7 +2,10 @@ import * as fs from 'fs';
 import {MDX} from "../mdx/MDX.mjs";
 import * as cp from 'child_process';
 
-const name = 'Footman';
+//const name = 'Footman';
+//const name = 'BlackDragon';
+//const name = 'BlackDragon_Portrait';
+const name = 'DNCAshenValeTerrain';
 //const name = 'sprite';
 
 const f1 = `${name}.mdx`;

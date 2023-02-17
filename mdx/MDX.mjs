@@ -21,6 +21,9 @@ import {Material} from "./data/Material.mjs";
 import {Texture} from "./data/Texture.mjs";
 import {TextureAnimation} from "./data/TextureAnimation.mjs";
 import {ParticleEmitter2} from "./data/ParticleEmitter2.mjs";
+import {ParticleEmitter} from "./data/ParticleEmitter.mjs";
+import {Camera} from "./data/Camera.mjs";
+import {Light} from "./data/Light.mjs";
 
 export class MDX {
 	/**
@@ -50,6 +53,9 @@ export class MDX {
 				case 'GLBS':
 					this.globalSequences = new ChunkedList(key, DWORD);
 					break;
+				case 'LITE':
+					this.lights = new ChunkedList(key, Light);
+					break;
 				case 'MTLS':
 					this.materials = new ChunkedList(key, Material);
 					break;
@@ -77,8 +83,14 @@ export class MDX {
 				case 'PIVT':
 					this.pivotPoints = new ChunkedList(key, PivotPoint);
 					break;
+				case 'PREM':
+					this.particleEmitters = new ChunkedList(key, ParticleEmitter);
+					break;
 				case 'PRE2':
 					this.particleEmitters2 = new ChunkedList(key, ParticleEmitter2);
+					break;
+				case 'CAMS':
+					this.cameras = new ChunkedList(key, Camera);
 					break;
 				case 'RIBB':
 					this.ribbinEmitters = new ChunkedList(key, RibbonEmitter);
@@ -106,6 +118,7 @@ export class MDX {
 		this.model?.write();
 		this.sequences?.write();
 		this.globalSequences?.write();
+		this.lights?.write();
 		this.materials?.write();
 		this.textures?.write();
 		this.textureAnimations?.write();
@@ -115,7 +128,9 @@ export class MDX {
 		this.helper?.write();
 		this.attachments?.write();
 		this.pivotPoints?.write();
+		this.particleEmitters?.write();
 		this.particleEmitters2?.write();
+		this.cameras?.write();
 		this.ribbinEmitters?.write();
 		this.eventObjects?.write();
 		this.collisionShapes?.write();

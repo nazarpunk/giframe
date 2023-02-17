@@ -1,6 +1,5 @@
 /** @module MDX */
 
-//TODO chunk container
 import {StructSize} from "../type/StructSize.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {DWORD} from "../type/DWORD.mjs";

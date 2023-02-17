@@ -1,63 +1,6 @@
-  {GeosetAnimationChunk};
-  {LightChunk};
-  {ParticleEmitterChunk};
-  {CameraChunk};
-  {CollisionShapeChunk};
-
-//+-----------------------------------------------------------------------------
-//| Animated geoset alpha
-//+-----------------------------------------------------------------------------
-struct GeosetAlpha
-{
-  DWORD 'KGAO';
-
-  DWORD NrOfTracks;
-  DWORD InterpolationType;             //0 - None
-                                       //1 - Linear
-                                       //2 - Hermite
-                                       //3 - Bezier
-  DWORD GlobalSequenceId;
-
-  struct ScalingTrack[NrOfTracks]
-  {
-    DWORD Time;
-    FLOAT Alpha;
-
-    if(InterpolationType > 1)
-    {
-      FLOAT InTan;
-      FLOAT OutTan;
-    }
-  };
-};
-
-
-//+-----------------------------------------------------------------------------
-//| Animated geoset color
-//+-----------------------------------------------------------------------------
-struct GeosetColor
-{
-  DWORD 'KGAC';
-
-  DWORD NrOfTracks;
-  DWORD InterpolationType;             //0 - None
-                                       //1 - Linear
-                                       //2 - Hermite
-                                       //3 - Bezier
-  DWORD GlobalSequenceId;
-
-  struct ScalingTrack[NrOfTracks]
-  {
-    DWORD Time;
-    FLOAT3 Color;
-
-    if(InterpolationType > 1)
-    {
-      FLOAT3 InTan;
-      FLOAT3 OutTan;
-    }
-  };
-};
+LITE - LightChunk
+PREM - ParticleEmitterChunk
+CAMS - CameraChunk
 
 //+-----------------------------------------------------------------------------
 //| Animated camera position translation
@@ -306,30 +249,6 @@ struct ParticleEmitterVisibility
       FLOAT InTan;
       FLOAT OutTan;
     }
-  };
-};
-
-//+-----------------------------------------------------------------------------
-//| Geoset animations
-//+-----------------------------------------------------------------------------
-struct GeosetAnimationChunk
-{
-  DWORD 'GEOA';
-  DWORD ChunkSize;
-
-  struct GeosetAnimation[NrOfGeosetAnimations]
-  {
-    DWORD InclusiveSize;
-
-    FLOAT Alpha;
-    DWORD Flags;                       //#1 - DropShadow
-                                       //#2 - Color
-    FLOAT3 Color;
-
-    DWORD GeosetId;
-
-    {GeosetAlpha}
-    {GeosetColor}
   };
 };
 

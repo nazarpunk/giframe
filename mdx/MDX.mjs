@@ -17,6 +17,7 @@ import {ParticleEmitters2} from "./data/ParticleEmitters2.mjs";
 import {RibbonEmitters} from "./data/RibbonEmitters.mjs";
 import {EventObjects} from "./data/EventObjects.mjs";
 import {CollisionShapes} from "./data/CollisionShapes.mjs";
+import {GeosetAnimations} from "./data/GeosetAnimations.mjs";
 
 export class MDX {
 
@@ -58,6 +59,9 @@ export class MDX {
 					break;
 				case 'GEOS':
 					this.geosets = new Geosets(key);
+					break;
+				case 'GEOA':
+					this.geosetAnimations = new GeosetAnimations(key);
 					break;
 				case 'BONE':
 					this.bones = new Bones(key);
@@ -104,6 +108,7 @@ export class MDX {
 		this.textures?.write();
 		this.textureAnimations?.write();
 		this.geosets?.write();
+		this.geosetAnimations?.write();
 		this.bones?.write();
 		this.helper?.write();
 		this.attachments?.write();

@@ -22,14 +22,7 @@ export class Attachment {
 		}
 
 		this.inclusiveSize.check();
-
 	}
-
-	/**
-	 * First attachment - 0, second - 1 etc...
-	 * @type {DWORD}
-	 */
-	AttachmentId;
 
 	write() {
 		this.inclusiveSize.save();

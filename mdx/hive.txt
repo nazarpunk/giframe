@@ -1,3 +1,12 @@
+//-- new track types
+KMTE: float emissiveGain
+KPPS: float speed
+KPPV: float visibility
+KPPL: float lifespan
+KPPA: float alpha
+KPPE: float emissionRate
+KPPC: float[3] color
+
 // Node
 KGTR: float[3] translation
 KGRT: float[4] rotation

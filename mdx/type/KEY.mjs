@@ -17,6 +17,10 @@ export class KEY {
 		this.name = s.join('');
 		this.reader.byteOffset += offset;
 
+		if (offset > 0) {
+			console.log('key', this.name, offset);
+		}
+
 		if (name && this.name !== name) {
 			throw new Error(`KEY ${name} not equal ${this.name}`);
 		}

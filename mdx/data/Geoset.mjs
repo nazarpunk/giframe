@@ -6,13 +6,14 @@ import {FLOAT} from "../type/FLOAT.mjs";
 import {KEY} from "../type/KEY.mjs";
 import {StructSize} from "../type/StructSize.mjs";
 import {WORD} from "../type/WORD.mjs";
+import {CHAR} from "../type/CHAR.mjs";
 
 export class Geoset {
 	/** @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});
 
-		let len;
+		let len, key;
 
 		// TODO move to generic structure
 		this.vertexPositionKey = new KEY(reader, {name: 'VRTX'});
@@ -66,6 +67,12 @@ export class Geoset {
 		this.MaterialId = new DWORD(reader);
 		this.SelectionGroup = new DWORD(reader);
 		this.SelectionFlags = new DWORD(reader);
+
+		if (reader.version > 800) {
+			this.lod = new DWORD(reader);
+			this.lodName = new CHAR(reader, 80);
+		}
+
 		this.BoundsRadius = new FLOAT(reader);
 		this.MinimumExtent = new FLOAT(reader, 3);
 		this.MaximumExtent = new FLOAT(reader, 3);
@@ -73,6 +80,22 @@ export class Geoset {
 		this.extentLength = new DWORD(reader);
 		for (let i = 0; i < this.extentLength.value; i++) {
 			this.extent.push([new FLOAT(reader), new FLOAT(reader, 3), new FLOAT(reader, 3)]);
+		}
+
+		if (reader.version > 800) {
+			key = new KEY(reader, {offset: 0});
+			if (key.name === 'TANG') {
+				this.tangentsKey = new KEY(reader);
+				this.tangentsCount = new DWORD(reader);
+				this.tangents = new FLOAT(reader, this.tangentsCount.value * 4);
+			}
+
+			key = new KEY(reader, {offset: 0});
+			if (key.name === 'SKIN') {
+				this.skinKey = new KEY(reader);
+				this.skinCount = new DWORD(reader);
+				this.skin = new BYTE(reader, this.skinCount.value);
+			}
 		}
 
 		this.NrOfTextureVertexGroupsKey = new KEY(reader, {name: 'UVAS'});
@@ -89,34 +112,13 @@ export class Geoset {
 
 	/** @type {FLOAT[]} */ vertexPositions = [];
 	/** @type {FLOAT[]} */ vertexNormals = [];
-
-	/**
-	 * 4   - Triangles
-	 * ??? - Triangle fan
-	 * ??? - Triangle strip
-	 * ??? - Quads
-	 * ??? - Quad strip
-	 * @type {DWORD[]}
-	 */
-	faceTypeGroups = [];
-
+	/** @type {DWORD[]} */ faceTypeGroups = [];
 	/** @type {DWORD[]} */ faceGroups = [];
 	/** @type {WORD[]} */ face = [];
 	/** @type {BYTE[]} */ vertexGroups = [];
 	/** @type {DWORD[]} */ matrixGroup = [];
 	/** @type {DWORD[]} */ matrixIndex = [];
-
-	/**
-	 * 0  - None
-	 * 1 - ???
-	 * 2 - ???
-	 * 4 - Unselectable
-	 * @type {DWORD}
-	 */
-	SelectionFlags;
 	/** @type {[FLOAT,FLOAT,FLOAT][]} */ extent = [];
-
-
 	/** @type {FLOAT[]} */ vertexTexturePosition = [];
 
 	write() {
@@ -147,6 +149,10 @@ export class Geoset {
 		this.MaterialId.write();
 		this.SelectionGroup.write();
 		this.SelectionFlags.write();
+
+		this.lod.write();
+		this.lodName.write();
+
 		this.BoundsRadius.write();
 		this.MinimumExtent.write();
 		this.MaximumExtent.write();
@@ -157,6 +163,13 @@ export class Geoset {
 				e.write();
 			}
 		}
+		this.tangentsKey?.write();
+		this.tangentsCount?.write();
+		this.tangents?.write();
+
+		this.skinKey?.write();
+		this.skinCount?.write();
+		this.skin?.write();
 
 		this.NrOfTextureVertexGroupsKey.write();
 		this.NrOfTextureVertexGroups.write();

@@ -17,13 +17,6 @@ export class GeosetAnimation {
 		this.ColorStruct = Interpolation.fromKey(reader, 'KGAC', FLOAT, 3);
 	}
 
-	/**
-	 * 1 - DropShadow
-	 * 2 - Color
-	 * @type {DWORD}
-	 */
-	Flags;
-
 	write() {
 		this.inclusiveSize.save();
 		this.Alpha.write();

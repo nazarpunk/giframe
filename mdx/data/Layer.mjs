@@ -9,9 +9,9 @@ export class Layer {
 	/** @param {Reader} reader */
 	constructor(reader) {
 		this.inclusiveSize = new StructSize(reader, {inclusive: true});
-		this.FilterMode = new DWORD(reader);
-		this.ShadingFlags = new DWORD(reader);
-		this.TextureId = new DWORD(reader);
+		this.filterMode = new DWORD(reader);
+		this.shadingFlags = new DWORD(reader);
+		this.textureId = new DWORD(reader);
 		this.TextureAnimationId = new DWORD(reader);
 		this.CoordId = new DWORD(reader);
 		this.alpha = new FLOAT(reader);
@@ -21,52 +21,24 @@ export class Layer {
 			this.fresnelOpacity = new FLOAT(reader);
 			this.fresnelTeamColor = new FLOAT(reader);
 		}
+		this.MaterialTextureId = Interpolation.fromKey(reader, 'KMTF', DWORD);
 		this.materialAlpha = Interpolation.fromKey(reader, 'KMTA', FLOAT);
-		/*
-	(KMTF)
-    (KMTA)
-    if (version > 800) {
-        (KMTE)
-    }
-    if (version > 900) {
-        (KFC3)
-        (KFCA)
-        (KFTC)
-    }
-		 */
+		if (reader.version > 800) {
+			this.emissiveGainTrack = Interpolation.fromKey(reader, 'KMTE', FLOAT);
+		}
+		if (reader.version > 900) {
+			this.fresnelColorTrack = Interpolation.fromKey(reader, 'KFC3', FLOAT, 3);
+			this.fresnelAlphaTrack = Interpolation.fromKey(reader, 'KFCA', FLOAT);
+			this.fresnelTeamColorTrack = Interpolation.fromKey(reader, 'KFTC', FLOAT);
+		}
 		this.inclusiveSize.check();
 	}
 
-	/**
-	 * 0 - None
-	 * 1 - Transparent
-	 * 2 - Blend
-	 * 3 - Additive
-	 * 4 - AddAlpha
-	 * 5 - Modulate
-	 * 6 - Modulate2x
-	 * @type {DWORD}
-	 */
-	FilterMode;
-
-	/**
-	 * 1   - Unshaded
-	 * 2   - SphereEnvironmentMap
-	 * 4   - ???
-	 * 8   - ???
-	 * 16  - TwoSided
-	 * 32  - Unfogged
-	 * 64  - NoDepthTest
-	 * 128 - NoDepthSet
-	 * @type {DWORD}
-	 */
-	ShadingFlags;
-
 	write() {
 		this.inclusiveSize.save();
-		this.FilterMode.write();
-		this.ShadingFlags.write();
-		this.TextureId.write();
+		this.filterMode.write();
+		this.shadingFlags.write();
+		this.textureId.write();
 		this.TextureAnimationId.write();
 		this.CoordId.write();
 		this.alpha.write();
@@ -74,7 +46,12 @@ export class Layer {
 		this.fresnelColor?.write();
 		this.fresnelOpacity?.write();
 		this.fresnelTeamColor?.write();
+		this.MaterialTextureId?.write();
 		this.materialAlpha?.write();
+		this.emissiveGainTrack?.write();
+		this.fresnelColorTrack?.write();
+		this.fresnelAlphaTrack?.write();
+		this.fresnelTeamColorTrack?.write();
 		this.inclusiveSize.write();
 	}
 }

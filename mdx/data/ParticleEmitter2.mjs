@@ -45,37 +45,19 @@ export class ParticleEmitter2 {
 		this.Squirt = new DWORD(reader);
 		this.PriorityPlane = new DWORD(reader);
 		this.ReplaceableId = new DWORD(reader);
-		this.visibility = Interpolation.fromKey(reader, 'KP2V', FLOAT);
-		this.EmissionRateStruct = Interpolation.fromKey(reader, 'KP2E', FLOAT);
-		this.width = Interpolation.fromKey(reader, 'KP2W', FLOAT);
-		this.LengthStruct = Interpolation.fromKey(reader, 'KP2N', FLOAT);
-		this.SpeedStruct = Interpolation.fromKey(reader, 'KP2S', FLOAT);
+
+		while (reader.byteOffset < this.inclusiveSize.end) {
+			this.speedTrack ??= Interpolation.fromKey(reader, 'KP2S', FLOAT);
+			this.variationTrack ??= Interpolation.fromKey(reader, 'KP2R', FLOAT);
+			this.latitudeTrack ??= Interpolation.fromKey(reader, 'KP2L', FLOAT);
+			this.gravityTrack ??= Interpolation.fromKey(reader, 'KP2G', FLOAT);
+			this.emissionRateTrack ??= Interpolation.fromKey(reader, 'KP2E', FLOAT);
+			this.lengthTrack ??= Interpolation.fromKey(reader, 'KP2N', FLOAT);
+			this.widthTrack ??= Interpolation.fromKey(reader, 'KP2W', FLOAT);
+			this.visibilityTrack ??= Interpolation.fromKey(reader, 'KP2V', FLOAT);
+		}
 		this.inclusiveSize.check();
 	}
-
-	/**
-	 * 0 - Blend
-	 * 1 - Additive
-	 * 2 - Modulate
-	 * 3 - Modulate2x
-	 * 4 - AlphaKey
-	 * @type {DWORD}
-	 */
-	FilterMode;
-
-	/**
-	 * 0 - Head
-	 * 1 - Tail
-	 * 2 - Both
-	 * @type {DWORD}
-	 */
-	HeadOrTail;
-
-	/**
-	 * 0 - No Squirt
-	 * 1 - Squirt
-	 */
-	Squirt;
 
 	write() {
 		this.inclusiveSize.save();
@@ -113,11 +95,14 @@ export class ParticleEmitter2 {
 		this.Squirt.write();
 		this.PriorityPlane.write();
 		this.ReplaceableId.write();
-		this.visibility?.write();
-		this.EmissionRateStruct?.write();
-		this.width?.write();
-		this.LengthStruct?.write();
-		this.SpeedStruct?.write();
+		this.speedTrack?.write();
+		this.variationTrack?.write();
+		this.latitudeTrack?.write();
+		this.gravityTrack?.write();
+		this.emissionRateTrack?.write();
+		this.lengthTrack?.write();
+		this.widthTrack?.write();
+		this.visibilityTrack?.write();
 		this.inclusiveSize.write();
 	}
 }

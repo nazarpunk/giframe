@@ -11,13 +11,6 @@ export class Texture {
 		this.Flags = new DWORD(reader);
 	}
 
-	/**
-	 * 1 - WrapWidth
-	 * 2 - WrapHeight
-	 * @type {DWORD}
-	 */
-	Flags;
-
 	write() {
 		this.ReplaceableId.write();
 		this.FileName.write();

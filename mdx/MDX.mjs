@@ -34,6 +34,7 @@ export class MDX {
 		this.dataView = new DataView(buffer);
 
 		this.format = Format.fromKey(this.reader, 'MDLX');
+
 		this.version = Version.fromKey(this.reader, 'VERS');
 		this.model = Model.fromKey(this.reader, 'MODL');
 		this.sequences = CountedList.fromKey(this.reader, 'SEQS', Sequence, {chunk: true});
@@ -63,6 +64,7 @@ export class MDX {
 	/** @return {ArrayBuffer} */
 	write() {
 		this.format?.write();
+
 		this.version?.write();
 		this.model?.write();
 		this.sequences?.write();

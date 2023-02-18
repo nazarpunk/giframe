@@ -35,15 +35,6 @@ export class Interpolation {
 		}
 	}
 
-	/**
-	 * 0 - None
-	 * 1 - Linear
-	 * 2 - Hermite
-	 * 3 - Bezier
-	 * @type {DWORD}
-	 */
-	type;
-
 	/** @type InterpolationTrack[] */ traks = [];
 
 	write() {

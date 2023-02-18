@@ -25,14 +25,6 @@ export class Light {
 		this.inclusiveSize.check();
 	}
 
-	/**
-	 * 0 - Omnidirectional
-	 * 1 - Directional
-	 * 2 - Ambient
-	 * @type {DWORD}
-	 */
-	Type;
-
 	write() {
 		this.inclusiveSize.save();
 		this.node.write();

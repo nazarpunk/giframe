@@ -1,23 +1,28 @@
-import {KEY} from "../type/KEY.mjs";
-
 /** @module MDX */
+import {Parser} from "../parser/Parser.mjs";
+import {Key} from "../type/KEY.mjs";
+
 export class Format {
 	/**
-	 * @param {Reader} reader
-	 * @param {string} keyName
-	 * @return {?Format}
+	 * @constant
+	 * @type {number}
 	 */
-	static fromKey(reader, keyName) {
-		const key = new KEY(reader, {offset: 0});
-		return key.name === keyName ? new Format(new KEY(reader)) : null;
-	}
+	static key = 0x584c444d; // MDLX
 
-	/** @param {KEY} key */
-	constructor(key) {
-		this.key = key;
+	/** @type {Reader} reader */
+	reader;
+
+	read() {
+		this.parser = new Parser(this.reader);
+		this.key = this.parser.add(new Key(Format.key));
+		this.parser.read();
 	}
 
 	write() {
-		this.key.write();
+		this.parser.write();
+	}
+
+	toJSON() {
+		return this.key.toJSON()
 	}
 }

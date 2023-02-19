@@ -1,44 +1,40 @@
 /** @module MDX */
 
-import {DWORD} from "../type/DWORD.mjs";
-import {CHAR} from "../type/CHAR.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
-import {StructSize} from "../type/StructSize.mjs";
-import {KEY} from "../type/KEY.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {Key} from "../type/KEY.mjs";
+import {ChunkSize} from "../parser/ChunkSize.mjs";
+import {Char} from "../parser/Char.mjs";
 
 export class Model {
-	/**
-	 * @param {Reader} reader
-	 * @param {string} keyName
-	 * @return {?Model}
-	 */
-	static fromKey(reader, keyName) {
-		const key = new KEY(reader, {offset: 0});
-		return key.name === keyName ? new Model(new KEY(reader)) : null;
+	static key = 0x4c444f4d; // MODL
+
+	/** @param {Reader} reader */
+	constructor(reader) {
+		this.reader = reader;
 	}
 
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.chunkSize = new StructSize(r, {chunk: true});
-		this.Name = new CHAR(r, 80);
-		this.AnimationFileName = new CHAR(r, 260);
-		this.BoundsRadius = new FLOAT(r);
-		this.MinimumExtent = new FLOAT(r, 3);
-		this.MaximumExtent = new FLOAT(r, 3);
-		this.BlendTime = new DWORD(r);
+	read() {
+		this.parser = new Parser(this.reader);
+		this.key = this.parser.add(new Key(Model.key));
+		this.chunkSize = this.parser.add(ChunkSize);
+		this.name = this.parser.add(new Char(80));
+		this.animationFileName = this.parser.add(new Char(260));
+		//this.BoundsRadius = new FLOAT(r);
+		//this.MinimumExtent = new FLOAT(r, 3);
+		//this.MaximumExtent = new FLOAT(r, 3);
+		//this.BlendTime = new DWORD(r);
+		this.parser.read();
 	}
 
 	write() {
-		this.key.write();
-		this.chunkSize.save();
-		this.Name.write();
-		this.AnimationFileName.write();
-		this.BoundsRadius.write();
-		this.MinimumExtent.write();
-		this.MaximumExtent.write();
-		this.BlendTime.write();
-		this.chunkSize.write();
+		this.parser.write();
+	}
+
+	toJSON() {
+		return {
+			key: this.key,
+			chunkSize: this.chunkSize,
+			name: this.name,
+		}
 	}
 }

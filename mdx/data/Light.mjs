@@ -3,7 +3,7 @@ import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
-import {Interpolation} from "../model/Interpolation.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class Light {
 	/** @param {Reader} reader */

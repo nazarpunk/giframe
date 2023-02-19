@@ -5,7 +5,7 @@ import {NodeData} from "./NodeData.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {Interpolation} from "../model/Interpolation.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 
 export class Attachment {

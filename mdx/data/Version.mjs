@@ -1,35 +1,30 @@
 /** @module MDX */
-
-import {DWORD} from "../type/DWORD.mjs";
-import {StructSize} from "../type/StructSize.mjs";
-import {KEY} from "../type/KEY.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {Key} from "../type/KEY.mjs";
+import {ChunkSize} from "../parser/ChunkSize.mjs";
+import {Uint32} from "../parser/Uint32.mjs";
 
 export class Version {
-	/**
-	 * @param {Reader} reader
-	 * @param {string} keyName
-	 * @return {?Version}
-	 */
-	static fromKey(reader, keyName) {
-		const key = new KEY(reader, {offset: 0});
-		return key.name === keyName ? new Version(new KEY(reader)) : null;
+	static key = 0x53524556; // VERS
+
+	/** @param {Reader} reader */
+	constructor(reader) {
+		this.reader = reader;
 	}
 
-	/** @param {KEY} key */
-	constructor(key) {
-		const r = key.reader;
-		this.key = key;
-		this.chunkSize = new StructSize(r, {chunk: true});
-		this.version = new DWORD(r);
-		r.version = this.version.value;
-		console.log('version', r.version);
-		this.chunkSize.check();
+	read() {
+		this.parser = new Parser(this.reader);
+		this.key = this.parser.add(new Key(Version.key));
+		this.chunkSize = this.parser.add(ChunkSize);
+		this.version = this.parser.add(Uint32);
+		this.parser.read();
 	}
 
-	write() {
-		this.key.write();
-		this.chunkSize.save();
-		this.version.write();
-		this.chunkSize.write();
+	toJSON() {
+		return {
+			key: this.key,
+			chunkSize: this.chunkSize,
+			version: this.version,
+		}
 	}
 }

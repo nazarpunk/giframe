@@ -3,7 +3,7 @@
 import {DWORD} from "../type/DWORD.mjs";
 import {StructSize} from "../type/StructSize.mjs";
 import {CHAR} from "../type/CHAR.mjs";
-import {CountedList} from "../model/CountedList.js";
+import {CountedList} from "../parser/CountedList.js";
 import {Layer} from "./Layer.mjs";
 
 export class Material {

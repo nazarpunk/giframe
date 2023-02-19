@@ -26,6 +26,7 @@ try {
 } catch (e) {
 	console.log(e);
 }
+
 if (bb) {
 	const f2 = `${name}_test.mdx`;
 	fs.writeFileSync(f2, '', {flag: 'w+'});

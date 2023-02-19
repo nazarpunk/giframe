@@ -4,7 +4,7 @@ import {StructSize} from "../type/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {CHAR} from "../type/CHAR.mjs";
-import {Interpolation} from "../model/Interpolation.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class ParticleEmitter {
 	/** @param {Reader} reader */

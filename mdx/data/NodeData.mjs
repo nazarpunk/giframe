@@ -3,7 +3,7 @@
 import {DWORD} from "../type/DWORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {StructSize} from "../type/StructSize.mjs";
-import {Interpolation} from "../model/Interpolation.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 
 export class NodeData {

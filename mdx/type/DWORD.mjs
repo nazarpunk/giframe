@@ -29,3 +29,4 @@ export class DWORD {
 		this.write();
 	}
 }
+

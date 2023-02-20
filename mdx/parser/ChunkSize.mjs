@@ -7,7 +7,7 @@ export class ChunkSize {
 	value;
 
 	read() {
-		this.reader.moveUint32();
+		this.reader.next32();
 	}
 
 	/** @param {number} value */

@@ -10,9 +10,11 @@ export class Reader {
 		this.version = 800;
 	}
 
-	/**
-	 * @return number
-	 */
+	getFloat32() {
+		return this.view.getFloat32(this.byteOffset, true);
+	}
+
+	/** @return number */
 	getUint32() {
 		return this.view.getUint32(this.byteOffset, true);
 	}
@@ -26,7 +28,7 @@ export class Reader {
 		new DataView(this.output, offset, 4).setUint32(0, value, true);
 	}
 
-	moveUint32() {
+	next32() {
 		this.byteOffset += 4;
 	}
 

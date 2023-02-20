@@ -1,14 +1,14 @@
 /** @module MDX */
-export class Uint32 {
+export class Float32 {
 	/** @type {Reader} */ reader;
 
 	read() {
-		this.value = this.reader.getUint32();
+		this.value = this.reader.getFloat32();
 		this.reader.next32();
 	}
 
 	write() {
-		this.reader.outputView(4).setUint32(0, this.value, true);
+		this.reader.outputView(4).setFloat32(0, this.value, true);
 	}
 
 	toJSON() {

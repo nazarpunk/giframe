@@ -1,6 +1,7 @@
 /** @module MDX */
 import {ChunkSize} from "./ChunkSize.mjs";
 import {hex2s} from "../type/hex.mjs";
+import {Reader} from "./Reader.mjs";
 
 export class Parser {
 	/**
@@ -29,14 +30,14 @@ export class Parser {
 		const map = new Map();
 		for (const p of this._input) {
 			// noinspection JSUnresolvedVariable
-			const key = p.constructor.key;
+			const key = p.constructor.id || p.id;
 			if (key) {
 				map.set(key, p);
 			}
 		}
 
 		/** @type {ChunkSize} */ let chunk;
-		let chunkOffset = 0;
+		let chunkOffset = 0, chunkValue = 0;
 
 		while (this._input.length > 0) {
 			const o = this.reader.byteOffset;
@@ -44,11 +45,12 @@ export class Parser {
 
 			if (p instanceof ChunkSize) {
 				chunk = p;
+				chunkValue = this.reader.getUint32();
 				chunkOffset = this.reader.byteOffset;
 			}
 
 			// noinspection JSUnresolvedVariable
-			const ckey = p.constructor.key;
+			const ckey = p.constructor.id || p.id;
 			if (ckey) {
 				const key = this.reader.getUint32();
 				if (ckey !== key) {
@@ -71,8 +73,8 @@ export class Parser {
 		}
 
 		if (chunk) {
-			const value = this.reader.byteOffset - chunkOffset - 8;
-			if (value !== 0) {
+			const value = this.reader.byteOffset - chunkOffset - 4;
+			if (value !== chunkValue) {
 				console.error(`ChunkSize is wrong: ${value}`);
 			}
 		}

@@ -24,6 +24,7 @@ import {ParticleEmitter} from "./data/ParticleEmitter.mjs";
 import {Camera} from "./data/Camera.mjs";
 import {Light} from "./data/Light.mjs";
 import {Parser} from "./parser/Parser.mjs";
+import {ChunkedList} from "./parser/ChunkedList.mjs";
 
 export class MDX {
 	/**
@@ -36,12 +37,12 @@ export class MDX {
 		this.parser = new Parser(this.reader);
 		this.version = this.parser.add(Version);
 		this.format = this.parser.add(Format);
+		this.sequences = this.parser.add(new ChunkedList(0x53514553/*SEQS*/, Sequence));
 		this.model = this.parser.add(Model);
 
 		this.parser.read();
 
 		if (0) {
-			this.sequences = CountedList.fromKey(this.reader, 'SEQS', Sequence, {chunk: true});
 			this.globalSequences = CountedList.fromKey(this.reader, 'GLBS', DWORD, {chunk: true});
 			this.lights = CountedList.fromKey(this.reader, 'LITE', Light, {chunk: true});
 			this.materials = CountedList.fromKey(this.reader, 'MTLS', Material, {chunk: true});
@@ -71,38 +72,17 @@ export class MDX {
 	write() {
 		this.parser.write();
 
-		console.log(JSON.stringify(this, null, 4));
+		//console.log(JSON.stringify(this, null, 4));
 
-		if (0) {
-			this.version?.write();
-			this.model?.write();
-			this.sequences?.write();
-			this.globalSequences?.write();
-			this.lights?.write();
-			this.materials?.write();
-			this.textures?.write();
-			this.textureAnimations?.write();
-			this.geosets?.write();
-			this.geosetAnimations?.write();
-			this.bones?.write();
-			this.helper?.write();
-			this.attachments?.write();
-			this.pivotPoints?.write();
-			this.particleEmitters?.write();
-			this.particleEmitters2?.write();
-			this.cameras?.write();
-			this.ribbinEmitters?.write();
-			this.eventObjects?.write();
-			this.collisionShapes?.write();
-		}
 		return this.reader.output;
 	}
 
 	toJSON() {
 		return {
-			model: this.model,
 			format: this.format,
 			version: this.version,
+			model: this.model,
+			sequences: this.sequences,
 		}
 	}
 }

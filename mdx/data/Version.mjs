@@ -5,16 +5,13 @@ import {ChunkSize} from "../parser/ChunkSize.mjs";
 import {Uint32} from "../parser/Uint32.mjs";
 
 export class Version {
-	static key = 0x53524556; // VERS
+	static id = 0x53524556; // VERS
 
-	/** @param {Reader} reader */
-	constructor(reader) {
-		this.reader = reader;
-	}
+	/** @type {Reader} */ reader;
 
 	read() {
 		this.parser = new Parser(this.reader);
-		this.key = this.parser.add(new Key(Version.key));
+		this.key = this.parser.add(new Key(Version.id));
 		this.chunkSize = this.parser.add(ChunkSize);
 		this.version = this.parser.add(Uint32);
 		this.parser.read();

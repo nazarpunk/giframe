@@ -24,6 +24,10 @@ export class Reader {
 		this.outputView(4).setUint32(0, value, true);
 	}
 
+	/**
+	 * @param {number} value
+	 * @param {number} offset
+	 */
 	updateUint32(value, offset) {
 		new DataView(this.output, offset, 4).setUint32(0, value, true);
 	}

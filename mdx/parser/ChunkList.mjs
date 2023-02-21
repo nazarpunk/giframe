@@ -1,10 +1,8 @@
-import {Uint32} from "./Uint32.mjs";
+/** @module MDX */
+import {Uint32} from "./Uint.mjs";
 import {Parser} from "./Parser.mjs";
 import {Key} from "./Key.mjs";
-import {hex2s} from "../type/hex.mjs";
-import {Interpolation} from "./Interpolation.mjs";
 
-/** @module MDX */
 export class ChunkList {
 	/**
 	 * @param {number} id
@@ -21,23 +19,22 @@ export class ChunkList {
 	items = [];
 
 	read() {
-		console.log('chunk ', hex2s(this.id));
-
 		const p = new Parser(this.reader);
 		this.key = p.add(new Key(this.id));
 		this.size = p.add(Uint32);
 		p.read();
+
 		this.byteEnd = this.reader.byteOffset + this.size.value;
 
 		while (this.reader.byteOffset < this.byteEnd) {
 			const o = this.reader.byteOffset;
-			const c = new this.child(this.reader);
+			const p = new this.child(this.reader);
 
-			this.items.push(c);
-			c.reader = this.reader;
-			c.read();
+			this.items.push(p);
+			p.reader = this.reader;
+			p.read();
 			if (o === this.reader.byteOffset) {
-				console.error('ChunkedList infinity read!');
+				console.error('ChunkList infinity read!');
 				break;
 			}
 		}
@@ -65,6 +62,7 @@ export class ChunkList {
 	toJSON() {
 		return {
 			key: this.key,
+			size: this.size,
 			items: this.items,
 		}
 	};

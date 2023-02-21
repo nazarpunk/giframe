@@ -2,7 +2,7 @@
 
 import {Parser} from "../parser/Parser.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
-import {Uint32} from "../parser/Uint32.mjs";
+import {Uint32} from "../parser/Uint.mjs";
 import {Float32} from "../parser/Float32.mjs";
 import {Float32List} from "../parser/Float32List.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
@@ -21,19 +21,16 @@ export class Layer {
 		this.coordId = this.parser.add(Uint32);
 		this.alpha = this.parser.add(Float32);
 
-
 		if (this.reader.version > 800) {
 			this.emissiveGain = this.parser.add(Float32);
 			this.fresnelColor = this.parser.add(new Float32List(3));
 			this.fresnelOpacity = this.parser.add(Float32);
 			this.fresnelTeamColor = this.parser.add(Float32);
+			this.emissiveGainTrack = this.parser.add(new Interpolation(0x45544d4b/*KMTE*/, Float32));
 		}
 
 		this.textureIdTrack = this.parser.add(new Interpolation(0x46544d4b/*KMTF*/, Uint32));
 		this.alphaTrack = this.parser.add(new Interpolation(0x41544d4b/*KMTA*/, Float32));
-		if (this.reader.version > 800) {
-			this.emissiveGainTrack = this.parser.add(new Interpolation(0x45544d4b/*KMTE*/, Float32));
-		}
 
 		if (this.reader.version > 900) {
 			this.fresnelColorTrack = this.parser.add(new Interpolation(0x3343464b/*KFC3*/, Float32));
@@ -42,8 +39,6 @@ export class Layer {
 		}
 
 		this.parser.read();
-
-		//console.log(JSON.stringify(this, null, 4));
 	}
 
 	toJSON() {

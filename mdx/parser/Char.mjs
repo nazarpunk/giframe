@@ -6,6 +6,10 @@ export class Char {
 		this.length = length;
 	}
 
+	copy() {
+		return new Char(this.length);
+	}
+
 	/** @type {Reader} */ reader;
 
 	value = '';

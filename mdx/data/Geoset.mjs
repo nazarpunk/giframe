@@ -1,181 +1,119 @@
 /** @module MDX */
 
-import {DWORD} from "../type/DWORD.mjs";
-import {BYTE} from "../type/BYTE.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
-import {KEY} from "../type/KEY.mjs";
-import {StructSizeOld} from "../type/StructSizeOld.mjs";
-import {WORD} from "../type/WORD.mjs";
-import {CHAR} from "../type/CHAR.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {CountList} from "../parser/CountList.mjs";
+import {Float32List} from "../parser/Float32List.mjs";
+import {Uint16, Uint32, Uint8} from "../parser/Uint.mjs";
+import {Char} from "../parser/Char.mjs";
+import {Extent} from "./Extent.mjs";
 
 export class Geoset {
-	/** @param {Reader} reader */
-	constructor(reader) {
-		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
+	/** @type {Reader} */ reader;
 
-		let len, key;
+	read() {
+		this.parser = new Parser(this.reader);
 
-		// TODO move to generic structure
-		this.vertexPositionKey = new KEY(reader, {name: 'VRTX'});
-		len = new DWORD(reader).value;
-		for (let i = 0; i < len; i++) {
-			this.vertexPositions.push(new FLOAT(reader, 3));
+		this.inclusiveSize = this.parser.add(InclusiveSize);
+		this.vertexPositions = this.parser.add(new CountList(0x58545256/*VRTX*/, new Float32List(3)));
+		this.vertexNormals = this.parser.add(new CountList(0x534d524e/*NRMS*/, new Float32List(3)));
+		this.faceTypeGroups = this.parser.add(new CountList(0x50595450/*PTYP*/, Uint32));
+		this.faceGroups = this.parser.add(new CountList(0x544e4350/*PCNT*/, Uint32));
+		this.faces = this.parser.add(new CountList(0x58545650/*PVTX*/, Uint16));
+		this.vertexGroups = this.parser.add(new CountList(0x58444e47/*GNDX*/, Uint8));
+		this.matrixGroups = this.parser.add(new CountList(0x4347544d/*MTGC*/, Uint32));
+		this.matrixIndices = this.parser.add(new CountList(0x5354414d/*MATS*/, Uint32));
+		this.materialId = this.parser.add(Uint32);
+		this.selectionGroup = this.parser.add(Uint32);
+		this.selectionFlags = this.parser.add(Uint32);
+		if (this.reader.version > 800) {
+			this.lod = this.parser.add(Uint32);
+			this.lodName = this.parser.add(new Char(80));
 		}
-
-		this.vertexNormalsKey = new KEY(reader, {name: 'NRMS'});
-		len = new DWORD(reader).value;
-		for (let i = 0; i < len; i++) {
-			this.vertexNormals.push(new FLOAT(reader, 3));
+		this.parser.add(Extent);
+		this.sequenceExtents = this.parser.add(new CountList(null, Extent));
+		if (this.reader.version > 800) {
+			this.tangents = this.parser.add(new CountList(0x474e4154/*TANG*/, new Float32List(4)));
+			this.skins = this.parser.add(new CountList(0x4e494b53/*SKIN*/, Uint8));
 		}
+		this.textureCoordinateSets = this.parser.add(new CountList(0x53415655/*UVAS*/, new CountList(0x53425655/*UVBS*/, new Float32List(2))));
 
-		this.faceTypeGroupsKey = new KEY(reader, {name: 'PTYP'});
-		len = new DWORD(reader).value;
-		for (let i = 0; i < len; i++) {
-			this.faceTypeGroups.push(new DWORD(reader));
-		}
-
-		this.faceGroupsKey = new KEY(reader, {name: 'PCNT'});
-		len = new DWORD(reader).value;
-		for (let i = 0; i < len; i++) {
-			this.faceGroups.push(new DWORD(reader));
-		}
-
-		this.faceKey = new KEY(reader, {name: 'PVTX'});
-		len = new DWORD(reader).value / 3;
-		for (let i = 0; i < len; i++) {
-			this.face.push(new WORD(reader, 3));
-		}
-
-		this.vertexGroupsKey = new KEY(reader, {name: 'GNDX'});
-		len = new DWORD(reader).value;
-		for (let i = 0; i < len; i++) {
-			this.vertexGroups.push(new BYTE(reader));
-		}
-
-		this.matrixGroupKey = new KEY(reader, {name: 'MTGC'});
-		len = new DWORD(reader).value;
-		for (let i = 0; i < len; i++) {
-			this.matrixGroup.push(new DWORD(reader));
-		}
-
-		this.matrixIndexKey = new KEY(reader, {name: 'MATS'});
-		len = new DWORD(reader).value;
-		for (let i = 0; i < len; i++) {
-			this.matrixIndex.push(new DWORD(reader));
-		}
-
-		this.MaterialId = new DWORD(reader);
-		this.SelectionGroup = new DWORD(reader);
-		this.SelectionFlags = new DWORD(reader);
-
-		if (reader.version > 800) {
-			this.lod = new DWORD(reader);
-			this.lodName = new CHAR(reader, 80);
-		}
-
-		this.BoundsRadius = new FLOAT(reader);
-		this.MinimumExtent = new FLOAT(reader, 3);
-		this.MaximumExtent = new FLOAT(reader, 3);
-
-		this.extentLength = new DWORD(reader);
-		for (let i = 0; i < this.extentLength.value; i++) {
-			this.extent.push([new FLOAT(reader), new FLOAT(reader, 3), new FLOAT(reader, 3)]);
-		}
-
-		if (reader.version > 800) {
-			key = new KEY(reader, {offset: 0});
-			if (key.name === 'TANG') {
-				this.tangentsKey = new KEY(reader);
-				this.tangentsCount = new DWORD(reader);
-				this.tangents = new FLOAT(reader, this.tangentsCount.value * 4);
-			}
-
-			key = new KEY(reader, {offset: 0});
-			if (key.name === 'SKIN') {
-				this.skinKey = new KEY(reader);
-				this.skinCount = new DWORD(reader);
-				this.skin = new BYTE(reader, this.skinCount.value);
-			}
-		}
-
-		this.NrOfTextureVertexGroupsKey = new KEY(reader, {name: 'UVAS'});
-		this.NrOfTextureVertexGroups = new DWORD(reader);
-
-		this.vertexTexturePositionKey = new KEY(reader, {name: 'UVBS'});
-		len = new DWORD(reader).value;
-		for (let i = 0; i < len; i++) {
-			this.vertexTexturePosition.push(new FLOAT(reader, 2));
-		}
-
-		this.inclusiveSize.check();
+		//this.parser.add(Stop);
+		this.parser.read();
 	}
 
-	/** @type {FLOAT[]} */ vertexPositions = [];
-	/** @type {FLOAT[]} */ vertexNormals = [];
-	/** @type {DWORD[]} */ faceTypeGroups = [];
-	/** @type {DWORD[]} */ faceGroups = [];
-	/** @type {WORD[]} */ face = [];
-	/** @type {BYTE[]} */ vertexGroups = [];
-	/** @type {DWORD[]} */ matrixGroup = [];
-	/** @type {DWORD[]} */ matrixIndex = [];
-	/** @type {[FLOAT,FLOAT,FLOAT][]} */ extent = [];
-	/** @type {FLOAT[]} */ vertexTexturePosition = [];
-
-	write() {
-		this.inclusiveSize.save();
-
-		/**
-		 * @param {KEY} key
-		 * @param {*[]} list
-		 * @param multiply
-		 */
-		const simpleList = (key, list, multiply = 1) => {
-			key.write();
-			key.writeInt(list.length * multiply);
-			for (const v of list) {
-				v.write();
-			}
-		};
-
-		simpleList(this.vertexPositionKey, this.vertexPositions);
-		simpleList(this.vertexNormalsKey, this.vertexNormals);
-		simpleList(this.faceTypeGroupsKey, this.faceTypeGroups);
-		simpleList(this.faceGroupsKey, this.faceGroups);
-		simpleList(this.faceKey, this.face, 3);
-		simpleList(this.vertexGroupsKey, this.vertexGroups);
-		simpleList(this.matrixGroupKey, this.matrixGroup);
-		simpleList(this.matrixIndexKey, this.matrixIndex);
-
-		this.MaterialId.write();
-		this.SelectionGroup.write();
-		this.SelectionFlags.write();
-
-		this.lod.write();
-		this.lodName.write();
-
-		this.BoundsRadius.write();
-		this.MinimumExtent.write();
-		this.MaximumExtent.write();
-
-		this.extentLength.writeValue(this.extent.length);
-		for (const list of this.extent) {
-			for (const e of list) {
-				e.write();
-			}
+	toJSON() {
+		return {
+			inclusiveSize: this.inclusiveSize,
+			vertexPositions: this.vertexPositions,
+			vertexNormals: this.vertexNormals,
+			faceTypeGroups: this.faceTypeGroups,
+			faceGroups: this.faceGroups,
+			faces: this.faces,
+			vertexGroups: this.vertexGroups,
+			matrixGroups: this.matrixGroups,
+			matrixIndices: this.matrixIndices,
+			materialId: this.materialId,
+			selectionGroup: this.selectionGroup,
+			selectionFlags: this.selectionFlags,
+			lod: this.lod,
+			lodName: this.lodName,
+			sequenceExtents: this.sequenceExtents,
+			tangents: this.tangents,
+			skins: this.skins,
+			textureCoordinateSets: this.textureCoordinateSets,
 		}
-		this.tangentsKey?.write();
-		this.tangentsCount?.write();
-		this.tangents?.write();
-
-		this.skinKey?.write();
-		this.skinCount?.write();
-		this.skin?.write();
-
-		this.NrOfTextureVertexGroupsKey.write();
-		this.NrOfTextureVertexGroups.write();
-
-		simpleList(this.vertexTexturePositionKey, this.vertexTexturePosition);
-
-		this.inclusiveSize.write();
 	}
 }
+
+
+/*
+Geoset {
+  uint32 inclusiveSize
+  char[4] "VRTX"
+  uint32 vertexCount
+  float[vertexCount * 3] vertexPositions
+  char[4] "NRMS"
+  uint32 normalCount
+  float[normalCount * 3] vertexNormals
+  char[4] "PTYP"
+  uint32 faceTypeGroupsCount
+  uint32[faceTypeGroupsCount] faceTypeGroups
+  char[4] "PCNT"
+  uint32 faceGroupsCount
+  uint32[faceGroupsCount] faceGroups
+  char[4] "PVTX"
+  uint32 facesCount
+  uint16[facesCount] faces
+  char[4] "GNDX"
+  uint32 vertexGroupsCount
+  uint8[vertexGroupsCount] vertexGroups
+  char[4] "MTGC"
+  uint32 matrixGroupsCount
+  uint32[matrixGroupsCount] matrixGroups
+  char[4] "MATS"
+  uint32 matrixIndicesCount
+  uint32[matrixIndicesCount] matrixIndices
+  uint32 materialId
+  uint32 selectionGroup
+  uint32 selectionFlags
+
+  if (version > 800) {
+    uint32 lod
+    char[80] lodName
+  }
+
+  Extent extent
+  uint32 extentsCount
+  Extent[extentsCount] sequenceExtents
+
+  if (version > 800) {
+    (Tangents)
+    (Skin)
+  }
+
+  char[4] "UVAS"
+  uint32 textureCoordinateSetsCount
+  TextureCoordinateSet[textureCoordinateSetsCount] textureCoordinateSets
+}
+ */

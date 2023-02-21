@@ -1,14 +1,10 @@
 /** @module MDX */
 import {ChunkSize, StructSize} from "./StructSize.mjs";
-import {hex2s} from "../type/hex.mjs";
+import {int2s, s2s} from "../type/hex.mjs";
 import {Reader} from "./Reader.mjs";
-import {Interpolation} from "./Interpolation.mjs";
-import {Layer} from "../data/Layer.mjs";
 
 export class Parser {
-	/**
-	 * @param {Reader} reader
-	 */
+	/** @param {Reader} reader */
 	constructor(reader) {
 		this.reader = reader;
 	}
@@ -23,15 +19,6 @@ export class Parser {
 		return p;
 	}
 
-	_read(p) {
-		p.read();
-		if (p instanceof Layer){
-			throw new Error('Layer');
-		}
-
-		this._output.push(p);
-	}
-
 	read() {
 		const map = new Map();
 		for (const p of this._input) {
@@ -42,41 +29,61 @@ export class Parser {
 			}
 		}
 
-		/** @type {ChunkSize} */ let structSize;
-		let structSizeOffset = 0, structSizeValue = 0;
+		let pSize, pSizeEnd;
 
 		while (this._input.length > 0) {
-			const o = this.reader.byteOffset;
 			const p = this._input.shift();
+			const o = this.reader.byteOffset;
+
+			const _read = p => {
+				//const pid = p.constructor['id'] || p.id;
+				//if (pid) console.log(pid, int2s(pid));
+				p.read();
+				this._output.push(p);
+			};
 
 			if (p instanceof StructSize) {
-				structSize = p;
-				structSizeValue = this.reader.getUint32();
-				structSizeOffset = this.reader.byteOffset;
+				pSize = p;
+				pSizeEnd = this.reader.byteOffset + this.reader.getUint32() + p.offset;
 			}
 
-			// noinspection JSUnresolvedVariable
-			const ckey = p.constructor.id || p.id;
+			const pid = p.constructor['id'] || p.id;
+			if (pid) {
+				const map = new Map();
+				map.set(pid, p);
+				while (this._input.length > 0) {
+					const pn = this._input.shift();
+					const pnid = pn.constructor['id'] || pn.id;
+					if (!pnid) {
+						this._input.unshift(pn);
+						break;
+					}
+					map.set(pnid, pn);
+				}
 
-			if (ckey) {
-				const key = this.reader.getUint32();
+				const end = pSize ? pSizeEnd : this.reader.view.byteLength;
+				while (this.reader.byteOffset < end) {
+					const o = this.reader.byteOffset;
+					const key = this.reader.getUint32();
 
-				if (ckey !== key) {
 					if (map.has(key)) {
-						this._input.push(p);
-						this._read(map.get(key));
+						_read(map.get(key));
+						if (o === this.reader.byteOffset) {
+							console.error('Parser infinity read!');
+							break;
+						}
+						map.delete(key);
+						if (map.size === 0) {
+							break;
+						}
 						continue;
 					}
-					console.error(`Parser missing key: ${hex2s(key)}`);
 					break;
 				}
+				continue;
 			}
 
-			if (p instanceof Interpolation) {
-				console.log('---------', ckey, hex2s(ckey), hex2s(key));
-			}
-
-			this._read(p);
+			_read(p);
 
 			if (o === this.reader.byteOffset) {
 				console.error('Parser infinity read!');
@@ -84,12 +91,11 @@ export class Parser {
 			}
 		}
 
-		if (structSize) {
-			const value = this.reader.byteOffset - structSizeOffset + structSize.offset;
-			if (value !== structSizeValue) {
-				console.error(structSize);
-				throw new Error(`StructSize is wrong: ${structSize.value} != ${value}`);
-				//console.error(`StructSize is wrong: ${structSize.value} != ${value}`);
+		if (pSize) {
+			if (this.reader.byteOffset !== pSizeEnd) {
+				//throw new Error(`StructSize is wrong: ${pSize.value} != ${value}`);
+				console.error(`StructSize is wrong: ${this.reader.byteOffset} != ${pSizeEnd}`);
+				this.reader.byteOffset = pSizeEnd;
 			}
 		}
 	}
@@ -112,8 +118,23 @@ export class Parser {
 		}
 
 		if (chunk) {
-			chunk.value = this.reader.output.byteLength - chunkOffset + chunk.offset;
+			chunk.value = this.reader.output.byteLength - chunkOffset - chunk.offset;
 			this.reader.updateUint32(chunk.value, chunkOffset);
 		}
+	}
+}
+
+export class Stop {
+	/** @type {Reader} */ reader;
+
+	read() {
+		/*
+		for (let i = 0; i < 50; i++) {
+			const v = this.reader.view.getUint32(this.reader.byteOffset + i * 4, true);
+			console.log('stop', v, int2s(v));
+		}
+		 */
+		const v = this.reader.getUint32();
+		throw new Error(`STOP ${v} | ${int2s(v)} | ${s2s(int2s(v))} | ${this.reader.byteOffset}`);
 	}
 }

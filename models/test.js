@@ -22,6 +22,7 @@ let model;
 let bb;
 try {
 	model = new MDX(arrayBuffer);
+	model.read();
 	bb = model.write();
 } catch (e) {
 	console.log(e);

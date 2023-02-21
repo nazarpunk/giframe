@@ -1,4 +1,4 @@
-import {hex2s} from "../type/hex.mjs";
+import {int2s} from "../type/hex.mjs";
 
 /** @module MDX */
 export class Key {
@@ -25,7 +25,7 @@ export class Key {
 	toJSON() {
 		return {
 			value: this.value,
-			name: hex2s(this.value),
+			name: int2s(this.value),
 		}
 	}
 }

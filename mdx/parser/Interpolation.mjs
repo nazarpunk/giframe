@@ -1,7 +1,7 @@
 /** @module MDX */
 import {Parser} from "./Parser.mjs";
 import {Key} from "./Key.mjs";
-import {Uint32} from "./Uint32.mjs";
+import {Uint32} from "./Uint.mjs";
 
 export class Interpolation {
 	/** @type {Reader} */ reader;
@@ -11,7 +11,7 @@ export class Interpolation {
 	 * @param child
 	 * @param {*?} length
 	 */
-	constructor(id, child, length ) {
+	constructor(id, child, length) {
 		this.id = id;
 		this.child = child;
 		this.length = length;
@@ -20,12 +20,11 @@ export class Interpolation {
 	items = [];
 
 	read() {
-		console.log('INTREAAA!!!!-----------');
-
 		const p = new Parser(this.reader);
 		this.key = p.add(new Key(this.id));
 		this.length = p.add(Uint32);
 		this.type = p.add(Uint32);
+		this.globalSequenceId = p.add(Uint32);
 		p.read();
 
 		for (let i = 0; i < this.length.value; i++) {
@@ -49,6 +48,7 @@ export class Interpolation {
 			key: this.key,
 			length: this.length,
 			type: this.type,
+			globalSequenceId: this.globalSequenceId
 		}
 	}
 }

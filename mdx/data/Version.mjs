@@ -1,7 +1,7 @@
 /** @module MDX */
 import {Parser} from "../parser/Parser.mjs";
 import {ChunkSize} from "../parser/StructSize.mjs";
-import {Uint32} from "../parser/Uint32.mjs";
+import {Uint32} from "../parser/Uint.mjs";
 import {Key} from "../parser/Key.mjs";
 
 export class Version {

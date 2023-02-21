@@ -2,10 +2,10 @@
 
 import {Layer} from "./Layer.mjs";
 import {Parser} from "../parser/Parser.mjs";
-import {ChunkSize, InclusiveSize} from "../parser/StructSize.mjs";
-import {Uint32} from "../parser/Uint32.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {Uint32} from "../parser/Uint.mjs";
 import {Char} from "../parser/Char.mjs";
-import {ChunkList} from "../parser/ChunkList.mjs";
+import {CountList} from "../parser/CountList.mjs";
 
 export class Material {
 	/** @type {Reader} */ reader;
@@ -20,8 +20,8 @@ export class Material {
 		if (this.reader.version > 800) {
 			this.shader = this.parser.add(new Char(80));
 		}
-		this.layers = this.parser.add(new ChunkList(0x5359414c/*LAYS*/, Layer));
 
+		this.layers = this.parser.add(new CountList(0x5359414c/*LAYS*/, Layer));
 		this.parser.read();
 	}
 

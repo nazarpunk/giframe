@@ -29,7 +29,7 @@ export class StructSize {
 
 export class ChunkSize extends StructSize {
 	constructor() {
-		super(-4);
+		super(4);
 	}
 }
 

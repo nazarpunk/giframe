@@ -5,6 +5,10 @@ export class Float32List {
 		this.length = length;
 	}
 
+	copy() {
+		return new Float32List(this.length);
+	}
+
 	/** @type {Reader} */ reader;
 	/** @type {number[]} */ list = [];
 

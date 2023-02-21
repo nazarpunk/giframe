@@ -25,6 +25,10 @@ export class Light {
 		this.inclusiveSize.check();
 	}
 
+	read(){
+
+	}
+
 	write() {
 		this.inclusiveSize.save();
 		this.node.write();

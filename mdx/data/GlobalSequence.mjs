@@ -1,5 +1,5 @@
 import {Parser} from "../parser/Parser.mjs";
-import {Uint32} from "../parser/Uint32.mjs";
+import {Uint32} from "../parser/Uint.mjs";
 
 export class GlobalSequence {
 	/** @type {Reader} */ reader;

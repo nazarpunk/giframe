@@ -1,15 +1,15 @@
 /** @module MDX */
 
-import {StructSize} from "../type/StructSize.mjs";
+import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {CHAR} from "../type/CHAR.mjs";
-import {Interpolation} from "../parser/Interpolation.mjs";
+import {InterpolationOld} from "../parser/InterpolationOld.mjs";
 
 export class ParticleEmitter {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.inclusiveSize = new StructSize(reader, {inclusive: true});
+		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
 		this.node = new NodeData(reader);
 		this.EmissionRate = new FLOAT(reader);
 		this.Gravity = new FLOAT(reader);
@@ -18,7 +18,7 @@ export class ParticleEmitter {
 		this.SpawnModelFileName = new CHAR(reader, 260);
 		this.LifeSpan = new FLOAT(reader);
 		this.InitialVelocity = new FLOAT(reader);
-		this.visibility = Interpolation.fromKey(reader, 'KPEV', FLOAT);
+		this.visibility = InterpolationOld.fromKey(reader, 'KPEV', FLOAT);
 		this.inclusiveSize.check();
 	}
 

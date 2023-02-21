@@ -1,15 +1,15 @@
 /** @module MDX */
 
-import {StructSize} from "../type/StructSize.mjs";
+import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {DWORD} from "../type/DWORD.mjs";
-import {Interpolation} from "../parser/Interpolation.mjs";
+import {InterpolationOld} from "../parser/InterpolationOld.mjs";
 
 export class RibbonEmitter {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.inclusiveSize = new StructSize(reader, {inclusive: true});
+		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
 		this.node = new NodeData(reader);
 		this.HeightAbove = new FLOAT(reader);
 		this.HeightBelow = new FLOAT(reader);
@@ -22,9 +22,9 @@ export class RibbonEmitter {
 		this.Columns = new DWORD(reader);
 		this.MaterialId = new DWORD(reader);
 		this.Gravity = new FLOAT(reader);
-		this.Visibility = Interpolation.fromKey(reader, 'KRVS', FLOAT);
-		this.HeightAboveStruct = Interpolation.fromKey(reader, 'KRHA', FLOAT);
-		this.HeightBelowStruct = Interpolation.fromKey(reader, 'KRHB', FLOAT);
+		this.Visibility = InterpolationOld.fromKey(reader, 'KRVS', FLOAT);
+		this.HeightAboveStruct = InterpolationOld.fromKey(reader, 'KRHA', FLOAT);
+		this.HeightBelowStruct = InterpolationOld.fromKey(reader, 'KRHB', FLOAT);
 		this.inclusiveSize.check();
 	}
 

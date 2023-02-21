@@ -1,69 +1,83 @@
 /** @module MDX */
-
-import {DWORD} from "../type/DWORD.mjs";
-import {KEY} from "../type/KEY.mjs";
+import {Parser} from "./Parser.mjs";
+import {Key} from "./Key.mjs";
+import {Uint32} from "./Uint32.mjs";
 
 export class Interpolation {
+	/** @type {Reader} */ reader;
 
 	/**
-	 * @param {Reader} reader
-	 * @param {string} keyName
-	 * @param {ReadWrite.} child
-	 * @param {number} length
-	 * @return {?Interpolation}
+	 * @param {number} id
+	 * @param child
+	 * @param {*?} length
 	 */
-	static fromKey(reader, keyName, child, length = 1) {
-		const key = new KEY(reader, {offset: 0});
-		return key.name === keyName ? new Interpolation(new KEY(reader), child, length) : null;
-	}
-
-	/**
-	 * @param {KEY} key
-	 * @param {ReadWrite.} child
-	 * @param {number} length
-	 */
-	constructor(key, child, length = 1) {
+	constructor(id, child, length ) {
+		this.id = id;
 		this.child = child;
 		this.length = length;
-		const r = key.reader;
-		this.key = key;
-		this.NrOfTracks = new DWORD(r);
-		this.type = new DWORD(r);
-		this.GlobalSequenceId = new DWORD(r);
-		for (let i = 0; i < this.NrOfTracks.value; i++) {
-			this.traks.push(new InterpolationTrack(this));
+	}
+
+	items = [];
+
+	read() {
+		console.log('INTREAAA!!!!-----------');
+
+		const p = new Parser(this.reader);
+		this.key = p.add(new Key(this.id));
+		this.length = p.add(Uint32);
+		this.type = p.add(Uint32);
+		p.read();
+
+		for (let i = 0; i < this.length.value; i++) {
+			const p = new InterpolationTrack(this);
+			this.items.push(p);
+			p.read();
 		}
 	}
 
-	/** @type InterpolationTrack[] */ traks = [];
-
 	write() {
 		this.key.write();
-		this.NrOfTracks.writeValue(this.traks.length);
+		this.length.write();
 		this.type.write();
-		this.GlobalSequenceId.write();
-		for (const s of this.traks) {
-			s.write();
+		for (const p of this.items) {
+			p.parser.write();
+		}
+	}
+
+	toJSON() {
+		return {
+			key: this.key,
+			length: this.length,
+			type: this.type,
 		}
 	}
 }
 
-class InterpolationTrack {
+export class InterpolationTrack {
 	/** @param {Interpolation} parent */
 	constructor(parent) {
-		const r = parent.key.reader;
-		this.time = new DWORD(r);
-		this.scaling = new parent.child(r, parent.length);
-		if (parent.type.value > 1) {
-			this.InTan = new parent.child(r, parent.length);
-			this.OutTan = new parent.child(r, parent.length);
-		}
+		this.parent = parent;
 	}
 
-	write() {
-		this.time.write();
-		this.scaling.write();
-		this.InTan?.write();
-		this.OutTan?.write();
+	read() {
+		this.parser = new Parser(this.parent.reader);
+
+		this.time = this.parser.add(new Uint32());
+		this.value = this.parser.add(this.parent.child);
+		if (this.parent.type.value > 1) {
+			this.inTan = new this.parent.child(this.parent.length);
+			this.outTan = new this.parent.child(this.parent.length);
+		}
+
+		this.parser.read();
+	}
+
+	toJSON() {
+		return {
+			time: this.time,
+			value: this.value,
+			inTan: this.inTan,
+			outTan: this.outTan,
+		}
 	}
 }

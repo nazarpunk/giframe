@@ -1,24 +1,24 @@
 /** @module MDX */
 
-import {StructSize} from "../type/StructSize.mjs";
+import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {Interpolation} from "../parser/Interpolation.mjs";
+import {InterpolationOld} from "../parser/InterpolationOld.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 
 export class Attachment {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.inclusiveSize = new StructSize(reader, {inclusive: true});
+		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
 		this.node = new NodeData(reader);
 		this.Path = new CHAR(reader, 260);
 		this.AttachmentId = new DWORD(reader);
 
 		if (reader.byteOffset < this.inclusiveSize.end) {
 			const key = new KEY(reader, {name: 'KATV'});
-			this.AttachmentVisibility = new Interpolation(key, FLOAT);
+			this.AttachmentVisibility = new InterpolationOld(key, FLOAT);
 		}
 
 		this.inclusiveSize.check();

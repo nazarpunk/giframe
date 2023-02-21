@@ -1,8 +1,8 @@
 /** @module MDX */
 import {Parser} from "../parser/Parser.mjs";
-import {Key} from "../type/KEY.mjs";
-import {ChunkSize} from "../parser/ChunkSize.mjs";
+import {ChunkSize} from "../parser/StructSize.mjs";
 import {Uint32} from "../parser/Uint32.mjs";
+import {Key} from "../parser/Key.mjs";
 
 export class Version {
 	static id = 0x53524556; // VERS
@@ -11,10 +11,14 @@ export class Version {
 
 	read() {
 		this.parser = new Parser(this.reader);
+
 		this.key = this.parser.add(new Key(Version.id));
 		this.chunkSize = this.parser.add(ChunkSize);
 		this.version = this.parser.add(Uint32);
+
 		this.parser.read();
+
+		this.reader.version = this.version.value;
 	}
 
 	toJSON() {

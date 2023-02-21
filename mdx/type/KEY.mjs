@@ -1,5 +1,4 @@
 /** @module MDX */
-import {hex2s} from "./hex.mjs";
 
 export class KEY {
 	/**
@@ -37,35 +36,5 @@ export class KEY {
 	/** @param {number} int */
 	writeInt(int) {
 		this.reader.outputView(4).setUint32(0, int, true);
-	}
-}
-
-
-export class Key {
-	/** @param {number} key */
-	constructor(key) {
-		this.key = key;
-	}
-
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.value = this.reader.getUint32();
-		this.reader.next32();
-		if (this.value !== this.key) {
-			console.error(`Key error ${this.key} != ${this.value}`);
-		}
-
-	}
-
-	write() {
-		this.reader.setUint32(this.value);
-	}
-
-	toJSON() {
-		return {
-			value: this.value,
-			name: hex2s(this.value),
-		}
 	}
 }

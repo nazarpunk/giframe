@@ -1,7 +1,9 @@
 /** @module MDX */
-import {ChunkSize} from "./ChunkSize.mjs";
+import {ChunkSize, StructSize} from "./StructSize.mjs";
 import {hex2s} from "../type/hex.mjs";
 import {Reader} from "./Reader.mjs";
+import {Interpolation} from "./Interpolation.mjs";
+import {Layer} from "../data/Layer.mjs";
 
 export class Parser {
 	/**
@@ -23,6 +25,10 @@ export class Parser {
 
 	_read(p) {
 		p.read();
+		if (p instanceof Layer){
+			throw new Error('Layer');
+		}
+
 		this._output.push(p);
 	}
 
@@ -36,23 +42,25 @@ export class Parser {
 			}
 		}
 
-		/** @type {ChunkSize} */ let chunk;
-		let chunkOffset = 0, chunkValue = 0;
+		/** @type {ChunkSize} */ let structSize;
+		let structSizeOffset = 0, structSizeValue = 0;
 
 		while (this._input.length > 0) {
 			const o = this.reader.byteOffset;
 			const p = this._input.shift();
 
-			if (p instanceof ChunkSize) {
-				chunk = p;
-				chunkValue = this.reader.getUint32();
-				chunkOffset = this.reader.byteOffset;
+			if (p instanceof StructSize) {
+				structSize = p;
+				structSizeValue = this.reader.getUint32();
+				structSizeOffset = this.reader.byteOffset;
 			}
 
 			// noinspection JSUnresolvedVariable
 			const ckey = p.constructor.id || p.id;
+
 			if (ckey) {
 				const key = this.reader.getUint32();
+
 				if (ckey !== key) {
 					if (map.has(key)) {
 						this._input.push(p);
@@ -64,6 +72,10 @@ export class Parser {
 				}
 			}
 
+			if (p instanceof Interpolation) {
+				console.log('---------', ckey, hex2s(ckey), hex2s(key));
+			}
+
 			this._read(p);
 
 			if (o === this.reader.byteOffset) {
@@ -72,10 +84,12 @@ export class Parser {
 			}
 		}
 
-		if (chunk) {
-			const value = this.reader.byteOffset - chunkOffset - 4;
-			if (value !== chunkValue) {
-				console.error(`ChunkSize is wrong: ${value}`);
+		if (structSize) {
+			const value = this.reader.byteOffset - structSizeOffset + structSize.offset;
+			if (value !== structSizeValue) {
+				console.error(structSize);
+				throw new Error(`StructSize is wrong: ${structSize.value} != ${value}`);
+				//console.error(`StructSize is wrong: ${structSize.value} != ${value}`);
 			}
 		}
 	}
@@ -85,7 +99,7 @@ export class Parser {
 		let chunkOffset = 0;
 
 		for (const p of this._output) {
-			if (p instanceof ChunkSize) {
+			if (p instanceof StructSize) {
 				chunk = p;
 				chunkOffset = this.reader.output.byteLength;
 			}
@@ -98,7 +112,7 @@ export class Parser {
 		}
 
 		if (chunk) {
-			chunk.value = this.reader.output.byteLength - chunkOffset - 4;
+			chunk.value = this.reader.output.byteLength - chunkOffset + chunk.offset;
 			this.reader.updateUint32(chunk.value, chunkOffset);
 		}
 	}

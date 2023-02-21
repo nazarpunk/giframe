@@ -1,16 +1,16 @@
 /** @module MDX */
 
-import {StructSize} from "../type/StructSize.mjs";
+import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {DWORD} from "../type/DWORD.mjs";
-import {Interpolation} from "../parser/Interpolation.mjs";
+import {InterpolationOld} from "../parser/InterpolationOld.mjs";
 import {BYTE} from "../type/BYTE.mjs";
 
 export class ParticleEmitter2 {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.inclusiveSize = new StructSize(reader, {inclusive: true});
+		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
 		this.node = new NodeData(reader);
 		this.Speed = new FLOAT(reader);
 		this.Variation = new FLOAT(reader);
@@ -47,14 +47,14 @@ export class ParticleEmitter2 {
 		this.ReplaceableId = new DWORD(reader);
 
 		while (reader.byteOffset < this.inclusiveSize.end) {
-			this.speedTrack ??= Interpolation.fromKey(reader, 'KP2S', FLOAT);
-			this.variationTrack ??= Interpolation.fromKey(reader, 'KP2R', FLOAT);
-			this.latitudeTrack ??= Interpolation.fromKey(reader, 'KP2L', FLOAT);
-			this.gravityTrack ??= Interpolation.fromKey(reader, 'KP2G', FLOAT);
-			this.emissionRateTrack ??= Interpolation.fromKey(reader, 'KP2E', FLOAT);
-			this.lengthTrack ??= Interpolation.fromKey(reader, 'KP2N', FLOAT);
-			this.widthTrack ??= Interpolation.fromKey(reader, 'KP2W', FLOAT);
-			this.visibilityTrack ??= Interpolation.fromKey(reader, 'KP2V', FLOAT);
+			this.speedTrack ??= InterpolationOld.fromKey(reader, 'KP2S', FLOAT);
+			this.variationTrack ??= InterpolationOld.fromKey(reader, 'KP2R', FLOAT);
+			this.latitudeTrack ??= InterpolationOld.fromKey(reader, 'KP2L', FLOAT);
+			this.gravityTrack ??= InterpolationOld.fromKey(reader, 'KP2G', FLOAT);
+			this.emissionRateTrack ??= InterpolationOld.fromKey(reader, 'KP2E', FLOAT);
+			this.lengthTrack ??= InterpolationOld.fromKey(reader, 'KP2N', FLOAT);
+			this.widthTrack ??= InterpolationOld.fromKey(reader, 'KP2W', FLOAT);
+			this.visibilityTrack ??= InterpolationOld.fromKey(reader, 'KP2V', FLOAT);
 		}
 		this.inclusiveSize.check();
 	}

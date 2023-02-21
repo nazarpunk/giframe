@@ -1,6 +1,6 @@
 /** @module MDX */
 import {Parser} from "../parser/Parser.mjs";
-import {Key} from "../type/KEY.mjs";
+import {Key} from "../parser/Key.mjs";
 
 export class Format {
 	/**

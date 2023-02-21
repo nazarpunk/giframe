@@ -1,12 +1,12 @@
 /** @module MDX */
 
 import {Parser} from "../parser/Parser.mjs";
-import {Key} from "../type/KEY.mjs";
-import {ChunkSize} from "../parser/ChunkSize.mjs";
+import {ChunkSize} from "../parser/StructSize.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Float32} from "../parser/Float32.mjs";
 import {Float32List} from "../parser/Float32List.mjs";
 import {Uint32} from "../parser/Uint32.mjs";
+import {Key} from "../parser/Key.mjs";
 
 export class Model {
 	static id = 0x4c444f4d; // MODL

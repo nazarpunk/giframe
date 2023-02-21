@@ -1,14 +1,14 @@
 /** @module MDX */
-import {StructSize} from "../type/StructSize.mjs";
+import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
-import {Interpolation} from "../parser/Interpolation.mjs";
+import {InterpolationOld} from "../parser/InterpolationOld.mjs";
 
 export class Light {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.inclusiveSize = new StructSize(reader, {inclusive: true});
+		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
 		this.node = new NodeData(reader);
 		this.Type = new DWORD(reader);
 		this.AttenuationStart = new DWORD(reader);
@@ -17,11 +17,11 @@ export class Light {
 		this.Intensity = new FLOAT(reader);
 		this.AmbientColor = new FLOAT(reader, 3);
 		this.AmbientIntensity = new FLOAT(reader);
-		this.Visibility = Interpolation.fromKey(reader, 'KLAV', FLOAT);
-		this.colorStruct = Interpolation.fromKey(reader, 'KLAC', FLOAT, 3);
-		this.IntensityStruct = Interpolation.fromKey(reader, 'KLAI', FLOAT);
-		this.AmbientColorStruct = Interpolation.fromKey(reader, 'KLBC', FLOAT, 3);
-		this.AmbientIntensityStruct = Interpolation.fromKey(reader, 'KLBI', FLOAT);
+		this.Visibility = InterpolationOld.fromKey(reader, 'KLAV', FLOAT);
+		this.colorStruct = InterpolationOld.fromKey(reader, 'KLAC', FLOAT, 3);
+		this.IntensityStruct = InterpolationOld.fromKey(reader, 'KLAI', FLOAT);
+		this.AmbientColorStruct = InterpolationOld.fromKey(reader, 'KLBC', FLOAT, 3);
+		this.AmbientIntensityStruct = InterpolationOld.fromKey(reader, 'KLBI', FLOAT);
 		this.inclusiveSize.check();
 	}
 

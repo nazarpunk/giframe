@@ -1,21 +1,21 @@
 /** @module MDX */
 
-import {StructSize} from "../type/StructSize.mjs";
+import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {DWORD} from "../type/DWORD.mjs";
 import {KEY} from "../type/KEY.mjs";
 
-export class CountedList {
+export class CountedListOld {
 	/**
 	 * @param {Reader} reader
 	 * @param {string} keyName
 	 * @param {ReadWrite.} child
 	 * @param {boolean?} chunk
 	 * @param {boolean?} count
-	 * @return {?CountedList}
+	 * @return {?CountedListOld}
 	 */
 	static fromKey(reader, keyName, child, {chunk, count}) {
 		const key = new KEY(reader, {offset: 0});
-		return key.name === keyName ? new CountedList(new KEY(reader), child, {chunk: chunk, count: count}) : null;
+		return key.name === keyName ? new CountedListOld(new KEY(reader), child, {chunk: chunk, count: count}) : null;
 	}
 
 	/**
@@ -32,7 +32,7 @@ export class CountedList {
 		this.count = count;
 
 		if (this.chunk) {
-			this.size = new StructSize(r, {chunk: true});
+			this.size = new StructSizeOld(r, {chunk: true});
 			while (r.byteOffset < this.size.end) {
 				this.list.push(new child(r));
 			}
@@ -47,7 +47,7 @@ export class CountedList {
 		this.chunk && this.size.check();
 	}
 
-	/** @type {StructSize|DWORD} */ size;
+	/** @type {StructSizeOld|DWORD} */ size;
 
 	/** @type {ReadWrite[]} */ list = [];
 

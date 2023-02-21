@@ -1,6 +1,6 @@
 /** @module MDX */
 
-export class StructSize {
+export class StructSizeOld {
 	/** @param {Reader} reader
 	 * @param {boolean} inclusive
 	 * @param {boolean} chunk

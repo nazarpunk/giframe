@@ -4,14 +4,14 @@ import {DWORD} from "../type/DWORD.mjs";
 import {BYTE} from "../type/BYTE.mjs";
 import {FLOAT} from "../type/FLOAT.mjs";
 import {KEY} from "../type/KEY.mjs";
-import {StructSize} from "../type/StructSize.mjs";
+import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {WORD} from "../type/WORD.mjs";
 import {CHAR} from "../type/CHAR.mjs";
 
 export class Geoset {
 	/** @param {Reader} reader */
 	constructor(reader) {
-		this.inclusiveSize = new StructSize(reader, {inclusive: true});
+		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
 
 		let len, key;
 

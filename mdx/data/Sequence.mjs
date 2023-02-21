@@ -7,10 +7,7 @@ import {Float32} from "../parser/Float32.mjs";
 import {Float32List} from "../parser/Float32List.mjs";
 
 export class Sequence {
-	/**  @param {Reader} reader */
-	constructor(reader) {
-		this.reader = reader;
-	}
+	/** @type {Reader} */ reader;
 
 	read() {
 		this.parser = new Parser(this.reader);

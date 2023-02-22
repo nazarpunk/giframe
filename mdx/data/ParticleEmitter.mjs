@@ -1,38 +1,44 @@
 /** @module MDX */
 
-import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {NodeData} from "./NodeData.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
-import {CHAR} from "../type/CHAR.mjs";
-import {InterpolationOld} from "../parser/InterpolationOld.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {Float32} from "../parser/Float32.mjs";
+import {Char} from "../parser/Char.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class ParticleEmitter {
-	/** @param {Reader} reader */
-	constructor(reader) {
-		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
-		this.node = new NodeData(reader);
-		this.EmissionRate = new FLOAT(reader);
-		this.Gravity = new FLOAT(reader);
-		this.Longitude = new FLOAT(reader);
-		this.Latitude = new FLOAT(reader);
-		this.SpawnModelFileName = new CHAR(reader, 260);
-		this.LifeSpan = new FLOAT(reader);
-		this.InitialVelocity = new FLOAT(reader);
-		this.visibility = InterpolationOld.fromKey(reader, 'KPEV', FLOAT);
-		this.inclusiveSize.check();
+	/** @type {Reader} */ reader;
+
+	read() {
+		this.parser = new Parser(this.reader);
+
+		this.inclusiveSize = this.parser.add(InclusiveSize);
+		this.node = this.parser.add(NodeData);
+		this.emissionRate = this.parser.add(Float32);
+		this.gravity = this.parser.add(Float32);
+		this.longitude = this.parser.add(Float32);
+		this.latitude = this.parser.add(Float32);
+		this.spawnModelFileName = this.parser.add(new Char(260));
+		this.lifeSpan = this.parser.add(Float32);
+		this.initialVelocity = this.parser.add(Float32);
+		this.visibilityTrack = this.parser.add(new Interpolation(0x5645504b/*KPEV*/, Float32));
+
+		this.parser.read();
 	}
 
-	write() {
-		this.inclusiveSize.save();
-		this.node.write();
-		this.EmissionRate.write();
-		this.Gravity.write();
-		this.Longitude.write();
-		this.Latitude.write();
-		this.SpawnModelFileName.write();
-		this.LifeSpan.write();
-		this.InitialVelocity.write();
-		this.visibility.write();
-		this.inclusiveSize.write();
+	toJSON() {
+		return {
+			inclusiveSize: this.inclusiveSize,
+			node: this.node,
+			emissionRate: this.emissionRate,
+			gravity: this.gravity,
+			longitude: this.longitude,
+			latitude: this.latitude,
+			spawnModelFileName: this.spawnModelFileName,
+			lifeSpan: this.lifeSpan,
+			initialVelocity: this.initialVelocity,
+			visibilityTrack: this.visibilityTrack,
+		}
 	}
 }

@@ -7,7 +7,6 @@ import {Attachment} from "./data/Attachment.mjs";
 import {RibbonEmitter} from "./data/RibbonEmitter.mjs";
 import {EventObject} from "./data/EventObject.mjs";
 import {GeosetAnimation} from "./data/GeosetAnimation.mjs";
-import {CountedListOld} from "./parser/CountedListOld.js";
 import {NodeData} from "./data/NodeData.mjs";
 import {Bone} from "./data/Bone.mjs";
 import {CollisionShape} from "./data/CollisionShape.mjs";
@@ -18,7 +17,7 @@ import {ParticleEmitter} from "./data/ParticleEmitter.mjs";
 import {Camera} from "./data/Camera.mjs";
 import {Light} from "./data/Light.mjs";
 import {Parser} from "./parser/Parser.mjs";
-import {int2s, s2s} from "./type/hex.mjs";
+import {int2s, s2s} from "./util/hex.mjs";
 import {Format} from "./data/Format.mjs";
 import {Version} from "./data/Version.mjs";
 import {Model} from "./data/Model.mjs";
@@ -28,6 +27,7 @@ import {GlobalSequence} from "./data/GlobalSequence.mjs";
 import {Material} from "./data/Material.mjs";
 import {CornEmmiter} from "./data/CornEmmiter.mjs";
 import {FaceEffect} from "./data/FaceEffect.mjs";
+import {BindPose} from "./data/BindPose.mjs";
 
 export class MDX {
 	/**
@@ -54,19 +54,17 @@ export class MDX {
 		this.helpers = this.parser.add(new ChunkList(0x504c4548/*HELP*/, NodeData));
 		this.attachments = this.parser.add(new ChunkList(0x48435441/*ATCH*/, Attachment));
 		this.pivotPoints = this.parser.add(new ChunkList(0x54564950/*PIVT*/, PivotPoint));
+		this.particleEmitters = this.parser.add(new ChunkList(0x4d455250/*PREM*/, ParticleEmitter));
 		this.particleEmitters2 = this.parser.add(new ChunkList(0x32455250/*PRE2*/, ParticleEmitter2));
 		this.eventObjects = this.parser.add(new ChunkList(0x53545645/*EVTS*/, EventObject));
 		this.collisionShapes = this.parser.add(new ChunkList(0x44494c43/*CLID*/, CollisionShape));
 		this.cornEmmiter = this.parser.add(new ChunkList(0x4e524f43/*CORN*/, CornEmmiter));
 		this.cameras = this.parser.add(new ChunkList(0x534d4143/*CAMS*/, Camera));
 		this.faceEffect = this.parser.add(new ChunkList(0x58464146/*FAFX*/, FaceEffect));
-
-		if (0) {
-			this.lights = CountedListOld.fromKey(this.reader, 0x4554494c/*LITE*/, Light, {chunk: true});
-			this.textureAnimations = CountedListOld.fromKey(this.reader, 0x4e415854/*TXAN*/, TextureAnimation, {chunk: true});
-			this.particleEmitters = CountedListOld.fromKey(this.reader, 0x4d455250/*PREM*/, ParticleEmitter, {chunk: true});
-			this.ribbinEmitters = CountedListOld.fromKey(this.reader, 0x42424952/*RIBB*/, RibbonEmitter, {chunk: true});
-		}
+		this.lights = this.parser.add(new ChunkList(0x4554494c/*LITE*/, Light));
+		this.textureAnimations = this.parser.add(new ChunkList(0x4e415854/*TXAN*/, TextureAnimation));
+		this.ribbinEmitters = this.parser.add(new ChunkList(0x42424952/*RIBB*/, RibbonEmitter));
+		this.bindPose = this.parser.add(BindPose);
 
 		this.parser.read();
 
@@ -75,8 +73,8 @@ export class MDX {
 			if (this.view.byteLength - this.reader.byteOffset >= 4) {
 				key = int2s(this.reader.getUint32());
 			}
-			console.error(`MDX end offset error, key: ${key}, ${s2s(key)}`);
-			//throw new Error(`MDX end offset error, key: ${key}, ${s2s(key)}`);
+			//console.error(`MDX end offset error, key: ${key}, ${s2s(key)}`);
+			throw new Error(`MDX end offset error, key: ${key}, ${s2s(key)}`);
 		}
 	}
 
@@ -102,6 +100,7 @@ export class MDX {
 			helper: this.helpers,
 			attachments: this.attachments,
 			pivotPoints: this.pivotPoints,
+			particleEmitters: this.particleEmitters,
 			particleEmitters2: this.particleEmitters2,
 			eventObjects: this.eventObjects,
 			collisionShapes: this.collisionShapes,
@@ -109,6 +108,10 @@ export class MDX {
 			cornEmmiter: this.cornEmmiter,
 			cameras: this.cameras,
 			faceEffect: this.faceEffect,
+			lights: this.lights,
+			textureAnimations: this.textureAnimations,
+			ribbinEmitters: this.ribbinEmitters,
+			bindPose: this.bindPose,
 		}
 	}
 }

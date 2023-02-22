@@ -1,50 +1,57 @@
 /** @module MDX */
 
-import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {NodeData} from "./NodeData.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
-import {DWORD} from "../type/DWORD.mjs";
-import {InterpolationOld} from "../parser/InterpolationOld.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {Float32} from "../parser/Float32.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {Float32List} from "../parser/Float32List.mjs";
+import {Uint32} from "../parser/Uint.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class RibbonEmitter {
-	/** @param {Reader} reader */
-	constructor(reader) {
-		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
-		this.node = new NodeData(reader);
-		this.HeightAbove = new FLOAT(reader);
-		this.HeightBelow = new FLOAT(reader);
-		this.alpha = new FLOAT(reader);
-		this.Color = new FLOAT(reader, 3);
-		this.LifeSpan = new FLOAT(reader);
-		this.TextureSlot = new DWORD(reader);
-		this.EmissionRate = new DWORD(reader);
-		this.Rows = new DWORD(reader);
-		this.Columns = new DWORD(reader);
-		this.MaterialId = new DWORD(reader);
-		this.Gravity = new FLOAT(reader);
-		this.Visibility = InterpolationOld.fromKey(reader, 'KRVS', FLOAT);
-		this.HeightAboveStruct = InterpolationOld.fromKey(reader, 'KRHA', FLOAT);
-		this.HeightBelowStruct = InterpolationOld.fromKey(reader, 'KRHB', FLOAT);
-		this.inclusiveSize.check();
+	/** @type {Reader} */ reader;
+
+	read() {
+		this.parser = new Parser(this.reader);
+
+		this.inclusiveSize = this.parser.add(InclusiveSize);
+		this.node = this.parser.add(NodeData);
+		this.heightAbove = this.parser.add(Float32);
+		this.heightBelow = this.parser.add(Float32);
+		this.alpha = this.parser.add(Float32);
+		this.color = this.parser.add(new Float32List(3));
+		this.lifeSpan = this.parser.add(Float32);
+		this.textureSlot = this.parser.add(Uint32);
+		this.emissionRate = this.parser.add(Uint32);
+		this.rows = this.parser.add(Uint32);
+		this.columns = this.parser.add(Uint32);
+		this.materialId = this.parser.add(Uint32);
+		this.gravity = this.parser.add(Float32);
+		this.visibility = this.parser.add(new Interpolation(0x5356524b/*KRVS*/, Float32));
+		this.heightAboveStruct = this.parser.add(new Interpolation(0x4148524b/*KRHA*/, Float32));
+		this.heightBelowStruct = this.parser.add(new Interpolation(0x4248524b/*KRHB*/, Float32));
+
+		this.parser.read();
 	}
 
-	write() {
-		this.inclusiveSize.save();
-		this.node.write();
-		this.HeightAbove.write();
-		this.HeightBelow.write();
-		this.alpha.write();
-		this.Color.write();
-		this.LifeSpan.write();
-		this.TextureSlot.write();
-		this.EmissionRate.write();
-		this.Rows.write();
-		this.Columns.write();
-		this.MaterialId.write();
-		this.Gravity.write();
-		this.Visibility?.write();
-		this.HeightAboveStruct?.write();
-		this.HeightBelowStruct?.write();
-		this.inclusiveSize.write();
+	toJSON() {
+		return {
+			inclusiveSize: this.inclusiveSize,
+			node: this.node,
+			heightAbove: this.heightAbove,
+			heightBelow: this.heightBelow,
+			alpha: this.alpha,
+			color: this.color,
+			lifeSpan: this.lifeSpan,
+			textureSlot: this.textureSlot,
+			emissionRate: this.emissionRate,
+			rows: this.rows,
+			columns: this.columns,
+			materialId: this.materialId,
+			gravity: this.gravity,
+			visibility: this.visibility,
+			heightAboveStruct: this.heightAboveStruct,
+			heightBelowStruct: this.heightBelowStruct,
+		}
 	}
 }

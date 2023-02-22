@@ -1,4 +1,4 @@
-import {int2s} from "../type/hex.mjs";
+import {int2s} from "../util/hex.mjs";
 
 /** @module MDX */
 export class Key {

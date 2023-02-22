@@ -46,13 +46,3 @@ export class EventObject {
 		}
 	}
 }
-
-/*
-EventObject {
-  Node node
-  char[4] "KEVT"
-  uint32 tracksCount
-  uint32 globalSequenceId
-  uint32[tracksCount] tracks
-}
- */

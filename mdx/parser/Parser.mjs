@@ -1,6 +1,6 @@
 /** @module MDX */
 import {ChunkSize, StructSize} from "./StructSize.mjs";
-import {int2s, s2s} from "../type/hex.mjs";
+import {int2s, s2s} from "../util/hex.mjs";
 import {Reader} from "./Reader.mjs";
 
 export class Parser {

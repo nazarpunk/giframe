@@ -1,28 +1,30 @@
 /** @module MDX */
 
-import {StructSizeOld} from "../type/StructSizeOld.mjs";
-import {InterpolationOld} from "../parser/InterpolationOld.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
+import {Float32List} from "../parser/Float32List.mjs";
 
 export class TextureAnimation {
-	/**  @param {Reader} reader */
-	constructor(reader) {
-		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
-		this.translations = InterpolationOld.fromKey(reader, 'KTAT', FLOAT, 3);
-		this.rotations = InterpolationOld.fromKey(reader, 'KTAR', FLOAT, 4);
-		this.scalings = InterpolationOld.fromKey(reader, 'KTAS', FLOAT, 3);
-		this.inclusiveSize.check();
+	/** @type {Reader} */ reader;
+
+	read() {
+		this.parser = new Parser(this.reader);
+
+		this.inclusiveSize = this.parser.add(InclusiveSize);
+		this.translations = this.parser.add(new Interpolation(0x5441544b/*KTAT*/, Float32List, 3));
+		this.rotations = this.parser.add(new Interpolation(0x5241544b/*KTAR*/, Float32List, 4));
+		this.scalings = this.parser.add(new Interpolation(0x5341544b/*KTAS*/, Float32List, 3));
+
+		this.parser.read();
 	}
 
-	/** @type {InterpolationOld} */ translations;
-	/** @type {InterpolationOld} */ rotations;
-	/** @type {InterpolationOld} */ scalings;
-
-	write() {
-		this.inclusiveSize.save();
-		this.translations?.write();
-		this.rotations?.write();
-		this.scalings?.write();
-		this.inclusiveSize.write();
+	toJSON() {
+		return {
+			inclusiveSize: this.inclusiveSize,
+			translations: this.translations,
+			rotations: this.rotations,
+			scalings: this.scalings,
+		}
 	}
 }

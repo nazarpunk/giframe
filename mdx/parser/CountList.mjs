@@ -1,8 +1,6 @@
 import {Parser} from "./Parser.mjs";
 import {Key} from "./Key.mjs";
-import {Uint16, Uint32, Uint8} from "./Uint.mjs";
-import {Float32List} from "./Float32List.mjs";
-import {TextureCoordinateSet} from "../data/TextureCoordinateSet.mjs";
+import {Uint32} from "./Uint.mjs";
 
 /** @module MDX */
 export class CountList {

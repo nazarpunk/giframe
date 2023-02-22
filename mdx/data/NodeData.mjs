@@ -1,6 +1,6 @@
 /** @module MDX */
 
-import {Parser, Stop} from "../parser/Parser.mjs";
+import {Parser} from "../parser/Parser.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Uint32} from "../parser/Uint.mjs";

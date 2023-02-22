@@ -2,13 +2,14 @@ import * as fs from 'fs';
 import {MDX} from "../mdx/MDX.mjs";
 import * as cp from 'child_process';
 
+
 //const name = 'BlackDragon';
 //const name = 'BlackDragon_Portrait';
-const name = 'DNCAshenValeTerrain';
+//const name = 'DNCAshenValeTerrain';
 //const name = 'sprite';
 //const name = 'Footman';
 //const name = 'heroarchmage';
-//const name = 'heroarchmage_ref';
+const name = 'heroarchmage_ref';
 
 const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);
@@ -24,6 +25,7 @@ let bb;
 try {
 	model = new MDX(arrayBuffer);
 	model.read();
+	console.log('read end');
 	bb = model.write();
 } catch (e) {
 	console.log(e);

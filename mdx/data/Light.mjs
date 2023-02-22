@@ -1,49 +1,53 @@
 /** @module MDX */
-import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {NodeData} from "./NodeData.mjs";
-import {DWORD} from "../type/DWORD.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
-import {InterpolationOld} from "../parser/InterpolationOld.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {Uint32} from "../parser/Uint.mjs";
+import {Float32} from "../parser/Float32.mjs";
+import {Float32List} from "../parser/Float32List.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class Light {
-	/** @param {Reader} reader */
-	constructor(reader) {
-		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
-		this.node = new NodeData(reader);
-		this.Type = new DWORD(reader);
-		this.AttenuationStart = new DWORD(reader);
-		this.AttenuationEnd = new DWORD(reader);
-		this.color = new FLOAT(reader, 3);
-		this.Intensity = new FLOAT(reader);
-		this.AmbientColor = new FLOAT(reader, 3);
-		this.AmbientIntensity = new FLOAT(reader);
-		this.Visibility = InterpolationOld.fromKey(reader, 'KLAV', FLOAT);
-		this.colorStruct = InterpolationOld.fromKey(reader, 'KLAC', FLOAT, 3);
-		this.IntensityStruct = InterpolationOld.fromKey(reader, 'KLAI', FLOAT);
-		this.AmbientColorStruct = InterpolationOld.fromKey(reader, 'KLBC', FLOAT, 3);
-		this.AmbientIntensityStruct = InterpolationOld.fromKey(reader, 'KLBI', FLOAT);
-		this.inclusiveSize.check();
+	/** @type {Reader} */ reader;
+
+	read() {
+		this.parser = new Parser(this.reader);
+
+		this.inclusiveSize = this.parser.add(InclusiveSize);
+		this.node = this.parser.add(NodeData);
+		this.type = this.parser.add(Uint32);
+		this.attenuationStart = this.parser.add(Uint32);
+		this.attenuationEnd = this.parser.add(Uint32);
+		this.color = this.parser.add(new Float32List(3));
+		this.intensity = this.parser.add(Float32);
+		this.ambientColor = this.parser.add(new Float32List(3));
+		this.ambientIntensity = this.parser.add(Float32);
+		this.visibilityTrack = this.parser.add(new Interpolation(0x56414c4b/*KLAV*/, Float32));
+		this.colorTrack = this.parser.add(new Interpolation(0x43414c4b/*KLAC*/, Float32List, 3));
+		this.intensityTrack = this.parser.add(new Interpolation(0x49414c4b/*KLAI*/, Float32));
+		this.ambientColorTrack = this.parser.add(new Interpolation(0x43424c4b/*KLBC*/, Float32List, 3));
+		this.ambientIntensityTrack = this.parser.add(new Interpolation(0x49424c4b/*KLBI*/, Float32));
+
+		this.parser.read();
 	}
 
-	read(){
 
-	}
-
-	write() {
-		this.inclusiveSize.save();
-		this.node.write();
-		this.Type.write();
-		this.AttenuationStart.write();
-		this.AttenuationEnd.write();
-		this.color.write();
-		this.Intensity.write();
-		this.AmbientColor.write();
-		this.AmbientIntensity.write();
-		this.Visibility?.write();
-		this.colorStruct?.write();
-		this.IntensityStruct?.write();
-		this.AmbientColorStruct?.write();
-		this.AmbientIntensityStruct?.write();
-		this.inclusiveSize.write();
+	toJSON() {
+		return {
+			inclusiveSize: this.inclusiveSize,
+			node: this.node,
+			type: this.type,
+			attenuationStart: this.attenuationStart,
+			attenuationEnd: this.attenuationEnd,
+			color: this.color,
+			intensity: this.intensity,
+			ambientColor: this.ambientColor,
+			ambientIntensity: this.ambientIntensity,
+			visibilityTrack: this.visibilityTrack,
+			colorTrack: this.colorTrack,
+			intensityTrack: this.intensityTrack,
+			ambientColorTrack: this.ambientColorTrack,
+			ambientIntensityTrack: this.ambientIntensityTrack,
+		}
 	}
 }

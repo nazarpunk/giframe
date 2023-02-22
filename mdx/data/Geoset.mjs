@@ -7,6 +7,7 @@ import {Float32List} from "../parser/Float32List.mjs";
 import {Uint16, Uint32, Uint8} from "../parser/Uint.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Extent} from "./Extent.mjs";
+import {TextureCoordinateSet} from "./TextureCoordinateSet.mjs";
 
 export class Geoset {
 	/** @type {Reader} */ reader;
@@ -36,9 +37,8 @@ export class Geoset {
 			this.tangents = this.parser.add(new CountList(0x474e4154/*TANG*/, new Float32List(4)));
 			this.skins = this.parser.add(new CountList(0x4e494b53/*SKIN*/, Uint8));
 		}
-		this.textureCoordinateSets = this.parser.add(new CountList(0x53415655/*UVAS*/, new CountList(0x53425655/*UVBS*/, new Float32List(2))));
+		this.textureCoordinateSets = this.parser.add(new CountList(0x53415655/*UVAS*/, TextureCoordinateSet));
 
-		//this.parser.add(Stop);
 		this.parser.read();
 	}
 
@@ -65,55 +65,3 @@ export class Geoset {
 		}
 	}
 }
-
-
-/*
-Geoset {
-  uint32 inclusiveSize
-  char[4] "VRTX"
-  uint32 vertexCount
-  float[vertexCount * 3] vertexPositions
-  char[4] "NRMS"
-  uint32 normalCount
-  float[normalCount * 3] vertexNormals
-  char[4] "PTYP"
-  uint32 faceTypeGroupsCount
-  uint32[faceTypeGroupsCount] faceTypeGroups
-  char[4] "PCNT"
-  uint32 faceGroupsCount
-  uint32[faceGroupsCount] faceGroups
-  char[4] "PVTX"
-  uint32 facesCount
-  uint16[facesCount] faces
-  char[4] "GNDX"
-  uint32 vertexGroupsCount
-  uint8[vertexGroupsCount] vertexGroups
-  char[4] "MTGC"
-  uint32 matrixGroupsCount
-  uint32[matrixGroupsCount] matrixGroups
-  char[4] "MATS"
-  uint32 matrixIndicesCount
-  uint32[matrixIndicesCount] matrixIndices
-  uint32 materialId
-  uint32 selectionGroup
-  uint32 selectionFlags
-
-  if (version > 800) {
-    uint32 lod
-    char[80] lodName
-  }
-
-  Extent extent
-  uint32 extentsCount
-  Extent[extentsCount] sequenceExtents
-
-  if (version > 800) {
-    (Tangents)
-    (Skin)
-  }
-
-  char[4] "UVAS"
-  uint32 textureCoordinateSetsCount
-  TextureCoordinateSet[textureCoordinateSetsCount] textureCoordinateSets
-}
- */

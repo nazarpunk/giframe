@@ -26,6 +26,8 @@ import {ChunkList} from "./parser/ChunkList.mjs";
 import {Sequence} from "./data/Sequence.mjs";
 import {GlobalSequence} from "./data/GlobalSequence.mjs";
 import {Material} from "./data/Material.mjs";
+import {CornEmmiter} from "./data/CornEmmiter.mjs";
+import {FaceEffect} from "./data/FaceEffect.mjs";
 
 export class MDX {
 	/**
@@ -47,21 +49,23 @@ export class MDX {
 		this.materials = this.parser.add(new ChunkList(0x534c544d/*MTLS*/, Material));
 		this.textures = this.parser.add(new ChunkList(0x53584554/*TEXS*/, Texture));
 		this.geosets = this.parser.add(new ChunkList(0x534f4547/*GEOS*/, Geoset));
+		this.geosetAnimations = this.parser.add(new ChunkList(0x414f4547/*GEOA*/, GeosetAnimation));
+		this.bones = this.parser.add(new ChunkList(0x454e4f42/*BONE*/, Bone));
+		this.helpers = this.parser.add(new ChunkList(0x504c4548/*HELP*/, NodeData));
+		this.attachments = this.parser.add(new ChunkList(0x48435441/*ATCH*/, Attachment));
+		this.pivotPoints = this.parser.add(new ChunkList(0x54564950/*PIVT*/, PivotPoint));
+		this.particleEmitters2 = this.parser.add(new ChunkList(0x32455250/*PRE2*/, ParticleEmitter2));
+		this.eventObjects = this.parser.add(new ChunkList(0x53545645/*EVTS*/, EventObject));
+		this.collisionShapes = this.parser.add(new ChunkList(0x44494c43/*CLID*/, CollisionShape));
+		this.cornEmmiter = this.parser.add(new ChunkList(0x4e524f43/*CORN*/, CornEmmiter));
+		this.cameras = this.parser.add(new ChunkList(0x534d4143/*CAMS*/, Camera));
+		this.faceEffect = this.parser.add(new ChunkList(0x58464146/*FAFX*/, FaceEffect));
 
 		if (0) {
-			this.lights = CountedListOld.fromKey(this.reader, 'LITE', Light, {chunk: true});
-			this.textureAnimations = CountedListOld.fromKey(this.reader, 'TXAN', TextureAnimation, {chunk: true});
-			this.geosetAnimations = CountedListOld.fromKey(this.reader, 'GEOA', GeosetAnimation, {chunk: true});
-			this.bones = CountedListOld.fromKey(this.reader, 'BONE', Bone, {chunk: true});
-			this.helper = CountedListOld.fromKey(this.reader, 'HELP', NodeData, {chunk: true});
-			this.attachments = CountedListOld.fromKey(this.reader, 'ATCH', Attachment, {chunk: true});
-			this.pivotPoints = CountedListOld.fromKey(this.reader, 'PIVT', PivotPoint, {chunk: true});
-			this.particleEmitters = CountedListOld.fromKey(this.reader, 'PREM', ParticleEmitter, {chunk: true});
-			this.particleEmitters2 = CountedListOld.fromKey(this.reader, 'PRE2', ParticleEmitter2, {chunk: true});
-			this.cameras = CountedListOld.fromKey(this.reader, 'CAMS', Camera, {chunk: true});
-			this.ribbinEmitters = CountedListOld.fromKey(this.reader, 'RIBB', RibbonEmitter, {chunk: true});
-			this.eventObjects = CountedListOld.fromKey(this.reader, 'EVTS', EventObject, {chunk: true});
-			this.collisionShapes = CountedListOld.fromKey(this.reader, 'CLID', CollisionShape, {chunk: true});
+			this.lights = CountedListOld.fromKey(this.reader, 0x4554494c/*LITE*/, Light, {chunk: true});
+			this.textureAnimations = CountedListOld.fromKey(this.reader, 0x4e415854/*TXAN*/, TextureAnimation, {chunk: true});
+			this.particleEmitters = CountedListOld.fromKey(this.reader, 0x4d455250/*PREM*/, ParticleEmitter, {chunk: true});
+			this.ribbinEmitters = CountedListOld.fromKey(this.reader, 0x42424952/*RIBB*/, RibbonEmitter, {chunk: true});
 		}
 
 		this.parser.read();
@@ -72,17 +76,15 @@ export class MDX {
 				key = int2s(this.reader.getUint32());
 			}
 			console.error(`MDX end offset error, key: ${key}, ${s2s(key)}`);
-			//throw new Error(`MDX end offset ${this.reader.byteOffset} not equal length ${this.dataView.byteLength}`);
+			//throw new Error(`MDX end offset error, key: ${key}, ${s2s(key)}`);
 		}
 	}
 
 	/** @return {ArrayBuffer} */
 	write() {
 		this.parser.write();
-
 		//console.log(JSON.stringify(this.geosets, null, 4));
 		//console.log(JSON.stringify(this, null, 4));
-
 		return this.reader.output;
 	}
 
@@ -96,6 +98,17 @@ export class MDX {
 			materials: this.materials,
 			textures: this.textures,
 			geosets: this.geosets,
+			bones: this.bones,
+			helper: this.helpers,
+			attachments: this.attachments,
+			pivotPoints: this.pivotPoints,
+			particleEmitters2: this.particleEmitters2,
+			eventObjects: this.eventObjects,
+			collisionShapes: this.collisionShapes,
+			geosetAnimations: this.geosetAnimations,
+			cornEmmiter: this.cornEmmiter,
+			cameras: this.cameras,
+			faceEffect: this.faceEffect,
 		}
 	}
 }

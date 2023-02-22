@@ -13,12 +13,10 @@ export class Format {
 
 	read() {
 		this.parser = new Parser(this.reader);
-		this.key = this.parser.add(new Key(Format.id));
-		this.parser.read();
-	}
 
-	write() {
-		this.parser.write();
+		this.key = this.parser.add(new Key(Format.id));
+
+		this.parser.read();
 	}
 
 	toJSON() {

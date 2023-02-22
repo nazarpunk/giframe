@@ -19,6 +19,14 @@ export class Parser {
 		return p;
 	}
 
+	static copyChild(child) {
+		if (typeof child === 'object') {
+			return child.copy();
+		} else {
+			return new child();
+		}
+	}
+
 	read() {
 		const map = new Map();
 		for (const p of this._input) {
@@ -69,7 +77,6 @@ export class Parser {
 					if (map.has(key)) {
 						_read(map.get(key));
 						if (o === this.reader.byteOffset) {
-							console.error('Parser infinity read!');
 							break;
 						}
 						map.delete(key);
@@ -86,6 +93,7 @@ export class Parser {
 			_read(p);
 
 			if (o === this.reader.byteOffset) {
+				//throw new Error('Parser infinity read!');
 				console.error('Parser infinity read!');
 				break;
 			}
@@ -128,12 +136,17 @@ export class Stop {
 	/** @type {Reader} */ reader;
 
 	read() {
-		/*
-		for (let i = 0; i < 50; i++) {
-			const v = this.reader.view.getUint32(this.reader.byteOffset + i * 4, true);
-			console.log('stop', v, int2s(v));
+		if (1) {
+			let s = '';
+			for (let i = 0; i < 50; i++) {
+				s += String.fromCharCode(this.reader.view.getUint8(this.reader.byteOffset + i));
+
+				//const v = this.reader.view.getUint32(this.reader.byteOffset + i * 4, true);
+				//console.log('stop', v, int2s(v));
+			}
+			console.log(s);
 		}
-		 */
+
 		const v = this.reader.getUint32();
 		throw new Error(`STOP ${v} | ${int2s(v)} | ${s2s(int2s(v))} | ${this.reader.byteOffset}`);
 	}

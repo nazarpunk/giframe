@@ -1,35 +1,40 @@
 /** @module MDX */
 
-import {DWORD} from "../type/DWORD.mjs";
-import {CHAR} from "../type/CHAR.mjs";
-import {StructSizeOld} from "../type/StructSizeOld.mjs";
-import {InterpolationOld} from "../parser/InterpolationOld.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
+import {Parser, Stop} from "../parser/Parser.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {Char} from "../parser/Char.mjs";
+import {Uint32} from "../parser/Uint.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
+import {Float32List} from "../parser/Float32List.mjs";
 
 export class NodeData {
-	/** @param {Reader} reader */
-	constructor(reader) {
-		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
-		this.Name = new CHAR(reader, 80);
-		this.ObjectId = new DWORD(reader);
-		this.ParentId = new DWORD(reader);
-		this.Flags = new DWORD(reader);
-		this.translations = InterpolationOld.fromKey(reader, 'KGTR', FLOAT, 3);
-		this.rotations = InterpolationOld.fromKey(reader, 'KGRT', FLOAT, 4);
-		this.scalings = InterpolationOld.fromKey(reader, 'KGSC', FLOAT, 3);
-		this.inclusiveSize.check();
+	/** @type {Reader} */ reader;
+
+	read() {
+		this.parser = new Parser(this.reader);
+
+		this.inclusiveSize = this.parser.add(InclusiveSize);
+		this.name = this.parser.add(new Char(80));
+		this.objectId = this.parser.add(Uint32);
+		this.parentId = this.parser.add(Uint32);
+		this.flags = this.parser.add(Uint32);
+		this.translation = this.parser.add(new Interpolation(0x5254474b/*KGTR*/, Float32List, 3));
+		this.rotation = this.parser.add(new Interpolation(0x5452474b/*KGRT*/, Float32List, 4));
+		this.scaling = this.parser.add(new Interpolation(0x4353474b/*KGSC*/, Float32List, 3));
+
+		this.parser.read();
 	}
 
-	write() {
-		this.inclusiveSize.save();
-		this.Name.write();
-		this.ObjectId.write();
-		this.ParentId.write();
-		this.Flags.write();
-		this.translations?.write();
-		this.rotations?.write();
-		this.scalings?.write();
-		this.inclusiveSize.write();
+	toJSON() {
+		return {
+			inclusiveSize: this.inclusiveSize,
+			name: this.name,
+			objectId: this.objectId,
+			parentId: this.parentId,
+			flags: this.flags,
+			translation: this.translation,
+			rotation: this.rotation,
+			scaling: this.scaling,
+		}
 	}
 }
-

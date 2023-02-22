@@ -1,6 +1,8 @@
 import {Parser} from "./Parser.mjs";
 import {Key} from "./Key.mjs";
-import {Uint32} from "./Uint.mjs";
+import {Uint16, Uint32, Uint8} from "./Uint.mjs";
+import {Float32List} from "./Float32List.mjs";
+import {TextureCoordinateSet} from "../data/TextureCoordinateSet.mjs";
 
 /** @module MDX */
 export class CountList {
@@ -11,10 +13,6 @@ export class CountList {
 	constructor(id, child) {
 		this.id = id;
 		this.child = child;
-	}
-
-	copy() {
-		return new CountList(this.id, this.child);
 	}
 
 	/** @type {Reader} */ reader;
@@ -31,12 +29,7 @@ export class CountList {
 		p.read();
 
 		for (let i = 0; i < this.length.value; i++) {
-			let p;
-			if (typeof this.child === 'object') {
-				p = this.child.copy();
-			} else {
-				p = new this.child(this.reader);
-			}
+			const p = Parser.copyChild(this.child);
 			this.items.push(p);
 			p.reader = this.reader;
 			p.read();

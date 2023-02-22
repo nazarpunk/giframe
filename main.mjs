@@ -1,9 +1,20 @@
 import {MDX} from "./mdx/MDX.mjs";
 
-const response = await fetch('mdx/sprite.mdx');
+const name = 'heroarchmage_ref';
+
+const response = await fetch(`models/${name}.mdx`);
 const buffer = await response.arrayBuffer();
 
-new MDX(buffer);
+let model;
+
+try {
+	model = new MDX(buffer);
+	model.read();
+} catch (e) {
+	console.log(e);
+}
+
+
 
 //const a = Array.from(Uint32Array.from(buffer));
 

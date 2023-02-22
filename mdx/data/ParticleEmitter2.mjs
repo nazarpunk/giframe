@@ -1,108 +1,111 @@
 /** @module MDX */
 
-import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {NodeData} from "./NodeData.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
-import {DWORD} from "../type/DWORD.mjs";
-import {InterpolationOld} from "../parser/InterpolationOld.mjs";
-import {BYTE} from "../type/BYTE.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {Float32} from "../parser/Float32.mjs";
+import {Uint32, Uint8List} from "../parser/Uint.mjs";
+import {Float32List} from "../parser/Float32List.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class ParticleEmitter2 {
-	/** @param {Reader} reader */
-	constructor(reader) {
-		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
-		this.node = new NodeData(reader);
-		this.Speed = new FLOAT(reader);
-		this.Variation = new FLOAT(reader);
-		this.Latitude = new FLOAT(reader);
-		this.Gravity = new FLOAT(reader);
-		this.Lifespan = new FLOAT(reader);
-		this.EmissionRate = new FLOAT(reader);
-		this.Length = new FLOAT(reader);
-		this.Width = new FLOAT(reader);
-		this.FilterMode = new DWORD(reader);
-		this.Rows = new DWORD(reader);
-		this.Columns = new DWORD(reader);
-		this.HeadOrTail = new DWORD(reader);
-		this.TailLength = new FLOAT(reader);
-		this.Time = new FLOAT(reader);
-		this.SegmentColor = new FLOAT(reader, 9);
-		this.SegmentAlpha = new BYTE(reader, 3);
-		this.SegmentScaling = new FLOAT(reader, 3);
-		this.HeadIntervalStart = new DWORD(reader);
-		this.HeadIntervalEnd = new DWORD(reader);
-		this.HeadIntervalRepeat = new DWORD(reader);
-		this.HeadDecayIntervalStart = new DWORD(reader);
-		this.HeadDecayIntervalEnd = new DWORD(reader);
-		this.HeadDecayIntervalRepeat = new DWORD(reader);
-		this.TailIntervalStart = new DWORD(reader);
-		this.TailIntervalEnd = new DWORD(reader);
-		this.TailIntervalRepeat = new DWORD(reader);
-		this.TailDecayIntervalStart = new DWORD(reader);
-		this.TailDecayIntervalEnd = new DWORD(reader);
-		this.TailDecayIntervalRepeat = new DWORD(reader);
-		this.TextureId = new DWORD(reader);
-		this.Squirt = new DWORD(reader);
-		this.PriorityPlane = new DWORD(reader);
-		this.ReplaceableId = new DWORD(reader);
+	/** @type {Reader} */ reader;
 
-		while (reader.byteOffset < this.inclusiveSize.end) {
-			this.speedTrack ??= InterpolationOld.fromKey(reader, 'KP2S', FLOAT);
-			this.variationTrack ??= InterpolationOld.fromKey(reader, 'KP2R', FLOAT);
-			this.latitudeTrack ??= InterpolationOld.fromKey(reader, 'KP2L', FLOAT);
-			this.gravityTrack ??= InterpolationOld.fromKey(reader, 'KP2G', FLOAT);
-			this.emissionRateTrack ??= InterpolationOld.fromKey(reader, 'KP2E', FLOAT);
-			this.lengthTrack ??= InterpolationOld.fromKey(reader, 'KP2N', FLOAT);
-			this.widthTrack ??= InterpolationOld.fromKey(reader, 'KP2W', FLOAT);
-			this.visibilityTrack ??= InterpolationOld.fromKey(reader, 'KP2V', FLOAT);
-		}
-		this.inclusiveSize.check();
+	read() {
+		this.parser = new Parser(this.reader);
+
+		this.inclusiveSize = this.parser.add(InclusiveSize);
+		this.node = this.parser.add(NodeData);
+		this.speed = this.parser.add(Float32);
+		this.variation = this.parser.add(Float32);
+		this.latitude = this.parser.add(Float32);
+		this.gravity = this.parser.add(Float32);
+		this.lifespan = this.parser.add(Float32);
+		this.emissionRate = this.parser.add(Float32);
+		this.length = this.parser.add(Float32);
+		this.width = this.parser.add(Float32);
+		this.filterMode = this.parser.add(Uint32);
+		this.rows = this.parser.add(Uint32);
+		this.columns = this.parser.add(Uint32);
+		this.headOrTail = this.parser.add(Uint32);
+		this.tailLength = this.parser.add(Float32);
+		this.time = this.parser.add(Float32);
+		this.segmentColor = this.parser.add(new Float32List(9));
+		this.segmentAlpha = this.parser.add(new Uint8List(3));
+		this.segmentScaling = this.parser.add(new Float32List(3));
+		this.headIntervalStart = this.parser.add(Uint32);
+		this.headIntervalEnd = this.parser.add(Uint32);
+		this.headIntervalRepeat = this.parser.add(Uint32);
+		this.headDecayIntervalStart = this.parser.add(Uint32);
+		this.headDecayIntervalEnd = this.parser.add(Uint32);
+		this.headDecayIntervalRepeat = this.parser.add(Uint32);
+		this.tailIntervalStart = this.parser.add(Uint32);
+		this.tailIntervalEnd = this.parser.add(Uint32);
+		this.tailIntervalRepeat = this.parser.add(Uint32);
+		this.tailDecayIntervalStart = this.parser.add(Uint32);
+		this.tailDecayIntervalEnd = this.parser.add(Uint32);
+		this.tailDecayIntervalRepeat = this.parser.add(Uint32);
+		this.textureId = this.parser.add(Uint32);
+		this.squirt = this.parser.add(Uint32);
+		this.priorityPlane = this.parser.add(Uint32);
+		this.replaceableId = this.parser.add(Uint32);
+		this.speedTrack = this.parser.add(new Interpolation(0x5332504b/*KP2S*/, Float32));
+		this.variationTrack = this.parser.add(new Interpolation(0x5232504b/*KP2R*/, Float32));
+		this.latitudeTrack = this.parser.add(new Interpolation(0x4c32504b/*KP2L*/, Float32));
+		this.gravityTrack = this.parser.add(new Interpolation(0x4732504b/*KP2G*/, Float32));
+		this.emissionRateTrack = this.parser.add(new Interpolation(0x4532504b/*KP2E*/, Float32));
+		this.lengthTrack = this.parser.add(new Interpolation(0x4e32504b/*KP2N*/, Float32));
+		this.widthTrack = this.parser.add(new Interpolation(0x5732504b/*KP2W*/, Float32));
+		this.visibilityTrack = this.parser.add(new Interpolation(0x5632504b/*KP2V*/, Float32));
+
+		this.parser.read();
 	}
 
-	write() {
-		this.inclusiveSize.save();
-		this.node.write();
-		this.Speed.write();
-		this.Variation.write();
-		this.Latitude.write();
-		this.Gravity.write();
-		this.Lifespan.write();
-		this.EmissionRate.write();
-		this.Length.write();
-		this.Width.write();
-		this.FilterMode.write();
-		this.Rows.write();
-		this.Columns.write();
-		this.HeadOrTail.write();
-		this.TailLength.write();
-		this.Time.write();
-		this.SegmentColor.write();
-		this.SegmentAlpha.write();
-		this.SegmentScaling.write();
-		this.HeadIntervalStart.write();
-		this.HeadIntervalEnd.write();
-		this.HeadIntervalRepeat.write();
-		this.HeadDecayIntervalStart.write();
-		this.HeadDecayIntervalEnd.write();
-		this.HeadDecayIntervalRepeat.write();
-		this.TailIntervalStart.write();
-		this.TailIntervalEnd.write();
-		this.TailIntervalRepeat.write();
-		this.TailDecayIntervalStart.write();
-		this.TailDecayIntervalEnd.write();
-		this.TailDecayIntervalRepeat.write();
-		this.TextureId.write();
-		this.Squirt.write();
-		this.PriorityPlane.write();
-		this.ReplaceableId.write();
-		this.speedTrack?.write();
-		this.variationTrack?.write();
-		this.latitudeTrack?.write();
-		this.gravityTrack?.write();
-		this.emissionRateTrack?.write();
-		this.lengthTrack?.write();
-		this.widthTrack?.write();
-		this.visibilityTrack?.write();
-		this.inclusiveSize.write();
+	toJSON() {
+		return {
+			inclusiveSize: this.inclusiveSize,
+			node: this.node,
+			speed: this.speed,
+			variation: this.variation,
+			latitude: this.latitude,
+			gravity: this.gravity,
+			lifespan: this.lifespan,
+			emissionRate: this.emissionRate,
+			length: this.length,
+			width: this.width,
+			filterMode: this.filterMode,
+			rows: this.rows,
+			columns: this.columns,
+			headOrTail: this.headOrTail,
+			tailLength: this.tailLength,
+			time: this.time,
+			segmentColor: this.segmentColor,
+			segmentAlpha: this.segmentAlpha,
+			segmentScaling: this.segmentScaling,
+			headIntervalStart: this.headIntervalStart,
+			headIntervalEnd: this.headIntervalEnd,
+			headIntervalRepeat: this.headIntervalRepeat,
+			headDecayIntervalStart: this.headDecayIntervalStart,
+			headDecayIntervalEnd: this.headDecayIntervalEnd,
+			headDecayIntervalRepeat: this.headDecayIntervalRepeat,
+			tailIntervalStart: this.tailIntervalStart,
+			tailIntervalEnd: this.tailIntervalEnd,
+			tailIntervalRepeat: this.tailIntervalRepeat,
+			tailDecayIntervalStart: this.tailDecayIntervalStart,
+			tailDecayIntervalEnd: this.tailDecayIntervalEnd,
+			tailDecayIntervalRepeat: this.tailDecayIntervalRepeat,
+			textureId: this.textureId,
+			squirt: this.squirt,
+			priorityPlane: this.priorityPlane,
+			replaceableId: this.replaceableId,
+			speedTrack: this.speedTrack,
+			variationTrack: this.variationTrack,
+			latitudeTrack: this.latitudeTrack,
+			gravityTrack: this.gravityTrack,
+			emissionRateTrack: this.emissionRateTrack,
+			lengthTrack: this.lengthTrack,
+			widthTrack: this.widthTrack,
+			visibilityTrack: this.visibilityTrack,
+		}
 	}
 }

@@ -1,30 +1,38 @@
 /** @module MDX */
 
-import {StructSizeOld} from "../type/StructSizeOld.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
-import {DWORD} from "../type/DWORD.mjs";
-import {InterpolationOld} from "../parser/InterpolationOld.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {Float32} from "../parser/Float32.mjs";
+import {Uint32} from "../parser/Uint.mjs";
+import {Float32List} from "../parser/Float32List.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class GeosetAnimation {
-	/** @param {Reader} reader */
-	constructor(reader) {
-		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
-		this.Alpha = new FLOAT(reader);
-		this.Flags = new DWORD(reader);
-		this.Color = new FLOAT(reader, 3);
-		this.GeosetId = new DWORD(reader);
-		this.AlphaStruct = InterpolationOld.fromKey(reader, 'KGAO', FLOAT);
-		this.ColorStruct = InterpolationOld.fromKey(reader, 'KGAC', FLOAT, 3);
+	/** @type {Reader} reader */ reader;
+
+	read() {
+		this.parser = new Parser(this.reader);
+
+		this.inclusiveSize = this.parser.add(InclusiveSize);
+		this.alpha = this.parser.add(Float32);
+		this.flags = this.parser.add(Uint32);
+		this.color = this.parser.add(new Float32List(3));
+		this.geosetId = this.parser.add(Uint32);
+		this.alphaTrack = this.parser.add(new Interpolation(0x4f41474b/*KGAO*/, Float32));
+		this.colorTrack = this.parser.add(new Interpolation(0x4341474b/*KGAC*/, Float32List, 3));
+
+		this.parser.read();
 	}
 
-	write() {
-		this.inclusiveSize.save();
-		this.Alpha.write();
-		this.Flags.write();
-		this.Color.write();
-		this.GeosetId.write();
-		this.AlphaStruct?.write();
-		this.ColorStruct?.write();
-		this.inclusiveSize.write();
+	toJSON() {
+		return {
+			inclusiveSize: this.inclusiveSize,
+			alpha: this.alpha,
+			flags: this.flags,
+			color: this.color,
+			geosetId: this.geosetId,
+			alphaTrack: this.alphaTrack,
+			colorTrack: this.colorTrack,
+		}
 	}
 }

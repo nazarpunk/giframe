@@ -1,35 +1,35 @@
 /** @module MDX */
 
-import {StructSizeOld} from "../type/StructSizeOld.mjs";
 import {NodeData} from "./NodeData.mjs";
-import {CHAR} from "../type/CHAR.mjs";
-import {DWORD} from "../type/DWORD.mjs";
-import {KEY} from "../type/KEY.mjs";
-import {InterpolationOld} from "../parser/InterpolationOld.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {Char} from "../parser/Char.mjs";
+import {Uint32} from "../parser/Uint.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
+import {Float32} from "../parser/Float32.mjs";
 
 export class Attachment {
-	/** @param {Reader} reader */
-	constructor(reader) {
-		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
-		this.node = new NodeData(reader);
-		this.Path = new CHAR(reader, 260);
-		this.AttachmentId = new DWORD(reader);
+	/** @type {Reader} */ reader;
 
-		if (reader.byteOffset < this.inclusiveSize.end) {
-			const key = new KEY(reader, {name: 'KATV'});
-			this.AttachmentVisibility = new InterpolationOld(key, FLOAT);
-		}
+	read() {
+		this.parser = new Parser(this.reader);
 
-		this.inclusiveSize.check();
+		this.inclusiveSize = this.parser.add(InclusiveSize);
+		this.node = this.parser.add(NodeData);
+		this.path = this.parser.add(new Char(260));
+		this.attachmentId = this.parser.add(Uint32);
+		this.visibility = this.parser.add(new Interpolation(0x5654414b/*KATV*/, Float32));
+
+		this.parser.read();
 	}
 
-	write() {
-		this.inclusiveSize.save();
-		this.node.write();
-		this.Path.write();
-		this.AttachmentId.write();
-		this.AttachmentVisibility?.write();
-		this.inclusiveSize.write();
+	toJSON() {
+		return {
+			inclusiveSize: this.inclusiveSize,
+			node: this.node,
+			path: this.path,
+			attachmentId: this.attachmentId,
+			visibility: this.visibility,
+		}
 	}
 }

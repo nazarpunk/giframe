@@ -1,37 +1,43 @@
 /** @module MDX */
-import {StructSizeOld} from "../type/StructSizeOld.mjs";
-import {CHAR} from "../type/CHAR.mjs";
-import {DWORD} from "../type/DWORD.mjs";
-import {InterpolationOld} from "../parser/InterpolationOld.mjs";
-import {FLOAT} from "../type/FLOAT.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {InclusiveSize} from "../parser/StructSize.mjs";
+import {Char} from "../parser/Char.mjs";
+import {Float32List} from "../parser/Float32List.mjs";
+import {Uint32} from "../parser/Uint.mjs";
+import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class Camera {
-	/** @param {Reader} reader */
-	constructor(reader) {
-		this.inclusiveSize = new StructSizeOld(reader, {inclusive: true});
-		this.Name = new CHAR(reader, 80);
-		this.Position = new FLOAT(reader, 3);
-		this.FieldOfView = new DWORD(reader);
-		this.FarClippingPlane = new DWORD(reader);
-		this.NearClippingPlane = new DWORD(reader);
-		this.TargetPosition = new FLOAT(reader, 3);
-		this.positionTranslation = InterpolationOld.fromKey(reader, 'KCTR', FLOAT, 3);
-		this.targetTranslation = InterpolationOld.fromKey(reader, 'KTTR', FLOAT, 3);
-		this.rotation = InterpolationOld.fromKey(reader, 'KCRL', FLOAT);
-		this.inclusiveSize.check();
+	/** @type {Reader} reader */ reader;
+
+	read() {
+		this.parser = new Parser(this.reader);
+
+		this.inclusiveSize = this.parser.add(InclusiveSize);
+		this.name = this.parser.add(new Char(80));
+		this.position = this.parser.add(new Float32List(3));
+		this.fieldOfView = this.parser.add(new Uint32());
+		this.farClippingPlane = this.parser.add(new Uint32());
+		this.nearClippingPlane = this.parser.add(new Uint32());
+		this.targetPosition = this.parser.add(new Float32List(3));
+		this.translation = this.parser.add(new Interpolation(0x5254434b/*KCTR*/, Float32List, 3));
+		this.targetTranslation = this.parser.add(new Interpolation(0x5254544b/*KTTR*/, Float32List, 3));
+		this.rotation = this.parser.add(new Interpolation(0x4c52434b/*KCRL*/, Float32List, 3));
+
+		this.parser.read();
 	}
 
-	write() {
-		this.inclusiveSize.save();
-		this.Name.write();
-		this.Position.write();
-		this.FieldOfView.write();
-		this.FarClippingPlane.write();
-		this.NearClippingPlane.write();
-		this.TargetPosition.write();
-		this.positionTranslation?.write();
-		this.targetTranslation?.write();
-		this.rotation?.write();
-		this.inclusiveSize.write();
+	toJSON() {
+		return {
+			inclusiveSize: this.inclusiveSize,
+			name: this.name,
+			position: this.position,
+			fieldOfView: this.fieldOfView,
+			farClippingPlane: this.farClippingPlane,
+			nearClippingPlane: this.nearClippingPlane,
+			targetPosition: this.targetPosition,
+			translation: this.translation,
+			targetTranslation: this.targetTranslation,
+			rotation: this.rotation,
+		}
 	}
 }

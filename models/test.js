@@ -4,10 +4,11 @@ import * as cp from 'child_process';
 
 //const name = 'BlackDragon';
 //const name = 'BlackDragon_Portrait';
-//const name = 'DNCAshenValeTerrain';
+const name = 'DNCAshenValeTerrain';
 //const name = 'sprite';
 //const name = 'Footman';
-const name = 'heroarchmage';
+//const name = 'heroarchmage';
+//const name = 'heroarchmage_ref';
 
 const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);

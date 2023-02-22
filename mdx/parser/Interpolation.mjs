@@ -9,12 +9,12 @@ export class Interpolation {
 	/**
 	 * @param {number} id
 	 * @param child
-	 * @param {*?} length
+	 * @param {*?} count
 	 */
-	constructor(id, child, length) {
+	constructor(id, child, count) {
 		this.id = id;
 		this.child = child;
-		this.length = length;
+		this.count = count;
 	}
 
 	items = [];
@@ -36,11 +36,14 @@ export class Interpolation {
 
 	write() {
 		this.key.write();
+		const start = this.reader.output.byteLength;
 		this.length.write();
 		this.type.write();
+		this.globalSequenceId.write();
 		for (const p of this.items) {
 			p.parser.write();
 		}
+		this.reader.updateUint32(this.items.length, start);
 	}
 
 	toJSON() {
@@ -48,6 +51,7 @@ export class Interpolation {
 			key: this.key,
 			length: this.length,
 			type: this.type,
+			items: this.items,
 			globalSequenceId: this.globalSequenceId
 		}
 	}
@@ -62,11 +66,20 @@ export class InterpolationTrack {
 	read() {
 		this.parser = new Parser(this.parent.reader);
 
-		this.time = this.parser.add(new Uint32());
-		this.value = this.parser.add(this.parent.child);
+		this.time = this.parser.add(Uint32);
+
+		const add = () => {
+			const p = new this.parent.child(this.parent.count);
+			p.reader = this.parent.reader;
+			this.parser.add(p);
+			return p;
+		};
+
+		this.value = add();
+
 		if (this.parent.type.value > 1) {
-			this.inTan = new this.parent.child(this.parent.length);
-			this.outTan = new this.parent.child(this.parent.length);
+			this.inTan = add();
+			this.outTan = add();
 		}
 
 		this.parser.read();

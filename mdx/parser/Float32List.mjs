@@ -15,7 +15,7 @@ export class Float32List {
 	read() {
 		for (let i = 0; i < this.length; i++) {
 			this.list.push(this.reader.getFloat32());
-			this.reader.next32();
+			this.reader.readOffsetAdd(4);
 		}
 		this.value = this.list[0];
 	}

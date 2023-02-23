@@ -24,24 +24,24 @@ export class ChunkList {
 		this.size = p.add(Uint32);
 		p.read();
 
-		this.byteEnd = this.reader.byteOffset + this.size.value;
+		this.byteEnd = this.reader.readOffset + this.size.value;
 
-		while (this.reader.byteOffset < this.byteEnd) {
-			const o = this.reader.byteOffset;
+		while (this.reader.readOffset < this.byteEnd) {
+			const o = this.reader.readOffset;
 			const p = new this.child(this.reader);
 
 			this.items.push(p);
 			p.reader = this.reader;
 			p.read();
-			if (o === this.reader.byteOffset) {
+			if (o === this.reader.readOffset) {
 				console.error('ChunkList infinity read!');
 				break;
 			}
 		}
 
-		if (this.reader.byteOffset - this.byteEnd !== 0) {
+		if (this.reader.readOffset - this.byteEnd !== 0) {
 			//throw new Error(`ChunkList end error: ${this.byteEnd} != ${this.reader.byteOffset}`);
-			console.log(`ChunkList end error: ${this.byteEnd} != ${this.reader.byteOffset}`);
+			console.log(`ChunkList end error: ${this.byteEnd} != ${this.reader.readOffset}`);
 		}
 	}
 

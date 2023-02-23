@@ -5,7 +5,7 @@ export class Uint8 {
 
 	read() {
 		this.value = this.reader.getUint8();
-		this.reader.next8();
+		this.reader.readOffsetAdd(1);
 	}
 
 	write() {
@@ -22,7 +22,7 @@ export class Uint16 {
 
 	read() {
 		this.value = this.reader.getUint16();
-		this.reader.next16();
+		this.reader.readOffsetAdd(2);
 	}
 
 	write() {
@@ -39,7 +39,7 @@ export class Uint32 {
 
 	read() {
 		this.value = this.reader.getUint32();
-		this.reader.next32();
+		this.reader.readOffsetAdd(4);
 	}
 
 	write() {
@@ -63,7 +63,7 @@ export class Uint8List {
 	read() {
 		for (let i = 0; i < this.length; i++) {
 			this.list.push(this.reader.getUint8());
-			this.reader.next8();
+			this.reader.readOffsetAdd(1);
 		}
 		this.value = this.list[0];
 	}

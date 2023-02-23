@@ -23,10 +23,22 @@ for (let i = 0; i < ba.length; ++i) {
 let model;
 let bb;
 try {
-	model = new MDX(arrayBuffer);
+	let count = 0, prc = 0;
+	model = new MDX(arrayBuffer, {
+		onRead: byte => {
+			count++;
+			const nprc = Math.round(byte / model.reader.view.byteLength * 100);
+			if (nprc === prc && nprc < 99) {
+				return;
+			}
+			prc = nprc;
+			process.stdout.write(`\rread ${prc}% byte ${byte} of ${model.reader.view.byteLength}, count ${count}`);
+		}
+	});
 	model.read();
-	console.log('read end');
-	bb = model.write();
+	console.log('\nRead Complete!');
+
+	//bb = model.write();
 } catch (e) {
 	console.log(e);
 }

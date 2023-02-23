@@ -29,13 +29,19 @@ import {CornEmmiter} from "./data/CornEmmiter.mjs";
 import {FaceEffect} from "./data/FaceEffect.mjs";
 import {BindPose} from "./data/BindPose.mjs";
 
+
 export class MDX {
 	/**
 	 * @param {ArrayBuffer} buffer
+	 * @param {ReaderByteCallback?} onRead
 	 */
-	constructor(buffer) {
-		this.view = new DataView(buffer);
-		this.reader = new Reader(buffer);
+	constructor(buffer, {
+		onRead,
+	} = {}) {
+		this.reader = new Reader(buffer, {
+				onRead: onRead,
+			}
+		);
 	}
 
 	read() {
@@ -68,9 +74,9 @@ export class MDX {
 
 		this.parser.read();
 
-		if (this.reader.byteOffset !== this.view.byteLength) {
+		if (this.reader.readOffset !== this.reader.view.byteLength) {
 			let key = ``;
-			if (this.view.byteLength - this.reader.byteOffset >= 4) {
+			if (this.reader.view.byteLength - this.reader.readOffset >= 4) {
 				key = int2s(this.reader.getUint32());
 			}
 			//console.error(`MDX end offset error, key: ${key}, ${s2s(key)}`);

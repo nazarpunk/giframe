@@ -41,7 +41,7 @@ export class Parser {
 
 		while (this._input.length > 0) {
 			const p = this._input.shift();
-			const o = this.reader.byteOffset;
+			const o = this.reader.readOffset;
 
 			const _read = p => {
 				//const pid = p.constructor['id'] || p.id;
@@ -52,7 +52,7 @@ export class Parser {
 
 			if (p instanceof StructSize) {
 				pSize = p;
-				pSizeEnd = this.reader.byteOffset + this.reader.getUint32() + p.offset;
+				pSizeEnd = this.reader.readOffset + this.reader.getUint32() + p.offset;
 			}
 
 			const pid = p.constructor['id'] || p.id;
@@ -70,13 +70,13 @@ export class Parser {
 				}
 
 				const end = pSize ? pSizeEnd : this.reader.view.byteLength;
-				while (this.reader.byteOffset < end) {
-					const o = this.reader.byteOffset;
+				while (this.reader.readOffset < end) {
+					const o = this.reader.readOffset;
 					const key = this.reader.getUint32();
 
 					if (map.has(key)) {
 						_read(map.get(key));
-						if (o === this.reader.byteOffset) {
+						if (o === this.reader.readOffset) {
 							break;
 						}
 						map.delete(key);
@@ -92,7 +92,7 @@ export class Parser {
 
 			_read(p);
 
-			if (o === this.reader.byteOffset) {
+			if (o === this.reader.readOffset) {
 				//throw new Error('Parser infinity read!');
 				console.error('Parser infinity read!');
 				break;
@@ -100,10 +100,10 @@ export class Parser {
 		}
 
 		if (pSize) {
-			if (this.reader.byteOffset !== pSizeEnd) {
+			if (this.reader.readOffset !== pSizeEnd) {
 				//throw new Error(`StructSize is wrong: ${pSize.value} != ${value}`);
-				console.error(`StructSize is wrong: ${this.reader.byteOffset} != ${pSizeEnd}`);
-				this.reader.byteOffset = pSizeEnd;
+				console.error(`StructSize is wrong: ${this.reader.readOffset} != ${pSizeEnd}`);
+				this.reader.readOffset = pSizeEnd;
 			}
 		}
 	}
@@ -139,7 +139,7 @@ export class Stop {
 		if (1) {
 			let s = '';
 			for (let i = 0; i < 50; i++) {
-				s += String.fromCharCode(this.reader.view.getUint8(this.reader.byteOffset + i));
+				s += String.fromCharCode(this.reader.view.getUint8(this.reader.readOffset + i));
 
 				//const v = this.reader.view.getUint32(this.reader.byteOffset + i * 4, true);
 				//console.log('stop', v, int2s(v));
@@ -148,6 +148,6 @@ export class Stop {
 		}
 
 		const v = this.reader.getUint32();
-		throw new Error(`STOP ${v} | ${int2s(v)} | ${s2s(int2s(v))} | ${this.reader.byteOffset}`);
+		throw new Error(`STOP ${v} | ${int2s(v)} | ${s2s(int2s(v))} | ${this.reader.readOffset}`);
 	}
 }

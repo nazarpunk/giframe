@@ -4,7 +4,7 @@ export class Float32 {
 
 	read() {
 		this.value = this.reader.getFloat32();
-		this.reader.next32();
+		this.reader.readOffsetAdd(4);
 	}
 
 	write() {

@@ -10,6 +10,7 @@ let model;
 try {
 	model = new MDX(buffer);
 	model.read();
+	console.log(model);
 } catch (e) {
 	console.log(e);
 }

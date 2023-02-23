@@ -1,23 +1,40 @@
 /** @module MDX */
 
+/**
+ * @callback ReaderByteCallback
+ * @param {number} byte
+ */
+
+
 export class Reader {
 
-	/** @param {ArrayBuffer} buffer */
-	constructor(buffer) {
+	/** @param {ArrayBuffer} buffer
+	 * @param {ReaderByteCallback?} onRead
+	 */
+	constructor(buffer, {
+		onRead,
+	} = {}) {
 		this.view = new DataView(buffer);
-		this.byteOffset = 0;
+		this.readOffset = 0;
+		this.writeOffset = 0;
 		this.output = new ArrayBuffer(0);
 		this.version = 800;
+		this.onRead = onRead;
+	}
+
+	readOffsetAdd(byte) {
+		this.readOffset += byte;
+		this.onRead?.(this.readOffset);
 	}
 
 	/** @return number */
 	getFloat32() {
-		return this.view.getFloat32(this.byteOffset, true);
+		return this.view.getFloat32(this.readOffset, true);
 	}
 
 	/** @return number */
 	getUint8() {
-		return this.view.getUint8(this.byteOffset);
+		return this.view.getUint8(this.readOffset);
 	}
 
 	/** @param {number} value */
@@ -25,13 +42,9 @@ export class Reader {
 		this.outputView(1).setUint8(0, value);
 	}
 
-	next8() {
-		this.byteOffset += 1;
-	}
-
 	/** @return number */
 	getUint16() {
-		return this.view.getUint16(this.byteOffset, true);
+		return this.view.getUint16(this.readOffset, true);
 	}
 
 	/** @param {number} value */
@@ -39,13 +52,9 @@ export class Reader {
 		this.outputView(2).setUint16(0, value, true);
 	}
 
-	next16() {
-		this.byteOffset += 2;
-	}
-
 	/** @return number */
 	getUint32() {
-		return this.view.getUint32(this.byteOffset, true);
+		return this.view.getUint32(this.readOffset, true);
 	}
 
 	/** @param {number} value */
@@ -54,7 +63,7 @@ export class Reader {
 	}
 
 	next32() {
-		this.byteOffset += 4;
+		this.readOffset += 4;
 	}
 
 	/**

@@ -14,7 +14,7 @@ export class StructSize {
 
 	read() {
 		this.value = this.reader.getUint32();
-		this.reader.next32();
+		this.reader.readOffsetAdd(4);
 	}
 
 	/** @param {number} value */

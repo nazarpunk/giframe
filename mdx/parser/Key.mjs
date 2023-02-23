@@ -11,7 +11,7 @@ export class Key {
 
 	read() {
 		this.value = this.reader.getUint32();
-		this.reader.next32();
+		this.reader.readOffsetAdd(4);
 		if (this.value !== this.key) {
 			console.error(`Key error ${this.key} != ${this.value}`);
 		}

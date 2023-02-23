@@ -17,8 +17,8 @@ export class Char {
 	read() {
 		const s = [];
 		for (let i = 0; i < this.length; i++) {
-			s.push(String.fromCharCode(this.reader.view.getUint8(this.reader.byteOffset)));
-			this.reader.byteOffset++;
+			s.push(String.fromCharCode(this.reader.view.getUint8(this.reader.readOffset)));
+			this.reader.readOffset++;
 		}
 		for (let i = s.length - 1; i >= 0; i--) {
 			if (s[i] !== '\x00') {

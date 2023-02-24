@@ -7,10 +7,10 @@ import * as chip from "child_process";
 //const name = 'BlackDragon';
 //const name = 'BlackDragon_Portrait';
 //const name = 'DNCAshenValeTerrain';
-const name = 'sprite';
+//const name = 'sprite';
 //const name = 'Footman';
 //const name = 'heroarchmage';
-//const name = 'heroarchmage_ref';
+const name = 'heroarchmage_ref';
 
 const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);
@@ -38,9 +38,8 @@ const reader = new Reader(arrayBuffer, {
 	onWrite: (byteOffset, byteLength, calc) => {
 		if (calc !== cv) {
 			cv = calc;
-			console.log('\nCalc End!', cb);
+			console.log('Calc End!', cb);
 		}
-
 		if (calc) {
 			cb = byteOffset;
 			return;
@@ -57,7 +56,7 @@ const reader = new Reader(arrayBuffer, {
 });
 const model = new MDX(reader);
 model.read();
-console.log('\nRead End!\n');
+console.log('\nRead End!');
 if (model.error) {
 	console.log(model.error)
 }

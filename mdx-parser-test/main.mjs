@@ -1,4 +1,5 @@
 import {MDX} from "../mdx/MDX.mjs";
+import {Reader} from "../mdx/parser/Reader.mjs";
 
 const equal = (a, b) => {
 	if (a.byteLength !== b.byteLength) return false;
@@ -8,6 +9,7 @@ const equal = (a, b) => {
 	return true;
 };
 
+const uploader = document.querySelector('.uploader');
 const input = document.querySelector('[type=file]');
 
 /** @param {string} str */
@@ -27,19 +29,25 @@ input.addEventListener('change', e => {
 		const reader = new FileReader();
 		reader.addEventListener('load', e => {
 			print(`Парсим ${f.name}`);
-			/** @type {ArrayBuffer} */
-			const a = e.target.result;
 
-			let b;
-			try {
-				b = new MDX(a).write();
-			} catch (e) {
-				console.error(e);
-				print(e.toString());
+			const model = new MDX(new Reader(e.target.result));
+			model.read();
+			model.write();
+
+			if (model.error) {
+				print(model.error.toString());
 				return;
 			}
-			if (equal(new DataView(a), new DataView(b))) {
-				print(`Парсинг ${f.name} завершён успешно!`);
+
+			if (equal(model.reader.readView, model.reader.writeView)) {
+				const blob = new Blob([JSON.stringify(model, null, 4)], {type: "application/json"});
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				//a.download = `${f.name}.json`;
+				a.target = '_blank';
+				a.href = url;
+				a.textContent = `Парсинг ${f.name} завершён успешно!`;
+				document.body.appendChild(a);
 			} else {
 				print(`Ошибка побайтового сравнения ${f.name}`);
 			}
@@ -48,3 +56,15 @@ input.addEventListener('change', e => {
 	}
 	input.value = null;
 });
+
+const leave = () => {
+	uploader.classList.remove('active');
+	uploader.removeEventListener('dragleave', leave);
+};
+
+addEventListener('dragenter', () => {
+	uploader.classList.add('active');
+	uploader.addEventListener('dragleave', leave);
+});
+
+uploader.addEventListener('drop', leave);

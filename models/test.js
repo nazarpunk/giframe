@@ -1,17 +1,22 @@
+// noinspection JSUnusedAssignment
+
 import * as fs from 'fs';
 import {MDX} from "../mdx/MDX.mjs";
 import {Reader} from "../mdx/parser/Reader.mjs";
 import * as chip from "child_process";
 
+let name;
 
-//const name = 'BlackDragon';
-//const name = 'BlackDragon_Portrait';
-//const name = 'DNCAshenValeTerrain';
-//const name = 'sprite';
-//const name = 'Footman';
-//const name = 'heroarchmage';
-//const name = 'heroarchmage_ref';
-const name = 'heroarchmage_hd';
+name = 'BlackDragon';
+name = 'BlackDragon_Portrait';
+name = 'DNCAshenValeTerrain';
+name = 'sprite';
+name = 'Footman';
+name = 'heroarchmage';
+name = 'heroarchmage_ref';
+name = 'heroarchmage_hd';
+name = 'candelabra_01.MESH';
+name = 'Arthas_portrait';
 
 const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);

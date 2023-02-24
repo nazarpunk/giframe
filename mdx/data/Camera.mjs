@@ -4,7 +4,7 @@ import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
-import {Float32List} from "../parser/Float.mjs";
+import {Float32, Float32List} from "../parser/Float.mjs";
 
 export class Camera {
 	/** @type {Reader} reader */ reader;
@@ -21,7 +21,7 @@ export class Camera {
 		this.targetPosition = this.parser.add(new Float32List(3));
 		this.translation = this.parser.add(new Interpolation(0x5254434b/*KCTR*/, Float32List, 3));
 		this.targetTranslation = this.parser.add(new Interpolation(0x5254544b/*KTTR*/, Float32List, 3));
-		this.rotation = this.parser.add(new Interpolation(0x4c52434b/*KCRL*/, Float32List, 3));
+		this.rotation = this.parser.add(new Interpolation(0x4c52434b/*KCRL*/, Float32));
 
 		this.parser.read();
 	}

@@ -32,7 +32,7 @@ export class Float32List {
 
 	read() {
 		for (let i = 0; i < this.length; i++) {
-			this.list.push(this.reader.getFloat32());
+			this.list.push(this.reader.readFloat(4));
 			this.reader.readOffsetAdd(4);
 		}
 	}

@@ -9,7 +9,7 @@ export class StructSize extends Uint {
 		super(4);
 		this.offset = offset;
 	}
-	/** @type {number} */ readOffsetEnd;
+	/** @type {number} */ readOffsetCurrentEnd;
 }
 
 export class ChunkSize extends StructSize {

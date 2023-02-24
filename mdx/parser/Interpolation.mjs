@@ -20,12 +20,12 @@ export class Interpolation {
 	items = [];
 
 	read() {
-		const p = new Parser(this.reader);
-		this.key = p.add(new Key(this.id));
-		this.length = p.add(Uint32);
-		this.type = p.add(Uint32);
-		this.globalSequenceId = p.add(Uint32);
-		p.read();
+		this.parser = new Parser(this.reader);
+		this.key = this.parser.add(new Key(this.id));
+		this.length = this.parser.add(Uint32);
+		this.type = this.parser.add(Uint32);
+		this.globalSequenceId = this.parser.add(Uint32);
+		this.parser.read();
 
 		for (let i = 0; i < this.length.value; i++) {
 			const p = new InterpolationTrack(this);
@@ -35,15 +35,11 @@ export class Interpolation {
 	}
 
 	write() {
-		this.key.write();
-		const start = this.reader.output.byteLength;
-		this.length.write();
-		this.type.write();
-		this.globalSequenceId.write();
+		this.parser.write();
 		for (const p of this.items) {
 			p.parser.write();
 		}
-		this.reader.updateUint32(this.items.length, start);
+		this.reader.setUint(this.length.size, this.items.length, this.length.writeOffsetCurrent);
 	}
 
 	toJSON() {

@@ -3,8 +3,6 @@
 export class Uint {
 	/** @type {Reader} */ reader;
 
-	/** @type {number} */ readOffset;
-
 	/** @param {1|2|4} size */
 	constructor(size) {
 		this.size = size;
@@ -17,6 +15,10 @@ export class Uint {
 
 	write() {
 		this.reader.writeUint(this.size, this.value);
+	}
+
+	toJSON() {
+		return this.value;
 	}
 }
 
@@ -50,16 +52,14 @@ export class Uint8List {
 
 	read() {
 		for (let i = 0; i < this.length; i++) {
-			this.list.push(this.reader.getUint8());
+			this.list.push(this.reader.readUint(1));
 			this.reader.readOffsetAdd(1);
 		}
-		this.value = this.list[0];
 	}
 
 	write() {
-		const view = this.reader.outputView(this.length);
 		for (let i = 0; i < this.length; i++) {
-			view.setUint8(i, this.list[i]);
+			this.reader.writeUint(1, this.list[i]);
 		}
 	}
 

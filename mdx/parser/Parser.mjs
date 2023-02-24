@@ -43,14 +43,13 @@ export class Parser {
 			const o = this.reader.readOffset;
 
 			const _read = p => {
-				p.readOffset = this.reader.readOffset;
 				p.read();
 				this._output.push(p);
 			};
 
 			if (p instanceof StructSize) {
 				structSize = p;
-				p.readOffsetEnd = this.reader.readOffset + this.reader.readUint(p.size) + p.offset;
+				p.readOffsetCurrentEnd = this.reader.readOffset + this.reader.readUint(p.size) + p.offset;
 			}
 
 			const pid = p.constructor['id'] || p.id;
@@ -67,10 +66,10 @@ export class Parser {
 					map.set(pnid, pn);
 				}
 
-				const end = structSize ? structSize.readOffsetEnd : this.reader.readView.byteLength;
+				const end = structSize ? structSize.readOffsetCurrentEnd : this.reader.readView.byteLength;
 				while (this.reader.readOffset < end) {
 					const o = this.reader.readOffset;
-					const key = this.reader.getUint32();
+					const key = this.reader.readUint(4);
 
 					if (map.has(key)) {
 						_read(map.get(key));
@@ -96,33 +95,34 @@ export class Parser {
 		}
 
 		if (structSize) {
-			if (this.reader.readOffset !== structSize.readOffsetEnd) {
-				throw new Error(`StructSize error: ${this.reader.readOffset} != ${structSize.readOffsetEnd}`);
+			if (this.reader.readOffset !== structSize.readOffsetCurrentEnd) {
+				throw new Error(`StructSize error: ${this.reader.readOffset} != ${structSize.readOffsetCurrentEnd}`);
 			}
 		}
 	}
 
+	static writeCall(parser) {
+		if (!parser.write) {
+			parser.parser.write();
+		} else {
+			parser.write();
+		}
+	}
+
 	write() {
-		let structSize;
+		let ss;
 
 		for (const p of this._output) {
+			p.writeOffsetCurrent = this.reader.writeOffset;
 			if (p instanceof StructSize) {
-				structSize = p;
-				p.byteOffset = this.reader.writeOffset;
-				this.reader.writeOffsetAdd(p.size);
-				continue;
+				ss = p;
 			}
-
-			if (!p.write) {
-				p.parser.write();
-			} else {
-				p.write();
-			}
+			Parser.writeCall(p);
 		}
 
-		if (structSize && !this.reader.calc) {
-			const value = this.reader.writeOffset - structSize.byteOffset - structSize.offset;
-			this.reader.writeView.setUint32(structSize.byteOffset, value, true);
+		if (ss && !this.reader.calc) {
+			const value = this.reader.writeOffset - ss.writeOffsetCurrent - ss.offset;
+			this.reader.setUint(ss.size, value, ss.writeOffsetCurrent);
 		}
 	}
 }

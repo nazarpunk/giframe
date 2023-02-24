@@ -57,6 +57,7 @@ export class Reader {
 	/** @param {number} size */
 	writeOffsetAdd(size) {
 		this.writeOffset += size;
+		this.onWrite?.(this.writeOffset, this.output.byteLength, this.calc);
 	}
 
 	/**
@@ -77,19 +78,14 @@ export class Reader {
 	}
 
 	/**
-	 * @param {1|2|4} size
+	 * @param {number} size
 	 * @param {number} uint
-	 * @param {number?} offset
+	 * @param {number} offset
 	 */
-	writeUint(size, uint, offset) {
+	setUint(size, uint, offset) {
 		if (this.calc) {
-			return this._onWrite(size);
+			return;
 		}
-		const add = Number.isInteger(offset) ? 0 : size;
-		offset ??= this.writeOffset;
-		this.writeOffset += add;
-
-		this.onWrite?.(this.writeOffset, this.output.byteLength, this.calc);
 		switch (size) {
 			case 1:
 				return this.writeView.setUint8(offset, uint);
@@ -100,6 +96,18 @@ export class Reader {
 			default:
 				throw new Error(`Reader.writeUint size ${size} not in [1|2|4]`);
 		}
+	}
+
+	/**
+	 * @param {1|2|4} size
+	 * @param {number} uint
+	 */
+	writeUint(size, uint) {
+		if (this.calc) {
+			return this._onWrite(size);
+		}
+		this.setUint(size, uint, this.writeOffset);
+		this.writeOffsetAdd(size);
 	}
 
 	/**
@@ -126,8 +134,7 @@ export class Reader {
 			return this._onWrite(size);
 		}
 		const offset = this.writeOffset;
-		this.writeOffset += size;
-		this.onWrite?.(this.writeOffset, this.output.byteLength, this.calc);
+		this.writeOffsetAdd(size);
 		switch (size) {
 			case 4:
 				return this.writeView.setFloat32(offset, uint, true);
@@ -158,35 +165,10 @@ export class Reader {
 		}
 
 		str = str.padEnd(length, '\x00');
-
-		this.onWrite?.(this.writeOffset + length, this.output.byteLength, this.calc);
 		for (let i = 0; i < length; i++) {
-			this.writeView.setUint8(this.writeOffset + i, str.charCodeAt(i));
+			this.setUint(1, str.charCodeAt(i), this.writeOffset + i);
 		}
 		this.writeOffsetAdd(length);
-	}
-
-	/** @return number */
-	getFloat32() {
-		return this.readView.getFloat32(this.readOffset, true);
-	}
-
-	/** @return number */
-	getUint8() {
-		return this.readView.getUint8(this.readOffset);
-	}
-
-	/** @return number */
-	getUint32() {
-		return this.readView.getUint32(this.readOffset, true);
-	}
-
-	/**
-	 * @param {number} value
-	 * @param {number} offset
-	 */
-	updateUint32(value, offset) {
-		new DataView(this.output, offset, 4).setUint32(0, value, true);
 	}
 
 	/**
@@ -197,17 +179,5 @@ export class Reader {
 		const old = this.writeOffset;
 		this.writeOffset += size;
 		this.onWrite?.(old, this.writeOffset, this.calc);
-	}
-
-	/**
-	 * @deprecated
-	 * @param {number} length
-	 * @return {DataView}
-	 */
-	outputView(length) {
-		const l = this.output.byteLength;
-		const b = new Uint8Array(l + length);
-		b.set(new Uint8Array(this.output));
-		return new DataView(this.output = b.buffer, l);
 	}
 }

@@ -1,16 +1,16 @@
 import * as fs from 'fs';
 import {MDX} from "../mdx/MDX.mjs";
-import * as cp from 'child_process';
 import {Reader} from "../mdx/parser/Reader.mjs";
+import * as chip from "child_process";
 
 
 //const name = 'BlackDragon';
 //const name = 'BlackDragon_Portrait';
 //const name = 'DNCAshenValeTerrain';
-//const name = 'sprite';
+const name = 'sprite';
 //const name = 'Footman';
 //const name = 'heroarchmage';
-const name = 'heroarchmage_ref';
+//const name = 'heroarchmage_ref';
 
 const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);
@@ -23,7 +23,8 @@ for (let i = 0; i < ba.length; ++i) {
 
 let rc = 0, rp = -1;
 let wc = 0, wp = -1;
-let calcs = true;
+let cv = true, cb;
+
 const reader = new Reader(arrayBuffer, {
 	onRead: (byteOffset, byteLength) => {
 		rc++;
@@ -32,16 +33,16 @@ const reader = new Reader(arrayBuffer, {
 			return;
 		}
 		rp = rpn;
-		process.stdout.write(`\rread ${rp}% byte ${byteOffset} of ${byteLength}, count ${rc}`);
+		process.stdout.write(`\rread ${rp}% byte ${byteOffset} of ${byteLength}, iteration ${rc}`);
 	},
 	onWrite: (byteOffset, byteLength, calc) => {
-		if (calc !== calcs) {
-			calcs = calc;
-			console.log('\nCalc End!');
+		if (calc !== cv) {
+			cv = calc;
+			console.log('\nCalc End!', cb);
 		}
 
 		if (calc) {
-			process.stdout.write(`\rcalc byte ${byteLength}, count ${rc}`);
+			cb = byteOffset;
 			return;
 		}
 		wc++;
@@ -50,13 +51,13 @@ const reader = new Reader(arrayBuffer, {
 			return;
 		}
 		wp = wpn;
-		process.stdout.write(`\rwrite ${rp}% byte ${byteOffset} of ${byteLength}, count ${rc}`);
+		process.stdout.write(`\rwrite ${rp}% byte ${byteOffset} of ${byteLength}, iteration ${rc}`);
 	},
 
 });
 const model = new MDX(reader);
 model.read();
-console.log('\nRead Complete!\n');
+console.log('\nRead End!\n');
 if (model.error) {
 	console.log(model.error)
 }
@@ -72,7 +73,7 @@ fs.appendFileSync(f2, Buffer.from(reader.output));
 
 const cwd = process.cwd();
 
-if (1) cp.exec(
+if (1) chip.exec(
 	`osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
     do script "vbindiff ${cwd}/${f1} ${cwd}/${f2}"
 end tell'`);

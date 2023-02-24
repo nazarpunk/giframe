@@ -9,12 +9,12 @@ export class EventObject {
 	/** @type {Reader} */ reader;
 
 	read() {
-		const p = new Parser(this.reader);
-		this.node = p.add(NodeData);
-		this.key = p.add(new Key(0x5456454b/*KEVT*/));
-		this.count = p.add(Uint32);
-		this.globalSequenceId = p.add(Uint32);
-		p.read();
+		this.parser = new Parser(this.reader);
+		this.node = this.parser.add(NodeData);
+		this.key = this.parser.add(new Key(0x5456454b/*KEVT*/));
+		this.count = this.parser.add(Uint32);
+		this.globalSequenceId = this.parser.add(Uint32);
+		this.parser.read();
 		for (let i = 0; i < this.count.value; i++) {
 			let p = new Uint32();
 			this.items.push(p);
@@ -26,15 +26,11 @@ export class EventObject {
 	items = [];
 
 	write() {
-		this.node.parser.write();
-		this.key.write();
-		const start = this.reader.output.byteLength;
-		this.count.write();
-		this.globalSequenceId.write();
+		this.parser.write();
 		for (const p of this.items) {
 			p.write();
 		}
-		this.reader.updateUint32(this.items.length, start);
+		this.reader.setUint(this.count.size, this.items.length, this.count.writeOffsetCurrent);
 	}
 
 	toJSON() {

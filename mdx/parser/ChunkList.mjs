@@ -19,17 +19,15 @@ export class ChunkList {
 	items = [];
 
 	read() {
-		const p = new Parser(this.reader);
-		this.key = p.add(new Key(this.id));
-		this.size = p.add(Uint32);
-		p.read();
+		this.parser = new Parser(this.reader);
+		this.key = this.parser.add(new Key(this.id));
+		this.size = this.parser.add(Uint32);
+		this.parser.read();
+		this.readOffsetEnd = this.reader.readOffset + this.size.value;
 
-		this.byteEnd = this.reader.readOffset + this.size.value;
-
-		while (this.reader.readOffset < this.byteEnd) {
+		while (this.reader.readOffset < this.readOffsetEnd) {
 			const o = this.reader.readOffset;
-			const p = new this.child(this.reader);
-
+			const p = new this.child();
 			this.items.push(p);
 			p.reader = this.reader;
 			p.read();
@@ -38,23 +36,22 @@ export class ChunkList {
 			}
 		}
 
-		if (this.reader.readOffset - this.byteEnd !== 0) {
-			throw new Error(`ChunkList end error: ${this.byteEnd} != ${this.reader.readOffset}`);
+		if (this.reader.readOffset - this.readOffsetEnd !== 0) {
+			throw new Error(`ChunkList end error: ${this.readOffsetEnd} != ${this.reader.readOffset}`);
 		}
 	}
 
 	write() {
-		this.key.write();
-		const start = this.reader.output.byteLength;
-		this.size.write();
+		this.parser.write();
 		for (const p of this.items) {
-			if (p.write) {
-				p.write();
-			} else {
-				p.parser.write();
-			}
+			Parser.writeCall(p);
 		}
-		this.reader.updateUint32(this.reader.output.byteLength - start - 4, start);
+		if (0) {
+			//const start = this.reader.output.byteLength;
+		}
+		//this.reader.writeView.setUint32()
+
+		//this.reader.updateUint32(this.reader.output.byteLength - start - 4, start);
 	}
 
 	toJSON() {

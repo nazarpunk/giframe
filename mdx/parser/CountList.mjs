@@ -19,12 +19,12 @@ export class CountList {
 	items = [];
 
 	read() {
-		const p = new Parser(this.reader);
+		this.parser = new Parser(this.reader);
 		if (this.id) {
-			this.key = p.add(new Key(this.id));
+			this.key = this.parser.add(new Key(this.id));
 		}
-		this.length = p.add(Uint32);
-		p.read();
+		this.length = this.parser.add(Uint32);
+		this.parser.read();
 
 		for (let i = 0; i < this.length.value; i++) {
 			const p = Parser.copyChild(this.child);
@@ -35,17 +35,11 @@ export class CountList {
 	}
 
 	write() {
-		this.key?.write();
-		const start = this.reader.output.byteLength;
-		this.length.write();
+		this.parser.write();
 		for (const p of this.items) {
-			if (p.write) {
-				p.write();
-			} else {
-				p.parser.write();
-			}
+			Parser.writeCall(p);
 		}
-		this.reader.updateUint32(this.items.length, start);
+		this.reader.setUint(this.length.size, this.items.length, this.length.writeOffsetCurrent);
 	}
 
 	toJSON() {

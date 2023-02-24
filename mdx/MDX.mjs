@@ -52,34 +52,33 @@ export class MDX {
 		this.format = this.parser.add(Format);
 		this.version = this.parser.add(Version);
 		this.model = this.parser.add(Model);
-		//this.sequences = this.parser.add(new ChunkList(0x53514553/*SEQS*/, Sequence));
-		if (0) {
-			this.globalSequences = this.parser.add(new ChunkList(0x53424c47/*GLBS*/, GlobalSequence));
-			this.materials = this.parser.add(new ChunkList(0x534c544d/*MTLS*/, Material));
-			this.textures = this.parser.add(new ChunkList(0x53584554/*TEXS*/, Texture));
-			this.geosets = this.parser.add(new ChunkList(0x534f4547/*GEOS*/, Geoset));
-			this.geosetAnimations = this.parser.add(new ChunkList(0x414f4547/*GEOA*/, GeosetAnimation));
-			this.bones = this.parser.add(new ChunkList(0x454e4f42/*BONE*/, Bone));
-			this.helpers = this.parser.add(new ChunkList(0x504c4548/*HELP*/, NodeData));
-			this.attachments = this.parser.add(new ChunkList(0x48435441/*ATCH*/, Attachment));
-			this.pivotPoints = this.parser.add(new ChunkList(0x54564950/*PIVT*/, PivotPoint));
-			this.particleEmitters = this.parser.add(new ChunkList(0x4d455250/*PREM*/, ParticleEmitter));
-			this.particleEmitters2 = this.parser.add(new ChunkList(0x32455250/*PRE2*/, ParticleEmitter2));
-			this.eventObjects = this.parser.add(new ChunkList(0x53545645/*EVTS*/, EventObject));
-			this.collisionShapes = this.parser.add(new ChunkList(0x44494c43/*CLID*/, CollisionShape));
-			this.cornEmmiter = this.parser.add(new ChunkList(0x4e524f43/*CORN*/, CornEmmiter));
-			this.cameras = this.parser.add(new ChunkList(0x534d4143/*CAMS*/, Camera));
-			this.faceEffect = this.parser.add(new ChunkList(0x58464146/*FAFX*/, FaceEffect));
-			this.lights = this.parser.add(new ChunkList(0x4554494c/*LITE*/, Light));
-			this.textureAnimations = this.parser.add(new ChunkList(0x4e415854/*TXAN*/, TextureAnimation));
-			this.ribbinEmitters = this.parser.add(new ChunkList(0x42424952/*RIBB*/, RibbonEmitter));
-			this.bindPose = this.parser.add(BindPose);
-		}
+		this.sequences = this.parser.add(new ChunkList(0x53514553/*SEQS*/, Sequence));
+		this.materials = this.parser.add(new ChunkList(0x534c544d/*MTLS*/, Material));
+		this.globalSequences = this.parser.add(new ChunkList(0x53424c47/*GLBS*/, GlobalSequence));
+		this.textures = this.parser.add(new ChunkList(0x53584554/*TEXS*/, Texture));
+		this.geosets = this.parser.add(new ChunkList(0x534f4547/*GEOS*/, Geoset));
+		this.geosetAnimations = this.parser.add(new ChunkList(0x414f4547/*GEOA*/, GeosetAnimation));
+		this.bones = this.parser.add(new ChunkList(0x454e4f42/*BONE*/, Bone));
+		this.helpers = this.parser.add(new ChunkList(0x504c4548/*HELP*/, NodeData));
+		this.attachments = this.parser.add(new ChunkList(0x48435441/*ATCH*/, Attachment));
+		this.pivotPoints = this.parser.add(new ChunkList(0x54564950/*PIVT*/, PivotPoint));
+		this.particleEmitters = this.parser.add(new ChunkList(0x4d455250/*PREM*/, ParticleEmitter));
+		this.particleEmitters2 = this.parser.add(new ChunkList(0x32455250/*PRE2*/, ParticleEmitter2));
+		this.eventObjects = this.parser.add(new ChunkList(0x53545645/*EVTS*/, EventObject));
+		this.collisionShapes = this.parser.add(new ChunkList(0x44494c43/*CLID*/, CollisionShape));
+		this.cornEmmiter = this.parser.add(new ChunkList(0x4e524f43/*CORN*/, CornEmmiter));
+		this.cameras = this.parser.add(new ChunkList(0x534d4143/*CAMS*/, Camera));
+		this.faceEffect = this.parser.add(new ChunkList(0x58464146/*FAFX*/, FaceEffect));
+		this.lights = this.parser.add(new ChunkList(0x4554494c/*LITE*/, Light));
+		this.textureAnimations = this.parser.add(new ChunkList(0x4e415854/*TXAN*/, TextureAnimation));
+		this.ribbinEmitters = this.parser.add(new ChunkList(0x42424952/*RIBB*/, RibbonEmitter));
+		this.bindPose = this.parser.add(BindPose);
+
 
 		try {
 			this.parser.read();
 			if (this.reader.readOffset !== this.reader.readView.byteLength) {
-				const key = this.reader.readView.byteLength - this.reader.readOffset >= 4 ? Reader.int2s(this.reader.getUint32()) : '';
+				const key = this.reader.readView.byteLength - this.reader.readOffset >= 4 ? Reader.int2s(this.reader.readUint(4)) : '';
 				// noinspection ExceptionCaughtLocallyJS
 				throw new Error(`MDX end offset error, key: ${key}, ${s2s(key)}`);
 			}

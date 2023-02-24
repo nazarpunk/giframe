@@ -61,35 +61,4 @@ export class Layer {
 			fresnelTeamColorTrack: this.fresnelTeamColorTrack,
 		}
 	}
-
 }
-
-/*
-Layer {
-  uint32 inclusiveSize
-  uint32 filterMode
-  uint32 shadingFlags
-  uint32 textureId
-  uint32 textureAnimationId
-  uint32 coordId
-  float alpha
-
-  if (version > 800) {
-    float emissiveGain
-    float[3] fresnelColor
-    float fresnelOpacity
-    float fresnelTeamColor
-  }
-
-  (KMTF)
-  (KMTA)
-  if (version > 800) {
-    (KMTE)
-  }
-  if (version > 900) {
-    (KFC3)
-    (KFCA)
-    (KFTC)
-  }
-}
- */

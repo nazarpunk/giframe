@@ -32,7 +32,6 @@ export class CollisionShape {
 		this.parser2.read();
 	}
 
-	//FIXME write length
 	/** @type {Float32List[]} */ vertices = [];
 
 	write() {

@@ -10,7 +10,8 @@ import * as chip from "child_process";
 //const name = 'sprite';
 //const name = 'Footman';
 //const name = 'heroarchmage';
-const name = 'heroarchmage_ref';
+//const name = 'heroarchmage_ref';
+const name = 'heroarchmage_hd';
 
 const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);

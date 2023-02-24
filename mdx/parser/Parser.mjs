@@ -126,3 +126,19 @@ export class Parser {
 		}
 	}
 }
+
+// noinspection JSUnusedGlobalSymbols
+export class Stop {
+	/** @type {Reader} */ reader;
+
+	read() {
+		if (1) {
+			const s = [];
+			for (let i = 0; i < 40; i++) {
+				s.push(String.fromCharCode(this.reader.readView.getUint8(this.reader.readOffset + i)).replace('\x00','_'));
+			}
+			console.log('\nSTOP',this.reader.version, s.join(''));
+		}
+		throw new Error(`STOP!!!!`);
+	}
+}

@@ -2,6 +2,7 @@
 import {Uint32} from "./Uint.mjs";
 import {Parser} from "./Parser.mjs";
 import {Key} from "./Key.mjs";
+import {Reader} from "./Reader.mjs";
 
 export class ChunkList {
 	/**
@@ -23,9 +24,10 @@ export class ChunkList {
 		this.key = this.parser.add(new Key(this.id));
 		this.size = this.parser.add(Uint32);
 		this.parser.read();
-		this.readOffsetEnd = this.reader.readOffset + this.size.value;
 
-		while (this.reader.readOffset < this.readOffsetEnd) {
+		const end = this.reader.readOffset + this.size.value;
+
+		while (this.reader.readOffset < end) {
 			const o = this.reader.readOffset;
 			const p = new this.child();
 			this.items.push(p);
@@ -36,8 +38,8 @@ export class ChunkList {
 			}
 		}
 
-		if (this.reader.readOffset - this.readOffsetEnd !== 0) {
-			throw new Error(`ChunkList end error: ${this.readOffsetEnd} != ${this.reader.readOffset}`);
+		if (this.reader.readOffset - end !== 0) {
+			throw new Error(`ChunkList end error: ${end} != ${this.reader.readOffset}`);
 		}
 	}
 
@@ -46,12 +48,7 @@ export class ChunkList {
 		for (const p of this.items) {
 			Parser.writeCall(p);
 		}
-		if (0) {
-			//const start = this.reader.output.byteLength;
-		}
-		//this.reader.writeView.setUint32()
-
-		//this.reader.updateUint32(this.reader.output.byteLength - start - 4, start);
+		this.reader.setUint(this.size.size, this.reader.writeOffset - this.size.writeOffsetCurrent - this.size.size, this.size.writeOffsetCurrent);
 	}
 
 	toJSON() {

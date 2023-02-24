@@ -6,6 +6,7 @@ import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Char} from "../parser/Char.mjs";
 import {CountList} from "../parser/CountList.mjs";
+import {Reader} from "../parser/Reader.mjs";
 
 export class Material {
 	/** @type {Reader} */ reader;
@@ -22,6 +23,8 @@ export class Material {
 		}
 
 		this.layers = this.parser.add(new CountList(0x5359414c/*LAYS*/, Layer));
+
+		//this.parser.add(Stop);
 		this.parser.read();
 	}
 

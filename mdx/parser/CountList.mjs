@@ -1,6 +1,7 @@
 import {Parser} from "./Parser.mjs";
 import {Key} from "./Key.mjs";
 import {Uint32} from "./Uint.mjs";
+import {Reader} from "./Reader.mjs";
 
 /** @module MDX */
 export class CountList {

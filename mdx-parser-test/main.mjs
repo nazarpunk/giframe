@@ -32,12 +32,14 @@ input.addEventListener('change', e => {
 
 			const model = new MDX(new Reader(e.target.result));
 			model.read();
-			model.write();
 
 			if (model.error) {
 				print(model.error.toString());
 				return;
 			}
+
+			model.write();
+
 
 			if (equal(model.reader.readView, model.reader.writeView)) {
 				const blob = new Blob([JSON.stringify(model, null, 4)], {type: "application/json"});

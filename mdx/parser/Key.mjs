@@ -1,31 +1,27 @@
-import {int2s} from "../util/hex.mjs";
+import {Reader} from "./Reader.mjs";
+import {Uint} from "./Uint.mjs";
 
 /** @module MDX */
-export class Key {
+export class Key extends Uint {
+	/** @type {Reader} */ reader;
+
 	/** @param {number} key */
 	constructor(key) {
+		super(4);
 		this.key = key;
 	}
 
-	/** @type {Reader} */ reader;
-
 	read() {
-		this.value = this.reader.getUint32();
-		this.reader.readOffsetAdd(4);
+		super.read();
 		if (this.value !== this.key) {
-			console.error(`Key error ${this.key} != ${this.value}`);
+			throw new Error(`Key error: ${Reader.int2s(this.value)} != ${Reader.int2s(this.key)}`);
 		}
-
-	}
-
-	write() {
-		this.reader.setUint32(this.value);
 	}
 
 	toJSON() {
 		return {
 			value: this.value,
-			name: int2s(this.value),
+			name: Reader.int2s(this.value),
 		}
 	}
 }

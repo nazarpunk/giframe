@@ -3,7 +3,7 @@
 import {Parser} from "../parser/Parser.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
-import {Float32List} from "../parser/Float32List.mjs";
+import {Float32List} from "../parser/Float.mjs";
 
 export class TextureAnimation {
 	/** @type {Reader} */ reader;

@@ -2,7 +2,7 @@
 
 import {NodeData} from "./NodeData.mjs";
 import {Parser} from "../parser/Parser.mjs";
-import {Float32} from "../parser/Float32.mjs";
+import {Float32} from "../parser/Float.mjs";
 import {Char} from "../parser/Char.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";

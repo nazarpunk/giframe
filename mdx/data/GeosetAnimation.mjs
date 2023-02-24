@@ -2,9 +2,8 @@
 
 import {Parser} from "../parser/Parser.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
-import {Float32} from "../parser/Float32.mjs";
+import {Float32, Float32List} from "../parser/Float.mjs";
 import {Uint32} from "../parser/Uint.mjs";
-import {Float32List} from "../parser/Float32List.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class GeosetAnimation {

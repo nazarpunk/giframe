@@ -15,26 +15,12 @@ export class Char {
 	value = '';
 
 	read() {
-		const s = [];
-		for (let i = 0; i < this.length; i++) {
-			s.push(String.fromCharCode(this.reader.view.getUint8(this.reader.readOffset)));
-			this.reader.readOffset++;
-		}
-		for (let i = s.length - 1; i >= 0; i--) {
-			if (s[i] !== '\x00') {
-				break;
-			}
-			s.length -= 1;
-		}
-		this.value = s.join('');
+		this.value = this.reader.readString(this.length);
+		this.reader.readOffsetAdd(this.length);
 	}
 
 	write() {
-		let str = this.value.padEnd(this.length, '\x00');
-		const view = this.reader.outputView(this.length);
-		for (let i = 0; i < this.length; i++) {
-			view.setInt8(i, str.charCodeAt(i));
-		}
+		this.reader.writeString(this.length, this.value);
 	}
 
 	toJSON() {

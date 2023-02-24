@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import {MDX} from "../mdx/MDX.mjs";
 import * as cp from 'child_process';
+import {Reader} from "../mdx/parser/Reader.mjs";
 
 
 //const name = 'BlackDragon';
@@ -20,38 +21,58 @@ for (let i = 0; i < ba.length; ++i) {
 	view[i] = ba[i];
 }
 
-let model;
-let bb;
-try {
-	let count = 0, prc = 0;
-	model = new MDX(arrayBuffer, {
-		onRead: byte => {
-			count++;
-			const nprc = Math.round(byte / model.reader.view.byteLength * 100);
-			if (nprc === prc && nprc < 99) {
-				return;
-			}
-			prc = nprc;
-			process.stdout.write(`\rread ${prc}% byte ${byte} of ${model.reader.view.byteLength}, count ${count}`);
+let rc = 0, rp = -1;
+let wc = 0, wp = -1;
+let calcs = true;
+const reader = new Reader(arrayBuffer, {
+	onRead: (byteOffset, byteLength) => {
+		rc++;
+		const rpn = Math.round(byteOffset / byteLength * 100);
+		if (rpn === rp && rpn < 99) {
+			return;
 		}
-	});
-	model.read();
-	console.log('\nRead Complete!');
+		rp = rpn;
+		process.stdout.write(`\rread ${rp}% byte ${byteOffset} of ${byteLength}, count ${rc}`);
+	},
+	onWrite: (byteOffset, byteLength, calc) => {
+		if (calc !== calcs) {
+			calcs = calc;
+			console.log('\nCalc End!');
+		}
 
-	//bb = model.write();
-} catch (e) {
-	console.log(e);
+		if (calc) {
+			process.stdout.write(`\rcalc byte ${byteLength}, count ${rc}`);
+			return;
+		}
+		wc++;
+		const wpn = Math.round(byteOffset / byteLength * 100);
+		if (wpn === wp && wpn < 99) {
+			return;
+		}
+		wp = wpn;
+		process.stdout.write(`\rwrite ${rp}% byte ${byteOffset} of ${byteLength}, count ${rc}`);
+	},
+
+});
+const model = new MDX(reader);
+model.read();
+console.log('\nRead Complete!\n');
+if (model.error) {
+	console.log(model.error)
+}
+model.write();
+if (model.error) {
+	console.log('\n', model.error)
 }
 
-if (bb) {
-	const f2 = `${name}_test.mdx`;
-	fs.writeFileSync(f2, '', {flag: 'w+'});
-	fs.appendFileSync(f2, Buffer.from(bb));
 
-	const cwd = process.cwd();
+const f2 = `${name}_test.mdx`;
+fs.writeFileSync(f2, '', {flag: 'w+'});
+fs.appendFileSync(f2, Buffer.from(reader.output));
 
-	if (1) cp.exec(
-		`osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
+const cwd = process.cwd();
+
+if (1) cp.exec(
+	`osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
     do script "vbindiff ${cwd}/${f1} ${cwd}/${f2}"
 end tell'`);
-}

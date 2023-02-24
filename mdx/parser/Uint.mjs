@@ -1,55 +1,43 @@
 /** @module MDX */
 
-export class Uint8 {
+export class Uint {
 	/** @type {Reader} */ reader;
 
+	/** @type {number} */ readOffset;
+
+	/** @param {1|2|4} size */
+	constructor(size) {
+		this.size = size;
+	}
+
 	read() {
-		this.value = this.reader.getUint8();
-		this.reader.readOffsetAdd(1);
+		this.value = this.reader.readUint(this.size);
+		this.reader.readOffsetAdd(this.size);
 	}
 
 	write() {
-		this.reader.setUint8(this.value);
-	}
-
-	toJSON() {
-		return this.value;
+		this.reader.writeUint(this.size, this.value);
 	}
 }
 
-export class Uint16 {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.value = this.reader.getUint16();
-		this.reader.readOffsetAdd(2);
-	}
-
-	write() {
-		this.reader.setUint16(this.value);
-	}
-
-	toJSON() {
-		return this.value;
+export class Uint8 extends Uint {
+	constructor() {
+		super(1);
 	}
 }
 
-export class Uint32 {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.value = this.reader.getUint32();
-		this.reader.readOffsetAdd(4);
-	}
-
-	write() {
-		this.reader.setUint32(this.value);
-	}
-
-	toJSON() {
-		return this.value;
+export class Uint16 extends Uint {
+	constructor() {
+		super(2);
 	}
 }
+
+export class Uint32 extends Uint {
+	constructor() {
+		super(4);
+	}
+}
+
 
 export class Uint8List {
 	/** @param {number} length */

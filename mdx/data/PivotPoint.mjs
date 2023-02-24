@@ -1,7 +1,7 @@
 /** @module MDX */
 
 import {Parser} from "../parser/Parser.mjs";
-import {Float32List} from "../parser/Float32List.mjs";
+import {Float32List} from "../parser/Float.mjs";
 
 export class PivotPoint {
 	/** @type {Reader} */ reader;

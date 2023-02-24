@@ -34,14 +34,12 @@ export class ChunkList {
 			p.reader = this.reader;
 			p.read();
 			if (o === this.reader.readOffset) {
-				console.error('ChunkList infinity read!');
-				break;
+				throw new Error('ChunkList infinity read!');
 			}
 		}
 
 		if (this.reader.readOffset - this.byteEnd !== 0) {
-			//throw new Error(`ChunkList end error: ${this.byteEnd} != ${this.reader.byteOffset}`);
-			console.log(`ChunkList end error: ${this.byteEnd} != ${this.reader.readOffset}`);
+			throw new Error(`ChunkList end error: ${this.byteEnd} != ${this.reader.readOffset}`);
 		}
 	}
 

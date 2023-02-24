@@ -1,6 +1,5 @@
 /** @module MDX */
-import {ChunkSize, StructSize} from "./StructSize.mjs";
-import {int2s, s2s} from "../util/hex.mjs";
+import {StructSize} from "./StructSize.mjs";
 import {Reader} from "./Reader.mjs";
 
 export class Parser {
@@ -37,22 +36,21 @@ export class Parser {
 			}
 		}
 
-		let pSize, pSizeEnd;
+		let structSize;
 
 		while (this._input.length > 0) {
 			const p = this._input.shift();
 			const o = this.reader.readOffset;
 
 			const _read = p => {
-				//const pid = p.constructor['id'] || p.id;
-				//if (pid) console.log(pid, int2s(pid));
+				p.readOffset = this.reader.readOffset;
 				p.read();
 				this._output.push(p);
 			};
 
 			if (p instanceof StructSize) {
-				pSize = p;
-				pSizeEnd = this.reader.readOffset + this.reader.getUint32() + p.offset;
+				structSize = p;
+				p.readOffsetEnd = this.reader.readOffset + this.reader.readUint(p.size) + p.offset;
 			}
 
 			const pid = p.constructor['id'] || p.id;
@@ -69,7 +67,7 @@ export class Parser {
 					map.set(pnid, pn);
 				}
 
-				const end = pSize ? pSizeEnd : this.reader.view.byteLength;
+				const end = structSize ? structSize.readOffsetEnd : this.reader.readView.byteLength;
 				while (this.reader.readOffset < end) {
 					const o = this.reader.readOffset;
 					const key = this.reader.getUint32();
@@ -93,29 +91,26 @@ export class Parser {
 			_read(p);
 
 			if (o === this.reader.readOffset) {
-				//throw new Error('Parser infinity read!');
-				console.error('Parser infinity read!');
-				break;
+				throw new Error('Parser infinity read!');
 			}
 		}
 
-		if (pSize) {
-			if (this.reader.readOffset !== pSizeEnd) {
-				//throw new Error(`StructSize is wrong: ${pSize.value} != ${value}`);
-				console.error(`StructSize is wrong: ${this.reader.readOffset} != ${pSizeEnd}`);
-				this.reader.readOffset = pSizeEnd;
+		if (structSize) {
+			if (this.reader.readOffset !== structSize.readOffsetEnd) {
+				throw new Error(`StructSize error: ${this.reader.readOffset} != ${structSize.readOffsetEnd}`);
 			}
 		}
 	}
 
 	write() {
-		/** @type {ChunkSize} */ let chunk;
-		let chunkOffset = 0;
+		let structSize;
 
 		for (const p of this._output) {
 			if (p instanceof StructSize) {
-				chunk = p;
-				chunkOffset = this.reader.output.byteLength;
+				structSize = p;
+				p.byteOffset = this.reader.writeOffset;
+				this.reader.writeOffsetAdd(p.size);
+				continue;
 			}
 
 			if (!p.write) {
@@ -125,29 +120,9 @@ export class Parser {
 			}
 		}
 
-		if (chunk) {
-			chunk.value = this.reader.output.byteLength - chunkOffset - chunk.offset;
-			this.reader.updateUint32(chunk.value, chunkOffset);
+		if (structSize && !this.reader.calc) {
+			const value = this.reader.writeOffset - structSize.byteOffset - structSize.offset;
+			this.reader.writeView.setUint32(structSize.byteOffset, value, true);
 		}
-	}
-}
-
-export class Stop {
-	/** @type {Reader} */ reader;
-
-	read() {
-		if (1) {
-			let s = '';
-			for (let i = 0; i < 50; i++) {
-				s += String.fromCharCode(this.reader.view.getUint8(this.reader.readOffset + i));
-
-				//const v = this.reader.view.getUint32(this.reader.byteOffset + i * 4, true);
-				//console.log('stop', v, int2s(v));
-			}
-			console.log(s);
-		}
-
-		const v = this.reader.getUint32();
-		throw new Error(`STOP ${v} | ${int2s(v)} | ${s2s(int2s(v))} | ${this.reader.readOffset}`);
 	}
 }

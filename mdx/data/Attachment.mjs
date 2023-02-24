@@ -6,7 +6,7 @@ import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
-import {Float32} from "../parser/Float32.mjs";
+import {Float32} from "../parser/Float.mjs";
 
 export class Attachment {
 	/** @type {Reader} */ reader;

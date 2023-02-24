@@ -1,69 +1,184 @@
 /** @module MDX */
 
 /**
- * @callback ReaderByteCallback
- * @param {number} byte
+ * @callback ReaderOnRead
+ * @param {number} byteOffset
+ * @param {number} byteLength
  */
 
+/**
+ * @callback ReaderOnWrite
+ * @param {number} byteOffset
+ * @param {number} byteLength
+ * @param {boolean} calc
+ */
 
 export class Reader {
 
 	/** @param {ArrayBuffer} buffer
-	 * @param {ReaderByteCallback?} onRead
+	 * @param {ReaderOnRead?} onRead
+	 * @param {ReaderOnWrite?} onWrite
 	 */
 	constructor(buffer, {
 		onRead,
+		onWrite,
 	} = {}) {
-		this.view = new DataView(buffer);
+		this.readView = new DataView(buffer);
 		this.readOffset = 0;
 		this.writeOffset = 0;
-		this.output = new ArrayBuffer(0);
 		this.version = 800;
 		this.onRead = onRead;
+		this.onWrite = onWrite;
+		this.calc = true;
 	}
 
-	readOffsetAdd(byte) {
-		this.readOffset += byte;
-		this.onRead?.(this.readOffset);
+	/** @type {ArrayBuffer} */ output;
+	/** @type {DataView} */ writeView;
+
+	/**
+	 * @param {number} number
+	 * @return {string}
+	 */
+	static int2s(number) {
+		return String.fromCharCode(
+			number & 0xff,
+			number >> 8 & 0xff,
+			number >> 16 & 0xff,
+			number >> 24 & 0xff,
+		);
+	}
+
+	/** @param {number} size */
+	readOffsetAdd(size) {
+		this.readOffset += size;
+		this.onRead?.(this.readOffset, this.readView.byteLength);
+	}
+
+	/** @param {number} size */
+	writeOffsetAdd(size) {
+		this.writeOffset += size;
+	}
+
+	/**
+	 * @param {1|2|4} size
+	 * @return {number}
+	 */
+	readUint(size) {
+		switch (size) {
+			case 1:
+				return this.readView.getUint8(this.readOffset);
+			case 2:
+				return this.readView.getUint16(this.readOffset, true);
+			case 4:
+				return this.readView.getUint32(this.readOffset, true);
+			default:
+				throw new Error(`Reader.readUint size ${size} not in [1|2|4]`);
+		}
+	}
+
+	/**
+	 * @param {1|2|4} size
+	 * @param {number} uint
+	 * @param {number?} offset
+	 */
+	writeUint(size, uint, offset) {
+		if (this.calc) {
+			return this._onWrite(size);
+		}
+		const add = Number.isInteger(offset) ? 0 : size;
+		offset ??= this.writeOffset;
+		this.writeOffset += add;
+
+		this.onWrite?.(this.writeOffset, this.output.byteLength, this.calc);
+		switch (size) {
+			case 1:
+				return this.writeView.setUint8(offset, uint);
+			case 2:
+				return this.writeView.setUint16(offset, uint, true);
+			case 4:
+				return this.writeView.setUint32(offset, uint, true);
+			default:
+				throw new Error(`Reader.writeUint size ${size} not in [1|2|4]`);
+		}
+	}
+
+	/**
+	 * @param {4|8} size
+	 * @return {number}
+	 */
+	readFloat(size) {
+		switch (size) {
+			case 4:
+				return this.readView.getFloat32(this.readOffset, true);
+			case 8:
+				return this.readView.getFloat64(this.readOffset, true);
+			default:
+				throw new Error(`Reader.readFloat size ${size} not in [4|8]`);
+		}
+	}
+
+	/**
+	 * @param {4|8} size
+	 * @param {number} uint
+	 */
+	writeFloat(size, uint) {
+		if (this.calc) {
+			return this._onWrite(size);
+		}
+		const offset = this.writeOffset;
+		this.writeOffset += size;
+		this.onWrite?.(this.writeOffset, this.output.byteLength, this.calc);
+		switch (size) {
+			case 4:
+				return this.writeView.setFloat32(offset, uint, true);
+			case 8:
+				return this.writeView.setFloat32(offset, uint, true);
+			default:
+				throw new Error(`Reader.writeFloat size ${size} not in [4|8]`);
+		}
+	}
+
+	readString(length) {
+		const s = [];
+		for (let i = 0; i < length; i++) {
+			s.push(String.fromCharCode(this.readView.getUint8(this.readOffset + i)));
+		}
+		for (let i = s.length - 1; i >= 0; i--) {
+			if (s[i] !== '\x00') {
+				break;
+			}
+			s.length -= 1;
+		}
+		return s.join('');
+	}
+
+	writeString(length, str) {
+		if (this.calc) {
+			return this._onWrite(length);
+		}
+
+		str = str.padEnd(length, '\x00');
+
+		this.onWrite?.(this.writeOffset + length, this.output.byteLength, this.calc);
+		for (let i = 0; i < length; i++) {
+			this.writeView.setUint8(this.writeOffset + i, str.charCodeAt(i));
+		}
+		this.writeOffsetAdd(length);
 	}
 
 	/** @return number */
 	getFloat32() {
-		return this.view.getFloat32(this.readOffset, true);
+		return this.readView.getFloat32(this.readOffset, true);
 	}
 
 	/** @return number */
 	getUint8() {
-		return this.view.getUint8(this.readOffset);
-	}
-
-	/** @param {number} value */
-	setUint8(value) {
-		this.outputView(1).setUint8(0, value);
-	}
-
-	/** @return number */
-	getUint16() {
-		return this.view.getUint16(this.readOffset, true);
-	}
-
-	/** @param {number} value */
-	setUint16(value) {
-		this.outputView(2).setUint16(0, value, true);
+		return this.readView.getUint8(this.readOffset);
 	}
 
 	/** @return number */
 	getUint32() {
-		return this.view.getUint32(this.readOffset, true);
-	}
-
-	/** @param {number} value */
-	setUint32(value) {
-		this.outputView(4).setUint32(0, value, true);
-	}
-
-	next32() {
-		this.readOffset += 4;
+		return this.readView.getUint32(this.readOffset, true);
 	}
 
 	/**
@@ -75,6 +190,17 @@ export class Reader {
 	}
 
 	/**
+	 * @param {number} size
+	 * @private
+	 */
+	_onWrite(size) {
+		const old = this.writeOffset;
+		this.writeOffset += size;
+		this.onWrite?.(old, this.writeOffset, this.calc);
+	}
+
+	/**
+	 * @deprecated
 	 * @param {number} length
 	 * @return {DataView}
 	 */

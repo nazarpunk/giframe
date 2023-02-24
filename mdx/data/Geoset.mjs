@@ -3,11 +3,11 @@
 import {Parser} from "../parser/Parser.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
 import {CountList} from "../parser/CountList.mjs";
-import {Float32List} from "../parser/Float32List.mjs";
 import {Uint16, Uint32, Uint8} from "../parser/Uint.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Extent} from "./Extent.mjs";
 import {TextureCoordinateSet} from "./TextureCoordinateSet.mjs";
+import {Float32List} from "../parser/Float.mjs";
 
 export class Geoset {
 	/** @type {Reader} */ reader;

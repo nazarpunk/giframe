@@ -5,7 +5,7 @@ import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
-import {Float32List} from "../parser/Float32List.mjs";
+import {Float32List} from "../parser/Float.mjs";
 
 export class NodeData {
 	/** @type {Reader} */ reader;

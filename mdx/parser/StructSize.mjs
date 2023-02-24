@@ -1,30 +1,15 @@
 /** @module MDX */
+import {Uint} from "./Uint.mjs";
 
-export class StructSize {
+export class StructSize extends Uint {
+	/** @type {Reader} */ reader;
 
 	/** @param {number} offset */
 	constructor(offset) {
+		super(4);
 		this.offset = offset;
 	}
-
-	/** @type {Reader} */ reader;
-
-	/** @type number */
-	value;
-
-	read() {
-		this.value = this.reader.getUint32();
-		this.reader.readOffsetAdd(4);
-	}
-
-	/** @param {number} value */
-	write(value) {
-		this.reader.setUint32(value);
-	}
-
-	toJSON() {
-		return this.value;
-	}
+	/** @type {number} */ readOffsetEnd;
 }
 
 export class ChunkSize extends StructSize {

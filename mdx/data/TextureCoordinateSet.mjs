@@ -3,7 +3,7 @@
 import {Parser} from "../parser/Parser.mjs";
 import {Key} from "../parser/Key.mjs";
 import {Uint32} from "../parser/Uint.mjs";
-import {Float32List} from "../parser/Float32List.mjs";
+import {Float32List} from "../parser/Float.mjs";
 
 export class TextureCoordinateSet {
 	/** @type {Reader} reader */ reader;

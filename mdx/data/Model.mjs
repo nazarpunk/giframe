@@ -3,8 +3,7 @@
 import {Parser} from "../parser/Parser.mjs";
 import {ChunkSize} from "../parser/StructSize.mjs";
 import {Char} from "../parser/Char.mjs";
-import {Float32} from "../parser/Float32.mjs";
-import {Float32List} from "../parser/Float32List.mjs";
+import {Float32, Float32List} from "../parser/Float.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Key} from "../parser/Key.mjs";
 
@@ -15,6 +14,7 @@ export class Model {
 
 	read() {
 		this.parser = new Parser(this.reader);
+
 		this.key = this.parser.add(new Key(Model.id));
 		this.chunkSize = this.parser.add(ChunkSize);
 		this.name = this.parser.add(new Char(80));
@@ -23,6 +23,7 @@ export class Model {
 		this.minimumExtent = this.parser.add(new Float32List(3));
 		this.maximumExtent = this.parser.add(new Float32List(3));
 		this.blendTime = this.parser.add(Uint32);
+
 		this.parser.read();
 	}
 

@@ -1,4 +1,22 @@
 /** @module MDX */
+export class Float32 {
+	/** @type {Reader} */ reader;
+
+	read() {
+		this.value = this.reader.readFloat(4);
+		this.reader.readOffsetAdd(4);
+	}
+
+	write() {
+		this.reader.writeFloat(4, this.value);
+	}
+
+	toJSON() {
+		return this.value;
+	}
+}
+
+/** @module MDX */
 export class Float32List {
 	/** @param {number} length */
 	constructor(length = 1) {
@@ -17,13 +35,11 @@ export class Float32List {
 			this.list.push(this.reader.getFloat32());
 			this.reader.readOffsetAdd(4);
 		}
-		this.value = this.list[0];
 	}
 
 	write() {
-		const view = this.reader.outputView(this.length * 4);
 		for (let i = 0; i < this.length; i++) {
-			view.setFloat32(i * 4, this.list[i], true);
+			this.reader.writeFloat(4, this.list[i]);
 		}
 	}
 

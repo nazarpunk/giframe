@@ -28,6 +28,7 @@ import {CornEmmiter} from "./data/CornEmmiter.mjs";
 import {FaceEffect} from "./data/FaceEffect.mjs";
 import {BindPose} from "./data/BindPose.mjs";
 import {Reader} from "./parser/Reader.mjs";
+import {Info} from "./data/Info.mjs";
 
 /**
  * @callback MDXOnError
@@ -49,9 +50,12 @@ export class MDX {
 
 		this.parser = new Parser(this.reader);
 
+		//0x4f464e49/*INFO*/
+
 		this.format = this.parser.add(Format);
 		this.version = this.parser.add(Version);
 		this.model = this.parser.add(Model);
+		this.info = this.parser.add(Info);
 		this.sequences = this.parser.add(new ChunkList(0x53514553/*SEQS*/, Sequence));
 		this.materials = this.parser.add(new ChunkList(0x534c544d/*MTLS*/, Material));
 		this.globalSequences = this.parser.add(new ChunkList(0x53424c47/*GLBS*/, GlobalSequence));
@@ -112,6 +116,7 @@ export class MDX {
 			format: this.format,
 			version: this.version,
 			model: this.model,
+			info: this.info,
 			sequences: this.sequences,
 			globalSequences: this.globalSequences,
 			materials: this.materials,

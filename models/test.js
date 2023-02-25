@@ -15,8 +15,8 @@ name = 'Footman';
 name = 'heroarchmage';
 name = 'heroarchmage_ref';
 name = 'heroarchmage_hd';
-name = 'candelabra_01.MESH';
 name = 'Arthas_portrait';
+name = 'candelabra_01.MESH';
 
 const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);

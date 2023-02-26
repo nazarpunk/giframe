@@ -3,7 +3,6 @@
 /**
  * @interface DataView
  * @property {number} cursor
- * @property {number} version
  */
 
 import {Geoset} from "./data/Geoset.mjs";

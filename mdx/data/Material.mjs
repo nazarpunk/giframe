@@ -3,6 +3,9 @@
 import {Uint32} from "../parser/Uint.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Parser} from "../parser/Parser.mjs";
+import {ChunkCountInclusive} from "../parser/ChunkCountInclusive.mjs";
+import {Chunk} from "../parser/Chunk.mjs";
+import {Layer} from "./Layer.mjs";
 
 export class Material {
 
@@ -10,7 +13,7 @@ export class Material {
 
 	/** @param {DataView} view */
 	read(view) {
-		this.parser = new Parser();
+		this.parser = new Parser(this.mdx);
 
 		this.priorityPlane = this.parser.add(Uint32);
 		this.flags = this.parser.add(Uint32);
@@ -19,11 +22,9 @@ export class Material {
 			this.shader = this.parser.add(new Char(80));
 		}
 
-		//this.layers = this.parser.add(new CountList(0x5359414c/*LAYS*/, Layer));
+		this.layers = this.parser.add(new ChunkCountInclusive(Chunk.LAYS, Layer));
 
 		this.parser.read(view);
-
-		console.log(this.shader);
 	}
 
 	toJSON() {

@@ -1,7 +1,7 @@
 /** @module MDX */
-import {ParserOld} from "./ParserOld.mjs";
-import {Key} from "./Key.mjs";
 import {Uint32} from "./Uint.mjs";
+import {Parser} from "./Parser.mjs";
+import {Reader} from "./Reader.mjs";
 
 export class Interpolation {
 	/** @type {Reader} */ reader;
@@ -19,32 +19,42 @@ export class Interpolation {
 
 	items = [];
 
-	read() {
-		this.parser = new ParserOld(this.reader);
-		this.key = this.parser.add(new Key(this.id));
-		this.length = this.parser.add(Uint32);
+	/** @param {DataView} view */
+	read(view) {
+		const id = view.getUint32(view.cursor, true);
+		this.length = view.getUint32(view.cursor += 4, true);
+		view.cursor += 4;
+		if (id !== this.id) {
+			throw new Error(`Interpolation wrong id: ${Reader.int2s(this.id)} != ${Reader.int2s(id)}`);
+		}
+
+		this.parser = new Parser();
 		this.type = this.parser.add(Uint32);
 		this.globalSequenceId = this.parser.add(Uint32);
 		this.parser.read(view);
 
-		for (let i = 0; i < this.length.value; i++) {
+		for (let i = 0; i < this.length; i++) {
 			const p = new InterpolationTrack(this);
 			this.items.push(p);
-			p.read();
+			p.read(view);
 		}
 	}
 
-	write() {
-		this.parser.write();
+	/** @param {DataView} view */
+	write(view) {
+		view.setUint32(view.cursor, this.id, true);
+		view.setUint32(view.cursor += 4, this.items.length, true);
+		view.cursor += 4;
+
+		this.parser.write(view);
 		for (const p of this.items) {
-			p.parser.write();
+			p.parser.write(view);
 		}
-		this.reader.setUint(this.length.size, this.items.length, this.length.writeOffsetCurrent);
 	}
 
 	toJSON() {
 		return {
-			key: this.key,
+			id: Reader.int2s(this.id),
 			length: this.length,
 			type: this.type,
 			items: this.items,
@@ -59,8 +69,9 @@ export class InterpolationTrack {
 		this.parent = parent;
 	}
 
-	read() {
-		this.parser = new ParserOld(this.parent.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 
 		this.time = this.parser.add(Uint32);
 

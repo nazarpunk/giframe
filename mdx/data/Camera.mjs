@@ -1,5 +1,5 @@
 /** @module MDX */
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Uint32} from "../parser/Uint.mjs";
@@ -10,7 +10,7 @@ export class Camera {
 	/** @type {Reader} reader */ reader;
 
 	read() {
-		this.parser = new Parser(this.reader);
+		this.parser = new ParserOld(this.reader);
 
 		this.inclusiveSize = this.parser.add(InclusiveSize);
 		this.name = this.parser.add(new Char(80));
@@ -23,7 +23,7 @@ export class Camera {
 		this.targetTranslation = this.parser.add(new Interpolation(0x5254544b/*KTTR*/, Float32List, 3));
 		this.rotation = this.parser.add(new Interpolation(0x4c52434b/*KCRL*/, Float32));
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

@@ -1,6 +1,6 @@
 /** @module MDX */
 
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Float32, Float32List} from "../parser/Float.mjs";
 import {Uint32} from "../parser/Uint.mjs";
@@ -10,7 +10,7 @@ export class GeosetAnimation {
 	/** @type {Reader} reader */ reader;
 
 	read() {
-		this.parser = new Parser(this.reader);
+		this.parser = new ParserOld(this.reader);
 
 		this.inclusiveSize = this.parser.add(InclusiveSize);
 		this.alpha = this.parser.add(Float32);
@@ -20,7 +20,7 @@ export class GeosetAnimation {
 		this.alphaTrack = this.parser.add(new Interpolation(0x4f41474b/*KGAO*/, Float32));
 		this.colorTrack = this.parser.add(new Interpolation(0x4341474b/*KGAC*/, Float32List, 3));
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

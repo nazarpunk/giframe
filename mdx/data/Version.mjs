@@ -1,30 +1,23 @@
 /** @module MDX */
-import {Parser} from "../parser/Parser.mjs";
-import {ChunkSize} from "../parser/StructSize.mjs";
 import {Uint32} from "../parser/Uint.mjs";
-import {Key} from "../parser/Key.mjs";
+import {Parser} from "../parser/Parser.mjs";
 
 export class Version {
-	static id = 0x53524556; // VERS
+	/** @type {MDX} */ mdx;
 
-	/** @type {Reader} */ reader;
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 
-	read() {
-		this.parser = new Parser(this.reader);
-
-		this.key = this.parser.add(new Key(Version.id));
-		this.chunkSize = this.parser.add(ChunkSize);
 		this.version = this.parser.add(Uint32);
 
-		this.parser.read();
+		this.parser.read(view);
 
-		this.reader.version = this.version.value;
+		this.mdx.vers = this.version.value;
 	}
 
 	toJSON() {
 		return {
-			key: this.key,
-			chunkSize: this.chunkSize,
 			version: this.version,
 		}
 	}

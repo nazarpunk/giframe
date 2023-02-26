@@ -1,6 +1,6 @@
 /** @module MDX */
 import {Uint32} from "./Uint.mjs";
-import {Parser} from "./Parser.mjs";
+import {ParserOld} from "./ParserOld.mjs";
 import {Key} from "./Key.mjs";
 import {Reader} from "./Reader.mjs";
 
@@ -20,10 +20,10 @@ export class ChunkList {
 	items = [];
 
 	read() {
-		this.parser = new Parser(this.reader);
+		this.parser = new ParserOld(this.reader);
 		this.key = this.parser.add(new Key(this.id));
 		this.size = this.parser.add(Uint32);
-		this.parser.read();
+		this.parser.read(view);
 
 		const end = this.reader.readOffset + this.size.value;
 
@@ -46,7 +46,7 @@ export class ChunkList {
 	write() {
 		this.parser.write();
 		for (const p of this.items) {
-			Parser.writeCall(p);
+			ParserOld.writeCall(p);
 		}
 		this.reader.setUint(this.size.size, this.reader.writeOffset - this.size.writeOffsetCurrent - this.size.size, this.size.writeOffsetCurrent);
 	}

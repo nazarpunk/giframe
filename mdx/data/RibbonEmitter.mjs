@@ -1,17 +1,16 @@
 /** @module MDX */
 
 import {NodeData} from "./NodeData.mjs";
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {Float32, Float32List} from "../parser/Float.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class RibbonEmitter {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.parser = new Parser(this.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 
 		this.inclusiveSize = this.parser.add(InclusiveSize);
 		this.node = this.parser.add(NodeData);
@@ -30,7 +29,7 @@ export class RibbonEmitter {
 		this.heightAboveStruct = this.parser.add(new Interpolation(0x4148524b/*KRHA*/, Float32));
 		this.heightBelowStruct = this.parser.add(new Interpolation(0x4248524b/*KRHB*/, Float32));
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

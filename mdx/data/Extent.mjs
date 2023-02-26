@@ -1,18 +1,17 @@
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {Float32, Float32List} from "../parser/Float.mjs";
 
 /** @module MDX */
 export class Extent {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.parser = new Parser(this.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 
 		this.boundsRadius = this.parser.add(Float32);
 		this.minimum = this.parser.add(new Float32List(3));
 		this.maximum = this.parser.add(new Float32List(3));
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

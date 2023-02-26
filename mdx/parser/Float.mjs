@@ -1,14 +1,17 @@
 /** @module MDX */
-export class Float32 {
-	/** @type {Reader} */ reader;
 
-	read() {
-		this.value = this.reader.readFloat(4);
-		this.reader.readOffsetAdd(4);
+export class Float32 {
+
+	/** @param {DataView} view */
+	read(view) {
+		this.value = view.getFloat32(view.cursor, true);
+		view.cursor += 4;
 	}
 
-	write() {
-		this.reader.writeFloat(4, this.value);
+	/** @param {DataView} view */
+	write(view) {
+		view.setFloat32(view.cursor, this.value, true);
+		view.cursor += 4;
 	}
 
 	toJSON() {
@@ -18,6 +21,7 @@ export class Float32 {
 
 /** @module MDX */
 export class Float32List {
+
 	/** @param {number} length */
 	constructor(length = 1) {
 		this.length = length;
@@ -27,19 +31,21 @@ export class Float32List {
 		return new Float32List(this.length);
 	}
 
-	/** @type {Reader} */ reader;
 	/** @type {number[]} */ list = [];
 
-	read() {
+	/** @param {DataView} view */
+	read(view) {
 		for (let i = 0; i < this.length; i++) {
-			this.list.push(this.reader.readFloat(4));
-			this.reader.readOffsetAdd(4);
+			this.list.push(view.getFloat32(view.cursor, true));
+			view.cursor += 4;
 		}
 	}
 
-	write() {
-		for (let i = 0; i < this.length; i++) {
-			this.reader.writeFloat(4, this.list[i]);
+	/** @param {DataView} view */
+	write(view) {
+		for (const i of this.list) {
+			view.setFloat32(view.cursor, i, true);
+			view.cursor += 4;
 		}
 	}
 

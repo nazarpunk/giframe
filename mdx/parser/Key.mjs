@@ -1,13 +1,13 @@
 import {Reader} from "./Reader.mjs";
-import {Uint} from "./Uint.mjs";
+
 
 /** @module MDX */
-export class Key extends Uint {
+export class Key {
 	/** @type {Reader} */ reader;
 
 	/** @param {number} key */
 	constructor(key) {
-		super(4);
+		
 		this.key = key;
 	}
 

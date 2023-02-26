@@ -1,22 +1,21 @@
 /** @module MDX */
 
 import {NodeData} from "./NodeData.mjs";
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Float32List} from "../parser/Float.mjs";
 
 export class CollisionShape {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.parser = new Parser(this.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 
 		this.node = this.parser.add(NodeData);
 		this.type = this.parser.add(Uint32);
 
-		this.parser.read();
+		this.parser.read(view);
 
-		this.parser2 = new Parser(this.reader);
+		this.parser2 = new ParserOld(this.reader);
 
 		const t = this.type.value;
 

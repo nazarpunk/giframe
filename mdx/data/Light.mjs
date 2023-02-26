@@ -1,16 +1,15 @@
 /** @module MDX */
 import {NodeData} from "./NodeData.mjs";
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Float32, Float32List} from "../parser/Float.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class Light {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.parser = new Parser(this.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 
 		this.inclusiveSize = this.parser.add(InclusiveSize);
 		this.node = this.parser.add(NodeData);
@@ -27,7 +26,7 @@ export class Light {
 		this.ambientColorTrack = this.parser.add(new Interpolation(0x43424c4b/*KLBC*/, Float32List, 3));
 		this.ambientIntensityTrack = this.parser.add(new Interpolation(0x49424c4b/*KLBI*/, Float32));
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 

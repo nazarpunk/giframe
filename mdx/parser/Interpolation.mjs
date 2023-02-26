@@ -1,5 +1,5 @@
 /** @module MDX */
-import {Parser} from "./Parser.mjs";
+import {ParserOld} from "./ParserOld.mjs";
 import {Key} from "./Key.mjs";
 import {Uint32} from "./Uint.mjs";
 
@@ -20,12 +20,12 @@ export class Interpolation {
 	items = [];
 
 	read() {
-		this.parser = new Parser(this.reader);
+		this.parser = new ParserOld(this.reader);
 		this.key = this.parser.add(new Key(this.id));
 		this.length = this.parser.add(Uint32);
 		this.type = this.parser.add(Uint32);
 		this.globalSequenceId = this.parser.add(Uint32);
-		this.parser.read();
+		this.parser.read(view);
 
 		for (let i = 0; i < this.length.value; i++) {
 			const p = new InterpolationTrack(this);
@@ -60,7 +60,7 @@ export class InterpolationTrack {
 	}
 
 	read() {
-		this.parser = new Parser(this.parent.reader);
+		this.parser = new ParserOld(this.parent.reader);
 
 		this.time = this.parser.add(Uint32);
 
@@ -78,7 +78,7 @@ export class InterpolationTrack {
 			this.outTan = add();
 		}
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

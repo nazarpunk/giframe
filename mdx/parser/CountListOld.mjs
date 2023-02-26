@@ -1,10 +1,10 @@
-import {Parser} from "./Parser.mjs";
+import {ParserOld} from "./ParserOld.mjs";
 import {Key} from "./Key.mjs";
 import {Uint32} from "./Uint.mjs";
 import {Reader} from "./Reader.mjs";
 
 /** @module MDX */
-export class CountList {
+export class CountListOld {
 	/**
 	 * @param {?number} id
 	 * @param child
@@ -20,15 +20,15 @@ export class CountList {
 	items = [];
 
 	read() {
-		this.parser = new Parser(this.reader);
+		this.parser = new ParserOld(this.reader);
 		if (this.id) {
 			this.key = this.parser.add(new Key(this.id));
 		}
 		this.length = this.parser.add(Uint32);
-		this.parser.read();
+		this.parser.read(view);
 
 		for (let i = 0; i < this.length.value; i++) {
-			const p = Parser.copyChild(this.child);
+			const p = ParserOld.copyChild(this.child);
 			this.items.push(p);
 			p.reader = this.reader;
 			p.read();
@@ -38,7 +38,7 @@ export class CountList {
 	write() {
 		this.parser.write();
 		for (const p of this.items) {
-			Parser.writeCall(p);
+			ParserOld.writeCall(p);
 		}
 		this.reader.setUint(this.length.size, this.items.length, this.length.writeOffsetCurrent);
 	}

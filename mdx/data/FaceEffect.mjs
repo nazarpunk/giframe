@@ -1,17 +1,17 @@
 /** @module MDX */
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {Char} from "../parser/Char.mjs";
 
 export class FaceEffect {
 	/** @type {Reader} reader */ reader;
 
 	read() {
-		this.parser = new Parser(this.reader);
+		this.parser = new ParserOld(this.reader);
 
 		this.target = this.parser.add(new Char(80));
 		this.path = this.parser.add(new Char(260));
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

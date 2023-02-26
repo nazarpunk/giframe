@@ -1,20 +1,17 @@
 /** @module MDX */
 
-export class Uint {
-	/** @type {Reader} */ reader;
+export class Uint8 {
 
-	/** @param {1|2|4} size */
-	constructor(size) {
-		this.size = size;
+	/** @param {DataView} view */
+	read(view) {
+		this.value = view.getUint8(view.cursor);
+		view.cursor += 1;
 	}
 
-	read() {
-		this.value = this.reader.readUint(this.size);
-		this.reader.readOffsetAdd(this.size);
-	}
-
-	write() {
-		this.reader.writeUint(this.size, this.value);
+	/** @param {DataView} view */
+	write(view) {
+		view.setUint8(view.cursor, this.value);
+		view.cursor += 1;
 	}
 
 	toJSON() {
@@ -22,21 +19,41 @@ export class Uint {
 	}
 }
 
-export class Uint8 extends Uint {
-	constructor() {
-		super(1);
+export class Uint16 {
+
+	/** @param {DataView} view */
+	read(view) {
+		this.value = view.getUint16(view.cursor, true);
+		view.cursor += 2;
+	}
+
+	/** @param {DataView} view */
+	write(view) {
+		view.setUint16(view.cursor, this.value, true);
+		view.cursor += 2;
+	}
+
+	toJSON() {
+		return this.value;
 	}
 }
 
-export class Uint16 extends Uint {
-	constructor() {
-		super(2);
-	}
-}
+export class Uint32 {
 
-export class Uint32 extends Uint {
-	constructor() {
-		super(4);
+	/** @param {DataView} view */
+	read(view) {
+		this.value = view.getUint32(view.cursor, true);
+		view.cursor += 4;
+	}
+
+	/** @param {DataView} view */
+	write(view) {
+		view.setUint32(view.cursor, this.value, true);
+		view.cursor += 4;
+	}
+
+	toJSON() {
+		return this.value;
 	}
 }
 
@@ -47,19 +64,21 @@ export class Uint8List {
 		this.length = length;
 	}
 
-	/** @type {Reader} */ reader;
 	/** @type {number[]} */ list = [];
 
-	read() {
+	/** @param {DataView} view */
+	read(view) {
 		for (let i = 0; i < this.length; i++) {
-			this.list.push(this.reader.readUint(1));
-			this.reader.readOffsetAdd(1);
+			this.list.push(view.getUint8(view.cursor));
+			view.cursor += 1;
 		}
 	}
 
-	write() {
-		for (let i = 0; i < this.length; i++) {
-			this.reader.writeUint(1, this.list[i]);
+	/** @param {DataView} view */
+	write(view) {
+		for (const i of this.list) {
+			view.setUint8(view.cursor, i);
+			view.cursor += 1;
 		}
 	}
 

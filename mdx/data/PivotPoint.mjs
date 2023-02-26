@@ -1,15 +1,14 @@
 /** @module MDX */
 
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {Float32List} from "../parser/Float.mjs";
 
 export class PivotPoint {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.parser = new Parser(this.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 		this.point = this.parser.add(new Float32List(3));
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

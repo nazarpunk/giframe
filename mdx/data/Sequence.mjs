@@ -1,15 +1,16 @@
 /** @module MDX */
 
-import {Parser} from "../parser/Parser.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Float32, Float32List} from "../parser/Float.mjs";
+import {Parser} from "../parser/Parser.mjs";
 
 export class Sequence {
-	/** @type {Reader} */ reader;
 
-	read() {
-		this.parser = new Parser(this.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
+
 		this.name = this.parser.add(new Char(80));
 		this.intervalStart = this.parser.add(Uint32);
 		this.intervalEnd = this.parser.add(Uint32);
@@ -20,7 +21,8 @@ export class Sequence {
 		this.boundsRadius = this.parser.add(Float32);
 		this.minimumExtent = this.parser.add(new Float32List(3));
 		this.maximumExtent = this.parser.add(new Float32List(3));
-		this.parser.read();
+
+		this.parser.read(view);
 	}
 
 	toJSON() {
@@ -37,5 +39,4 @@ export class Sequence {
 			maximumExtent: this.maximumExtent,
 		}
 	}
-
 }

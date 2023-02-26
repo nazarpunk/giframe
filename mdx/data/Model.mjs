@@ -1,22 +1,15 @@
 /** @module MDX */
 
-import {Parser} from "../parser/Parser.mjs";
-import {ChunkSize} from "../parser/StructSize.mjs";
 import {Char} from "../parser/Char.mjs";
+import {Parser} from "../parser/Parser.mjs";
 import {Float32, Float32List} from "../parser/Float.mjs";
 import {Uint32} from "../parser/Uint.mjs";
-import {Key} from "../parser/Key.mjs";
 
 export class Model {
-	static id = 0x4c444f4d; // MODL
+	/** @param {DataView} view */
+	read(view) {
 
-	/** @type {Reader} reader */ reader;
-
-	read() {
-		this.parser = new Parser(this.reader);
-
-		this.key = this.parser.add(new Key(Model.id));
-		this.chunkSize = this.parser.add(ChunkSize);
+		this.parser = new Parser();
 		this.name = this.parser.add(new Char(80));
 		this.animationFileName = this.parser.add(new Char(260));
 		this.boundsRadius = this.parser.add(Float32);
@@ -24,13 +17,11 @@ export class Model {
 		this.maximumExtent = this.parser.add(new Float32List(3));
 		this.blendTime = this.parser.add(Uint32);
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {
 		return {
-			key: this.key,
-			chunkSize: this.chunkSize,
 			name: this.name,
 			animationFileName: this.animationFileName,
 			boundsRadius: this.boundsRadius,

@@ -1,20 +1,19 @@
 /** @module MDX */
 
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Char} from "../parser/Char.mjs";
 
 export class Texture {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.parser = new Parser(this.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 
 		this.replaceableId = this.parser.add(Uint32);
 		this.fileName = this.parser.add(new Char(260));
 		this.flags = this.parser.add(Uint32);
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

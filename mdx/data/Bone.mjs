@@ -1,20 +1,19 @@
 /** @module MDX */
 
 import {NodeData} from "./NodeData.mjs";
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 
 export class Bone {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.parser = new Parser(this.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 
 		this.node = this.parser.add(NodeData);
 		this.geosetId = this.parser.add(Uint32);
 		this.geosetAnimationId = this.parser.add(Uint32);
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

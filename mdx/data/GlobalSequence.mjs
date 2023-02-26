@@ -1,13 +1,12 @@
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 
 export class GlobalSequence {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.parser = new Parser(this.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 		this.duration = this.parser.add(Uint32);
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

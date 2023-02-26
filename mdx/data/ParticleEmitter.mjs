@@ -1,17 +1,16 @@
 /** @module MDX */
 
 import {NodeData} from "./NodeData.mjs";
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {Float32} from "../parser/Float.mjs";
 import {Char} from "../parser/Char.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
 
 export class ParticleEmitter {
-	/** @type {Reader} */ reader;
-
-	read() {
-		this.parser = new Parser(this.reader);
+	/** @param {DataView} view */
+	read(view) {
+		this.parser = new Parser();
 
 		this.inclusiveSize = this.parser.add(InclusiveSize);
 		this.node = this.parser.add(NodeData);
@@ -24,7 +23,7 @@ export class ParticleEmitter {
 		this.initialVelocity = this.parser.add(Float32);
 		this.visibilityTrack = this.parser.add(new Interpolation(0x5645504b/*KPEV*/, Float32));
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

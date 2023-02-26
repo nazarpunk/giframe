@@ -1,5 +1,5 @@
 /** @module MDX */
-import {Parser} from "../parser/Parser.mjs";
+import {ParserOld} from "../parser/ParserOld.mjs";
 import {InclusiveSize} from "../parser/StructSize.mjs";
 import {NodeData} from "./NodeData.mjs";
 import {Float32, Float32List} from "../parser/Float.mjs";
@@ -11,7 +11,7 @@ export class CornEmmiter {
 	/** @type {Reader} reader */ reader;
 
 	read() {
-		this.parser = new Parser(this.reader);
+		this.parser = new ParserOld(this.reader);
 
 		this.inclusiveSize = this.parser.add(InclusiveSize);
 		this.node = this.parser.add(NodeData);
@@ -29,7 +29,7 @@ export class CornEmmiter {
 		this.speedTrack = this.parser.add(new Interpolation(0x5350504b/*KPPS*/, Float32));
 		this.visibilityTrack = this.parser.add(new Interpolation(0x5650504b/*KPPV*/, Float32));
 
-		this.parser.read();
+		this.parser.read(view);
 	}
 
 	toJSON() {

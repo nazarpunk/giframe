@@ -8,7 +8,7 @@ import {Chunk} from "../parser/Chunk.mjs";
 
 export class Layer {
 
-	/** @type {MDX} */ mdx;
+	/** @type {Vers} */ vers;
 
 	/** @param {DataView} view */
 	read(view) {
@@ -21,7 +21,7 @@ export class Layer {
 		this.coordId = this.parser.add(Uint32);
 		this.alpha = this.parser.add(Float32);
 
-		if (this.mdx.vers > 800) {
+		if (this.vers.version > 800) {
 			this.emissiveGain = this.parser.add(Float32);
 			this.fresnelColor = this.parser.add(new Float32List(3));
 			this.fresnelOpacity = this.parser.add(Float32);
@@ -32,7 +32,7 @@ export class Layer {
 		this.textureIdTrack = this.parser.add(new Interpolation(Chunk.KMTF, Uint32));
 		this.alphaTrack = this.parser.add(new Interpolation(Chunk.KMTA, Float32));
 
-		if (this.mdx.vers > 900) {
+		if (this.vers.version > 900) {
 			this.fresnelColorTrack = this.parser.add(new Interpolation(Chunk.KFC3, Float32List, 3));
 			this.fresnelAlphaTrack = this.parser.add(new Interpolation(Chunk.KFCA, Float32));
 			this.fresnelTeamColorTrack = this.parser.add(new Interpolation(Chunk.KFTC, Float32));

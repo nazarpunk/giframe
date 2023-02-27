@@ -4,7 +4,7 @@ import {Parser} from "../parser/Parser.mjs";
 
 export class Version {
 
-	/** @type {MDX} */ mdx;
+	/** @type {Vers} */ vers;
 
 	/** @param {DataView} view */
 	read(view) {
@@ -14,7 +14,7 @@ export class Version {
 
 		this.parser.read(view);
 
-		this.mdx.vers = this.version.value;
+		this.vers.version = this.version.value;
 	}
 
 	toJSON() {

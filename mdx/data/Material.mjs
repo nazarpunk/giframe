@@ -9,16 +9,16 @@ import {Layer} from "./Layer.mjs";
 
 export class Material {
 
-	/** @type {MDX} */ mdx;
+	/** @type {Vers} */ vers;
 
 	/** @param {DataView} view */
 	read(view) {
-		this.parser = new Parser(this.mdx);
+		this.parser = new Parser(this.vers);
 
 		this.priorityPlane = this.parser.add(Uint32);
 		this.flags = this.parser.add(Uint32);
 
-		if (this.mdx.vers > 800) {
+		if (this.vers.version > 800) {
 			this.shader = this.parser.add(new Char(80));
 		}
 

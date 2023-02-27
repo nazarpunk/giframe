@@ -10,7 +10,7 @@ import {int2s} from "../utils/hex.mjs";
 
 export class Geoset {
 
-	/** @type {MDX} */ mdx;
+	/** @type {Vers} */ vers;
 
 	/** @param {DataView} view */
 	read(view) {
@@ -27,13 +27,13 @@ export class Geoset {
 		this.materialId = this.parser.add(Uint32);
 		this.selectionGroup = this.parser.add(Uint32);
 		this.selectionFlags = this.parser.add(Uint32);
-		if (this.mdx.vers > 800) {
+		if (this.vers.version > 800) {
 			this.lod = this.parser.add(Uint32);
 			this.lodName = this.parser.add(new Char(80));
 		}
 		this.parser.add(Extent);
 		this.sequenceExtents = this.parser.add(new Child(null, Extent));
-		if (this.mdx.vers > 800) {
+		if (this.vers.version > 800) {
 			this.tangents = this.parser.add(new Child(Chunk.TANG, Float32, 4, true));
 			this.skins = this.parser.add(new Child(Chunk.SKIN, Uint8, 1, true));
 		}
@@ -125,65 +125,3 @@ class Child {
 		}
 	};
 }
-
-
-/*
-  char[4] "PTYP"
-  uint32 faceTypeGroupsCount
-  uint32[faceTypeGroupsCount] faceTypeGroups
-  char[4] "PCNT"
-  uint32 faceGroupsCount
-  uint32[faceGroupsCount] faceGroups
-  char[4] "PVTX"
-  uint32 facesCount
-  uint16[facesCount] faces
-  char[4] "GNDX"
-  uint32 vertexGroupsCount
-  uint8[vertexGroupsCount] vertexGroups
-  char[4] "MTGC"
-  uint32 matrixGroupsCount
-  uint32[matrixGroupsCount] matrixGroups
-  char[4] "MATS"
-  uint32 matrixIndicesCount
-  uint32[matrixIndicesCount] matrixIndices
-  uint32 materialId
-  uint32 selectionGroup
-  uint32 selectionFlags
-
-  if (version > 800) {
-    uint32 lod
-    char[80] lodName
-  }
-
-  Extent extent
-  uint32 extentsCount
-  Extent[extentsCount] sequenceExtents
-
-  if (version > 800) {
-    (Tangents)
-    (Skin)
-  }
-
-  char[4] "UVAS"
-  uint32 textureCoordinateSetsCount
-  TextureCoordinateSet[textureCoordinateSetsCount] textureCoordinateSets
-}
-
-Tangents {
-  char[4] "TANG"
-  uint32 count
-  float[count * 4] tangents
-}
-
-Skin {
-  char[4] "SKIN"
-  uint32 count
-  uint8[count] skin
-}
-
-TextureCoordinateSet {
-  char[4] "UVBS"
-  uint32 count
-  float[count * 2] texutreCoordinates
-}
- */

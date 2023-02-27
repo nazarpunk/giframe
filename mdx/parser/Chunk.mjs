@@ -1,7 +1,7 @@
 /** @module MDX */
 
 export class Chunk {
-	/** @type {MDX} */ mdx;
+	/** @type {Vers} */ vers;
 
 	/**
 	 * @param {number} byteOffset
@@ -9,15 +9,15 @@ export class Chunk {
 	 * @param {number} key
 	 * @param {ArrayBuffer} buffer
 	 * @param child
-	 * @param {MDX} mdx
+	 * @param {Vers} vers
 	 * @param {boolean} inclusive
 	 */
-	constructor(byteOffset, byteLength, key, buffer, child, mdx, inclusive) {
+	constructor(byteOffset, byteLength, key, buffer, child, vers, inclusive) {
 		this.key = key;
 		this.view = new DataView(buffer, byteOffset, byteLength);
 		this.view.cursor = 0;
 		this.child = child;
-		this.mdx = mdx;
+		this.vers = vers;
 		this.inclusive = inclusive;
 	}
 
@@ -29,7 +29,7 @@ export class Chunk {
 	 */
 	_read(view) {
 		const parser = new this.child();
-		parser.mdx = this.mdx;
+		parser.vers = this.vers;
 		this.items.push(parser);
 		parser.read(view);
 	}

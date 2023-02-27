@@ -4,7 +4,7 @@ import {int2s} from "../utils/hex.mjs";
 
 export class ChunkCountInclusive {
 
-	/** @type {MDX} */ mdx;
+	/** @type {Vers} */ vers;
 
 	constructor(id, child) {
 		this.id = id;
@@ -36,7 +36,7 @@ export class ChunkCountInclusive {
 			v.cursor = 0;
 
 			const parser = new this.child();
-			parser.mdx = this.mdx;
+			parser.vers = this.vers;
 			this.items.push(parser);
 			parser.read(v);
 

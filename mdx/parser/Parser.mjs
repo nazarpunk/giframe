@@ -1,9 +1,10 @@
 /** @module MDX */
 
 export class Parser {
-	/** @param {MDX?} mdx */
-	constructor(mdx) {
-		this.mdx = mdx;
+
+	/** @param {Vers?} vers */
+	constructor(vers) {
+		this.vers = vers;
 	}
 
 	items = [];
@@ -21,12 +22,12 @@ export class Parser {
 		while (this._read.length > 0) {
 			const p = this._read.shift();
 			if (p.id) {
-				p.mdx = this.mdx;
+				p.vers = this.vers;
 				const map = new Map();
 				map.set(p.id, p);
 				while (this._read.length > 0) {
 					const p = this._read.shift();
-					p.mdx = this.mdx;
+					p.vers = this.vers;
 					if (p.id) {
 						map.set(p.id, p);
 					} else {
@@ -48,7 +49,7 @@ export class Parser {
 				continue;
 			}
 			this.items.push(p);
-			if (!p.read){
+			if (!p.read) {
 				console.log(p);
 			}
 

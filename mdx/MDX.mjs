@@ -38,6 +38,10 @@ import {int2s} from "./utils/hex.mjs";
  * @param {Error} error
  */
 
+export class Vers {
+	version = 800;
+}
+
 export class MDX {
 	/**
 	 * @param {ArrayBuffer} buffer
@@ -46,10 +50,8 @@ export class MDX {
 		this.buffer = buffer;
 	}
 
-	/** @type {number} */ vers = 800;
-	/** @type {Error} */ error;
-	errors = [];
-
+	/** @type {Vers} */ vers = new Vers();
+	/** @type {Error[]} */ errors = [];
 	/** @type {Chunk[]} */ chunks = [];
 
 	read() {
@@ -67,7 +69,7 @@ export class MDX {
 			byteOffset += 4;
 
 			const add = (parser, inclusive = false) => {
-				const p = new Chunk(byteOffset, byteLength, key, this.buffer, parser, this, inclusive);
+				const p = new Chunk(byteOffset, byteLength, key, this.buffer, parser, this.vers, inclusive);
 				this.chunks.push(p);
 				return p;
 			};
@@ -148,7 +150,7 @@ export class MDX {
 					break;
 
 				default:
-				this.errors.push(new Error(`Missing chunk parser: ${int2s(key)}`));
+					this.errors.push(new Error(`Missing chunk parser: ${int2s(key)}`));
 			}
 
 			byteOffset += byteLength;

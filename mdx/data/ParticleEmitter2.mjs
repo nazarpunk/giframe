@@ -1,11 +1,10 @@
 /** @module MDX */
 
 import {NodeData} from "./NodeData.mjs";
-import {ParserOld} from "../parser/ParserOld.mjs";
-import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Float32, Float32List} from "../parser/Float.mjs";
 import {Uint32, Uint8List} from "../parser/Uint.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
+import {Parser} from "../parser/Parser.mjs";
 
 export class ParticleEmitter2 {
 	/** @param {DataView} view */

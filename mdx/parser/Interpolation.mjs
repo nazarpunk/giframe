@@ -1,10 +1,9 @@
 /** @module MDX */
 import {Uint32} from "./Uint.mjs";
 import {Parser} from "./Parser.mjs";
-import {Reader} from "./Reader.mjs";
+import {int2s} from "../utils/hex.mjs";
 
 export class Interpolation {
-	/** @type {Reader} */ reader;
 
 	/**
 	 * @param {number} id
@@ -25,7 +24,7 @@ export class Interpolation {
 		this.length = view.getUint32(view.cursor += 4, true);
 		view.cursor += 4;
 		if (id !== this.id) {
-			throw new Error(`Interpolation wrong id: ${Reader.int2s(this.id)} != ${Reader.int2s(id)}`);
+			throw new Error(`Interpolation wrong id: ${int2s(this.id)} != ${int2s(id)}`);
 		}
 
 		this.parser = new Parser();
@@ -54,7 +53,7 @@ export class Interpolation {
 
 	toJSON() {
 		return {
-			id: Reader.int2s(this.id),
+			id: int2s(this.id),
 			length: this.length,
 			type: this.type,
 			items: this.items,

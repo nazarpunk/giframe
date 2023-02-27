@@ -1,9 +1,8 @@
 /** @module MDX */
 
-import {ParserOld} from "../parser/ParserOld.mjs";
-import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
 import {Float32List} from "../parser/Float.mjs";
+import {Parser} from "../parser/Parser.mjs";
 
 export class TextureAnimation {
 	/** @param {DataView} view */

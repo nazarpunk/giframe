@@ -7,7 +7,7 @@ export class Char {
 	}
 
 	copy() {
-		return new Char(this.length);
+		return new this.constructor(this.length);
 	}
 
 	/** @type {string} */ value;

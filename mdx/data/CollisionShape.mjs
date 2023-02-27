@@ -1,9 +1,9 @@
 /** @module MDX */
 
 import {NodeData} from "./NodeData.mjs";
-import {ParserOld} from "../parser/ParserOld.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Float32List} from "../parser/Float.mjs";
+import {Parser} from "../parser/Parser.mjs";
 
 export class CollisionShape {
 	/** @param {DataView} view */

@@ -1,5 +1,6 @@
 /** @module MDX */
-import {Reader} from "./Reader.mjs";
+
+import {int2s} from "../utils/hex.mjs";
 
 export class ChunkCountInclusive {
 
@@ -16,7 +17,7 @@ export class ChunkCountInclusive {
 	read(view) {
 		const id = view.getUint32(view.cursor, true);
 		if (id !== this.id) {
-			throw new Error(`ChunkCountInclusive wrong id: ${Reader.int2s(this.id)} != ${Reader.int2s(id)}`);
+			throw new Error(`ChunkCountInclusive wrong id: ${int2s(this.id)} != ${int2s(id)}`);
 		}
 		const count = view.getUint32(view.cursor += 4, true);
 		view.cursor += 4;

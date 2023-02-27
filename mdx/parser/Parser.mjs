@@ -48,6 +48,10 @@ export class Parser {
 				continue;
 			}
 			this.items.push(p);
+			if (!p.read){
+				console.log(p);
+			}
+
 			p.read(view);
 		}
 	}
@@ -55,7 +59,7 @@ export class Parser {
 	/** @param {DataView} view */
 	write(view) {
 		for (const i of this.items) {
-			i.write(view);
+			(i.write ? i : i.parser).write(view);
 		}
 	}
 }

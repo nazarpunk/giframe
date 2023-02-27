@@ -1,10 +1,9 @@
 /** @module MDX */
 import {NodeData} from "./NodeData.mjs";
-import {ParserOld} from "../parser/ParserOld.mjs";
-import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Float32, Float32List} from "../parser/Float.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
+import {Parser} from "../parser/Parser.mjs";
 
 export class Light {
 	/** @param {DataView} view */

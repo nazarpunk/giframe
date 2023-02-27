@@ -1,5 +1,5 @@
-import {ParserOld} from "../parser/ParserOld.mjs";
 import {Float32, Float32List} from "../parser/Float.mjs";
+import {Parser} from "../parser/Parser.mjs";
 
 /** @module MDX */
 export class Extent {

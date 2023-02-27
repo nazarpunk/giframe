@@ -20,20 +20,17 @@ import {ParticleEmitter2} from "./data/ParticleEmitter2.mjs";
 import {ParticleEmitter} from "./data/ParticleEmitter.mjs";
 import {Camera} from "./data/Camera.mjs";
 import {Light} from "./data/Light.mjs";
-import {ParserOld} from "./parser/ParserOld.mjs";
 import {Version} from "./data/Version.mjs";
 import {Model} from "./data/Model.mjs";
-import {ChunkList} from "./parser/ChunkList.mjs";
 import {Sequence} from "./data/Sequence.mjs";
 import {GlobalSequence} from "./data/GlobalSequence.mjs";
 import {Material} from "./data/Material.mjs";
 import {CornEmmiter} from "./data/CornEmmiter.mjs";
 import {FaceEffect} from "./data/FaceEffect.mjs";
 import {BindPose} from "./data/BindPose.mjs";
-import {Reader} from "./parser/Reader.mjs";
 import {Info} from "./data/Info.mjs";
 import {Chunk} from "./parser/Chunk.mjs";
-import {DataViewWrite} from "./parser/DataWiewWrite.mjs";
+import {DataViewWrite} from "./parser/DataViewWrite.mjs";
 
 /**
  * @callback MDXOnError
@@ -42,10 +39,10 @@ import {DataViewWrite} from "./parser/DataWiewWrite.mjs";
 
 export class MDX {
 	/**
-	 * @param {Reader} reader
+	 * @param {ArrayBuffer} buffer
 	 */
-	constructor(reader) {
-		this.reader = reader;
+	constructor(buffer) {
+		this.buffer = buffer;
 	}
 
 	/** @type {number} */ vers = 800;
@@ -58,7 +55,7 @@ export class MDX {
 
 		this.error = null;
 
-		const view = new DataView(this.reader.buffer);
+		const view = new DataView(this.buffer);
 
 		const k = view.getUint32(0, true);
 		if (k !== Chunk.MDLX) {
@@ -72,7 +69,7 @@ export class MDX {
 			byteOffset += 4;
 
 			const add = (parser, inclusive = false) => {
-				const p = new Chunk(byteOffset, byteLength, key, this.reader.buffer, parser, this, inclusive);
+				const p = new Chunk(byteOffset, byteLength, key, this.buffer, parser, this, inclusive);
 				this.chunks.push(p);
 				return p;
 			};
@@ -93,31 +90,49 @@ export class MDX {
 				case Chunk.MTLS:
 					this.materials = add(Material, true);
 					break;
+				case Chunk.TEXS:
+					this.textures = add(Texture);
+					break;
+				case Chunk.GEOS:
+					this.geosets = add(Geoset, true);
+					break;
+				case Chunk.GEOA:
+					this.geosetAnimations = add(GeosetAnimation, true);
+					break;
+				case Chunk.BONE:
+					this.bones = add(Bone);
+					break;
+				case Chunk.ATCH:
+					this.attachments = add(Attachment, true);
+					break;
+				case Chunk.PIVT:
+					this.pivotPoints = add(PivotPoint);
+					break;
+				case Chunk.CORN:
+					this.cornEmmiter = add(CornEmmiter, true);
+					break;
+				case Chunk.CAMS:
+					this.cameras = add(Camera, true);
+					break;
+				case Chunk.EVTS:
+					this.eventObjects = add(EventObject);
+					break;
 				default:
-				//this.errors.push(new Error(`Missing chunk parser: ${Reader.int2s(key)}`));
+				//this.errors.push(new Error(`Missing chunk parser: ${int2s(key)}`));
 			}
 
 			if (0) {
 				this.parser = new ParserOld(this.reader);
 
-				this.globalSequences = this.parser.add(new ChunkList(0x53424c47/*GLBS*/, GlobalSequence));
-				this.textures = this.parser.add(new ChunkList(0x53584554/*TEXS*/, Texture));
-				this.geosets = this.parser.add(new ChunkList(0x534f4547/*GEOS*/, Geoset));
-				this.geosetAnimations = this.parser.add(new ChunkList(0x414f4547/*GEOA*/, GeosetAnimation));
-				this.bones = this.parser.add(new ChunkList(0x454e4f42/*BONE*/, Bone));
-				this.helpers = this.parser.add(new ChunkList(0x504c4548/*HELP*/, NodeData));
-				this.attachments = this.parser.add(new ChunkList(0x48435441/*ATCH*/, Attachment));
-				this.pivotPoints = this.parser.add(new ChunkList(0x54564950/*PIVT*/, PivotPoint));
-				this.particleEmitters = this.parser.add(new ChunkList(0x4d455250/*PREM*/, ParticleEmitter));
-				this.particleEmitters2 = this.parser.add(new ChunkList(0x32455250/*PRE2*/, ParticleEmitter2));
-				this.eventObjects = this.parser.add(new ChunkList(0x53545645/*EVTS*/, EventObject));
-				this.collisionShapes = this.parser.add(new ChunkList(0x44494c43/*CLID*/, CollisionShape));
-				this.cornEmmiter = this.parser.add(new ChunkList(0x4e524f43/*CORN*/, CornEmmiter));
-				this.cameras = this.parser.add(new ChunkList(0x534d4143/*CAMS*/, Camera));
-				this.faceEffect = this.parser.add(new ChunkList(0x58464146/*FAFX*/, FaceEffect));
-				this.lights = this.parser.add(new ChunkList(0x4554494c/*LITE*/, Light));
-				this.textureAnimations = this.parser.add(new ChunkList(0x4e415854/*TXAN*/, TextureAnimation));
-				this.ribbinEmitters = this.parser.add(new ChunkList(0x42424952/*RIBB*/, RibbonEmitter));
+				this.globalSequences = this.parser.add(new ChunkList(Chunk.GLBS, GlobalSequence));
+				this.helpers = this.parser.add(new ChunkList(Chunk.HELP, NodeData));
+				this.particleEmitters = this.parser.add(new ChunkList(Chunk.PREM, ParticleEmitter));
+				this.particleEmitters2 = this.parser.add(new ChunkList(Chunk.PRE2, ParticleEmitter2));
+				this.collisionShapes = this.parser.add(new ChunkList(Chunk.CLID, CollisionShape));
+				this.faceEffect = this.parser.add(new ChunkList(Chunk.FAFX, FaceEffect));
+				this.lights = this.parser.add(new ChunkList(Chunk.LITE, Light));
+				this.textureAnimations = this.parser.add(new ChunkList(Chunk.TXAN, TextureAnimation));
+				this.ribbinEmitters = this.parser.add(new ChunkList(Chunk.RIBB, RibbonEmitter));
 				this.bindPose = this.parser.add(BindPose);
 			}
 
@@ -156,6 +171,8 @@ export class MDX {
 		const dvw = new DataViewWrite();
 		this._write(dvw);
 
+
+		//throw new Error('END!');
 		const ab = new ArrayBuffer(dvw.cursor);
 		const dv = new DataView(ab);
 		this._write(dv);

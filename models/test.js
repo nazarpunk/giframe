@@ -2,7 +2,6 @@
 
 import * as fs from 'fs';
 import {MDX} from "../mdx/MDX.mjs";
-import {Reader} from "../mdx/parser/Reader.mjs";
 import * as chip from "child_process";
 
 let name;
@@ -14,9 +13,9 @@ name = 'sprite';
 name = 'Footman';
 name = 'heroarchmage';
 name = 'Arthas_portrait';
-name = 'heroarchmage_hd';
-name = 'VKbrute';
 name = 'candelabra_01.MESH';
+name = 'VKbrute';
+name = 'heroarchmage_hd';
 name = 'heroarchmage_ref';
 
 const f1 = `${name}.mdx`;
@@ -28,22 +27,20 @@ for (let i = 0; i < ba.length; ++i) {
 	view[i] = ba[i];
 }
 
-const reader = new Reader(arrayBuffer);
-const model = new MDX(reader);
+const model = new MDX(arrayBuffer);
 model.read();
 console.log('Read End!');
 const b = model.write();
 console.log('Write End!');
 
-if (1) {
-	const f2 = `${name}_test.mdx`;
-	fs.writeFileSync(f2, '', {flag: 'w+'});
-	fs.appendFileSync(f2, Buffer.from(b));
 
-	const cwd = process.cwd();
+const f2 = `${name}_test.mdx`;
+fs.writeFileSync(f2, '', {flag: 'w+'});
+fs.appendFileSync(f2, Buffer.from(b));
 
-	if (1) chip.exec(
-		`osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
+const cwd = process.cwd();
+
+if (1) chip.exec(
+	`osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
     do script "vbindiff ${cwd}/${f1} ${cwd}/${f2}"
 end tell'`);
-}

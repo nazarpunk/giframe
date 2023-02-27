@@ -1,5 +1,4 @@
 import {MDX} from "../mdx/MDX.mjs";
-import {Reader} from "../mdx/parser/Reader.mjs";
 
 const equal = (a, b) => {
 	if (a.byteLength !== b.byteLength) return false;
@@ -30,7 +29,7 @@ input.addEventListener('change', e => {
 		reader.addEventListener('load', e => {
 			print(`Парсим ${f.name}`);
 
-			const model = new MDX(new Reader(e.target.result));
+			const model = new MDX(e.target.result);
 			model.read();
 
 			if (model.error) {

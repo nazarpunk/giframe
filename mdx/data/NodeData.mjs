@@ -1,25 +1,26 @@
 /** @module MDX */
 
-import {ParserOld} from "../parser/ParserOld.mjs";
-import {InclusiveSize} from "../parser/StructSize.mjs";
 import {Char} from "../parser/Char.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
 import {Float32List} from "../parser/Float.mjs";
+import {Parser} from "../parser/Parser.mjs";
+import {Chunk} from "../parser/Chunk.mjs";
 
 export class NodeData {
 	/** @param {DataView} view */
 	read(view) {
 		this.parser = new Parser();
 
-		this.inclusiveSize = this.parser.add(InclusiveSize);
+		//FIXME inclusive size DataView
+		this.inclusiveSize = this.parser.add(Uint32);
 		this.name = this.parser.add(new Char(80));
 		this.objectId = this.parser.add(Uint32);
 		this.parentId = this.parser.add(Uint32);
 		this.flags = this.parser.add(Uint32);
-		this.translation = this.parser.add(new Interpolation(0x5254474b/*KGTR*/, Float32List, 3));
-		this.rotation = this.parser.add(new Interpolation(0x5452474b/*KGRT*/, Float32List, 4));
-		this.scaling = this.parser.add(new Interpolation(0x4353474b/*KGSC*/, Float32List, 3));
+		this.translation = this.parser.add(new Interpolation(Chunk.KGTR, Float32List, 3));
+		this.scaling = this.parser.add(new Interpolation(Chunk.KGSC, Float32List, 3));
+		this.rotation = this.parser.add(new Interpolation(Chunk.KGRT, Float32List, 4));
 
 		this.parser.read(view);
 	}

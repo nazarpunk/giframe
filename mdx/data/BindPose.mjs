@@ -1,9 +1,8 @@
 /** @module MDX */
 
-import {ParserOld} from "../parser/ParserOld.mjs";
 import {Uint32} from "../parser/Uint.mjs";
-import {Key} from "../parser/Key.mjs";
 import {Float32List} from "../parser/Float.mjs";
+import {Parser} from "../parser/Parser.mjs";
 
 export class BindPose {
 	static id = 0x534f5042; // BPOS

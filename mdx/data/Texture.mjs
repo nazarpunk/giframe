@@ -1,8 +1,8 @@
 /** @module MDX */
 
-import {ParserOld} from "../parser/ParserOld.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Char} from "../parser/Char.mjs";
+import {Parser} from "../parser/Parser.mjs";
 
 export class Texture {
 	/** @param {DataView} view */

@@ -28,7 +28,7 @@ export class Float32List {
 	}
 
 	copy() {
-		return new Float32List(this.length);
+		return new this.constructor(this.length);
 	}
 
 	/** @type {number[]} */ list = [];
@@ -42,11 +42,19 @@ export class Float32List {
 	}
 
 	/** @param {DataView} view */
-	write(view) {
+	write1(view) {
 		for (const i of this.list) {
 			view.setFloat32(view.cursor, i, true);
 			view.cursor += 4;
 		}
+	}
+
+	/** @param {DataView} view */
+	write(view) {
+		for (let i = 0; i < this.list.length; i++) {
+			view.setFloat32(view.cursor + i * 4, this.list[i], true);
+		}
+		view.cursor += this.list.length * 4;
 	}
 
 	toJSON() {

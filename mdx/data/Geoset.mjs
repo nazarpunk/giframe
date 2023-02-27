@@ -9,6 +9,7 @@ import {Chunk} from "../parser/Chunk.mjs";
 import {int2s} from "../utils/hex.mjs";
 
 export class Geoset {
+
 	/** @type {MDX} */ mdx;
 
 	/** @param {DataView} view */
@@ -113,7 +114,7 @@ class Child {
 		view.cursor += 4;
 
 		for (const i of this.items) {
-			i.write(view);
+			(i.write ? i : i.parser).write(view);
 		}
 	}
 

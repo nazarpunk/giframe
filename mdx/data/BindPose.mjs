@@ -1,34 +1,31 @@
 /** @module MDX */
 
-import {Uint32} from "../parser/Uint.mjs";
-import {Float32List} from "../parser/Float.mjs";
-import {Parser} from "../parser/Parser.mjs";
-
 export class BindPose {
-	static id = 0x534f5042; // BPOS
 
 	/** @param {DataView} view */
 	read(view) {
-		this.parser = new Parser();
-
-		this.key = this.parser.add(new Key(BindPose.id));
-		this.count = this.parser.add(Uint32);
-
-		this.parser.read(view);
-
-		this.parser2 = new ParserOld(this.reader);
-		this.items = this.parser2.add(new Float32List(this.count.value / 4));
-		this.parser2.read();
+		const l = view.byteLength / 4;
+		if (l === 0) {
+			return;
+		}
+		for (let i = 0; i < l; i++) {
+			this.items.push(view.getFloat32(view.cursor + i * 4, true));
+		}
+		view.cursor += l * 4;
 	}
 
-	write() {
-		this.parser.write();
-		this.parser2.write();
+	/** @param {DataView} view */
+	write(view) {
+		for (let i = 0; i < this.items.length; i++) {
+			view.setFloat32(view.cursor + i * 4, this.items[i], true);
+		}
+		view.cursor += this.items.length * 4;
 	}
+
+	items = [];
 
 	toJSON() {
 		return {
-			count: this.count,
 			items: this.items,
 		}
 	}

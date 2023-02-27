@@ -74,9 +74,9 @@ export class InterpolationTrack {
 
 		this.time = this.parser.add(Uint32);
 
+		//FIXME simplify read
 		const add = () => {
 			const p = new this.parent.child(this.parent.count);
-			p.reader = this.parent.reader;
 			this.parser.add(p);
 			return p;
 		};

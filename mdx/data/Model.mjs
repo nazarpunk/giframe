@@ -6,6 +6,7 @@ import {Float32, Float32List} from "../parser/Float.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 
 export class Model {
+
 	/** @param {DataView} view */
 	read(view) {
 

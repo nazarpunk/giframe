@@ -4,6 +4,7 @@ import {Float32List} from "../parser/Float.mjs";
 import {Parser} from "../parser/Parser.mjs";
 
 export class PivotPoint {
+
 	/** @param {DataView} view */
 	read(view) {
 		this.parser = new Parser();

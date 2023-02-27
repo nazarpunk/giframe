@@ -3,6 +3,7 @@ import {Parser} from "../parser/Parser.mjs";
 
 /** @module MDX */
 export class Extent {
+
 	/** @param {DataView} view */
 	read(view) {
 		this.parser = new Parser();

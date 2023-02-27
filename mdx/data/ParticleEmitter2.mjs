@@ -5,13 +5,14 @@ import {Float32, Float32List} from "../parser/Float.mjs";
 import {Uint32, Uint8List} from "../parser/Uint.mjs";
 import {Interpolation} from "../parser/Interpolation.mjs";
 import {Parser} from "../parser/Parser.mjs";
+import {Chunk} from "../parser/Chunk.mjs";
 
 export class ParticleEmitter2 {
+
 	/** @param {DataView} view */
 	read(view) {
 		this.parser = new Parser();
 
-		this.inclusiveSize = this.parser.add(InclusiveSize);
 		this.node = this.parser.add(NodeData);
 		this.speed = this.parser.add(Float32);
 		this.variation = this.parser.add(Float32);
@@ -46,14 +47,14 @@ export class ParticleEmitter2 {
 		this.squirt = this.parser.add(Uint32);
 		this.priorityPlane = this.parser.add(Uint32);
 		this.replaceableId = this.parser.add(Uint32);
-		this.speedTrack = this.parser.add(new Interpolation(0x5332504b/*KP2S*/, Float32));
-		this.variationTrack = this.parser.add(new Interpolation(0x5232504b/*KP2R*/, Float32));
-		this.latitudeTrack = this.parser.add(new Interpolation(0x4c32504b/*KP2L*/, Float32));
-		this.gravityTrack = this.parser.add(new Interpolation(0x4732504b/*KP2G*/, Float32));
-		this.emissionRateTrack = this.parser.add(new Interpolation(0x4532504b/*KP2E*/, Float32));
-		this.lengthTrack = this.parser.add(new Interpolation(0x4e32504b/*KP2N*/, Float32));
-		this.widthTrack = this.parser.add(new Interpolation(0x5732504b/*KP2W*/, Float32));
-		this.visibilityTrack = this.parser.add(new Interpolation(0x5632504b/*KP2V*/, Float32));
+		this.speedTrack = this.parser.add(new Interpolation(Chunk.KP2S, Float32));
+		this.variationTrack = this.parser.add(new Interpolation(Chunk.KP2R, Float32));
+		this.latitudeTrack = this.parser.add(new Interpolation(Chunk.KP2L, Float32));
+		this.gravityTrack = this.parser.add(new Interpolation(Chunk.KP2G, Float32));
+		this.emissionRateTrack = this.parser.add(new Interpolation(Chunk.KP2E, Float32));
+		this.lengthTrack = this.parser.add(new Interpolation(Chunk.KP2N, Float32));
+		this.widthTrack = this.parser.add(new Interpolation(Chunk.KP2W, Float32));
+		this.visibilityTrack = this.parser.add(new Interpolation(Chunk.KP2V, Float32));
 
 		this.parser.read(view);
 	}

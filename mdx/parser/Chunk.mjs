@@ -99,15 +99,57 @@ export class Chunk {
 	static PIVT = 0x54564950;
 	static GLBS = 0x53424c47;
 	static HELP = 0x504c4548;
-	static PREM = 0x4d455250;
-	static PRE2 = 0x32455250;
 	static EVTS = 0x53545645;
 	static CLID = 0x44494c43;
 	static FAFX = 0x58464146;
-	static TXAN = 0x4e415854;
-	static RIBB = 0x42424952;
-	static LITE = 0x4554494c;
 	static KEVT = 0x5456454b;
+	static BPOS = 0x534f5042;
+
+	// Ribbon emitter
+	static RIBB = 0x42424952;
+	static KRVS = 0x5356524b; // float visibility
+	static KRHA = 0x4148524b; // float heightAbove
+	static KRHB = 0x4248524b; // float heightBelow
+	static KRAL = 0x4c41524b; // float alpha
+	static KRCO = 0x4f43524b; // float[3] color
+	static KRTX = 0x5854524b; // uint32 textureSlot
+
+	// Particle emitter
+	static PREM = 0x4d455250;
+	static KPEV = 0x5645504b; // float visibility
+	static KPEE = 0x4545504b; // float emissionRate
+	static KPEG = 0x4745504b; // float gravity
+	static KPLN = 0x4e4c504b; // float longitude
+	static KPLT = 0x544c504b; // float latitude
+	static KPEL = 0x4c45504b; // float lifespan
+	static KPES = 0x5345504b; // float speed
+
+	// Particle emitter 2
+	static PRE2 = 0x32455250;
+	static KP2E = 0x4532504b; // float emissionRate
+	static KP2G = 0x4732504b; // float gravity
+	static KP2L = 0x4c32504b; // float latitude
+	static KP2S = 0x5332504b; // float speed
+	static KP2V = 0x5632504b; // float visibility
+	static KP2R = 0x5232504b; // float variation
+	static KP2N = 0x4e32504b; // float length
+	static KP2W = 0x5732504b; // float width
+
+	// Texture animation
+	static TXAN = 0x4e415854;
+	static KTAT = 0x5441544b; // float[3] translation
+	static KTAR = 0x5241544b; // float[4] rotation
+	static KTAS = 0x5341544b; // float[3] scaling
+
+	// Light
+	static LITE = 0x4554494c;
+	static KLAS = 0x53414c4b; // float attenuationStart
+	static KLAE = 0x45414c4b; // float attenuationStartEnd
+	static KLAC = 0x43414c4b; // float[3] color
+	static KLAI = 0x49414c4b; // float intensity
+	static KLBI = 0x49424c4b; // float ambientIntensity
+	static KLBC = 0x43424c4b; // float[3] ambientColor
+	static KLAV = 0x56414c4b; // float visibility
 
 	// Camera
 	static CAMS = 0x534d4143;
@@ -166,43 +208,3 @@ export class Chunk {
 	static KATV = 0x5654414b; // float visibility
 
 }
-
-/*
-
-// Texture animation
-KTAT: float[3] translation
-KTAR: float[4] rotation
-KTAS: float[3] scaling
-// Light
-KLAS: float attenuationStart
-KLAE: float attenuationStartEnd
-KLAC: float[3] color
-KLAI: float intensity
-KLBI: float ambientIntensity
-KLBC: float[3] ambientColor
-KLAV: float visibility
-// Particle emitter
-KPEE: float emissionRate
-KPEG: float gravity
-KPLN: float longitude
-KPLT: float latitude
-KPEL: float lifespan
-KPES: float speed
-KPEV: float visibility
-// Particle emitter 2
-KP2E: float emissionRate
-KP2G: float gravity
-KP2L: float latitude
-KP2S: float speed
-KP2V: float visibility
-KP2R: float variation
-KP2N: float length
-KP2W: float width
-// Ribbon emitter
-KRVS: float visibility
-KRHA: float heightAbove
-KRHB: float heightBelow
-KRAL: float alpha
-KRCO: float[3] color
-KRTX: uint32 textureSlot
- */

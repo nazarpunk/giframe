@@ -31,6 +31,7 @@ import {BindPose} from "./data/BindPose.mjs";
 import {Info} from "./data/Info.mjs";
 import {Chunk} from "./parser/Chunk.mjs";
 import {DataViewWrite} from "./parser/DataViewWrite.mjs";
+import {int2s} from "./utils/hex.mjs";
 
 /**
  * @callback MDXOnError
@@ -52,9 +53,6 @@ export class MDX {
 	/** @type {Chunk[]} */ chunks = [];
 
 	read() {
-
-		this.error = null;
-
 		const view = new DataView(this.buffer);
 
 		const k = view.getUint32(0, true);
@@ -117,23 +115,40 @@ export class MDX {
 				case Chunk.EVTS:
 					this.eventObjects = add(EventObject);
 					break;
+				case Chunk.CLID:
+					this.collisionShapes = add(CollisionShape);
+					break;
+				case Chunk.FAFX:
+					this.faceEffect = add(FaceEffect);
+					break;
+				case Chunk.BPOS:
+					this.bindPose = add(BindPose);
+					break;
+				case Chunk.GLBS:
+					this.globalSequences = add(GlobalSequence);
+					break;
+				case Chunk.LITE:
+					this.lights = add(Light, true);
+					break;
+				case Chunk.HELP:
+					//FIXME add inclusive size
+					this.helpers = add(NodeData);
+					break;
+				case Chunk.TXAN:
+					this.textureAnimations = add(TextureAnimation, true);
+					break;
+				case Chunk.PREM:
+					this.particleEmitters = add(ParticleEmitter, true);
+					break;
+				case Chunk.PRE2:
+					this.particleEmitters2 = add(ParticleEmitter2, true);
+					break;
+				case Chunk.RIBB:
+					this.ribbinEmitters = add(RibbonEmitter, true);
+					break;
+
 				default:
-				//this.errors.push(new Error(`Missing chunk parser: ${int2s(key)}`));
-			}
-
-			if (0) {
-				this.parser = new ParserOld(this.reader);
-
-				this.globalSequences = this.parser.add(new ChunkList(Chunk.GLBS, GlobalSequence));
-				this.helpers = this.parser.add(new ChunkList(Chunk.HELP, NodeData));
-				this.particleEmitters = this.parser.add(new ChunkList(Chunk.PREM, ParticleEmitter));
-				this.particleEmitters2 = this.parser.add(new ChunkList(Chunk.PRE2, ParticleEmitter2));
-				this.collisionShapes = this.parser.add(new ChunkList(Chunk.CLID, CollisionShape));
-				this.faceEffect = this.parser.add(new ChunkList(Chunk.FAFX, FaceEffect));
-				this.lights = this.parser.add(new ChunkList(Chunk.LITE, Light));
-				this.textureAnimations = this.parser.add(new ChunkList(Chunk.TXAN, TextureAnimation));
-				this.ribbinEmitters = this.parser.add(new ChunkList(Chunk.RIBB, RibbonEmitter));
-				this.bindPose = this.parser.add(BindPose);
+				this.errors.push(new Error(`Missing chunk parser: ${int2s(key)}`));
 			}
 
 			byteOffset += byteLength;

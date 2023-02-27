@@ -6,17 +6,17 @@ import * as chip from "child_process";
 
 let name;
 
+name = 'VKbrute';
+name = 'Arthas_portrait';
+name = 'sprite';
+name = 'DNCAshenValeTerrain';
 name = 'BlackDragon';
 name = 'BlackDragon_Portrait';
-name = 'DNCAshenValeTerrain';
-name = 'sprite';
-name = 'Footman';
-name = 'heroarchmage';
-name = 'Arthas_portrait';
-name = 'candelabra_01.MESH';
-name = 'VKbrute';
 name = 'heroarchmage_hd';
+name = 'Footman';
+name = 'candelabra_01.MESH';
 name = 'heroarchmage_ref';
+name = 'heroarchmage';
 
 const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);

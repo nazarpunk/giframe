@@ -3,6 +3,8 @@
 import {NodeData} from "./NodeData.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Parser} from "../parser/Parser.mjs";
+import {Chunk} from "../parser/Chunk.mjs";
+import {int2s} from "../utils/hex.mjs";
 
 export class EventObject {
 
@@ -10,10 +12,15 @@ export class EventObject {
 	read(view) {
 		this.parser = new Parser();
 		this.node = this.parser.add(NodeData);
-		this.key = this.parser.add(Uint32); // Chunk.KEVT
+		this.key = this.parser.add(Uint32);
+
 		this.count = this.parser.add(Uint32);
 		this.globalSequenceId = this.parser.add(Uint32);
 		this.parser.read(view);
+		if (this.key.value !== Chunk.KEVT) {
+			throw new Error(`EventObject key error: ${int2s(this.key.value)} != ${int2s(Chunk.KEVT)}`);
+		}
+
 		for (let i = 0; i < this.count.value; i++) {
 			let p = new Uint32();
 			this.items.push(p);

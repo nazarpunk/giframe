@@ -3,6 +3,7 @@ import {Uint32} from "../parser/Uint.mjs";
 import {Parser} from "../parser/Parser.mjs";
 
 export class Version {
+
 	/** @type {MDX} */ mdx;
 
 	/** @param {DataView} view */

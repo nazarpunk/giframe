@@ -8,6 +8,7 @@ import {Parser} from "../parser/Parser.mjs";
 import {Chunk} from "../parser/Chunk.mjs";
 
 export class NodeData {
+
 	/** @param {DataView} view */
 	read(view) {
 		this.parser = new Parser();

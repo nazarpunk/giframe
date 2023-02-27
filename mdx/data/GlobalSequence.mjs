@@ -2,6 +2,7 @@ import {Uint32} from "../parser/Uint.mjs";
 import {Parser} from "../parser/Parser.mjs";
 
 export class GlobalSequence {
+
 	/** @param {DataView} view */
 	read(view) {
 		this.parser = new Parser();

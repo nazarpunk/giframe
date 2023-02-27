@@ -26,6 +26,13 @@ export class Layer {
 			this.fresnelColor = this.parser.add(new Float32List(3));
 			this.fresnelOpacity = this.parser.add(Float32);
 			this.fresnelTeamColor = this.parser.add(Float32);
+		}
+
+		if (this.vers.version >= 1100) {
+			this.parser.add(ShaderType);
+		}
+
+		if (this.vers.version > 800) {
 			this.emissiveGainTrack = this.parser.add(new Interpolation(Chunk.KMTE, Float32));
 		}
 
@@ -59,6 +66,40 @@ export class Layer {
 			fresnelColorTrack: this.fresnelColorTrack,
 			fresnelAlphaTrack: this.fresnelAlphaTrack,
 			fresnelTeamColorTrack: this.fresnelTeamColorTrack,
+		}
+	}
+}
+
+
+class ShaderType {
+
+	/** @param {DataView} view */
+	read(view) {
+		this.shaderTypeId = view.getUint32(view.cursor, true);
+		this.textureIdCount = view.getUint32(view.cursor += 4, true);
+		view.cursor += 4;
+
+		for (let i = 0; i < this.textureIdCount; i++) {
+			const a = view.getUint32(view.cursor, true);
+			this.texture.push(a);
+			view.cursor += 4;
+
+			const b = view.getUint32(view.cursor, true);
+			this.texture.push(b);
+			view.cursor += 4;
+		}
+	}
+
+	texture = [];
+
+	/** @param {DataView} view */
+	write(view) {
+		view.setUint32(view.cursor, this.shaderTypeId, true);
+		view.setUint32(view.cursor += 4, this.textureIdCount, true);
+		view.cursor += 4;
+		for (const t of this.texture) {
+			view.setUint32(view.cursor, t, true);
+			view.cursor += 4;
 		}
 	}
 }

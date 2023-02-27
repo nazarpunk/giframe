@@ -95,7 +95,7 @@ class Model {
 		parent.appendChild(this.buttons);
 
 		const bmd = document.createElement('div');
-		bmd.classList.add('button', 'button-green');
+		bmd.classList.add('button', 'button-blue');
 		this.buttons.appendChild(bmd);
 		this.mdx = document.createElement('a');
 		this.mdx.textContent = '.mdx';

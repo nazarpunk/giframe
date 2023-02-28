@@ -1,6 +1,6 @@
 @import 'variable';
-@import 'dropzone';
-@import 'button';
+@import '../web/dropzone/dropzone';
+@import '../web/cyber-button';
 
 :root {
 	color-scheme: dark;
@@ -56,7 +56,7 @@ body {
 	justify-content: center;
 	gap: 1rem;
 
-	> .button {
+	> .cyber-button {
 		margin-top: 1rem;
 		margin-bottom: 1rem;
 	}

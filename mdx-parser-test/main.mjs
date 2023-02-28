@@ -95,14 +95,14 @@ class Model {
 		parent.appendChild(this.buttons);
 
 		const bmd = document.createElement('div');
-		bmd.classList.add('button', 'button-blue');
+		bmd.classList.add('cyber-button', 'button-blue');
 		this.buttons.appendChild(bmd);
 		this.mdx = document.createElement('a');
 		this.mdx.textContent = '.mdx';
 		bmd.appendChild(this.mdx);
 
 		const bmj = document.createElement('div');
-		bmj.classList.add('button', 'button-green');
+		bmj.classList.add('cyber-button', 'button-green');
 		this.buttons.appendChild(bmj);
 		this.json = document.createElement('a');
 		this.json.textContent = '.json';

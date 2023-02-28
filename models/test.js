@@ -17,6 +17,7 @@ name = 'candelabra_01.MESH';
 name = 'heroarchmage_ref';
 name = 'heroarchmage';
 name = 'heroarchmage_hd';
+name = '../frameborder/model/aganim_sprite';
 
 const f1 = `${name}.mdx`;
 const ba = fs.readFileSync(f1);

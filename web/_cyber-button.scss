@@ -1,6 +1,5 @@
-$color_1: #fff;
-
-.button {
+.cyber-button {
+	$color: #fff;
 	position: relative;
 	top: 0;
 	left: 0;
@@ -28,7 +27,7 @@ $color_1: #fff;
 		transition: 0.5s;
 		text-decoration: none;
 		letter-spacing: 1px;
-		color: $color_1;
+		color: $color;
 		border-top: 1px solid rgba(255, 255, 255, 0.1);
 		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 		border-radius: 30px;

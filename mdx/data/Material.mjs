@@ -18,7 +18,7 @@ export class Material {
 		this.priorityPlane = this.parser.add(Uint32);
 		this.flags = this.parser.add(Uint32);
 
-		if (this.vers.version === 800 || this.vers.version === 1000) {
+		if (this.vers.version > 800 && this.vers.version < 1100) {
 			this.shader = this.parser.add(new Char(80));
 		}
 

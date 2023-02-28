@@ -5,25 +5,62 @@ const buffer = await response.arrayBuffer();
 
 const apng = parseAPNG(buffer);
 
+await apng.createBitmap(apng.width, apng.height);
 
-for (const frame of apng.frames) {
+const div = document.createElement('div');
+document.body.appendChild(div);
 
-	const canvas = document.createElement('canvas');
-	document.body.appendChild(canvas);
-	canvas.width = apng.width;
-	canvas.height = apng.height;
+const canvas = document.createElement('canvas');
+div.appendChild(canvas);
 
-	const ctx = canvas.getContext('2d');
+canvas.width = apng.width;
+canvas.height = apng.height;
 
-	const b = await createImageBitmap(frame.imageData);
+const input = document.createElement('input');
+input.type = 'color';
+input.value = 'rgba(0,0,0,0)';
+input.addEventListener('input', () => {
+	div.style.backgroundColor = input.value;
 
-	ctx.drawImage(b, frame.top, frame.left);
+});
+input.addEventListener('change', () => {
+	div.style.backgroundColor = input.value;
+});
 
-	//canvas.getContext('2d').drawImage(imageBitmap, 0, 0)
+div.appendChild(input);
 
+const ctx = canvas.getContext('2d');
 
-	//input.addEventListener('change', blobToCanvas, false);
+let start;
+let current = -1;
 
+function animate(timestamp) {
+	start ??= timestamp;
+	const progress = timestamp - start;
+
+	let sum = 0;
+	let cur = -1;
+	for (let i = 0; i < apng.frames.length; i++) {
+		sum += apng.frames[i].delay;
+		if (progress < sum) {
+			cur = i;
+			break;
+		}
+	}
+	if (cur < 0) {
+		start = timestamp;
+		cur = 0;
+	}
+
+	if (current !== cur) {
+		current = cur;
+		const f = apng.frames[cur];
+		ctx.clearRect(0, 0, apng.width, apng.height);
+		ctx.drawImage(f.imageBitmap, f.left, f.top);
+	}
+
+	window.requestAnimationFrame(animate);
 }
 
-console.log(apng);
+requestAnimationFrame(animate);
+

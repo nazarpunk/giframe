@@ -15,23 +15,8 @@ export class APNG {
 	playTime = 0;
 	/** @type {Frame[]} */
 	frames = [];
-}
 
-export class Frame {
-	/** @type {number} */
-	left = 0;
-	/** @type {number} */
-	top = 0;
-	/** @type {number} */
-	width = 0;
-	/** @type {number} */
-	height = 0;
-	/** @type {number} */
-	delay = 0;
-	/** @type {number} */
-	disposeOp = 0;
-	/** @type {number} */
-	blendOp = 0;
-	/** @type {Blob} */
-	imageData = null;
+	createBitmap() {
+		return Promise.all(this.frames.map(f => f.createBitmap()));
+	}
 }

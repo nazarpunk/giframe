@@ -1,5 +1,6 @@
-import {APNG, Frame} from './structs.mjs';
 import crc32 from "./crc32.mjs";
+import {APNG} from "./APNG.mjs";
+import {Frame} from "./Frame.mjs";
 
 // '\x89PNG\x0d\x0a\x1a\x0a'
 const PNGSignature = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);

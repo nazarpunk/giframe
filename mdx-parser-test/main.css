@@ -16,7 +16,7 @@
   width: calc(100% + 4px);
   height: calc(100% + 4px);
   content: "";
-  animation: steam 20s linear infinite;
+  animation: dropzone 20s linear infinite;
   border-radius: 0.313rem;
   background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000);
   background-size: 400%;

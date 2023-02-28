@@ -32,29 +32,22 @@ div.appendChild(input);
 const ctx = canvas.getContext('2d');
 
 let start;
-let current = -1;
+let current = 0;
+let prev = -1;
 
 function animate(timestamp) {
 	start ??= timestamp;
 	const progress = timestamp - start;
 
-	let sum = 0;
-	let cur = -1;
-	for (let i = 0; i < apng.frames.length; i++) {
-		sum += apng.frames[i].delay;
-		if (progress < sum) {
-			cur = i;
-			break;
-		}
-	}
-	if (cur < 0) {
+	let fr = apng.frames[current];
+	if (progress > fr.delay) {
 		start = timestamp;
-		cur = 0;
+		current = current >= apng.frames.length - 1 ? 0 : current + 1;
 	}
 
-	if (current !== cur) {
-		current = cur;
-		const f = apng.frames[cur];
+	if (current !== prev) {
+		prev = current;
+		const f = apng.frames[prev];
 		ctx.clearRect(0, 0, apng.width, apng.height);
 		ctx.drawImage(f.imageBitmap, f.left, f.top);
 	}

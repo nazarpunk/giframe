@@ -53,7 +53,7 @@ const addFile = async (file, buffer) => {
 			y++;
 		}
 		if (i > 0) {
-			frames.push(addFrame(i * (f.delay / apng.playTime * 100), x * -aw, y * -ah));
+			frames.push(addFrame(i * (f.delay / apng.playTime * 100), x * -aw + f.left, y * -ah + f.top));
 		}
 
 		ctx.drawImage(f.imageBitmap, x * aw, y * ah);

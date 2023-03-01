@@ -83,6 +83,7 @@ sheet.replaceSync(
 			width: 250px;
 			height: 50px;
 			margin: 0;
+			cursor: pointer;
 			--cx: transparent;
 		}
 		.button::before {
@@ -166,6 +167,7 @@ sheet.replaceSync(
 		}
 
 		.text {
+			pointer-events: none;
 			text-align: center;
 			animation: glow 1s ease-in-out infinite alternate;
 			font-size: 2rem;

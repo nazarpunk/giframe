@@ -164,7 +164,7 @@ export class MDX {
 			}
 		}
 
-		console.log(this.errors);
+		//console.log(this.errors);
 	}
 
 	/**

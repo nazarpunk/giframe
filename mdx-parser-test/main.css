@@ -1,222 +1,40 @@
-.dropzone {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 6rem;
-  margin: 1rem;
-  border-radius: 0.313rem;
-  background: linear-gradient(0deg, #000, #272727);
-}
-.dropzone:before, .dropzone:after {
-  position: absolute;
-  z-index: -1;
-  top: -2px;
-  left: -2px;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  content: "";
-  animation: dropzone 20s linear infinite;
-  border-radius: 0.313rem;
-  background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000);
-  background-size: 400%;
-}
-.dropzone:after {
-  filter: blur(50px);
-}
-.dropzone [type=file] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  opacity: 0;
-  appearance: none;
-}
-
-@keyframes dropzone {
-  0% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 400% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
-}
-.cyber-button {
-  position: relative;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  width: 250px;
-  height: 50px;
-  margin: 0;
-}
-.cyber-button a {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  display: flex;
-  overflow: hidden;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  transition: 0.5s;
-  text-decoration: none;
-  letter-spacing: 1px;
-  color: #fff;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(15px);
-}
-.cyber-button a::before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  content: "";
-  transition: 0.5s;
-  transform: skewX(45deg) translate(0);
-  background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
-  filter: blur(0px);
-}
-.cyber-button:hover a {
-  letter-spacing: 3px;
-}
-.cyber-button:hover a::before {
-  transform: skewX(45deg) translate(200px);
-}
-.cyber-button:hover::before {
-  bottom: 0;
-  width: 80%;
-  height: 50%;
-  border-radius: 30px;
-}
-.cyber-button:hover::after {
-  top: 0;
-  width: 80%;
-  height: 50%;
-  border-radius: 30px;
-}
-.cyber-button::before {
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  width: 30px;
-  height: 10px;
-  content: "";
-  transition: 0.5s;
-  transition-delay: 0.5s;
-  transform: translatex(-50%);
-  border-radius: 10px;
-  background: #f00;
-}
-.cyber-button::after {
-  position: absolute;
-  top: -5px;
-  left: 50%;
-  width: 30px;
-  height: 10px;
-  content: "";
-  transition: 0.5s;
-  transition-delay: 0.5s;
-  transform: translatex(-50%);
-  border-radius: 10px;
-  background: #f00;
-}
-.cyber-button.button-red::before {
-  background: #ff1f71;
-  box-shadow: 0 0 5px #ff1f71, 0 0 15px #ff1f71, 0 0 30px #ff1f71, 0 0 60px #ff1f71;
-}
-.cyber-button.button-red::after {
-  background: #ff1f71;
-  box-shadow: 0 0 5px #ff1f71, 0 0 15px #ff1f71, 0 0 30px #ff1f71, 0 0 60px #ff1f71;
-}
-.cyber-button.button-blue::before {
-  background: #2db2ff;
-  box-shadow: 0 0 5px #2db2ff, 0 0 15px #2db2ff, 0 0 30px #2db2ff, 0 0 60px #2db2ff;
-}
-.cyber-button.button-blue::after {
-  background: #2db2ff;
-  box-shadow: 0 0 5px #2db2ff, 0 0 15px #2db2ff, 0 0 30px #2db2ff, 0 0 60px #2db2ff;
-}
-.cyber-button.button-green::before {
-  background: #1eff45;
-  box-shadow: 0 0 5px #1eff45, 0 0 15px #1eff45, 0 0 30px #1eff45, 0 0 60px #1eff45;
-}
-.cyber-button.button-green::after {
-  background: #1eff45;
-  box-shadow: 0 0 5px #1eff45, 0 0 15px #1eff45, 0 0 30px #1eff45, 0 0 60px #1eff45;
-}
-
-:root {
-  color-scheme: dark;
-}
-
-html {
-  font-family: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 1rem;
-  line-height: 1.6rem;
-  margin: 0;
-  word-wrap: break-word;
-  color: #e4e6eB;
-  background: radial-gradient(black 15%, transparent 16%) 0 0, radial-gradient(black 15%, transparent 16%) 8px 8px, radial-gradient(rgba(255, 255, 255, 0.1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255, 255, 255, 0.1) 15%, transparent 20%) 8px 9px, linear-gradient(#282828, #282828);
-  background-size: 16px 16px;
-  -webkit-font-smoothing: antialiased;
-}
-
-body {
-  margin: 0;
-}
-
 .model {
-  line-height: 1.5em;
-  position: relative;
-  margin: 1rem;
-  padding: 1rem;
-  border-radius: 0.313rem;
-  background: #242526;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+	line-height: 1.5em;
+	position: relative;
+	margin: 1rem;
+	padding: 1rem;
+	border-radius: var(--border-radius);
+	background: var(--card-bg);
+	box-shadow: var(--card-bs);
+	padding-top: 0;
 }
 
 .model-header {
-  text-align: center;
-  letter-spacing: 0.1em;
-  text-shadow: 1px 1px 1px #000000;
+	text-align: center;
+	letter-spacing: 0.1em;
+	text-shadow: 1px 1px 1px #000000;
 }
 
 .model-log {
-  display: flex;
-  flex-direction: column;
-  padding: 0 1rem;
-  border-radius: 0.313rem;
-  background: #1e1e1e;
+	display: flex;
+	flex-direction: column;
+}
+
+.model-log p {
+	margin: 0;
+	margin-bottom: 1rem;
+	padding: 1rem;
+	border-radius: var(--border-radius);
+	background: #1e1e1e;
 }
 
 .model-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-.model-buttons > .cyber-button {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
 }
 
-/*# sourceMappingURL=main.css.map */
+.model-buttons > cyber-link {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}

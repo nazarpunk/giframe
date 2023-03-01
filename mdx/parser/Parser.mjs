@@ -49,10 +49,6 @@ export class Parser {
 				continue;
 			}
 			this.items.push(p);
-			if (!p.read) {
-				console.log(p);
-			}
-
 			p.read(view);
 		}
 	}

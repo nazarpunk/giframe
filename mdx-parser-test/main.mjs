@@ -1,4 +1,6 @@
 import {MDX} from "../mdx/MDX.mjs";
+import {Dropzone} from "../web/dropzone.mjs";
+import {Cyberlink} from "../web/cyberlink.mjs";
 
 const equal = (a, b) => {
 	if (a.byteLength !== b.byteLength) return false;
@@ -8,70 +10,48 @@ const equal = (a, b) => {
 	return true;
 };
 
-const uploader = document.querySelector('.dropzone');
-const input = document.querySelector('[type=file]');
+const dropzone = new Dropzone();
+dropzone.accept = '.mdx';
+document.body.appendChild(dropzone);
 
-input.addEventListener('change', e => {
-	e.preventDefault();
-	e.stopPropagation();
-	const list = e.target.files;
-	if (list.length === 0) {
-		return;
+dropzone.addEventListener('bufferupload', e => {
+	const [file, buffer] = /** @type [File, ArrayBuffer] */ e.detail;
+
+	const m = new Model(file.name);
+
+	m.log('🏁 Начинаем парсинг.');
+
+	const model = new MDX(buffer);
+	model.read();
+
+	for (const e of model.errors) {
+		m.log(`⚠️ ${e}`);
 	}
-	for (const f of list) {
-		const reader = new FileReader();
-		reader.addEventListener('load', e => {
-			const m = new Model(f.name);
 
-			m.log('Начинаем парсить!');
+	const bb = model.write();
+	const a = new DataView(model.buffer);
+	const b = new DataView(bb);
+	const eq = equal(a, b);
 
-			const model = new MDX(e.target.result);
-			model.read();
-
-			for (const e of model.errors) {
-				m.log(`⚠️ ${e}`);
-			}
-
-			const bb = model.write();
-			const a = new DataView(model.buffer);
-			const b = new DataView(bb);
-			const eq = equal(a, b);
-
-			if (!eq) {
-				m.log('⚠️ Ошибка побайтового сравнения!');
-			}
-
-			if (model.errors.length === 0 && eq) {
-				m.log('💋 Парсинг завершён успешно.')
-			}
-
-			const bu = URL.createObjectURL(new Blob([JSON.stringify(model, null, 4)], {type: "application/json"}));
-			m.json.target = '_blank';
-			m.json.href = bu;
-
-			const bj = URL.createObjectURL(new Blob([bb]));
-			m.mdx.download = f.name;
-			m.mdx.href = bj;
-
-			m.buttons.style.removeProperty('display');
-		});
-		reader.readAsArrayBuffer(f);
+	if (!eq) {
+		m.log('⚠️ Ошибка побайтового сравнения!');
 	}
-	input.value = null;
+
+	if (model.errors.length === 0 && eq) {
+		m.log('💋 Парсинг завершён успешно.')
+	}
+
+	const bu = URL.createObjectURL(new Blob([JSON.stringify(model, null, 4)], {type: "application/json"}));
+	m.json.target = '_blank';
+	m.json.href = bu;
+
+	const bj = URL.createObjectURL(new Blob([bb]));
+	m.mdx.download = file.name;
+	m.mdx.href = bj;
+
+	m.buttons.style.removeProperty('display');
+
 });
-
-const leave = () => {
-	uploader.classList.remove('active');
-	uploader.removeEventListener('dragleave', leave);
-};
-
-addEventListener('dragenter', () => {
-	uploader.classList.add('active');
-	uploader.addEventListener('dragleave', leave);
-});
-
-uploader.addEventListener('drop', leave);
-
 
 class Model {
 
@@ -94,20 +74,16 @@ class Model {
 		this.buttons.classList.add('model-buttons');
 		parent.appendChild(this.buttons);
 
-		const bmd = document.createElement('div');
-		bmd.classList.add('cyber-button', 'button-blue');
-		this.buttons.appendChild(bmd);
-		this.mdx = document.createElement('a');
-		this.mdx.textContent = '.mdx';
-		bmd.appendChild(this.mdx);
+		this.mdx = new Cyberlink();
+		this.mdx.text = 'MDX';
+		this.mdx.color = 'blue';
+		this.buttons.appendChild(this.mdx);
 
-		const bmj = document.createElement('div');
-		bmj.classList.add('cyber-button', 'button-green');
-		this.buttons.appendChild(bmj);
-		this.json = document.createElement('a');
-		this.json.textContent = '.json';
-		bmj.appendChild(this.json);
-
+		this.json = new Cyberlink();
+		this.json.text = 'JSON';
+		this.json.target = '_blank';
+		this.json.color = 'green';
+		this.buttons.appendChild(this.json);
 	}
 
 	log(text) {

@@ -1,3 +1,4 @@
+// noinspection JSUnusedLocalSymbols
 /**
  * @param  {number} num
  * @return {number}
@@ -5,34 +6,42 @@
 const nextPow2 = num => num > 0 && (num & num - 1) === 0 ? num : 1 << 32 - Math.clz32(num);
 
 /**
- * @param {number} w
- * @param {number} h
- * @param count
+ * @param {number} m
+ * @param {number} i
+ * @return {number}
+ */
+const getBorderLen = (m, i = 1) => {
+	const x = 2 ** i;
+	return x < m ? getBorderLen(m, i + 1) : x;
+};
+
+/**
+ * @param {number} width
+ * @param {number} height
+ * @param {number} count
  * @return {[number,number]}
  */
-export const textureSize = (w, h, count) => {
-	let xw = nextPow2(w);
-	let xh = nextPow2(h);
-	let x = 0;
-	let y = 1;
-
-	for (let i = 0; i < count; i++) {
-		x++;
-		if (x * w <= xw) {
-			continue;
+export const getSquare = (width, height, count) => {
+	const proportion = width / height;
+	const pole = [[]];
+	const [min, max] = proportion >= 1 ? [height, width] : [width, height];
+	let curRow = 0;
+	let cnt = count;
+	while (cnt) {
+		pole[curRow].push(1);
+		if (pole[curRow].length * min + min > pole.length * max + max) {
+			if (pole.length - 1 === curRow) {
+				curRow++;
+				pole.push([])
+			}
 		}
-		if (x < y) {
-			xw *= 2;
-			continue;
+		if (curRow && pole[curRow].length === pole[0].length && !pole[curRow + 1]) {
+			curRow = 0
 		}
-		y++;
-		if (y * h > xh) {
-			x = 0;
-			xh *= 2;
+		if (pole[curRow + 1] && pole[curRow].length > pole[curRow + 1].length) {
+			curRow++
 		}
+		cnt--;
 	}
-	const col = Math.floor(xw / w);
-	const row = Math.ceil(count / col);
-
-	return [nextPow2(col * w), nextPow2(row * h)];
+	return [getBorderLen(proportion >= 1 ? pole[0].length * min : pole.length * max), getBorderLen(proportion >= 1 ? pole.length * max : pole[0].length * min)];
 };

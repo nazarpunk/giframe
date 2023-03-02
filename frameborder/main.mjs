@@ -1,5 +1,5 @@
 import parseAPNG from "../apng/parser.mjs";
-import {textureSize} from "./util.mjs";
+import {getSquare} from "./util.mjs";
 import {APNG} from "../apng/APNG.mjs";
 import {Cyberlink} from "../web/cyberlink.mjs";
 import {Dropzone} from "../web/dropzone.mjs";
@@ -23,10 +23,6 @@ const container = document.createElement('div');
 container.classList.add('container');
 document.body.appendChild(container);
 
-const addFrame = (prc, x, y) => {
-	return `${Math.round(prc)}% {transform:translate(${x}px,${y}px)}\n`
-};
-
 /**
  *
  * @param {File?} file
@@ -40,31 +36,70 @@ const addFile = async (file, buffer) => {
 	}
 	await apng.createBitmap(apng.width, apng.height);
 
+	const name = file?.name ?? 'test.png';
+
 	const aw = apng.width;
 	const ah = apng.height;
 
-	const [w, h] = textureSize(aw, ah, apng.frames.length);
-	canvas.width = w;
-	canvas.height = h;
+	const [cw, ch] = getSquare(aw, ah, apng.frames.length);
+	canvas.width = cw;
+	canvas.height = ch;
 
-	const framesCSS = [addFrame(0, 0, 0)];
+	const mdx = new Cyberlink();
+	const newBuffer = new ArrayBuffer(modelBuffer.byteLength);
+	new Uint8Array(newBuffer).set(new Uint8Array(modelBuffer));
 
+	const model = new MDX(newBuffer);
+	model.read();
+
+	const pname = name.replace(/\.[a-z]+$/, '');
+	model.textures.items[0].filename.value = `${pname}.blp`;
+
+	const translations = model.textureAnimations.items[0].translations;
+	translations.items = [];
+
+	let end = 0;
+	const add32 = (time, x, y) => {
+		const t = new InterpolationTrack(translations);
+		end += t.time = Math.round(time);
+		t.value = new Float32List(3);
+		t.value.list = [x, y, 0];
+		translations.items.push(t);
+	};
+
+	const framesCSS = [];
+	const addCss = (prc, x, y) => {
+		framesCSS.push([`${Math.round(prc)}% {transform:translate(${x}px,${y}px)}\n`]);
+	};
+	addCss(0, 0, 0);
+	add32(0, 0, 0);
+	add32(apng.frames[0].delay, 0, 0);
+
+	model.sequences.items[0].intervalEnd.value = end;
+
+	mdx.download = `${pname}.mdx`;
+	const rb = model.write();
+	mdx.href = URL.createObjectURL(new Blob([rb]));
+
+	const dx = aw / cw;
+	const dy = ah / ch;
 	let x = -1;
 	let y = 0;
 	for (let i = 0; i < apng.frames.length; i++) {
 		const f = apng.frames[i];
 		x++;
-		if ((x + 1) * aw > w) {
+		if ((x + 1) * aw > cw) {
 			x = 0;
 			y++;
 		}
 		if (i > 0) {
-			framesCSS.push(addFrame(i * (f.delay / apng.playTime * 100), x * -aw + f.left, y * -ah + f.top));
+			addCss(i * (f.delay / apng.playTime * 100), x * -aw, y * -ah);
+			add32(f.delay, dx * x, dy * y);
 		}
 
-		ctx.drawImage(f.imageBitmap, x * aw, y * ah);
+		ctx.drawImage(f.imageBitmap, x * aw + f.left, y * ah + f.top);
 	}
-	framesCSS.push(addFrame(100, 0, 0));
+	addCss(100, 0, 0);
 
 	const card = document.createElement('div');
 	card.classList.add('card');
@@ -77,7 +112,6 @@ const addFile = async (file, buffer) => {
 	wrap.style.height = `${ah}px`;
 
 	const cls = `image-${Date.now()}${Math.random()}`.replace('.', '');
-
 	const style = document.createElement('style');
 
 	style.textContent = `
@@ -87,61 +121,14 @@ const addFile = async (file, buffer) => {
 
 	wrap.appendChild(style);
 
-	const img = new Image(w, h);
+	const img = new Image(cw, ch);
 	wrap.appendChild(img);
 	img.classList.add(cls);
 	img.src = canvas.toDataURL('image/png', 1.0);
 
-	const name = file?.name ?? 'test.png';
-
-	const mdx = new Cyberlink();
 	card.appendChild(mdx);
 	mdx.color = 'blue';
 	mdx.text = 'MDX';
-	{
-		const b = new ArrayBuffer(modelBuffer.byteLength);
-		new Uint8Array(b).set(new Uint8Array(modelBuffer));
-
-		const model = new MDX(b);
-		model.read();
-
-		const pname = name.replace(/\.[a-z]+$/, '');
-		model.textures.items[0].filename.value = `${pname}.blp`;
-
-		const translations = model.textureAnimations.items[0].translations;
-		translations.items = [];
-
-		let end = 0;
-		const add32 = (time, x, y) => {
-			const t = new InterpolationTrack(translations);
-			end += t.time = Math.round(time);
-			t.value = new Float32List(3);
-			t.value.list = [x, y, 0];
-			translations.items.push(t);
-
-		};
-		add32(0, 0, 0);
-
-		const dx = aw / w;
-		const dy = ah / h;
-
-		for (let i = 1; i < apng.frames.length; i++) {
-			const f = apng.frames[i];
-			x++;
-			if ((x + 1) * aw > w) {
-				x = 0;
-				y++;
-			}
-			add32(f.delay, dx * x, dy * y);
-		}
-		add32(apng.frames[0].delay, 0, 0);
-
-		model.sequences.items[0].intervalEnd.value = end;
-
-		mdx.download = `${pname}.mdx`;
-		const rb = model.write();
-		mdx.href = URL.createObjectURL(new Blob([rb]));
-	}
 
 	const png = new Cyberlink();
 	card.appendChild(png);
@@ -156,7 +143,7 @@ dropzone.addEventListener('bufferupload', async e => {
 	await addFile(file, buffer);
 });
 
-if (0) {
+if (1) {
 	const response = await fetch(`frame/red_sence.png`);
 	const buffer = await response.arrayBuffer();
 	await addFile(null, buffer);

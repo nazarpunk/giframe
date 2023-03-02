@@ -11,7 +11,7 @@ export class Texture {
 		this.parser = new Parser();
 
 		this.replaceableId = this.parser.add(Uint32);
-		this.fileName = this.parser.add(new Char(260));
+		this.filename = this.parser.add(new Char(260));
 		this.flags = this.parser.add(Uint32);
 
 		this.parser.read(view);
@@ -20,7 +20,7 @@ export class Texture {
 	toJSON() {
 		return {
 			replaceableId: this.replaceableId,
-			fileName: this.fileName,
+			filename: this.filename,
 			flags: this.flags,
 		}
 	}

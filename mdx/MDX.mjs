@@ -188,8 +188,6 @@ export class MDX {
 		const dvw = new DataViewWrite();
 		this._write(dvw);
 
-
-		//throw new Error('END!');
 		const ab = new ArrayBuffer(dvw.cursor);
 		const dv = new DataView(ab);
 		this._write(dv);

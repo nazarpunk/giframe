@@ -3,11 +3,17 @@ import {textureSize} from "./util.mjs";
 import {APNG} from "../apng/APNG.mjs";
 import {Cyberlink} from "../web/cyberlink.mjs";
 import {Dropzone} from "../web/dropzone.mjs";
+import {MDX} from "../mdx/MDX.mjs";
+import {InterpolationTrack} from "../mdx/parser/Interpolation.mjs";
+import {Float32List} from "../mdx/parser/Float.mjs";
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
+
+const response = await fetch(`frame/sprite.mdx`);
+const modelBuffer = await response.arrayBuffer();
 
 const dropzone = new Dropzone();
 dropzone.accept = '.png';
@@ -41,7 +47,7 @@ const addFile = async (file, buffer) => {
 	canvas.width = w;
 	canvas.height = h;
 
-	const frames = [addFrame(0, 0, 0)];
+	const framesCSS = [addFrame(0, 0, 0)];
 
 	let x = -1;
 	let y = 0;
@@ -53,12 +59,12 @@ const addFile = async (file, buffer) => {
 			y++;
 		}
 		if (i > 0) {
-			frames.push(addFrame(i * (f.delay / apng.playTime * 100), x * -aw + f.left, y * -ah + f.top));
+			framesCSS.push(addFrame(i * (f.delay / apng.playTime * 100), x * -aw + f.left, y * -ah + f.top));
 		}
 
 		ctx.drawImage(f.imageBitmap, x * aw, y * ah);
 	}
-	frames.push(addFrame(100, 0, 0));
+	framesCSS.push(addFrame(100, 0, 0));
 
 	const card = document.createElement('div');
 	card.classList.add('card');
@@ -76,7 +82,7 @@ const addFile = async (file, buffer) => {
 
 	style.textContent = `
 	.${cls} {animation: ${cls} ${Math.round(apng.playTime)}ms steps(1) infinite; }
-	@keyframes ${cls} {\n${frames.join('')}}
+	@keyframes ${cls} {\n${framesCSS.join('')}}
 	`;
 
 	wrap.appendChild(style);
@@ -86,13 +92,59 @@ const addFile = async (file, buffer) => {
 	img.classList.add(cls);
 	img.src = canvas.toDataURL('image/png', 1.0);
 
-	const bj = URL.createObjectURL(new Blob([buffer]));
+	const name = file?.name ?? 'test.png';
+
+	const mdx = new Cyberlink();
+	card.appendChild(mdx);
+	mdx.color = 'blue';
+	mdx.text = 'MDX';
+	{
+		const b = new ArrayBuffer(modelBuffer.byteLength);
+		new Uint8Array(b).set(new Uint8Array(modelBuffer));
+
+		const model = new MDX(b);
+		model.read();
+
+		const pname = name.replace(/\.[a-z]+$/, '');
+		model.textures.items[0].filename.value = `${pname}.blp`;
+
+		const translations = model.textureAnimations.items[0].translations;
+		translations.items = [];
+		const add32 = (time, x, y) => {
+			const t = new InterpolationTrack(translations);
+			t.time = time;
+			t.value = new Float32List(3);
+			t.value.list = [x, y, 0];
+			translations.items.push(t);
+
+		};
+		add32(0, 0, 0);
+
+		const dx = aw / w;
+		const dy = ah / h;
+
+		for (let i = 1; i < apng.frames.length; i++) {
+			const f = apng.frames[i];
+			x++;
+			if ((x + 1) * aw > w) {
+				x = 0;
+				y++;
+			}
+			add32(f.delay, dx * x, dy * y);
+		}
+		add32(apng.frames[0].delay, 0, 0);
+
+		mdx.download = `${pname}.mdx`;
+		const rb = model.write();
+		mdx.href = URL.createObjectURL(new Blob([rb]));
+	}
+
 	const png = new Cyberlink();
 	card.appendChild(png);
 	png.color = 'green';
 	png.text = 'PNG';
-	png.href = bj;
-	png.download = file?.name ?? 'test.png';
+	png.href = URL.createObjectURL(new Blob([buffer]));
+	png.download = name;
 };
 
 dropzone.addEventListener('bufferupload', async e => {

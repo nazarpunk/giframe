@@ -13,7 +13,7 @@
 	padding: 1rem;
 	background: var(--card-bg);
 	box-shadow: var(--card-bs);
-	gap: 1rem;
+	gap: 2rem;
 }
 
 .wrap {

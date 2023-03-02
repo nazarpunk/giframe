@@ -36,5 +36,3 @@ export const textureSize = (w, h, count) => {
 
 	return [nextPow2(col * w), nextPow2(row * h)];
 };
-
-console.log(textureSize(128, 10, 12));

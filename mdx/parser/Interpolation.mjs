@@ -47,7 +47,7 @@ export class Interpolation {
 
 		this.parser.write(view);
 		for (const p of this.items) {
-			p.parser.write(view);
+			p.write(view);
 		}
 	}
 
@@ -63,6 +63,7 @@ export class Interpolation {
 }
 
 export class InterpolationTrack {
+
 	/** @param {Interpolation} parent */
 	constructor(parent) {
 		this.parent = parent;
@@ -70,25 +71,28 @@ export class InterpolationTrack {
 
 	/** @param {DataView} view */
 	read(view) {
-		this.parser = new Parser();
+		this.time = view.getUint32(view.cursor, true);
+		view.cursor += 4;
 
-		this.time = this.parser.add(Uint32);
-
-		//FIXME simplify read
-		const add = () => {
-			const p = new this.parent.child(this.parent.count);
-			this.parser.add(p);
-			return p;
-		};
-
-		this.value = add();
+		this.value = new this.parent.child(this.parent.count);
+		this.value.read(view);
 
 		if (this.parent.type.value > 1) {
-			this.inTan = add();
-			this.outTan = add();
-		}
+			this.inTan = new this.parent.child(this.parent.count);
+			this.inTan.read(view);
 
-		this.parser.read(view);
+			this.outTan = new this.parent.child(this.parent.count);
+			this.inTan.read(view);
+		}
+	}
+
+	/** @param {DataView} view */
+	write(view) {
+		view.setUint32(view.cursor, this.time, true);
+		view.cursor += 4;
+		this.value.write(view);
+		this.inTan?.write(view);
+		this.outTan?.write(view);
 	}
 
 	toJSON() {

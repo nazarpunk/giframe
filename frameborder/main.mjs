@@ -73,7 +73,6 @@ const addFile = async (file, buffer) => {
 	};
 	addCss(0, 0, 0);
 	add32(0, 0, 0);
-	add32(apng.frames[0].delay, 0, 0);
 
 	model.sequences.items[0].intervalEnd.value = end;
 
@@ -100,6 +99,7 @@ const addFile = async (file, buffer) => {
 		ctx.drawImage(f.imageBitmap, x * aw + f.left, y * ah + f.top);
 	}
 	addCss(100, 0, 0);
+	add32(apng.frames[0].delay, 0, 0);
 
 	const card = document.createElement('div');
 	card.classList.add('card');

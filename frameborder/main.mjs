@@ -110,9 +110,11 @@ const addFile = async (file, buffer) => {
 
 		const translations = model.textureAnimations.items[0].translations;
 		translations.items = [];
+
+		let end = 0;
 		const add32 = (time, x, y) => {
 			const t = new InterpolationTrack(translations);
-			t.time = time;
+			end += t.time = Math.round(time);
 			t.value = new Float32List(3);
 			t.value.list = [x, y, 0];
 			translations.items.push(t);
@@ -134,6 +136,8 @@ const addFile = async (file, buffer) => {
 		}
 		add32(apng.frames[0].delay, 0, 0);
 
+		model.sequences.items[0].intervalEnd.value = end;
+
 		mdx.download = `${pname}.mdx`;
 		const rb = model.write();
 		mdx.href = URL.createObjectURL(new Blob([rb]));
@@ -152,7 +156,7 @@ dropzone.addEventListener('bufferupload', async e => {
 	await addFile(file, buffer);
 });
 
-if (0) {
+if (1) {
 	const response = await fetch(`frame/red_sence.png`);
 	const buffer = await response.arrayBuffer();
 	await addFile(null, buffer);

@@ -116,15 +116,17 @@ const addFile = async (file, buffer) => {
 
 	style.textContent = `
 	.${cls} {animation: ${cls} ${Math.round(apng.playTime)}ms steps(1) infinite; }
-	@keyframes ${cls} {\n${framesCSS.join('')}}
-	`;
+	@keyframes ${cls} {\n${framesCSS.join('')}}`;
 
 	wrap.appendChild(style);
 
 	const img = new Image(cw, ch);
 	wrap.appendChild(img);
 	img.classList.add(cls);
-	img.src = canvas.toDataURL('image/png', 1.0);
+
+	/** @type {Blob} */
+	const iblob = await new Promise(resolve => canvas.toBlob(blob => resolve(blob)));
+	img.src = URL.createObjectURL(iblob);
 
 	card.appendChild(mdx);
 	mdx.color = 'blue';
@@ -134,7 +136,7 @@ const addFile = async (file, buffer) => {
 	card.appendChild(png);
 	png.color = 'green';
 	png.text = 'PNG';
-	png.href = URL.createObjectURL(new Blob([buffer]));
+	png.href = img.src;
 	png.download = name;
 };
 

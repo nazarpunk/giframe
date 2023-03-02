@@ -156,7 +156,7 @@ dropzone.addEventListener('bufferupload', async e => {
 	await addFile(file, buffer);
 });
 
-if (1) {
+if (0) {
 	const response = await fetch(`frame/red_sence.png`);
 	const buffer = await response.arrayBuffer();
 	await addFile(null, buffer);

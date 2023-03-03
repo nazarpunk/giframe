@@ -4,7 +4,7 @@
  * @property {boolean} paused
  * @property {boolean} ended
  */
-export class APNG {
+export class APNGOLD {
 	/** @type {number} */
 	width = 0;
 	/** @type {number} */

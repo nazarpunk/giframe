@@ -1,16 +1,40 @@
 import crc32 from "./crc32.mjs";
-import {APNG} from "./APNG.mjs";
+import {APNGOLD} from "./APNGOLD.mjs";
 import {Frame} from "./Frame.mjs";
 
 // '\x89PNG\x0d\x0a\x1a\x0a'
 const PNGSignature = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 
 /**
+ * @param {Uint8Array} bytes
+ * @param {int} start
+ * @param {int} length
+ * @return {Uint8Array}
+ */
+const subBuffer = (bytes, start, length) => {
+	const a = new Uint8Array(length);
+	a.set(bytes.subarray(start, start + length));
+	return a;
+};
+
+/**
+ * @param {string} x
+ * @return {Uint8Array}
+ */
+const makeStringArray = x => {
+	const res = new Uint8Array(x.length);
+	for (let i = 0; i < x.length; i++) {
+		res[i] = x.charCodeAt(i);
+	}
+	return res;
+};
+
+/**
  * @param {string} type
  * @param {Uint8Array} dataBytes
  * @return {Uint8Array}
  */
-const makeChunkBytes = function (type, dataBytes) {
+const makeChunkBytes = (type, dataBytes) => {
 	const crcLen = type.length + dataBytes.length;
 	const bytes = new Uint8Array(crcLen + 8);
 	const dv = new DataView(bytes.buffer);
@@ -23,10 +47,38 @@ const makeChunkBytes = function (type, dataBytes) {
 	return bytes;
 };
 const makeDWordArray = x => new Uint8Array([x >>> 24 & 0xff, x >>> 16 & 0xff, x >>> 8 & 0xff, x & 0xff]);
+
+/**
+ * @param {Uint8Array} bytes
+ * @param {number} off
+ * @param {number} length
+ * @return {string}
+ */
+const readString = (bytes, off, length) => {
+	const chars = Array.prototype.slice.call(bytes.subarray(off, off + length));
+	return String.fromCharCode.apply(String, chars);
+};
+
+
+/**
+ * @param {Uint8Array} bytes
+ * @param {function(string, Uint8Array, int, int): boolean} callback
+ */
+const eachChunk = (bytes, callback) => {
+	const dv = new DataView(bytes.buffer);
+	let off = 8, type, length, res;
+	do {
+		length = dv.getUint32(off);
+		type = readString(bytes, off + 4, 4);
+		res = callback(type, bytes, off, length);
+		off += 12 + length;
+	} while (res !== false && type !== 'IEND' && off < bytes.length);
+};
+
 /**
  * Parse APNG data
  * @param {ArrayBuffer} buffer
- * @return {APNG|Error}
+ * @return {APNGOLD|Error}
  */
 export default function parseAPNG(buffer) {
 	const bytes = new Uint8Array(buffer);
@@ -34,10 +86,11 @@ export default function parseAPNG(buffer) {
 	if (Array.prototype.some.call(PNGSignature, (b, i) => b !== bytes[i])) {
 		return new Error('Not a PNG');
 	}
-
 	// fast animation test
 	let isAnimated = false;
+
 	eachChunk(bytes, type => !(isAnimated = type === 'acTL'));
+
 	if (!isAnimated) {
 		return new Error('Not an animated PNG');
 	}
@@ -49,7 +102,7 @@ export default function parseAPNG(buffer) {
 		headerDataBytes = null,
 		frame = null,
 		frameNumber = 0,
-		apng = new APNG();
+		apng = new APNGOLD();
 
 	eachChunk(bytes, (type, bytes, off, length) => {
 		const dv = new DataView(bytes.buffer);
@@ -138,57 +191,44 @@ export default function parseAPNG(buffer) {
 	return apng;
 }
 
-/**
- * @param {Uint8Array} bytes
- * @param {function(string, Uint8Array, int, int): boolean} callback
- */
-function eachChunk(bytes, callback) {
-	const dv = new DataView(bytes.buffer);
-	let off = 8, type, length, res;
-	do {
-		length = dv.getUint32(off);
-		type = readString(bytes, off + 4, 4);
-		res = callback(type, bytes, off, length);
-		off += 12 + length;
-	} while (res !== false && type !== 'IEND' && off < bytes.length);
-}
-
-/**
- *
- * @param {Uint8Array} bytes
- * @param {number} off
- * @param {number} length
- * @return {string}
- */
-function readString(bytes, off, length) {
-	const chars = Array.prototype.slice.call(bytes.subarray(off, off + length));
-	return String.fromCharCode.apply(String, chars);
-}
-
-/**
- *
- * @param {string} x
- * @return {Uint8Array}
- */
-function makeStringArray(x) {
-	const res = new Uint8Array(x.length);
-	for (let i = 0; i < x.length; i++) {
-		res[i] = x.charCodeAt(i);
+export class APNG {
+	/** @param {ArrayBuffer} buffer */
+	constructor(buffer) {
+		this.view = new DataView(buffer);
 	}
-	return res;
+
+	_read() {
+		if (this.view.byteLength < PNGSignature.length) {
+			throw new Error(`APNG length error: ${this.view.byteLength} < ${PNGSignature.length}`);
+		}
+		for (let i = 0; i < PNGSignature.length; i++) {
+			if (this.view.getUint8(i) !== PNGSignature[i]) {
+				throw new Error('APNG Signature error!');
+			}
+		}
+		let cursor = PNGSignature.length;
+		console.log(this.view.getUint32(cursor), h);
+
+		const h = 0x73726882;
+		//
+
+
+		console.log(String.fromCharCode(this.view.getUint8(cursor)));
+		console.log(String.fromCharCode(this.view.getUint8(cursor + 1)));
+		console.log(String.fromCharCode(this.view.getUint8(cursor + 1)));
+		console.log(String.fromCharCode(this.view.getUint8(cursor + 1)));
+
+	}
+
+	/** @type Error */ error;
+
+	read() {
+		try {
+			this._read();
+		} catch (e) {
+			console.log(e);
+			this.error = e;
+		}
+	}
+
 }
-
-
-/**
- * @param {Uint8Array} bytes
- * @param {int} start
- * @param {int} length
- * @return {Uint8Array}
- */
-function subBuffer(bytes, start, length) {
-	const a = new Uint8Array(length);
-	a.set(bytes.subarray(start, start + length));
-	return a;
-}
-
-

@@ -1,6 +1,6 @@
-import parseAPNG from "../apng/parser.mjs";
+import parseAPNG, {APNG} from "../apng/parser.mjs";
 import {getSquare} from "./util.mjs";
-import {APNG} from "../apng/APNG.mjs";
+import {APNGOLD} from "../apng/APNGOLD.mjs";
 import {Cyberlink} from "../web/cyberlink.mjs";
 import {Dropzone} from "../web/dropzone.mjs";
 import {MDX} from "../mdx/MDX.mjs";
@@ -9,7 +9,7 @@ import {Float32List} from "../mdx/parser/Float.mjs";
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
-canvas.dataset.version = '1';
+canvas.dataset.version = '3';
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
@@ -39,8 +39,14 @@ document.body.appendChild(container);
  * @return {Promise<void>}
  */
 const addFile = async (file, buffer) => {
+
+	if (0) {
+		const apngnew = new APNG(buffer);
+		apngnew.read();
+	}
+
 	const apng = parseAPNG(buffer);
-	if (!(apng instanceof APNG)) {
+	if (!(apng instanceof APNGOLD)) {
 		return;
 	}
 	await apng.createBitmap(apng.width, apng.height);
@@ -74,7 +80,7 @@ const addFile = async (file, buffer) => {
 	sets[5].value = dy;
 
 	sets[6].value = 0;
-	sets[7].value = dy;
+	sets[7].value = 0;
 
 	const translations = model.textureAnimations.items[0].translations;
 	translations.items = [];

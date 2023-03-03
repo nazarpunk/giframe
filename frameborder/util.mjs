@@ -1,4 +1,3 @@
-// noinspection JSUnusedLocalSymbols
 /**
  * @param  {number} num
  * @return {number}
@@ -43,5 +42,12 @@ export const getSquare = (width, height, count) => {
 		}
 		cnt--;
 	}
-	return [getBorderLen(proportion >= 1 ? pole[0].length * min : pole.length * max), getBorderLen(proportion >= 1 ? pole.length * max : pole[0].length * min)];
+
+	const w = getBorderLen(proportion >= 1 ? pole[0].length * min : pole.length * max);
+	//const h = getBorderLen(proportion >= 1 ? pole.length * max : pole[0].length * min);
+
+	const col = Math.floor(w / width);
+	const row = Math.ceil(count / col);
+
+	return [nextPow2(col * width), nextPow2(row * height)];
 };

@@ -9,11 +9,20 @@ import {Float32List} from "../mdx/parser/Float.mjs";
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
+canvas.dataset.version = '1';
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
 const response = await fetch(`frame/sprite.mdx`);
 const modelBuffer = await response.arrayBuffer();
+
+const newModel = () => {
+	const newBuffer = new ArrayBuffer(modelBuffer.byteLength);
+	new Uint8Array(newBuffer).set(new Uint8Array(modelBuffer));
+	const model = new MDX(newBuffer);
+	model.read();
+	return model;
+};
 
 const dropzone = new Dropzone();
 dropzone.accept = '.png';
@@ -37,6 +46,7 @@ const addFile = async (file, buffer) => {
 	await apng.createBitmap(apng.width, apng.height);
 
 	const name = file?.name ?? 'test.png';
+	const pname = name.replace(/\.[a-z]+$/, '');
 
 	const aw = apng.width;
 	const ah = apng.height;
@@ -46,14 +56,25 @@ const addFile = async (file, buffer) => {
 	canvas.height = ch;
 
 	const mdx = new Cyberlink();
-	const newBuffer = new ArrayBuffer(modelBuffer.byteLength);
-	new Uint8Array(newBuffer).set(new Uint8Array(modelBuffer));
+	const model = newModel();
 
-	const model = new MDX(newBuffer);
-	model.read();
-
-	const pname = name.replace(/\.[a-z]+$/, '');
 	model.textures.items[0].filename.value = `${pname}.blp`;
+	const sets = model.geosets.items[0].textureCoordinateSets.items[0].items;
+
+	const dx = aw / cw;
+	const dy = ah / ch;
+
+	sets[0].value = dx;
+	sets[1].value = dy;
+
+	sets[2].value = dx;
+	sets[3].value = 0;
+
+	sets[4].value = 0;
+	sets[5].value = dy;
+
+	sets[6].value = 0;
+	sets[7].value = dy;
 
 	const translations = model.textureAnimations.items[0].translations;
 	translations.items = [];
@@ -77,11 +98,7 @@ const addFile = async (file, buffer) => {
 	model.sequences.items[0].intervalEnd.value = end;
 
 	mdx.download = `${pname}.mdx`;
-	const rb = model.write();
-	mdx.href = URL.createObjectURL(new Blob([rb]));
 
-	const dx = aw / cw;
-	const dy = ah / ch;
 	let x = -1;
 	let y = 0;
 	for (let i = 0; i < apng.frames.length; i++) {
@@ -100,6 +117,8 @@ const addFile = async (file, buffer) => {
 	}
 	addCss(100, 0, 0);
 	add32(apng.frames[0].delay, 0, 0);
+
+	mdx.href = URL.createObjectURL(new Blob([model.write()]));
 
 	const card = document.createElement('div');
 	card.classList.add('card');
@@ -147,6 +166,7 @@ dropzone.addEventListener('bufferupload', async e => {
 
 if (0) {
 	const response = await fetch(`frame/red_sence.png`);
+	//const response = await fetch(`frame/white_border.png`);
 	const buffer = await response.arrayBuffer();
 	await addFile(null, buffer);
 }

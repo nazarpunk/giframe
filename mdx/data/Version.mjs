@@ -1,6 +1,4 @@
 /** @module MDX */
-import {Uint32} from "../parser/Uint.mjs";
-import {Parser} from "../parser/Parser.mjs";
 
 export class Version {
 
@@ -8,13 +6,15 @@ export class Version {
 
 	/** @param {DataView} view */
 	read(view) {
-		this.parser = new Parser();
+		this.version = view.getUint32(view.cursor, true);
+		view.cursor += 4;
+		this.vers.version = this.version;
+	}
 
-		this.version = this.parser.add(Uint32);
-
-		this.parser.read(view);
-
-		this.vers.version = this.version.value;
+	/** @param {DataView} view */
+	write(view) {
+		view.setUint32(view.cursor, this.version, true);
+		view.cursor += 4;
 	}
 
 	toJSON() {

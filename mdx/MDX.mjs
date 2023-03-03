@@ -148,7 +148,6 @@ export class MDX {
 				case Chunk.RIBB:
 					this.ribbinEmitters = add(RibbonEmitter, true);
 					break;
-
 				default:
 					this.errors.push(new Error(`Missing chunk parser: ${int2s(key)}`));
 			}

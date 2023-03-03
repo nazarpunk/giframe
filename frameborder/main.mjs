@@ -9,7 +9,7 @@ import {Float32List} from "../mdx/parser/Float.mjs";
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
-canvas.dataset.version = '3';
+canvas.dataset.version = '4';
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
@@ -101,8 +101,6 @@ const addFile = async (file, buffer) => {
 	addCss(0, 0, 0);
 	add32(0, 0, 0);
 
-	model.sequences.items[0].intervalEnd.value = end;
-
 	mdx.download = `${pname}.mdx`;
 
 	let x = -1;
@@ -123,6 +121,8 @@ const addFile = async (file, buffer) => {
 	}
 	addCss(100, 0, 0);
 	add32(apng.frames[0].delay, 0, 0);
+
+	model.sequences.items[0].intervalEnd.value = end;
 
 	mdx.href = URL.createObjectURL(new Blob([model.write()]));
 
@@ -170,7 +170,7 @@ dropzone.addEventListener('bufferupload', async e => {
 	await addFile(file, buffer);
 });
 
-if (0) {
+if (location.host.indexOf('localhost') === 0) {
 	const response = await fetch(`frame/red_sence.png`);
 	//const response = await fetch(`frame/white_border.png`);
 	const buffer = await response.arrayBuffer();

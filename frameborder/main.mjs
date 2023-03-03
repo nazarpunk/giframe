@@ -9,7 +9,7 @@ import {Float32List} from "../mdx/parser/Float.mjs";
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
-canvas.dataset.version = '4';
+canvas.dataset.version = '5';
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
@@ -85,10 +85,12 @@ const addFile = async (file, buffer) => {
 	const translations = model.textureAnimations.items[0].translations;
 	translations.items = [];
 
-	let end = 0;
+	let animationEnd = 0;
 	const add32 = (time, x, y) => {
 		const t = new InterpolationTrack(translations);
-		end += t.time = Math.round(time);
+		animationEnd += Math.round(time);
+		t.time = animationEnd;
+
 		t.value = new Float32List(3);
 		t.value.list = [x, y, 0];
 		translations.items.push(t);
@@ -113,16 +115,17 @@ const addFile = async (file, buffer) => {
 			y++;
 		}
 		if (i > 0) {
-			addCss(i * (f.delay / apng.playTime * 100), x * -aw, y * -ah);
-			add32(f.delay, dx * x, dy * y);
+			const delay = apng.frames[i - 1].delay;
+			addCss(i * (delay / apng.playTime * 100), x * -aw, y * -ah);
+			add32(delay, dx * x, dy * y);
 		}
 
 		ctx.drawImage(f.imageBitmap, x * aw + f.left, y * ah + f.top);
 	}
 	addCss(100, 0, 0);
-	add32(apng.frames[0].delay, 0, 0);
+	add32(apng.frames[apng.frames.length - 1].delay, 0, 0);
 
-	model.sequences.items[0].intervalEnd.value = end;
+	model.sequences.items[0].intervalEnd.value = animationEnd;
 
 	mdx.href = URL.createObjectURL(new Blob([model.write()]));
 

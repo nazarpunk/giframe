@@ -194,6 +194,7 @@ export class GIFOLD {
 		if (!useT) {
 			frame.image.ctx.drawImage(frame.image, 0, 0, this.width, this.height);
 		}
+
 		frame.imageData = frame.image.ctx.getImageData(frame.left, frame.top, frame.width, frame.height);
 		const ti = frame.transparencyIndex;
 		let pDat = frame.interlaced ? this.deinterlaceBuf : this.pixelBuf;

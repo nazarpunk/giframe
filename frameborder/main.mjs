@@ -19,7 +19,7 @@ const extension = filename => {
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
-canvas.dataset.version = '6';
+canvas.dataset.version = '7';
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
@@ -145,7 +145,15 @@ const addFile = async (file, buffer) => {
 			add32(delay, dx * x, dy * y);
 		}
 
-		ctx.drawImage(f.imageBitmap, x * aw + f.left, y * ah + f.top);
+		if (image instanceof GIFOLD) {
+			for (let k = 0; k < i; k++) {
+				const fk = image.frames[k];
+				ctx.drawImage(fk.imageBitmap, x * aw + fk.left, y * ah + fk.top);
+			}
+			ctx.drawImage(f.imageBitmap, x * aw + f.left, y * ah + f.top);
+		} else {
+			ctx.drawImage(f.imageBitmap, x * aw + f.left, y * ah + f.top);
+		}
 	}
 	addCss(100, 0, 0);
 	add32(image.frames[image.frames.length - 1].delay, 0, 0);
@@ -199,7 +207,8 @@ dropzone.addEventListener('bufferupload', async e => {
 });
 
 if (location.host.indexOf('localhost') === 0) {
-	const name = 'frame/senko.gif';
+	//const name = 'frame/senko.gif';
+	const name = 'frame/kitagawa-kitagawa-marin.gif';
 	//const name = 'frame/white_border.png';
 	//const name = 'frame/red_sence.png';
 	const response = await fetch(name);

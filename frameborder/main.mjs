@@ -19,7 +19,7 @@ const extension = filename => {
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
-canvas.dataset.version = '8';
+canvas.dataset.version = '10';
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
@@ -103,7 +103,8 @@ const addFile = async (file, buffer) => {
 	sets[6].value = 0;
 	sets[7].value = 0;
 
-	const pos = geoset.vertexPositions;
+	const pos = geoset.vertexPositions.items;
+
 	pos[0].value = dx;
 	pos[1].value = 0;
 	pos[2].value = 0;
@@ -119,6 +120,8 @@ const addFile = async (file, buffer) => {
 	pos[9].value = 0;
 	pos[10].value = dy;
 	pos[11].value = 0;
+
+	console.log(model.model.items[0]);
 
 	const translations = model.textureAnimations.items[0].translations;
 	translations.items = [];

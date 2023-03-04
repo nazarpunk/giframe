@@ -1,4 +1,4 @@
-import parseAPNG, {APNG} from "../apng/parser.mjs";
+import parseAPNG from "../apng/parser.mjs";
 import {getSquare} from "./util.mjs";
 import {APNGOLD} from "../apng/APNGOLD.mjs";
 import {Cyberlink} from "../web/cyberlink.mjs";
@@ -19,7 +19,7 @@ const extension = filename => {
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
-canvas.dataset.version = '7';
+canvas.dataset.version = '8';
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
@@ -49,12 +49,6 @@ document.body.appendChild(container);
  * @return {Promise<void>}
  */
 const addFile = async (file, buffer) => {
-
-	if (0) {
-		const apngnew = new APNG(buffer);
-		apngnew.read();
-	}
-
 	let image;
 
 	const name = file.name;
@@ -90,11 +84,13 @@ const addFile = async (file, buffer) => {
 	const model = newModel();
 
 	model.textures.items[0].filename.value = `${pname}.blp`;
-	const sets = model.geosets.items[0].textureCoordinateSets.items[0].items;
 
 	const dx = aw / cw;
 	const dy = ah / ch;
 
+	const geoset = model.geosets.items[0];
+
+	const sets = geoset.textureCoordinateSets.items[0].items;
 	sets[0].value = dx;
 	sets[1].value = dy;
 
@@ -106,6 +102,23 @@ const addFile = async (file, buffer) => {
 
 	sets[6].value = 0;
 	sets[7].value = 0;
+
+	const pos = geoset.vertexPositions;
+	pos[0].value = dx;
+	pos[1].value = 0;
+	pos[2].value = 0;
+
+	pos[3].value = dx;
+	pos[4].value = dy;
+	pos[5].value = 0;
+
+	pos[6].value = 0;
+	pos[7].value = 0;
+	pos[8].value = 0;
+
+	pos[9].value = 0;
+	pos[10].value = dy;
+	pos[11].value = 0;
 
 	const translations = model.textureAnimations.items[0].translations;
 	translations.items = [];
@@ -208,9 +221,9 @@ dropzone.addEventListener('bufferupload', async e => {
 
 if (location.host.indexOf('localhost') === 0) {
 	//const name = 'frame/senko.gif';
-	const name = 'frame/kitagawa-kitagawa-marin.gif';
+	//const name = 'frame/kitagawa-kitagawa-marin.gif';
 	//const name = 'frame/white_border.png';
-	//const name = 'frame/red_sence.png';
+	const name = 'frame/red_sence.png';
 	const response = await fetch(name);
 	const buffer = await response.arrayBuffer();
 

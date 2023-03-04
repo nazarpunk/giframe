@@ -37,14 +37,6 @@ class Stream {
 
 export const GIFOLD = function () {
 	const gif = {                      // the gif image object
-		onload: null,       // fire on load. Use waitTillDone = true to have load fire at end or false to fire on first frame
-		onerror: null,       // fires on error
-		onprogress: null,       // fires a load progress event
-		onloadall: null,       // event fires when all frames have loaded and gif is ready
-		paused: false,      // true if paused
-		waitTillDone: true,       // If true onload will fire when all frames loaded, if false, onload will fire when first frame has loaded
-		loading: false,      // true if still loading
-		firstFrameOnly: false,      // if true only load the first frame
 		width: null,       // width in pixels
 		height: null,       // height in pixels
 		frames: [],         // array of frames
@@ -52,7 +44,6 @@ export const GIFOLD = function () {
 		length: 0,          // gif length in ms (1/1000 second)
 		currentFrame: 0,          // current frame.
 		frameCount: 0,          // number of frames
-		lastFrame: null,       // temp hold last frame loaded so you can display the gif as it loads
 		image: null,       // the current image at the currentFrame
 		dataLoaded: dataLoaded,
 	};
@@ -214,12 +205,9 @@ export const GIFOLD = function () {
 		frame.image.height = gif.height;
 		frame.image.ctx = frame.image.getContext("2d");
 		ct = frame.localColourTableFlag ? frame.localColourTable : gif.globalColourTable;
-		if (gif.lastFrame === null) {
-			gif.lastFrame = frame
-		}
-		useT = gif.lastFrame.disposalMethod === 2 || gif.lastFrame.disposalMethod === 3;
+		useT = frame.disposalMethod === 2 || frame.disposalMethod === 3;
 		if (!useT) {
-			frame.image.ctx.drawImage(gif.lastFrame.image, 0, 0, gif.width, gif.height)
+			frame.image.ctx.drawImage(frame.image, 0, 0, gif.width, gif.height)
 		}
 		cData = frame.image.ctx.getImageData(frame.leftPos, frame.topPos, frame.width, frame.height);
 		ti = frame.transparencyIndex;
@@ -247,29 +235,6 @@ export const GIFOLD = function () {
 			}
 		}
 		frame.image.ctx.putImageData(cData, frame.leftPos, frame.topPos);
-		gif.lastFrame = frame;
-	}
-
-	// **NOT** for commercial use.
-	function finnished() { // called when the load has completed
-		gif.loading = false;
-		gif.frameCount = gif.frames.length;
-		gif.lastFrame = null;
-		st = undefined;
-		gif.complete = true;
-		gif.disposalMethod = undefined;
-		gif.transparencyGiven = undefined;
-		gif.delayTime = undefined;
-		gif.transparencyIndex = undefined;
-		gif.waitTillDone = undefined;
-		pixelBuf = undefined; // dereference pixel buffer
-		deinterlaceBuf = undefined; // dereference interlace buff (may or may not be used);
-		pixelBufSize = undefined;
-		deinterlaceBuf = undefined;
-		gif.currentFrame = 0;
-		if (gif.frames.length > 0) {
-			gif.image = gif.frames[0].image
-		}
 	}
 
 	function parseExt() {              // parse extended blocks
@@ -289,22 +254,14 @@ export const GIFOLD = function () {
 
 	}
 
-	function parseBlock() { // parsing the blocks
+	function parseBlock() {
 		const blockId = st.data[st.pos++];
-		if (blockId === GIF_FILE.IMAGE) { // image block
+		if (blockId === GIF_FILE.IMAGE) {
 			parseImg();
-			if (gif.firstFrameOnly) {
-				finnished();
-				return
-			}
 		} else if (blockId === GIF_FILE.EOF) {
-			finnished();
 			return
 		} else {
 			parseExt()
-		}
-		if (typeof gif.onprogress === "function") {
-			gif.onprogress({bytesRead: st.pos, totalBytes: st.data.length, frame: gif.frames.length});
 		}
 		parseBlock();
 	}

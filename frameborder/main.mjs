@@ -6,11 +6,20 @@ import {Dropzone} from "../web/dropzone.mjs";
 import {MDX} from "../mdx/MDX.mjs";
 import {InterpolationTrack} from "../mdx/parser/Interpolation.mjs";
 import {Float32List} from "../mdx/parser/Float.mjs";
-import {GIFOLD} from "../gif/gif2.mjs";
+import {GIFOLD} from "../gif/GIF.mjs";
+
+/**
+ * @param {string} filename
+ * @return {string|null}
+ */
+const extension = filename => {
+	const r = /.+\.(.+)$/.exec(filename);
+	return r ? r[1] : null;
+};
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
-canvas.dataset.version = '5';
+canvas.dataset.version = '6';
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
@@ -26,7 +35,7 @@ const newModel = () => {
 };
 
 const dropzone = new Dropzone();
-dropzone.accept = '.png';
+dropzone.accept = '.png,.gif';
 document.body.appendChild(dropzone);
 
 const container = document.createElement('div');
@@ -35,7 +44,7 @@ document.body.appendChild(container);
 
 /**
  *
- * @param {File?} file
+ * @param {File} file
  * @param {ArrayBuffer} buffer
  * @return {Promise<void>}
  */
@@ -46,19 +55,34 @@ const addFile = async (file, buffer) => {
 		apngnew.read();
 	}
 
-	const apng = parseAPNG(buffer);
-	if (!(apng instanceof APNGOLD)) {
-		return;
-	}
-	await apng.createBitmap(apng.width, apng.height);
+	let image;
 
-	const name = file?.name ?? 'test.png';
+	const name = file.name;
+
+	const ext = extension(name);
+
+	switch (ext) {
+		case 'png':
+			image = parseAPNG(buffer);
+			if (!(image instanceof APNGOLD)) {
+				console.error('not apng');
+				return;
+			}
+			break;
+		case 'gif':
+			image = new GIFOLD();
+			image.dataLoaded(buffer);
+			break;
+	}
+
+	await image.createBitmap();
+
 	const pname = name.replace(/\.[a-z]+$/, '');
 
-	const aw = apng.width;
-	const ah = apng.height;
+	const aw = image.width;
+	const ah = image.height;
 
-	const [cw, ch] = getSquare(aw, ah, apng.frames.length);
+	const [cw, ch] = getSquare(aw, ah, image.frames.length);
 	canvas.width = cw;
 	canvas.height = ch;
 
@@ -108,23 +132,23 @@ const addFile = async (file, buffer) => {
 
 	let x = -1;
 	let y = 0;
-	for (let i = 0; i < apng.frames.length; i++) {
-		const f = apng.frames[i];
+	for (let i = 0; i < image.frames.length; i++) {
+		const f = image.frames[i];
 		x++;
 		if ((x + 1) * aw > cw) {
 			x = 0;
 			y++;
 		}
 		if (i > 0) {
-			const delay = apng.frames[i - 1].delay;
-			addCss(i * (delay / apng.playTime * 100), x * -aw, y * -ah);
+			const delay = image.frames[i - 1].delay;
+			addCss(i * (delay / image.time * 100), x * -aw, y * -ah);
 			add32(delay, dx * x, dy * y);
 		}
 
 		ctx.drawImage(f.imageBitmap, x * aw + f.left, y * ah + f.top);
 	}
 	addCss(100, 0, 0);
-	add32(apng.frames[apng.frames.length - 1].delay, 0, 0);
+	add32(image.frames[image.frames.length - 1].delay, 0, 0);
 
 	model.sequences.items[0].intervalEnd.value = animationEnd;
 
@@ -144,7 +168,7 @@ const addFile = async (file, buffer) => {
 	const style = document.createElement('style');
 
 	style.textContent = `
-	.${cls} {animation: ${cls} ${Math.round(apng.playTime)}ms steps(1) infinite; }
+	.${cls} {animation: ${cls} ${Math.round(image.time)}ms steps(1) infinite; }
 	@keyframes ${cls} {\n${framesCSS.join('')}}`;
 
 	wrap.appendChild(style);
@@ -175,45 +199,11 @@ dropzone.addEventListener('bufferupload', async e => {
 });
 
 if (location.host.indexOf('localhost') === 0) {
-	if (0) {
-		const response = await fetch(`frame/red_sence.png`);
-		//const response = await fetch(`frame/white_border.png`);
-		const buffer = await response.arrayBuffer();
-		await addFile(null, buffer);
-	}
-
-
-	const response = await fetch('frame/senko.gif');
-	//const response = await fetch(`frame/white_border.png`);
+	const name = 'frame/senko.gif';
+	//const name = 'frame/white_border.png';
+	//const name = 'frame/red_sence.png';
+	const response = await fetch(name);
 	const buffer = await response.arrayBuffer();
 
-	const gif = GIFOLD();                  // creates a new gif
-
-	gif.dataLoaded(buffer);
-
-	const [cw, ch] = getSquare(gif.width, gif.height, gif.frames.length);
-	const canvas = document.createElement('canvas');
-	canvas.width = cw;
-	canvas.height = ch;
-	container.appendChild(canvas);
-	const ctx = canvas.getContext("2d");
-
-	const aw = gif.width;
-	const ah = gif.height;
-
-	console.log(cw, ch, gif.frames);
-
-	let x = -1;
-	let y = 0;
-	for (let i = 0; i < gif.frames.length; i++) {
-		const f = gif.frames[i];
-		x++;
-		if ((x + 1) * aw > cw) {
-			x = 0;
-			y++;
-		}
-
-		container.appendChild(f.image);
-		ctx.drawImage(f.image, x * aw + f.left, y * ah + f.top);
-	}
+	await addFile(new File([], name), buffer);
 }

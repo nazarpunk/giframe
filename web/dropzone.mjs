@@ -126,13 +126,13 @@ export class Dropzone extends HTMLElement {
 	}
 
 	async paste(e) {
-		this._upload(e.clipboardData.items);
+		await this._upload(e.clipboardData.items);
 	}
 
 	/** @param {DragEvent} e */
 	async drop(e) {
 		this.dragleave(e);
-		this._upload(e.dataTransfer.items);
+		await this._upload(e.dataTransfer.items);
 	}
 
 	/*

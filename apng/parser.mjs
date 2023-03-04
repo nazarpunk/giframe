@@ -137,7 +137,7 @@ export default function parseAPNG(buffer) {
 				if (frame.delay <= 10) {
 					frame.delay = 100;
 				}
-				apng.playTime += frame.delay;
+				apng.time += frame.delay;
 				frame.disposeOp = dv.getUint8(off + 8 + 24);
 				frame.blendOp = dv.getUint8(off + 8 + 25);
 				frame.dataParts = [];

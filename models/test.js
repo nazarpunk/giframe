@@ -20,15 +20,9 @@ name = 'HumanMale';
 name = 'heroarchmage_hd';
 
 const f1 = `${name}.mdx`;
-const ba = fs.readFileSync(f1);
+const buffer = fs.readFileSync(f1).buffer;
 
-const arrayBuffer = new ArrayBuffer(ba.length);
-const view = new Uint8Array(arrayBuffer);
-for (let i = 0; i < ba.length; ++i) {
-	view[i] = ba[i];
-}
-
-const model = new MDX(arrayBuffer);
+const model = new MDX(buffer);
 model.read();
 console.log('Read End!');
 const b = model.write();

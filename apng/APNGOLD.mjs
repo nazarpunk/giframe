@@ -12,7 +12,7 @@ export class APNGOLD {
 	/** @type {number} */
 	numPlays = 0;
 	/** @type {number} */
-	playTime = 0;
+	time = 0;
 	/** @type {Frame[]} */
 	frames = [];
 

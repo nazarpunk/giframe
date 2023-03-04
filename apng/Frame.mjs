@@ -10,7 +10,7 @@ export class Frame {
 	/** @type {ImageBitmap} */ imageBitmap = null;
 
 	/** @return {Promise<ImageBitmap>} */
-	createBitmap(w, h) {
+	createBitmap() {
 		return new Promise(async resolve => {
 			this.imageBitmap = await createImageBitmap(this.imageData);
 			resolve(this.imageBitmap)

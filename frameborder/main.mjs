@@ -6,6 +6,7 @@ import {Dropzone} from "../web/dropzone.mjs";
 import {MDX} from "../mdx/MDX.mjs";
 import {InterpolationTrack} from "../mdx/parser/Interpolation.mjs";
 import {Float32List} from "../mdx/parser/Float.mjs";
+import {GIFOLD} from "../gif/gif2.mjs";
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
@@ -174,8 +175,45 @@ dropzone.addEventListener('bufferupload', async e => {
 });
 
 if (location.host.indexOf('localhost') === 0) {
-	const response = await fetch(`frame/red_sence.png`);
+	if (0) {
+		const response = await fetch(`frame/red_sence.png`);
+		//const response = await fetch(`frame/white_border.png`);
+		const buffer = await response.arrayBuffer();
+		await addFile(null, buffer);
+	}
+
+
+	const response = await fetch('frame/senko.gif');
 	//const response = await fetch(`frame/white_border.png`);
 	const buffer = await response.arrayBuffer();
-	await addFile(null, buffer);
+
+	const gif = GIFOLD();                  // creates a new gif
+
+	gif.dataLoaded(buffer);
+
+	const [cw, ch] = getSquare(gif.width, gif.height, gif.frames.length);
+	const canvas = document.createElement('canvas');
+	canvas.width = cw;
+	canvas.height = ch;
+	container.appendChild(canvas);
+	const ctx = canvas.getContext("2d");
+
+	const aw = gif.width;
+	const ah = gif.height;
+
+	console.log(cw, ch, gif.frames);
+
+	let x = -1;
+	let y = 0;
+	for (let i = 0; i < gif.frames.length; i++) {
+		const f = gif.frames[i];
+		x++;
+		if ((x + 1) * aw > cw) {
+			x = 0;
+			y++;
+		}
+
+		container.appendChild(f.image);
+		ctx.drawImage(f.image, x * aw + f.left, y * ah + f.top);
+	}
 }

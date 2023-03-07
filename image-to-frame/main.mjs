@@ -19,7 +19,7 @@ const extension = filename => {
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
-canvas.dataset.version = '10';
+canvas.dataset.version = '11';
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
 
@@ -121,7 +121,8 @@ const addFile = async (file, buffer) => {
 	pos[10].value = dy;
 	pos[11].value = 0;
 
-	console.log(model.model.items[0]);
+	
+	model.materials.items[0].layers.items[0].filterMode.value = 1;
 
 	const translations = model.textureAnimations.items[0].translations;
 	translations.items = [];

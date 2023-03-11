@@ -6,7 +6,7 @@ import {Dropzone} from "../web/dropzone.mjs";
 import {MDX} from "../mdx/MDX.mjs";
 import {InterpolationTrack} from "../mdx/parser/Interpolation.mjs";
 import {Float32List} from "../mdx/parser/Float.mjs";
-import {GIFOLD} from "../gif/GIF.mjs";
+import {GIFOLD} from "../gif/GIFOLD.mjs";
 
 /**
  * @param {string} filename

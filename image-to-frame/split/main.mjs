@@ -1,13 +1,11 @@
 import {Dropzone} from "../../web/dropzone.mjs";
-import {GifReader} from "../../gif/omgif.mjs";
+import {GIF} from "../../gif/GIF.mjs";
+import {RibbonHeader} from "../../web/ribbon-header.mjs";
+import {InfoTable} from "./info-table.mjs";
 
 const dropzone = new Dropzone();
 dropzone.accept = '.png,.gif';
 document.body.appendChild(dropzone);
-
-const container = document.createElement('div');
-container.classList.add('container');
-document.body.appendChild(container);
 
 /**
  * @param {File} file
@@ -15,24 +13,34 @@ document.body.appendChild(container);
  * @return {Promise<void>}
  */
 const addFile = async (file, buffer) => {
-	const intArray = new Uint8Array(buffer);
+	const gif = new GIF(buffer);
+	console.log(gif);
 
-	const reader = new GifReader(intArray);
-	const info = reader.frameInfo(0);
+	const header = new RibbonHeader();
+	header.text = file.name;
+	document.body.appendChild(header);
+
+	const table = new InfoTable();
+	document.body.appendChild(table);
+	table.header = 'GIF info';
+	table.addRow('width', gif.width);
+	table.addRow('height', gif.height);
+
+	for (let i = 0; i < gif.frames.length; i++) {
+
+		const image = new ImageData(gif.width, gif.height);
+		gif.decodeAndBlitFrameRGBA(i, image.data);
 
 
-	for (let i = 0; i < reader.frames.length; i++) {
-		const image = new ImageData(info.width, info.height);
-		reader.decodeAndBlitFrameRGBA(i, image.data);
-		const frame = reader.frames[i];
 
+		const frame = gif.frames[i];
 
 		console.log(frame);
 
 		let canvas = document.createElement('canvas');
-		container.appendChild(canvas);
-		canvas.width = info.width;
-		canvas.height = info.height;
+		document.body.appendChild(canvas);
+		canvas.width = gif.width;
+		canvas.height = gif.height;
 
 		canvas.getContext('2d').putImageData(image, 0, 0);
 	}

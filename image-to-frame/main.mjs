@@ -43,7 +43,6 @@ container.classList.add('container');
 document.body.appendChild(container);
 
 /**
- *
  * @param {File} file
  * @param {ArrayBuffer} buffer
  * @return {Promise<void>}
@@ -121,7 +120,7 @@ const addFile = async (file, buffer) => {
 	pos[10].value = dy;
 	pos[11].value = 0;
 
-	
+
 	model.materials.items[0].layers.items[0].filterMode.value = 1;
 
 	const translations = model.textureAnimations.items[0].translations;
@@ -137,6 +136,9 @@ const addFile = async (file, buffer) => {
 		t.value.list = [x, y, 0];
 		translations.items.push(t);
 	};
+
+	console.log(model);
+	console.log(model.textureAnimations.items[0]);
 
 	const framesCSS = [];
 	const addCss = (prc, x, y) => {
@@ -225,9 +227,9 @@ dropzone.addEventListener('bufferupload', async e => {
 
 if (location.host.indexOf('localhost') === 0) {
 	//const name = 'frame/senko.gif';
-	//const name = 'frame/kitagawa-kitagawa-marin.gif';
+	const name = 'frame/kitagawa-kitagawa-marin.gif';
 	//const name = 'frame/white_border.png';
-	const name = 'frame/red_sence.png';
+	//const name = 'frame/red_sence.png';
 	const response = await fetch(name);
 	const buffer = await response.arrayBuffer();
 

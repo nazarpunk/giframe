@@ -43,7 +43,9 @@ const addFile = async (file, buffer) => {
 		table.header = `Frame ${i}`;
 		info.center = table;
 		for (const k of Object.getOwnPropertyNames(frame)) {
-			table.addRow(k, frame[k]);
+			if (!k.startsWith('_')) {
+				table.addRow(k, frame[k]);
+			}
 		}
 		info.left.ctx.putImageData(image, 0, 0);
 		//info.right.ctx.putImageData(image, 0, 0);

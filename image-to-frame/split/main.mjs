@@ -2,10 +2,12 @@ import {Dropzone} from "../../web/dropzone.mjs";
 import {GIF} from "../../gif/GIF.mjs";
 import {RibbonHeader} from "../../web/ribbon-header.mjs";
 import {InfoTable} from "./info-table.mjs";
+import {InfoFrame} from "./info-frame.mjs";
 
 const dropzone = new Dropzone();
-dropzone.accept = '.png,.gif';
+dropzone.accept = '.gif';
 document.body.appendChild(dropzone);
+
 
 /**
  * @param {File} file
@@ -17,32 +19,35 @@ const addFile = async (file, buffer) => {
 	console.log(gif);
 
 	const header = new RibbonHeader();
-	header.text = file.name;
+	header.text = `${file.name} #${gif.frames.length} ${gif.width}x${gif.height}`;
 	document.body.appendChild(header);
 
-	const table = new InfoTable();
-	document.body.appendChild(table);
-	table.header = 'GIF info';
-	table.addRow('width', gif.width);
-	table.addRow('height', gif.height);
-
 	for (let i = 0; i < gif.frames.length; i++) {
+		const info = new InfoFrame();
+		document.body.appendChild(info);
+		info.size(gif.width, gif.height);
+
+		for (let k = 0; k < i; k++) {
+			const frame = gif.frames[k];
+			//const image = new ImageData(gif.width, gif.height);
+			//gif.decodeAndBlitFrameRGBA(k, image.data);
+			//info.right.ctx.putImageData(image, frame.x, frame.y);
+		}
 
 		const image = new ImageData(gif.width, gif.height);
 		gif.decodeAndBlitFrameRGBA(i, image.data);
 
-
-
 		const frame = gif.frames[i];
 
-		console.log(frame);
-
-		let canvas = document.createElement('canvas');
-		document.body.appendChild(canvas);
-		canvas.width = gif.width;
-		canvas.height = gif.height;
-
-		canvas.getContext('2d').putImageData(image, 0, 0);
+		const table = new InfoTable();
+		table.header = `Frame ${i}`;
+		info.center = table;
+		for (const k of Object.getOwnPropertyNames(frame)) {
+			table.addRow(k, frame[k]);
+		}
+		info.left.ctx.putImageData(image, 0, 0);
+		//info.right.ctx.putImageData(image, 0, 0);
+		info.left.inner(frame.x, frame.y, frame.width, frame.height);
 	}
 
 };
@@ -58,6 +63,7 @@ if (location.host.indexOf('localhost') === 0) {
 	//name = '../frame/white_border.png';
 	//name = '../frame/red_sence.png';
 	name = '../frame/kitagawa-kitagawa-marin.gif';
+	//name = '../frame/test1.gif';
 	const response = await fetch(name);
 	const buffer = await response.arrayBuffer();
 

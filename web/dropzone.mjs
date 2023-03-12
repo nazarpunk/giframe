@@ -26,8 +26,10 @@ export class Dropzone extends HTMLElement {
 		box.appendChild(this.input);
 
 		const text = document.createElement('div');
-		text.textContent = 'UPLOAD';
+		text.innerHTML = '<div>UPLOAD</div><div></div>';
 		text.classList.add('neon');
+		this._accept = text.querySelector('div:last-child');
+
 		box.appendChild(text);
 
 		this.dragleave = this.dragleave.bind(this);
@@ -45,13 +47,17 @@ export class Dropzone extends HTMLElement {
 		addEventListener('paste', this.paste);
 	}
 
-	static get observedAttributes() {
-		return ['accept'];
-	}
-
 	/** @param {string} accept */
 	set accept(accept) {
-		this.setAttribute('accept', accept);
+		this.input.accept = accept;
+
+		const list = accept.split(',');
+
+		for (const v of list) {
+			this._accept.insertAdjacentHTML('beforeend', `<i>${v}</i>`);
+		}
+		console.log(list);
+
 	}
 
 	/** @param {File} file */
@@ -133,30 +139,6 @@ export class Dropzone extends HTMLElement {
 	async drop(e) {
 		this.dragleave(e);
 		await this._upload(e.dataTransfer.items);
-	}
-
-	/*
-	// noinspection JSMethodCanBeStatic
-	connectedCallback() {
-		console.log('Custom square element added to page.');
-	}
-
-	// noinspection JSMethodCanBeStatic
-	disconnectedCallback() {
-		console.log('Custom square element removed from page.');
-	}
-
-	// noinspection JSMethodCanBeStatic
-	adoptedCallback() {
-		console.log('Custom square element moved to new page.');
-	}
-	 */
-
-	attributeChangedCallback(name, oldValue, newValue) {
-		switch (name) {
-			case 'accept':
-				this.input.accept = newValue;
-		}
 	}
 }
 
@@ -272,6 +254,21 @@ sheet.replaceSync(
 			0 0 90px #0ff,
 			0 0 100px #0ff,
 			0 0 150px #0ff;
+			display: flex;
+			gap: 0.2rem;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.neon div:last-child {
+			font-size: 1rem;
+			display: flex;
+			gap: 0.2rem;
+			line-height: 2rem;
+		}
+
+		.neon div:last-child:not(:empty) {
+			margin-bottom: -2rem;
 		}
 	`);
 

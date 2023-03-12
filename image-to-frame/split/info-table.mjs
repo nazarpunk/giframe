@@ -24,7 +24,7 @@ export class InfoTable extends HTMLElement {
 
 	/**
 	 * @param {string} k
-	 * @param {string|number} v
+	 * @param {any} v
 	 */
 	addRow(k, v) {
 		const tr = document.createElement('tr');
@@ -36,6 +36,13 @@ export class InfoTable extends HTMLElement {
 
 		const tb = document.createElement('td');
 		tr.appendChild(tb);
+		if (v == null) {
+			tb.textContent = 'null';
+			tb.classList.add('null');
+			return;
+		}
+
+		tb.classList.add(typeof v);
 		tb.textContent = v;
 	}
 
@@ -64,7 +71,6 @@ sheet.replaceSync(
 	`
 		.parent {
 			display: flex;
-			padding: 0 1rem 1rem;
 			justify-content: center;
 		}
 
@@ -72,11 +78,28 @@ sheet.replaceSync(
 			border-collapse: collapse;
 		}
 
+		th {
+			white-space: nowrap;
+		}
+
 		td, th {
 			background: #141414;
 			border: 1px solid #494949;
-			padding: 0.5rem;
+			padding: 0.25rem 0.5rem;
 		}
+
+		.null {
+			color: #484848;
+		}
+
+		.number {
+			color: #9aff00;
+		}
+		
+		.boolean {
+			color: #6475ff;
+		}
+
 	`);
 
 customElements.define('info-table', InfoTable);

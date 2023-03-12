@@ -36,7 +36,7 @@ export class GIF {
 
 		let no_eof = true;
 
-		this.frames = [];
+		/** @type {Frame[]}} */ this.frames = [];
 
 		let delay = 0;
 		let transparent_index = null;
@@ -150,18 +150,23 @@ export class GIF {
 						p += block_size;
 					}
 
-					this.frames.push({
-						x: x, y: y, width: w, height: h,
-						has_local_palette: has_local_palette,
-						palette_offset: palette_offset,
-						palette_size: palette_size,
-						data_offset: data_offset,
-						data_length: p - data_offset,
-						transparent_index: transparent_index,
+					const frame = new Frame({
+						x: x,
+						y: y,
+						width: w,
+						height: h,
+						hasLocalPalette: has_local_palette,
+						paletteOffset: palette_offset,
+						paletteSize: palette_size,
+						dataOffset: data_offset,
+						dataLength: p - data_offset,
+						transparentIndex: transparent_index,
 						interlaced: !!interlace_flag,
 						delay: delay,
 						disposal: disposal
 					});
+
+					this.frames.push(frame);
 					break;
 
 				case 0x3b:  // Trailer Marker (end of file).
@@ -176,17 +181,17 @@ export class GIF {
 
 	decodeAndBlitFrameRGBA(frame_num, pixels) {
 		const frame = this.frames[frame_num];
+
 		const num_pixels = frame.width * frame.height;
 		const index_stream = new Uint8Array(num_pixels);  // At most 8-bit indices.
 		GifReaderLZWOutputIndexStream(
-			this.buffer, frame.data_offset, index_stream, num_pixels);
-		const palette_offset = frame.palette_offset;
+			this.buffer, frame.dataOffset, index_stream, num_pixels);
+		const palette_offset = frame.paletteOffset;
 
-		// NOTE(deanm): It seems to be much faster to compare index to 256 than
+		// It seems to be much faster to compare index to 256 than
 		// to === null.  Not sure why, but CompareStub_EQ_STRICT shows up high in
 		// the profile, not sure if it's related to using a Uint8Array.
-		let trans = frame.transparent_index;
-		if (trans === null) trans = 256;
+		let trans = frame.transparentIndex ?? 256;
 
 		// We are possibly just blitting to a portion of the entire frame.
 		// That is a subrect within the framerect, so the additional pixels
@@ -279,7 +284,7 @@ const GifReaderLZWOutputIndexStream = (code_stream, p, output, output_length) =>
 			}
 		}
 
-		// TODO(deanm): We should never really get here, we should have received
+		// We should never really get here, we should have received
 		// and EOI.
 		if (cur_shift < cur_code_size)
 			break;
@@ -288,7 +293,7 @@ const GifReaderLZWOutputIndexStream = (code_stream, p, output, output_length) =>
 		cur >>= cur_code_size;
 		cur_shift -= cur_code_size;
 
-		// TODO(deanm): Maybe should check that the first code was a clear code,
+		// Maybe should check that the first code was a clear code,
 		// at least this is what you're supposed to do.  But actually our encoder
 		// now doesn't emit a clear code first anyway.
 		if (code === clear_code) {
@@ -362,7 +367,7 @@ const GifReaderLZWOutputIndexStream = (code_stream, p, output, output_length) =>
 
 		if (prev_code !== null && next_code < 4096) {
 			code_table[next_code++] = prev_code << 8 | k;
-			// TODO(deanm): Figure out this clearing vs code growth logic better.  I
+			// Figure out this clearing vs code growth logic better.  I
 			// have an feeling that it should just happen somewhere else, for now it
 			// is awkward between when we grow past the max and then hit a clear code.
 			// For now just check if we hit the max 12-bits (then a clear code should
@@ -382,3 +387,63 @@ const GifReaderLZWOutputIndexStream = (code_stream, p, output, output_length) =>
 
 	return output;
 };
+
+export class Frame {
+
+	/**
+	 * @param {number} x
+	 * @param {number} y
+	 * @param {number} width
+	 * @param {number} height
+	 * @param {boolean} hasLocalPalette
+	 * @param {?number} paletteOffset
+	 * @param {?number} paletteSize
+	 * @param {number} dataOffset
+	 * @param {number} dataLength
+	 * @param {?number} transparentIndex
+	 * @param {boolean} interlaced
+	 * @param {number} delay
+	 * @param {number} disposal
+	 */
+	constructor({
+		x,
+		y,
+		width,
+		height,
+		delay,
+		disposal,
+		hasLocalPalette,
+		paletteOffset,
+		paletteSize,
+		dataOffset,
+		dataLength,
+		transparentIndex,
+		interlaced,
+	}) {
+		{
+			this.x = x;
+			this.y = y;
+			this.width = width;
+			this.height = height;
+			this.delay = delay;
+			this.disposal = disposal;
+			this.hasLocalPalette = hasLocalPalette;
+			this.paletteOffset = paletteOffset;
+			this.paletteSize = paletteSize;
+			this.dataOffset = dataOffset;
+			this.dataLength = dataLength;
+			this.transparentIndex = transparentIndex;
+			this.interlaced = interlaced;
+		}
+	}
+
+	/**
+	 * @private
+	 * @type {ImageData}
+	 */
+	_imageData;
+
+	get imageData() {
+
+	}
+}

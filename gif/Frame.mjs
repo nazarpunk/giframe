@@ -3,6 +3,7 @@ import LZWOutputIndexStream from "./LZWOutputIndexStream.mjs";
 export class Frame {
 	/**
 	 * @param {GIF} gif
+	 * @param {number} index
 	 * @param {number} x
 	 * @param {number} y
 	 * @param {number} width
@@ -19,6 +20,7 @@ export class Frame {
 	 */
 	constructor(
 		gif,
+		index,
 		x,
 		y,
 		width,
@@ -35,6 +37,7 @@ export class Frame {
 	) {
 		{
 			this.#gif = gif;
+			this.index = index;
 			this.x = x;
 			this.y = y;
 			this.width = width;
@@ -48,25 +51,51 @@ export class Frame {
 			this.dataLength = dataLength;
 			this.transparentIndex = transparentIndex;
 			this.interlaced = interlaced;
+
+			const gw = this.#gif.width;
+			const gh = this.#gif.height;
+			this.#imageData = new ImageData(gw, gh);
+			this.imageDataFrame = new ImageData(gw, gh);
 		}
 	}
 
 	/** @type {GIF} */ #gif;
 
 	/** @type {ImageData} */ #imageData;
+	#imageDataComplete = false;
+
 	/** @type {ImageData} */ imageDataFrame;
+	#imageDataFrameComplete = false;
 
 	/** @return {ImageData} */
 	get imageData() {
-		if (this.#imageData) {
+		if (this.#imageDataComplete) {
 			return this.#imageData;
+		}
+		this.#imageDataComplete = true;
+
+		if (this.index > 0) {
+			// http://www.theimage.com/animation/pages/disposal2.html
+			// http://www.theimage.com/animation/pages/disposal3.html
+			// https://docstore.mik.ua/orelly/web2/wdesign/ch23_05.htm
+			let prev = this.#gif.frames[this.index - 1];
+			switch (prev.disposal) {
+				case 1:
+					this.imageDataFrame.data.set(prev.imageDataFrame.data);
+					break;
+				case 3:
+					for (let i = this.index - 1; i >= 0; i--){
+						const f = this.#gif.frames[i];
+						if (f.disposal !== 3){
+							this.imageDataFrame.data.set(f.imageDataFrame.data);
+							break;
+						}
+					}
+					break;
+			}
 		}
 
 		const gw = this.#gif.width;
-		const gh = this.#gif.height;
-
-		this.#imageData = new ImageData(gw, gh);
-		this.imageDataFrame = new ImageData(gw, gh);
 
 		let imageDataArray = new Uint8Array(this.width * this.height);  // At most 8-bit indices.
 
@@ -76,7 +105,7 @@ export class Frame {
 		// It seems to be much faster to compare index to 256 than
 		// to === null.  Not sure why, but CompareStub_EQ_STRICT shows up high in
 		// the profile, not sure if it's related to using a Uint8Array.
-		let trans = this.transparentIndex ?? 256;
+		const trans = this.transparentIndex ?? 256;
 
 		// We are possibly just blitting to a portion of the entire frame.
 		// That is a subrect within the framerect, so the additional pixels
@@ -122,13 +151,21 @@ export class Frame {
 				const r = this.#gif.buffer[palette_offset + index * 3];
 				const g = this.#gif.buffer[palette_offset + index * 3 + 1];
 				const b = this.#gif.buffer[palette_offset + index * 3 + 2];
-				this.#imageData.data[op++] = r;
-				this.#imageData.data[op++] = g;
-				this.#imageData.data[op++] = b;
-				this.#imageData.data[op++] = 255;
+				const da = this.#imageData.data;
+				const db = this.imageDataFrame.data;
+				da[op++] = r;
+				da[op++] = g;
+				da[op++] = b;
+				da[op++] = 255;
+
+				db[op - 4] = r;
+				db[op - 3] = g;
+				db[op - 2] = b;
+				db[op - 1] = 255;
 			}
 			--xleft;
 		}
+
 		imageDataArray = null;
 
 		return this.#imageData;
@@ -139,7 +176,7 @@ export class Frame {
 		switch (this.disposal) {
 			case 0:
 				// No disposal specified. The decoder is not required to take any action.
-				return 'no-specified';
+				return 'unspecified';
 			case 1:
 				// Do not dispose. The graphic is to be left in place.
 				return 'not-dispose';

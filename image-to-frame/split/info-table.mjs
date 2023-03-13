@@ -43,7 +43,7 @@ export class InfoTable extends HTMLElement {
 		}
 
 		tb.classList.add(typeof v);
-		tb.textContent = v;
+		tb.innerHTML = v;
 	}
 
 	// noinspection JSUnusedGlobalSymbols
@@ -77,7 +77,7 @@ sheet.replaceSync(
 		table {
 			border-collapse: collapse;
 		}
-		
+
 		td, th {
 			background: #141414;
 			border: 1px solid #494949;
@@ -85,14 +85,14 @@ sheet.replaceSync(
 			white-space: nowrap;
 		}
 
-		.null {
-			color: #484848;
-		}
-
-		.number {
+		td b {
 			color: #9aff00;
 		}
-		
+
+		td i {
+			color: #a0a0a0;
+		}
+
 		.boolean {
 			color: #6475ff;
 		}

@@ -139,7 +139,8 @@ export class GIF {
 					}
 
 					const frame = new Frame(
-						this, x, y, w, h,
+						this, this.frames.length,
+						x, y, w, h,
 						delay, disposal,
 						!!interlace_flag,
 						transparent_index,

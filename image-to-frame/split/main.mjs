@@ -1,3 +1,5 @@
+// noinspection JSUnusedAssignment
+
 import {Dropzone} from "../../web/dropzone.mjs";
 import {GIF} from "../../gif/GIF.mjs";
 import {RibbonHeader} from "../../web/ribbon-header.mjs";
@@ -21,48 +23,28 @@ const addFile = async (file, buffer) => {
 	header.text = `${file.name} #${gif.frames.length} ${gif.width}x${gif.height}`;
 	document.body.appendChild(header);
 
-	const infos = [];
-	for (let i = 0; i < gif.frames.length; i++) {
-		const frame = gif.frames[i];
-
+	for (const frame of gif.frames) {
 		const info = new InfoFrame();
 		document.body.appendChild(info);
 
 		info.size(gif.width, gif.height);
-		info.left.loading = true;
-		info.left.inner(frame.x, frame.y, frame.width, frame.height);
-
-		info.right.loading = true;
 
 		const table = new InfoTable();
-		table.header = `Frame ${i}`;
+		table.header = `Frame ${frame.index}`;
 		info.center = table;
-		table.addRow('offset', `${frame.x}, ${frame.y}`);
-		table.addRow('size', `${frame.width}, ${frame.height}`);
-		table.addRow('disposal', `${frame.disposal} - ${frame.disposalName}`);
+		table.addRow('offset', `<b>${frame.x}</b>, <b>${frame.y}</b>`);
+		table.addRow('size', `<b>${frame.width}</b>, <b>${frame.height}</b>`);
+		table.addRow('disposal', `<b>${frame.disposal}</b> <i>${frame.disposalName}</i>`);
+		table.addRow('delay', `<b>${frame.delay}</b><i>ms</i>`);
 
-		infos.push(info);
-	}
-
-	for (let i = 0; i < gif.frames.length; i++) {
-		const frame = gif.frames[i];
-		const info = infos[i];
+		info.left.inner(frame.x, frame.y, frame.width, frame.height);
 
 		info.left.loading = false;
 		info.left.ctx.putImageData(frame.imageData, 0, 0);
+
+		info.right.loading = false;
+		info.right.ctx.putImageData(frame.imageDataFrame, 0, 0);
 	}
-
-	for (let i = 1; i < 2; i++) {
-		const fi = gif.frames[i];
-
-		//console.log(fi.imageDataArray);
-
-		for (let k = i + 1; k < gif.frames.length; k++) {
-			const fk = gif.frames[k];
-
-		}
-	}
-
 };
 
 dropzone.addEventListener('bufferupload', async e => {
@@ -72,11 +54,11 @@ dropzone.addEventListener('bufferupload', async e => {
 
 if (location.host.indexOf('localhost') === 0) {
 	let name;
-	//name = '../frame/senko.gif';
-	//name = '../frame/white_border.png';
-	//name = '../frame/red_sence.png';
-	name = '../frame/kitagawa-kitagawa-marin.gif';
-	//name = '../frame/test1.gif';
+	name = '../frame/disposal2-2.gif';
+	name = '../frame/disposal2-1.gif';
+	name = '../frame/disposal3-1.gif';
+	name = '../frame/disposal3-2.gif';
+	name = '../frame/kitagawa-marin.gif';
 	const response = await fetch(name);
 	const buffer = await response.arrayBuffer();
 

@@ -18,6 +18,7 @@ name = 'heroarchmage_ref';
 name = 'heroarchmage';
 name = 'HumanMale';
 name = 'heroarchmage_hd';
+name = 'knight';
 
 const f1 = `${name}.mdx`;
 const buffer = fs.readFileSync(f1).buffer;

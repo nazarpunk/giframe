@@ -40,21 +40,7 @@ export class GIF {
 
 		let delay = 0;
 		let transparent_index = null;
-		let disposal = 0;  // 0 - No disposal specified.
-		// From the spec:
-		//     0 -   No disposal specified. The decoder is
-		//           not required to take any action.
-		//     1 -   Do not dispose. The graphic is to be left
-		//           in place.
-		//     2 -   Restore to background color. The area used by the
-		//           graphic must be restored to the background color.
-		//     3 -   Restore to previous. The decoder is required to
-		//           restore the area overwritten by the graphic with
-		//           what was there prior to rendering the graphic.
-		//  4-7 -    To be defined.
-		// NOTE(deanm): Dispose background doesn't really work, apparently most
-		// browsers ignore the background palette index and clear to transparency.
-
+		let disposal = 0;
 
 		let loop_count = null;
 
@@ -173,85 +159,6 @@ export class GIF {
 					throw new Error("Unknown gif block: 0x" + this.buffer[p - 1].toString(16));
 			}
 		}
-	}
-
-	/**
-	 * @param i
-	 * @return {?ImageData}
-	 */
-	frameImageData(i) {
-		const frame = this.frames[i];
-
-		if (frame.imageData) {
-			return frame.imageData;
-		}
-
-		frame.imageData = new ImageData(this.width, this.height);
-
-		const num_pixels = frame.width * frame.height;
-		const index_stream = new Uint8Array(num_pixels);  // At most 8-bit indices.
-		LZWOutputIndexStream(
-			this.buffer, frame.dataOffset, index_stream, num_pixels);
-		const palette_offset = frame.paletteOffset;
-
-		// It seems to be much faster to compare index to 256 than
-		// to === null.  Not sure why, but CompareStub_EQ_STRICT shows up high in
-		// the profile, not sure if it's related to using a Uint8Array.
-		let trans = frame.transparentIndex ?? 256;
-
-		// We are possibly just blitting to a portion of the entire frame.
-		// That is a subrect within the framerect, so the additional pixels
-		// must be skipped over after we finished a scanline.
-		const framewidth = frame.width;
-		const framestride = this.width - framewidth;
-		let xleft = framewidth;  // Number of subrect pixels left in scanline.
-
-		// Output index of the top left corner of the subrect.
-		const opbeg = (frame.y * this.width + frame.x) * 4;
-		// Output index of what would be the left edge of the subrect, one row
-		// below it, i.e. the index at which an interlace pass should wrap.
-		const opend = ((frame.y + frame.height) * this.width + frame.x) * 4;
-		let op = opbeg;
-
-		let scanstride = framestride * 4;
-
-		// Use scanstride to skip past the rows when interlacing.  This is skipping
-		// 7 rows for the first two passes, then 3 then 1.
-		if (frame.interlaced === true) {
-			scanstride += this.width * 4 * 7;  // Pass 1.
-		}
-
-		let interlaceskip = 8;  // Tracking the row interval in the current pass.
-
-		for (let i = 0, il = index_stream.length; i < il; ++i) {
-			const index = index_stream[i];
-
-			if (xleft === 0) {  // Beginning of new scan line
-				op += scanstride;
-				xleft = framewidth;
-				if (op >= opend) { // Catch the wrap to switch passes when interlacing.
-					scanstride = framestride * 4 + this.width * 4 * (interlaceskip - 1);
-					// interlaceskip / 2 * 4 is interlaceskip << 1.
-					op = opbeg + (framewidth + framestride) * (interlaceskip << 1);
-					interlaceskip >>= 1;
-				}
-			}
-
-			if (index === trans) {
-				op += 4;
-			} else {
-				const r = this.buffer[palette_offset + index * 3];
-				const g = this.buffer[palette_offset + index * 3 + 1];
-				const b = this.buffer[palette_offset + index * 3 + 2];
-				frame.imageData.data[op++] = r;
-				frame.imageData.data[op++] = g;
-				frame.imageData.data[op++] = b;
-				frame.imageData.data[op++] = 255;
-			}
-			--xleft;
-		}
-
-		return frame.imageData;
 	}
 }
 
@@ -435,7 +342,7 @@ export class Frame {
 		paletteSize,
 	) {
 		{
-			this.gif = gif;
+			this.#gif = gif;
 			this.x = x;
 			this.y = y;
 			this.width = width;
@@ -452,8 +359,84 @@ export class Frame {
 		}
 	}
 
-	/** @type {?ImageData} */
-	imageData;
+	/** @type {GIF} */ #gif;
+
+	/** @type {ImageData} */ #imageData;
+
+	/** @type {Uint8Array} */ imageDataArray;
+
+	/** @return {ImageData} */
+	get imageData() {
+		if (this.#imageData) {
+			return this.#imageData;
+		}
+
+		this.#imageData = new ImageData(this.#gif.width, this.#gif.height);
+
+		this.imageDataArray  = new Uint8Array(this.width * this.height);  // At most 8-bit indices.
+
+		LZWOutputIndexStream(this.#gif.buffer, this.dataOffset, this.imageDataArray, this.imageDataArray.length);
+		const palette_offset = this.paletteOffset;
+
+		// It seems to be much faster to compare index to 256 than
+		// to === null.  Not sure why, but CompareStub_EQ_STRICT shows up high in
+		// the profile, not sure if it's related to using a Uint8Array.
+		let trans = this.transparentIndex ?? 256;
+
+		// We are possibly just blitting to a portion of the entire frame.
+		// That is a subrect within the framerect, so the additional pixels
+		// must be skipped over after we finished a scanline.
+		const framewidth = this.width;
+		const framestride = this.#gif.width - framewidth;
+		let xleft = framewidth;  // Number of subrect pixels left in scanline.
+
+		// Output index of the top left corner of the subrect.
+		const opbeg = (this.y * this.#gif.width + this.x) * 4;
+		// Output index of what would be the left edge of the subrect, one row
+		// below it, i.e. the index at which an interlace pass should wrap.
+		const opend = ((this.y + this.height) * this.#gif.width + this.x) * 4;
+		let op = opbeg;
+
+		let scanstride = framestride * 4;
+
+		// Use scanstride to skip past the rows when interlacing.  This is skipping
+		// 7 rows for the first two passes, then 3 then 1.
+		if (this.interlaced === true) {
+			scanstride += this.#gif.width * 4 * 7;  // Pass 1.
+		}
+
+		let interlaceskip = 8;  // Tracking the row interval in the current pass.
+
+		for (let i = 0, il = this.imageDataArray.length; i < il; ++i) {
+			const index = this.imageDataArray[i];
+
+			if (xleft === 0) {  // Beginning of new scan line
+				op += scanstride;
+				xleft = framewidth;
+				if (op >= opend) { // Catch the wrap to switch passes when interlacing.
+					scanstride = framestride * 4 + this.#gif.width * 4 * (interlaceskip - 1);
+					// interlaceskip / 2 * 4 is interlaceskip << 1.
+					op = opbeg + (framewidth + framestride) * (interlaceskip << 1);
+					interlaceskip >>= 1;
+				}
+			}
+
+			if (index === trans) {
+				op += 4;
+			} else {
+				const r = this.#gif.buffer[palette_offset + index * 3];
+				const g = this.#gif.buffer[palette_offset + index * 3 + 1];
+				const b = this.#gif.buffer[palette_offset + index * 3 + 2];
+				this.#imageData.data[op++] = r;
+				this.#imageData.data[op++] = g;
+				this.#imageData.data[op++] = b;
+				this.#imageData.data[op++] = 255;
+			}
+			--xleft;
+		}
+
+		return this.#imageData;
+	}
 
 	/** @return {string} */
 	get disposalName() {
@@ -466,6 +449,7 @@ export class Frame {
 				return 'not-dispose';
 			case 2:
 				// Restore to background color. The area used by the graphic must be restored to the background color.
+				// Dispose background doesn't really work, apparently most browsers ignore the background palette index and clear to transparency.
 				return 'restore-background';
 			case 3:
 				// Restore to previous. The decoder is required to restore the area overwritten by the graphic with what was there prior to rendering the graphic.

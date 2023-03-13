@@ -150,21 +150,17 @@ export class GIF {
 						p += block_size;
 					}
 
-					const frame = new Frame({
-						x: x,
-						y: y,
-						width: w,
-						height: h,
-						hasLocalPalette: has_local_palette,
-						paletteOffset: palette_offset,
-						paletteSize: palette_size,
-						dataOffset: data_offset,
-						dataLength: p - data_offset,
-						transparentIndex: transparent_index,
-						interlaced: !!interlace_flag,
-						delay: delay,
-						disposal: disposal
-					});
+					const frame = new Frame(
+						this, x, y, w, h,
+						delay, disposal,
+						!!interlace_flag,
+						transparent_index,
+						data_offset,
+						p - data_offset,
+						has_local_palette,
+						palette_offset,
+						palette_size,
+					);
 
 					this.frames.push(frame);
 					break;
@@ -179,12 +175,22 @@ export class GIF {
 		}
 	}
 
-	decodeAndBlitFrameRGBA(frame_num, pixels) {
-		const frame = this.frames[frame_num];
+	/**
+	 * @param i
+	 * @return {?ImageData}
+	 */
+	frameImageData(i) {
+		const frame = this.frames[i];
+
+		if (frame.imageData) {
+			return frame.imageData;
+		}
+
+		frame.imageData = new ImageData(this.width, this.height);
 
 		const num_pixels = frame.width * frame.height;
 		const index_stream = new Uint8Array(num_pixels);  // At most 8-bit indices.
-		GifReaderLZWOutputIndexStream(
+		LZWOutputIndexStream(
 			this.buffer, frame.dataOffset, index_stream, num_pixels);
 		const palette_offset = frame.paletteOffset;
 
@@ -237,17 +243,19 @@ export class GIF {
 				const r = this.buffer[palette_offset + index * 3];
 				const g = this.buffer[palette_offset + index * 3 + 1];
 				const b = this.buffer[palette_offset + index * 3 + 2];
-				pixels[op++] = r;
-				pixels[op++] = g;
-				pixels[op++] = b;
-				pixels[op++] = 255;
+				frame.imageData.data[op++] = r;
+				frame.imageData.data[op++] = g;
+				frame.imageData.data[op++] = b;
+				frame.imageData.data[op++] = 255;
 			}
 			--xleft;
 		}
+
+		return frame.imageData;
 	}
 }
 
-const GifReaderLZWOutputIndexStream = (code_stream, p, output, output_length) => {
+const LZWOutputIndexStream = (code_stream, p, output, output_length) => {
 	const min_code_size = code_stream[p++];
 
 	const clear_code = 1 << min_code_size;
@@ -272,7 +280,10 @@ const GifReaderLZWOutputIndexStream = (code_stream, p, output, output_length) =>
 	while (true) {
 		// Read up to two bytes, making sure we always 12-bits for max sized code.
 		while (cur_shift < 16) {
-			if (subblock_size === 0) break;  // No more data to be read.
+			if (subblock_size === 0) {
+				// No more data to be read.
+				break;
+			}
 
 			cur |= code_stream[p++] << cur_shift;
 			cur_shift += 8;
@@ -286,8 +297,9 @@ const GifReaderLZWOutputIndexStream = (code_stream, p, output, output_length) =>
 
 		// We should never really get here, we should have received
 		// and EOI.
-		if (cur_shift < cur_code_size)
+		if (cur_shift < cur_code_size) {
 			break;
+		}
 
 		const code = cur & code_mask;
 		cur >>= cur_code_size;
@@ -345,8 +357,7 @@ const GifReaderLZWOutputIndexStream = (code_stream, p, output, output_length) =>
 
 		const op_end = op + chase_length + (chase_code !== code ? 1 : 0);
 		if (op_end > output_length) {
-			console.log("Warning, gif stream longer than expected.");
-			return;
+			throw new Error('Warning, gif stream longer than expected.');
 		}
 
 		// Already have the first byte from the chase, might as well write it fast.
@@ -355,8 +366,10 @@ const GifReaderLZWOutputIndexStream = (code_stream, p, output, output_length) =>
 		op += chase_length;
 		let b = op;  // Track pointer, writing backwards.
 
-		if (chase_code !== code)  // The case of emitting {CODE-1} + k.
+		if (chase_code !== code) {
+			// The case of emitting {CODE-1} + k.
 			output[op++] = k;
+		}
 
 		chase = chase_code;
 		while (chase_length--) {
@@ -382,15 +395,15 @@ const GifReaderLZWOutputIndexStream = (code_stream, p, output, output_length) =>
 	}
 
 	if (op !== output_length) {
-		console.log("Warning, gif stream shorter than expected.");
+		throw new Error('Warning, gif stream shorter than expected.');
 	}
 
 	return output;
 };
 
 export class Frame {
-
 	/**
+	 * @param {GIF} gif
 	 * @param {number} x
 	 * @param {number} y
 	 * @param {number} width
@@ -405,22 +418,24 @@ export class Frame {
 	 * @param {number} delay
 	 * @param {number} disposal
 	 */
-	constructor({
+	constructor(
+		gif,
 		x,
 		y,
 		width,
 		height,
 		delay,
 		disposal,
+		interlaced,
+		transparentIndex,
+		dataOffset,
+		dataLength,
 		hasLocalPalette,
 		paletteOffset,
 		paletteSize,
-		dataOffset,
-		dataLength,
-		transparentIndex,
-		interlaced,
-	}) {
+	) {
 		{
+			this.gif = gif;
 			this.x = x;
 			this.y = y;
 			this.width = width;
@@ -437,13 +452,33 @@ export class Frame {
 		}
 	}
 
-	/**
-	 * @private
-	 * @type {ImageData}
-	 */
-	_imageData;
+	/** @type {?ImageData} */
+	imageData;
 
-	get imageData() {
-
+	/** @return {string} */
+	get disposalName() {
+		switch (this.disposal) {
+			case 0:
+				// No disposal specified. The decoder is not required to take any action.
+				return 'no-specified';
+			case 1:
+				// Do not dispose. The graphic is to be left in place.
+				return 'not-dispose';
+			case 2:
+				// Restore to background color. The area used by the graphic must be restored to the background color.
+				return 'restore-background';
+			case 3:
+				// Restore to previous. The decoder is required to restore the area overwritten by the graphic with what was there prior to rendering the graphic.
+				return 'restore-previous';
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+				// To be defined.
+				return 'reserved';
+			default:
+				return 'broken';
+		}
 	}
+
 }

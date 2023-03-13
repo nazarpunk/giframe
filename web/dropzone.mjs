@@ -56,8 +56,6 @@ export class Dropzone extends HTMLElement {
 		for (const v of list) {
 			this._accept.insertAdjacentHTML('beforeend', `<i>${v}</i>`);
 		}
-		console.log(list);
-
 	}
 
 	/** @param {File} file */

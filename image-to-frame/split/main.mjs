@@ -16,40 +16,40 @@ document.body.appendChild(dropzone);
  */
 const addFile = async (file, buffer) => {
 	const gif = new GIF(buffer);
-	console.log(gif);
 
 	const header = new RibbonHeader();
 	header.text = `${file.name} #${gif.frames.length} ${gif.width}x${gif.height}`;
 	document.body.appendChild(header);
 
+	const infos = [];
 	for (let i = 0; i < gif.frames.length; i++) {
+		const frame = gif.frames[i];
+
 		const info = new InfoFrame();
 		document.body.appendChild(info);
+
 		info.size(gif.width, gif.height);
+		info.left.loading = true;
+		info.left.inner(frame.x, frame.y, frame.width, frame.height);
 
-		for (let k = 0; k < i; k++) {
-			const frame = gif.frames[k];
-			//const image = new ImageData(gif.width, gif.height);
-			//gif.decodeAndBlitFrameRGBA(k, image.data);
-			//info.right.ctx.putImageData(image, frame.x, frame.y);
-		}
-
-		const image = new ImageData(gif.width, gif.height);
-		gif.decodeAndBlitFrameRGBA(i, image.data);
-
-		const frame = gif.frames[i];
+		info.right.loading = true;
 
 		const table = new InfoTable();
 		table.header = `Frame ${i}`;
 		info.center = table;
-		for (const k of Object.getOwnPropertyNames(frame)) {
-			if (!k.startsWith('_')) {
-				table.addRow(k, frame[k]);
-			}
-		}
-		info.left.ctx.putImageData(image, 0, 0);
-		//info.right.ctx.putImageData(image, 0, 0);
-		info.left.inner(frame.x, frame.y, frame.width, frame.height);
+		table.addRow('offset', `${frame.x}, ${frame.y}`);
+		table.addRow('size', `${frame.width}, ${frame.height}`);
+		table.addRow('disposal', `${frame.disposal} - ${frame.disposalName}`);
+
+		infos.push(info);
+	}
+
+	for (let i = 0; i < gif.frames.length; i++) {
+		const frame = gif.frames[i];
+		const info = infos[i];
+
+		gif.frameImageData(i);
+		info.left.ctx.putImageData(frame.imageData, 0, 0);
 	}
 
 };

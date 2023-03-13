@@ -77,15 +77,12 @@ sheet.replaceSync(
 		table {
 			border-collapse: collapse;
 		}
-
-		th {
-			white-space: nowrap;
-		}
-
+		
 		td, th {
 			background: #141414;
 			border: 1px solid #494949;
 			padding: 0.25rem 0.5rem;
+			white-space: nowrap;
 		}
 
 		.null {

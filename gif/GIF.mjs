@@ -6,8 +6,20 @@ export class GIF {
 	 */
 	constructor(buffer) {
 		this.buffer = new Uint8Array(buffer);
-		this.view = new DataView(buffer);
+	}
 
+	/** @type {Error[]} */
+	errors = [];
+
+	parse() {
+		try {
+			this.#parse()
+		} catch (e) {
+			this.errors.push(e);
+		}
+	}
+
+	#parse() {
 		let p = 0;
 
 		// - Header (GIF87a or GIF89a).
@@ -159,7 +171,7 @@ export class GIF {
 					break;
 
 				default:
-					throw new Error("Unknown gif block: 0x" + this.buffer[p - 1].toString(16));
+					this.errors.push(new Error("Unknown gif block: 0x" + this.buffer[p - 1].toString(16)));
 			}
 		}
 	}

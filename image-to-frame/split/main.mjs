@@ -5,6 +5,7 @@ import {GIF} from "../../gif/GIF.mjs";
 import {RibbonHeader} from "../../web/ribbon-header.mjs";
 import {InfoTable} from "./info-table.mjs";
 import {InfoFrame} from "./info-frame.mjs";
+import {ErrorMessage} from "./error-message.mjs";
 
 const dropzone = new Dropzone();
 dropzone.accept = '.gif';
@@ -18,10 +19,17 @@ document.body.appendChild(dropzone);
  */
 const addFile = async (file, buffer) => {
 	const gif = new GIF(buffer);
+	gif.parse();
 
 	const header = new RibbonHeader();
 	header.text = `${file.name} #${gif.frames.length} ${gif.width}x${gif.height}`;
 	document.body.appendChild(header);
+
+	if (gif.errors.length){
+		const em = new ErrorMessage();
+		em.errors = gif.errors;
+		document.body.appendChild(em);
+	}
 
 	for (const frame of gif.frames) {
 		const info = new InfoFrame();
@@ -59,6 +67,7 @@ if (location.host.indexOf('localhost') === 0) {
 	name = '../frame/disposal3-1.gif';
 	name = '../frame/disposal3-2.gif';
 	name = '../frame/kitagawa-marin.gif';
+	name = '../frame/kokomi.gif';
 	const response = await fetch(name);
 	const buffer = await response.arrayBuffer();
 

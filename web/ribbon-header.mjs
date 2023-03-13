@@ -47,7 +47,7 @@ sheet.replaceSync(
 			display: block;
 			text-align: center;
 			z-index: 3;
-			margin: 1rem 3rem 2rem;
+			margin: 1rem 3rem 1rem;
 		}
 		.ribbon:before {
 			position: absolute;
@@ -119,6 +119,7 @@ sheet.replaceSync(
 			padding: 15px 0;
 			font-weight: 600;
 			letter-spacing: 1px;
+			margin: 0;
 		}
 		.ribbon .right-fold {
 			background-color: #005188;

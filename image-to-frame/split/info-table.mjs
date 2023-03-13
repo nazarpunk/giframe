@@ -14,12 +14,18 @@ export class InfoTable extends HTMLElement {
 
 	}
 
-	// noinspection JSUnusedGlobalSymbols
-	static get observedAttributes() { return ['header']; }
+	#header;
 
 	/** @param {string} text */
 	set header(text) {
-		this.setAttribute('header', text);
+		if (!this.#header) {
+			const tr = document.createElement('tr');
+			this.table.insertAdjacentElement('afterbegin', tr);
+			this.#header = document.createElement('th');
+			tr.appendChild(this.#header);
+			this.#header.colSpan = 2;
+		}
+		this.#header.textContent = text;
 	}
 
 	/**
@@ -44,22 +50,6 @@ export class InfoTable extends HTMLElement {
 
 		tb.classList.add(typeof v);
 		tb.innerHTML = v;
-	}
-
-	// noinspection JSUnusedGlobalSymbols
-	attributeChangedCallback(name, oldValue, newValue) {
-		switch (name) {
-			case 'header':
-				if (!this._header) {
-					const tr = document.createElement('tr');
-					this.table.insertAdjacentElement('afterbegin', tr);
-					this._header = document.createElement('th');
-					tr.appendChild(this._header);
-					this._header.colSpan = 2;
-				}
-				this._header.textContent = newValue;
-				break;
-		}
 	}
 }
 

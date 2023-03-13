@@ -147,7 +147,7 @@ sheet.replaceSync(
 	`
 		.dropzone {
 			height: 6rem;
-			margin: 1rem;
+			margin: 0 1rem;
 		}
 
 		.inner {

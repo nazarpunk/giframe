@@ -47,11 +47,10 @@ sheet.replaceSync(
 	`
 		.parent {
 			display: flex;
-			padding: 0 1rem 1rem;
+			padding: 0 1rem;
 			justify-content: space-between;
 			gap: 1rem;
 			flex-wrap: wrap;
-			margin-bottom: 2rem;
 		}
 
 		.parent > div > * {

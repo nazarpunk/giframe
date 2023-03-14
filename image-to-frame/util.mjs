@@ -1,8 +1,4 @@
-/**
- * @param  {number} num
- * @return {number}
- */
-const nextPow2 = num => num > 0 && (num & num - 1) === 0 ? num : 1 << 32 - Math.clz32(num);
+import {nextPow2} from "../utils/utils.mjs";
 
 /**
  * @param {number} m

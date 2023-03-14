@@ -2,6 +2,7 @@
 
 [image-to-frame](https://nazarpunk.github.io/warodel/image-to-frame)
 [image-to-frame/split](https://nazarpunk.github.io/warodel/image-to-frame/split)
+[image-to-frame/pack](https://nazarpunk.github.io/warodel/image-to-frame/pack)
 
 https://xgm.guru/p/wc3/steamframe
 

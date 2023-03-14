@@ -1,11 +1,11 @@
-// noinspection JSUnusedAssignment
+// noinspection JSUnusedAssignment,DuplicatedCode
 
 import {Dropzone} from "../../web/dropzone.mjs";
 import {GIF} from "../../gif/GIF.mjs";
 import {RibbonHeader} from "../../web/ribbon-header.mjs";
-import {InfoTable} from "./info-table.mjs";
-import {InfoFrame} from "./info-frame.mjs";
-import {ErrorMessage} from "./error-message.mjs";
+import {InfoTable} from "./web/info-table.mjs";
+import {InfoFrame} from "./web/info-frame.mjs";
+import {ErrorMessage} from "./web/error-message.mjs";
 
 const dropzone = new Dropzone();
 dropzone.accept = '.gif';
@@ -25,7 +25,7 @@ const addFile = async (file, buffer) => {
 	header.text = `${file.name} #${gif.frames.length} ${gif.width}x${gif.height}`;
 	document.body.appendChild(header);
 
-	if (gif.errors.length){
+	if (gif.errors.length) {
 		const em = new ErrorMessage();
 		em.errors = gif.errors;
 		document.body.appendChild(em);
@@ -62,13 +62,13 @@ dropzone.addEventListener('bufferupload', async e => {
 
 if (location.host.indexOf('localhost') === 0) {
 	let name;
-	name = '../frame/disposal2-2.gif';
-	name = '../frame/disposal2-1.gif';
-	name = '../frame/disposal3-1.gif';
-	name = '../frame/disposal3-2.gif';
-	name = '../frame/kitagawa-marin.gif';
-	name = '../frame/kokomi.gif';
-	const response = await fetch(name);
+	name = 'disposal2-2.gif';
+	name = 'disposal2-1.gif';
+	name = 'disposal3-1.gif';
+	name = 'disposal3-2.gif';
+	name = 'boobs1.gif';
+	name = 'kitagawa-marin.gif';
+	const response = await fetch(`../images/${name}`);
 	const buffer = await response.arrayBuffer();
 
 	await addFile(new File([], name), buffer);

@@ -47,7 +47,7 @@ sheet.replaceSync(
 			display: block;
 			text-align: center;
 			z-index: 3;
-			margin: 1rem 3rem 1rem;
+			margin: 1rem 2rem;
 		}
 		.ribbon:before {
 			position: absolute;

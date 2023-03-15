@@ -11,28 +11,24 @@ export class RibbonHeader extends HTMLElement {
 		this.parent.classList.add('ribbon');
 		shadow.appendChild(this.parent);
 
-		this.h = document.createElement('h3');
-		this.parent.appendChild(this.h);
+		this.#header = document.createElement('h3');
+		this.parent.appendChild(this.#header);
 
 		this.parent.insertAdjacentHTML('afterbegin', '<span class="left-fold"></span>');
 		this.parent.insertAdjacentHTML('beforeend', '<span class="right-fold"></span>');
 	}
 
-	static get observedAttributes() { return ['text']; }
+	/** @type {HTMLElement} */ #header;
 
 	/** @param {string} text */
 	set text(text) {
-		this.setAttribute('text', text);
+		this.#header.textContent = text;
 	}
 
-	// noinspection JSUnusedGlobalSymbols
-	attributeChangedCallback(name, oldValue, newValue) {
-		switch (name) {
-			case 'text':
-				this.h.textContent = newValue;
-				break;
-		}
+	get text(){
+		return this.#header.textContent;
 	}
+
 }
 
 const sheet = new CSSStyleSheet();

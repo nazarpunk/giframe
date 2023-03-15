@@ -6,6 +6,7 @@ import {RibbonHeader} from "../../web/ribbon-header.mjs";
 import {InfoTable} from "./web/info-table.mjs";
 import {InfoFrame} from "./web/info-frame.mjs";
 import {ErrorMessage} from "./web/error-message.mjs";
+import {LineDivider} from "../../web/line-divider.mjs";
 
 const dropzone = new Dropzone();
 dropzone.accept = '.gif';
@@ -45,13 +46,21 @@ const addFile = async (file, buffer) => {
 		table.addRow('disposal', `<b>${frame.disposal}</b> <i>${frame.disposalName}</i>`);
 		table.addRow('delay', `<b>${frame.delay}</b><i>ms</i>`);
 
-		info.left.inner(frame.x, frame.y, frame.width, frame.height);
+		info.left.border(frame.x, frame.y, frame.width, frame.height);
 
 		info.left.loading = false;
 		info.left.ctx.putImageData(frame.imageData, 0, 0);
 
 		info.right.loading = false;
 		info.right.ctx.putImageData(frame.imageDataFrame, 0, 0);
+
+		const divider = new LineDivider();
+		document.body.appendChild(divider);
+	}
+
+	const last = document.body.lastElementChild;
+	if (last instanceof LineDivider) {
+		last.remove();
 	}
 };
 
@@ -66,8 +75,8 @@ if (location.host.indexOf('localhost') === 0) {
 	name = 'disposal2-1.gif';
 	name = 'disposal3-1.gif';
 	name = 'disposal3-2.gif';
-	name = 'boobs1.gif';
 	name = 'kitagawa-marin.gif';
+	name = 'boobs1.gif';
 	const response = await fetch(`../images/${name}`);
 	const buffer = await response.arrayBuffer();
 

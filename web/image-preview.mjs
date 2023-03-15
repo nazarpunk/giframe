@@ -1,9 +1,9 @@
-export class InfoFrameImage extends HTMLElement {
+export class ImagePreview extends HTMLElement {
 	constructor() {
 		super();
 
 		const shadow = this.attachShadow({mode: 'open'});
-		shadow.adoptedStyleSheets = [sheetImage];
+		shadow.adoptedStyleSheets = [sheet];
 
 		this.parent = document.createElement('div');
 		this.parent.classList.add('parent');
@@ -25,19 +25,37 @@ export class InfoFrameImage extends HTMLElement {
 		this.canvas.style.aspectRatio = this.canvas.style.aspectRatio = `${width / height}`;
 	}
 
+	/** @type {HTMLElement} */ #loader;
+
 	/** @param {boolean} loading */
 	set loading(loading) {
 		if (loading) {
-			if (this._loader) {
+			if (this.#loader) {
 				return;
 			}
-			this._loader = document.createElement('div');
-			this._loader.classList.add('loader');
-			this.parent.appendChild(this._loader);
+			this.#loader = document.createElement('div');
+			this.#loader.classList.add('loader');
+			this.parent.appendChild(this.#loader);
 		} else {
-			this._loader?.remove();
+			this.#loader?.remove();
 		}
 	}
+
+	/**
+	 * @param {number} x
+	 * @param {number} y
+	 * @param text
+	 */
+	tip(x, y, text) {
+		const tip = document.createElement('div');
+		tip.classList.add('tip');
+		tip.textContent = text;
+		tip.style.left = `${x / this.canvas.width * 100}%`;
+		tip.style.top = `${y / this.canvas.height * 100}%`;
+		this.parent.appendChild(tip);
+	}
+
+	/** @type {HTMLElement} */ #border;
 
 	/**
 	 * @param {number} x
@@ -45,25 +63,25 @@ export class InfoFrameImage extends HTMLElement {
 	 * @param {number} width
 	 * @param {number} height
 	 */
-	inner(x, y, width, height) {
-		if (!this._inner) {
-			this._inner = document.createElement('div');
-			this._inner.classList.add('inner');
-			this.parent.appendChild(this._inner);
+	border(x, y, width, height) {
+		if (!this.#border) {
+			this.#border = document.createElement('div');
+			this.#border.classList.add('border');
+			this.parent.appendChild(this.#border);
 		}
 
-		this._inner.style.left = `${x / this.canvas.width * 100}%`;
-		this._inner.style.top = `${y / this.canvas.height * 100}%`;
-		this._inner.style.width = `${width / this.canvas.width * 100}%`;
-		this._inner.style.height = `${height / this.canvas.height * 100}%`;
+		this.#border.style.left = `${x / this.canvas.width * 100}%`;
+		this.#border.style.top = `${y / this.canvas.height * 100}%`;
+		this.#border.style.width = `${width / this.canvas.width * 100}%`;
+		this.#border.style.height = `${height / this.canvas.height * 100}%`;
 	}
 
 }
 
-const sheetImage = new CSSStyleSheet();
+const sheet = new CSSStyleSheet();
 
 // noinspection CssUnusedSymbol
-sheetImage.replaceSync(
+sheet.replaceSync(
 	//language=CSS
 	`
 		:host {
@@ -90,9 +108,20 @@ sheetImage.replaceSync(
 			max-width: 100%;
 		}
 
+		.tip {
+			font-family: monospace;
+			position: absolute;
+			padding: .1rem .5rem;
+			background: #1e1e1e;
+			pointer-events: none;
+			border-radius: 4px;
+			box-shadow: 0 0 5px #1e1e1e;
+			color: #5aff00;
+			text-shadow: 0 0 1px #000;
+		}
 
 		/*noinspection CssReplaceWithShorthandSafely,CssUnresolvedCustomProperty*/
-		.inner {
+		.border {
 			--a: #ff00ed;
 			pointer-events: none;
 			position: absolute;
@@ -185,5 +214,5 @@ sheetImage.replaceSync(
 
 	`);
 
-customElements.define('info-frame-image', InfoFrameImage);
+customElements.define('info-frame-image', ImagePreview);
 

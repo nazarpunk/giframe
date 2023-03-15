@@ -19,51 +19,28 @@ export class Cyberlink extends HTMLElement {
 		this.a.appendChild(this.txt);
 	}
 
-	static get observedAttributes() { return ['href', 'text', 'color', 'target', 'download']; }
-
 	/** @param {string} text */
 	set text(text) {
-		this.setAttribute('text', text);
+		this.txt.textContent = text;
 	}
 
 	/** @param {string} download */
 	set download(download) {
-		this.setAttribute('download', download);
+		this.a.download = download;
 	}
 
 	/** @param {'red'|'green'|'blue'} color */
 	set color(color) {
-		this.setAttribute('color', color);
+		this.parent.dataset.color = color;
 	}
 
 	set href(href) {
-		this.setAttribute('href', href);
+		this.a.href = href;
 	}
 
 	/** @param {'_blank'} target */
 	set target(target) {
-		this.setAttribute('target', target);
-	}
-
-	// noinspection JSUnusedGlobalSymbols
-	attributeChangedCallback(name, oldValue, newValue) {
-		switch (name) {
-			case 'target':
-				this.a.target = newValue;
-				break;
-			case 'href':
-				this.a.href = newValue;
-				break;
-			case 'text':
-				this.txt.textContent = newValue;
-				break;
-			case 'download':
-				this.a.download = newValue;
-				break;
-			case 'color':
-				this.parent.dataset.color = newValue;
-				break;
-		}
+		this.a.target = target;
 	}
 }
 
@@ -72,6 +49,10 @@ const sheet = new CSSStyleSheet();
 sheet.replaceSync(
 	//language=CSS
 	`
+		:host {
+			user-select: none;
+		}
+
 		.button {
 			position: relative;
 			top: 0;
@@ -82,7 +63,7 @@ sheet.replaceSync(
 			box-sizing: border-box;
 			width: 250px;
 			height: 50px;
-			margin: 0;
+			margin: 8px 0;
 			cursor: pointer;
 			--cx: transparent;
 		}

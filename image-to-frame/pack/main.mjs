@@ -4,8 +4,10 @@ import {Dropzone} from "../../web/dropzone.mjs";
 import {GIF} from "../../gif/GIF.mjs";
 import {RibbonHeader} from "../../web/ribbon-header.mjs";
 import {ErrorMessage} from "../split/web/error-message.mjs";
-import {GrowingPacker} from "../../utils/growing_packer.mjs";
-import {nextDivisible} from "../../utils/utils.mjs";
+import {GrowingPacker} from "../../utils/growing-packer.mjs";
+import {nextDivisible, nextPow2} from "../../utils/utils.mjs";
+import {ImagePreview} from "../../web/image-preview.mjs";
+import {Cyberlink} from "../../web/cyberlink.mjs";
 
 const dropzone = new Dropzone();
 dropzone.accept = '.gif';
@@ -21,7 +23,7 @@ const addFile = async (file, buffer) => {
 	gif.parse();
 
 	const header = new RibbonHeader();
-	header.text = `${file.name} #${gif.frames.length} ${gif.width}x${gif.height}`;
+	header.text = `${file.name} #${gif.frames.length}`;
 	document.body.appendChild(header);
 
 	if (gif.errors.length) {
@@ -39,23 +41,55 @@ const addFile = async (file, buffer) => {
 
 	packer.pack();
 
-	const canvas = document.createElement('canvas');
-	document.body.appendChild(canvas);
-	const ctx = canvas.getContext('2d');
-	canvas.width = packer.width;
-	canvas.height = packer.height;
+	const w = packer.width;
+	const h = packer.height;
+
+	const image = new ImagePreview();
+	document.body.appendChild(image);
+	image.size(w, h);
 
 	for (const item of packer.items) {
 		const frame = gif.frames[item.index];
-		ctx.putImageData(frame.imageDataFrame, item.x, item.y);
+		const {x, y} = item;
+		image.ctx.putImageData(frame.imageDataFrame, x, y);
+		image.tip(x, y, frame.index);
 	}
 
+	const buttons = document.createElement('div');
+	buttons.classList.add('buttons');
+	document.body.appendChild(buttons);
+
+	const canvas = document.createElement('canvas');
+	const ctx = canvas.getContext('2d');
+
+	/**
+	 * @param {number} w
+	 * @param {number} h
+	 * @param {string} color
+	 */
+	const btn = (w, h, color) => {
+		const ba = new Cyberlink();
+		ba.color = color;
+		ba.text = `${w}x${h}`;
+		buttons.appendChild(ba);
+		ba.addEventListener('click', async e => {
+			e.preventDefault();
+			e.stopPropagation();
+			canvas.width = w;
+			canvas.height = h;
+			ctx.putImageData(image.ctx.getImageData(0, 0, image.canvas.width, image.canvas.height), 0, 0);
+
+			/** @type {Blob} */
+			const iblob = await new Promise(resolve => canvas.toBlob(blob => resolve(blob)));
+			open(URL.createObjectURL(iblob), '_blank');
+		});
+	};
+
+	btn(w, h, 'red');
+	btn(nextPow2(w), nextPow2(h), 'green');
+	btn(nextDivisible(w, 4), nextDivisible(h, 4), 'blue');
+
 };
-
-for (const i of [4, 5, 6, 7, 8, 9, 10, 12]) {
-	console.log(i, nextDivisible(i, 4));
-}
-
 
 dropzone.addEventListener('bufferupload', async e => {
 	const [file, buffer] = /** @type [File, ArrayBuffer] */ e.detail;
@@ -66,7 +100,7 @@ if (location.host.indexOf('localhost') === 0) {
 	let name;
 	name = 'kitagawa-marin.gif';
 	name = 'disposal3-2.gif';
-	name = 'boobs-1.gif';
+	name = 'boobs1.gif';
 	const response = await fetch(`../images/${name}`);
 	const buffer = await response.arrayBuffer();
 

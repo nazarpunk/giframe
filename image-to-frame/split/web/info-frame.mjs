@@ -1,4 +1,4 @@
-import {InfoFrameImage} from "./info-frame-image.mjs";
+import {ImagePreview} from "../../../web/image-preview.mjs";
 
 export class InfoFrame extends HTMLElement {
 	constructor() {
@@ -11,13 +11,13 @@ export class InfoFrame extends HTMLElement {
 		this.parent.classList.add('parent');
 		shadow.appendChild(this.parent);
 
-		this.left = new InfoFrameImage();
+		this.left = new ImagePreview();
 		this.parent.appendChild(this.left);
 
 		this._center = document.createElement('div');
 		this.parent.appendChild(this._center);
 
-		this.right = new InfoFrameImage();
+		this.right = new ImagePreview();
 		this.parent.appendChild(this.right);
 	}
 

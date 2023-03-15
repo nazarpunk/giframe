@@ -111,12 +111,10 @@ sheet.replaceSync(
 		}
 
 		.tip {
-			font-family: monospace;
 			position: absolute;
 			padding: .1rem .5rem;
 			background: #1e1e1e;
 			pointer-events: none;
-			border-radius: 4px;
 			box-shadow: 0 0 5px #1e1e1e;
 			color: #5aff00;
 			text-shadow: 0 0 1px #000;

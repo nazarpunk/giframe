@@ -86,6 +86,8 @@ sheet.replaceSync(
 	`
 		:host {
 			max-width: 100%;
+			display: flex;
+			justify-content: center;
 		}
 
 		/*noinspection CssUnresolvedCustomProperty*/
@@ -214,5 +216,5 @@ sheet.replaceSync(
 
 	`);
 
-customElements.define('info-frame-image', ImagePreview);
+customElements.define('image-preview', ImagePreview);
 

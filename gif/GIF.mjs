@@ -11,11 +11,19 @@ export class GIF {
 	/** @type {Error[]} */
 	errors = [];
 
+	duration = 0;
+
+	/** @type {Frame[]}} */ frames = [];
+
 	parse() {
 		try {
 			this.#parse()
 		} catch (e) {
 			this.errors.push(e);
+		}
+
+		for (const frame of this.frames) {
+			this.duration += frame.delay;
 		}
 	}
 
@@ -49,8 +57,6 @@ export class GIF {
 		}
 
 		let no_eof = true;
-
-		/** @type {Frame[]}} */ this.frames = [];
 
 		let delay = 0;
 		let transparent_index = null;

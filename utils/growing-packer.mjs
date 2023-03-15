@@ -14,12 +14,14 @@ export class GrowingPacker {
 	}
 
 	pack() {
-		this.items = this.items.sort((a, b) => b.width * b.height - a.width * a.height);
+		this.items.sort((a, b) => b.width * b.height - a.width * a.height);
 
 		this.fit(this.items);
 
 		this.width = this.items.reduce((curr, item) => Math.max(curr, item.x + item.width), 0);
 		this.height = this.items.reduce((curr, item) => Math.max(curr, item.y + item.height), 0);
+
+		this.items.sort((a,b) => a.index - b.index);
 	}
 
 	fit(blocks) {

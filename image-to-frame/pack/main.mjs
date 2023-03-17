@@ -97,6 +97,7 @@ if (location.host.indexOf('localhost') === 0) {
 	name = 'kitagawa-marin.gif';
 	name = 'disposal3-2.gif';
 	name = 'boobs2.gif';
+	name = 'cat_walk.gif';
 	const response = await fetch(`../images/${name}`);
 	const buffer = await response.arrayBuffer();
 

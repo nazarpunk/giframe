@@ -7,16 +7,19 @@ export class WtsTranslate extends HTMLElement {
 		this.#shadow = this.attachShadow({mode: 'open'});
 		this.#shadow.adoptedStyleSheets = [sheet];
 
-
 	}
 
 	// noinspection JSUnusedGlobalSymbols
 	connectedCallback() {
 		const id = document.createElement('div');
+		id.classList.add('label');
 		id.textContent = `${this.#id}`;
 		this.#shadow.appendChild(id);
 
+		const value = this.#map.get(this.#id);
+
 		this.#ta = document.createElement('textarea');
+		this.#ta.value = value;
 		this.#shadow.appendChild(this.#ta);
 
 		this.#tb = document.createElement('textarea');
@@ -25,7 +28,6 @@ export class WtsTranslate extends HTMLElement {
 
 	/** @type {number} */ #id;
 	/** @type {Map<number,string>} */ #map;
-
 	/** @type {ShadowRoot} */ #shadow;
 	/** @type {HTMLTextAreaElement} */ #ta;
 	/** @type {HTMLTextAreaElement} */ #tb;
@@ -51,10 +53,17 @@ sheet.replaceSync(
 	//language=CSS
 	`
 		:host {
-			display: flex;
-			justify-content: center;
+			display: grid;
+			grid-template-columns: 2rem 1fr 1fr;
+			align-items: center;
+			gap: 1rem;
 		}
-
+		
+		textarea {
+			height: 100%;
+			resize: vertical;
+		}
+		
 	`);
 
 customElements.define('wts-translate', WtsTranslate);

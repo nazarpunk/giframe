@@ -3,7 +3,7 @@
 import {Dropzone} from "../../web/dropzone.mjs";
 import {GIF} from "../../gif/GIF.mjs";
 import {RibbonHeader} from "../../web/ribbon-header.mjs";
-import {ErrorMessage} from "../split/web/error-message.mjs";
+import {ErrorMessage} from "../../web/error-message.mjs";
 import {GrowingPacker} from "../../utils/growing-packer.mjs";
 import {nextDivisible, nextPow2} from "../../utils/utils.mjs";
 import {ImagePreview} from "../../web/image-preview.mjs";
@@ -22,14 +22,10 @@ const addFile = async (file, buffer) => {
 	const gif = new GIF(buffer);
 	gif.parse();
 
-	const header = new RibbonHeader();
-	header.text = `${file.name} #${gif.frames.length}`;
-	document.body.appendChild(header);
+	RibbonHeader.fromText(`${file.name} #${gif.frames.length}`, document.body);
 
 	if (gif.errors.length) {
-		const em = new ErrorMessage();
-		em.errors = gif.errors;
-		document.body.appendChild(em);
+		ErrorMessage.fromErrors(gif.errors, document.body);
 	}
 
 	const packer = new GrowingPacker();

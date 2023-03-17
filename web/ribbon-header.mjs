@@ -18,6 +18,18 @@ export class RibbonHeader extends HTMLElement {
 		this.parent.insertAdjacentHTML('beforeend', '<span class="right-fold"></span>');
 	}
 
+	/**
+	 * @param {string} text
+	 * @param {HTMLElement|ShadowRoot} parent
+	 * @return {RibbonHeader}
+	 */
+	static fromText(text, parent) {
+		const header = new RibbonHeader();
+		header.text = text;
+		parent.appendChild(header);
+		return header;
+	}
+
 	/** @type {HTMLElement} */ #header;
 
 	/** @param {string} text */
@@ -25,7 +37,7 @@ export class RibbonHeader extends HTMLElement {
 		this.#header.textContent = text;
 	}
 
-	get text(){
+	get text() {
 		return this.#header.textContent;
 	}
 

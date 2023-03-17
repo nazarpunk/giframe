@@ -3,6 +3,7 @@ import {MDX} from "../mdx/MDX.mjs";
 import {FrameModel} from "./web/frame-model.mjs";
 import {TextureSwitcher} from "./web/texture-switcher.mjs";
 
+// noinspection JSUnusedLocalSymbols
 /**
  * @param {string} filename
  * @return {string|null}
@@ -48,7 +49,9 @@ dropzone.addEventListener('bufferupload', async e => {
 });
 
 if (location.host.indexOf('localhost') === 0) {
-	const name = 'boobs2.gif';
+	//const name = 'boobs2.gif';
+	//const name = 'sweaty-gamer-speedrun-whipping.gif';
+	const name = 'cat_walk.gif';
 	const response = await fetch(`images/${name}`);
 	const buffer = await response.arrayBuffer();
 

@@ -5,7 +5,7 @@ import {GIF} from "../../gif/GIF.mjs";
 import {RibbonHeader} from "../../web/ribbon-header.mjs";
 import {InfoTable} from "./web/info-table.mjs";
 import {InfoFrame} from "./web/info-frame.mjs";
-import {ErrorMessage} from "./web/error-message.mjs";
+import {ErrorMessage} from "../../web/error-message.mjs";
 import {LineDivider} from "../../web/line-divider.mjs";
 
 const dropzone = new Dropzone();
@@ -22,14 +22,10 @@ const addFile = async (file, buffer) => {
 	const gif = new GIF(buffer);
 	gif.parse();
 
-	const header = new RibbonHeader();
-	header.text = `${file.name} #${gif.frames.length} ${gif.width}x${gif.height}`;
-	document.body.appendChild(header);
+	RibbonHeader.fromText(`${file.name} #${gif.frames.length} ${gif.width}x${gif.height}`, document.body);
 
 	if (gif.errors.length) {
-		const em = new ErrorMessage();
-		em.errors = gif.errors;
-		document.body.appendChild(em);
+		ErrorMessage.fromErrors(gif.errors, document.body);
 	}
 
 	for (const frame of gif.frames) {
@@ -76,7 +72,8 @@ if (location.host.indexOf('localhost') === 0) {
 	name = 'disposal3-1.gif';
 	name = 'disposal3-2.gif';
 	name = 'kitagawa-marin.gif';
-	name = 'boobs1.gif';
+	name = 'boobs2.gif';
+	name = 'cat_walk.gif';
 	const response = await fetch(`../images/${name}`);
 	const buffer = await response.arrayBuffer();
 

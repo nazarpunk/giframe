@@ -67,15 +67,32 @@ export class Dropzone extends HTMLElement {
 		}
 
 		const reader = new FileReader();
-		reader.addEventListener('load', e => {
+
+		if (this.#readAsText){
+			reader.onload = e => this.#readAsText(file, e.target.result);
+			reader.readAsText(file);
+			return;
+		}
+
+		reader.onload = e => {
 			this.dropzone.dispatchEvent(new CustomEvent('bufferupload', {
 				bubbles: true,
 				composed: true,
 				detail: [file, e.target.result],
 			}));
+		};
 
-		});
 		reader.readAsArrayBuffer(file);
+	}
+
+	/** @type {function(File, string)} */ #readAsText;
+	/** @param {function(File, string)} func */
+	set readAsText(func) {
+		this.#readAsText = func;
+	}
+	/** @return {function(File, string)} */
+	get readAsText(){
+		return this.#readAsText;
 	}
 
 	/** @param {Event} e */

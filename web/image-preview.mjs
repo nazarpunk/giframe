@@ -140,9 +140,8 @@ export class ImagePreview extends HTMLElement {
 					background-size: 10px 1px, 1px 10px;
 				}
 
-
 				.loader {
-					transform: rotateZ(45deg) translateX(-50%) translateY(-50%);
+					transform: translateX(-50%) translateY(-50%) rotateZ(45deg);
 					perspective: 1000px;
 					border-radius: 50%;
 					width: 48px;

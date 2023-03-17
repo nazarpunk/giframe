@@ -54,6 +54,12 @@ export class MDX {
 	/** @type {Error[]} */ errors = [];
 	/** @type {Chunk[]} */ chunks = [];
 
+	/** {@type {Chunk}} */ #geosets;
+
+	get geoset () {
+		return this.#geosets?.items[0];
+	}
+
 	read() {
 		const view = new DataView(this.buffer);
 
@@ -94,7 +100,7 @@ export class MDX {
 					this.textures = add(Texture);
 					break;
 				case Chunk.GEOS:
-					this.geosets = add(Geoset, true);
+					this.#geosets = add(Geoset, true);
 					break;
 				case Chunk.GEOA:
 					this.geosetAnimations = add(GeosetAnimation, true);
@@ -203,7 +209,7 @@ export class MDX {
 			globalSequences: this.globalSequences,
 			materials: this.materials,
 			textures: this.textures,
-			geosets: this.geosets,
+			geoset: this.geoset,
 			bones: this.bones,
 			helper: this.helpers,
 			attachments: this.attachments,

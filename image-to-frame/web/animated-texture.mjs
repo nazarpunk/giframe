@@ -1,7 +1,7 @@
 // noinspection CssUnusedSymbol
 
 import {GIF} from "../../gif/GIF.mjs";
-import {ErrorMessage} from "../split/web/error-message.mjs";
+import {ErrorMessage} from "../../web/error-message.mjs";
 import {GrowingPacker} from "../../utils/growing-packer.mjs";
 import {ImagePreview} from "../../web/image-preview.mjs";
 
@@ -41,9 +41,7 @@ export class AnimatedTexture extends HTMLElement {
 		this.gif.parse();
 
 		if (this.gif.errors.length) {
-			const em = new ErrorMessage();
-			em.errors = this.gif.errors;
-			this.#shadow.appendChild(em);
+			ErrorMessage.fromErrors(this.gif.errors, this.#shadow);
 		}
 
 		this.#container.style.width = `${this.gif.width}px`;
@@ -87,15 +85,17 @@ export class AnimatedTexture extends HTMLElement {
 
 		this.#container.classList.remove('loading');
 
+		let time = 0;
 		{
 			const list = [];
 
 			for (const item of this.packer.items) {
 				const i = item.index;
 				const delay = i > 0 ? this.gif.frames[i - 1].delay : 0;
-
-				list.push([`${i * (delay / this.gif.duration * 100)}% {transform:translate(${item.x / this.packer.width * -100}%,${item.y / this.packer.height * -100}%)}\n`]);
+				list.push(`${time * 100}% {transform:translate(${item.x / this.packer.width * -100}%,${item.y / this.packer.height * -100}%)}\n`);
+				time += delay / this.gif.duration;
 			}
+			list.push(`100% {transform:translate(0,0)}\n`);
 
 			this.#style.textContent = `.${this.#styleClass} {animation: ${this.#styleClass} ${Math.round(this.gif.duration * 10)}ms steps(1) infinite; }\n@keyframes ${this.#styleClass} {\n${list.join('')}}`;
 		}

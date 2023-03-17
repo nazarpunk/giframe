@@ -6,6 +6,7 @@ import {Cyberlink} from "../../web/cyberlink.mjs";
 import {nextDivisible, nextPow2} from "../../utils/utils.mjs";
 import {InterpolationTrack} from "../../mdx/parser/Interpolation.mjs";
 import {Float32List} from "../../mdx/parser/Float.mjs";
+import {MDX} from "../../mdx/MDX.mjs";
 
 export class FrameModel extends HTMLElement {
 	constructor() {
@@ -24,9 +25,8 @@ export class FrameModel extends HTMLElement {
 	 * @param {ArrayBuffer} buffer
 	 */
 	async add(file, buffer) {
-		const header = new RibbonHeader();
-		header.text = file.name;
-		this.#shadow.appendChild(header);
+
+		RibbonHeader.fromText(file.name, this.#shadow);
 
 		const texture = new AnimatedTexture();
 		texture.buffer = buffer;
@@ -47,14 +47,14 @@ export class FrameModel extends HTMLElement {
 		buttons.appendChild(mdx);
 		mdx.color = 'red';
 		mdx.text = 'MDX';
-		mdx.addEventListener('click', () => {
+		mdx.addEventListener('click', async () => {
 			this.model.textures.items[0].filename.value = `${filename}.${toggler.active ? 'dds' : 'blp'}`;
 
 			const iw = texture.gif.width;
 			const ih = texture.gif.height;
 
 			// geoset
-			const geoset = this.model.geosets.items[0];
+			const geoset = this.model.geoset;
 			const sets = geoset.textureCoordinateSets.items[0].items;
 			sets[0].value = iw / pw;
 			sets[1].value = ih / ph;
@@ -115,6 +115,17 @@ export class FrameModel extends HTMLElement {
 			seqs.intervalEnd.value = time;
 			seqs.minimumExtent.list = model.minimumExtent.list;
 			seqs.maximumExtent.list = model.maximumExtent.list;
+
+			if (location.host.indexOf('localhost') === 0) {
+				const response = await fetch(`images/sweaty-gamer-speedrun-whipping.mdx`);
+				const modelBuffer = await response.arrayBuffer();
+				const test = new MDX(modelBuffer);
+				test.read();
+
+				console.log(1,this.model.geoset);
+				console.log(2,test.geoset);
+				return;
+			}
 
 			const a = document.createElement('a');
 			a.href = URL.createObjectURL(new Blob([this.model.write()]));

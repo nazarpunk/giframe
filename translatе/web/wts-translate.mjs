@@ -31,15 +31,18 @@ export class WtsTranslate extends HTMLElement {
 		this.#send();
 	}
 
-	async #send(){
-		const url = new URL('api/v1.5/tr.json/translate', 'https://translate.yandex.net');
-		url.search = new URLSearchParams({
-			text: this.#ta.value,
-			key: this.#key.value,
-			lang: 'en-ru',
-		}).toString();
+	async #send() {
+		// https://cloud.yandex.ru/docs/translate/api-ref/Translation/translate
+		const formData = new FormData();
+		formData.set('sourceLanguageCode', 'en');
+		formData.set('targetLanguageCode', 'ru');
+		formData.set('texts[]', this.#ta.value);
 
-		const request = await fetch(url.toString(), {method: 'get'});
+		const request = await fetch('https://translate.api.cloud.yandex.net/translate/v2/translate', {
+			headers: {Authentication: `Bearer ${this.#key.value}`},
+			method: 'post',
+			body: formData,
+		});
 		const response = await request.text();
 
 		console.log(response);
@@ -79,12 +82,12 @@ sheet.replaceSync(
 			align-items: center;
 			gap: 1rem;
 		}
-		
+
 		textarea {
 			height: 100%;
 			resize: vertical;
 		}
-		
+
 	`);
 
 customElements.define('wts-translate', WtsTranslate);

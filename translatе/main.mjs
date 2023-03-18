@@ -15,7 +15,7 @@ const input = document.createElement('input');
 input.classList.add('key-input');
 document.body.appendChild(input);
 input.value = key;
-
+input.value = '1b58c185.6415be34.9cce44e7.74722d74657874-0-0';
 
 /**
  * @param {File} file

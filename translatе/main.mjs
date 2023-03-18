@@ -9,6 +9,14 @@ const dropzone = new Dropzone();
 dropzone.accept = '.wts';
 document.body.appendChild(dropzone);
 
+const key = 'trnsl.1.1.20160820T064946Z.14df1873a2a59784.ed80e4711ea99e81c36aaf18c4fdd4dd7de857c7';
+
+const input = document.createElement('input');
+input.classList.add('key-input');
+document.body.appendChild(input);
+input.value = key;
+
+
 /**
  * @param {File} file
  * @param {string} text

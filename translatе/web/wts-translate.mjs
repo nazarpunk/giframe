@@ -24,13 +24,34 @@ export class WtsTranslate extends HTMLElement {
 
 		this.#tb = document.createElement('textarea');
 		this.#shadow.appendChild(this.#tb);
+
+		this.#key = document.body.querySelector('.key-input');
+
+		// noinspection JSIgnoredPromiseFromCall
+		this.#send();
 	}
+
+	async #send(){
+		const url = new URL('api/v1.5/tr.json/translate', 'https://translate.yandex.net');
+		url.search = new URLSearchParams({
+			text: this.#ta.value,
+			key: this.#key.value,
+			lang: 'en-ru',
+		}).toString();
+
+		const request = await fetch(url.toString(), {method: 'get'});
+		const response = await request.text();
+
+		console.log(response);
+	}
+
 
 	/** @type {number} */ #id;
 	/** @type {Map<number,string>} */ #map;
 	/** @type {ShadowRoot} */ #shadow;
 	/** @type {HTMLTextAreaElement} */ #ta;
 	/** @type {HTMLTextAreaElement} */ #tb;
+	/** @type {HTMLInputElement} */ #key;
 
 	/**
 	 * @param {Map<number,string>} map

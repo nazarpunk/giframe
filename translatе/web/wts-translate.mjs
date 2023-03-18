@@ -45,6 +45,17 @@ export class WtsTranslate extends HTMLElement {
 		});
 		const response = await request.text();
 
+		/*
+		{
+  "translations": [
+    {
+      "text": "string",
+      "detectedLanguageCode": "string"
+    }
+  ]
+}
+		 */
+
 		console.log(response);
 	}
 

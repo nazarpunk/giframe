@@ -38,8 +38,8 @@ dropzone.readAsText = (file, text) => {
 		map.set(id, match[2]);
 		WtsTranslate.fromMap(map, id, document.body);
 	}
-
 };
+
 
 if (location.host.indexOf('localhost') === 0) {
 	let name;

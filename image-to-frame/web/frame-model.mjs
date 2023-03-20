@@ -56,16 +56,19 @@ export class FrameModel extends HTMLElement {
 			// geoset
 			const geoset = this.model.geoset;
 			const sets = geoset.textureCoordinateSets.items[0].items;
-			sets[0].value = iw / pw;
-			sets[1].value = ih / ph;
+			const x = iw / pw;
+			const y = ih / ph;
 
-			sets[2].value = sets[0].value;
+			sets[0].value = x;
+			sets[1].value = y;
+
+			sets[2].value = 0;
 			sets[3].value = 0;
 
 			sets[4].value = 0;
-			sets[5].value = sets[1].value;
+			sets[5].value = y;
 
-			sets[6].value = 0;
+			sets[6].value = x;
 			sets[7].value = 0;
 
 			// vertex
@@ -117,7 +120,7 @@ export class FrameModel extends HTMLElement {
 			seqs.maximumExtent.list = model.maximumExtent.list;
 
 			if (location.host.indexOf('localhost') === 0) {
-				const response = await fetch(`images/sweaty-gamer-speedrun-whipping.mdx`);
+				const response = await fetch(`images/cat_walk.mdx`);
 				const modelBuffer = await response.arrayBuffer();
 				const test = new MDX(modelBuffer);
 				test.read();

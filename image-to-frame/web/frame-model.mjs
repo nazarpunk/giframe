@@ -117,7 +117,7 @@ export class FrameModel extends HTMLElement {
 				const frame = texture.gif.frames[item.index];
 				const t = new InterpolationTrack(translations);
 				t.time = time;
-				time += frame.delay;
+				time += frame.delay * 10;
 				t.value = new Float32List(3);
 				t.value.list = [item.x / pw, item.y / ph, 0];
 				translations.items.push(t);
@@ -129,13 +129,16 @@ export class FrameModel extends HTMLElement {
 			seqs.maximumExtent.list = model.maximumExtent.list;
 
 			if (location.host.indexOf('localhost') === 0) {
-				const response = await fetch(`images/cat_walk.mdx`);
+				const response = await fetch(`images/anime.mdx`);
 				const modelBuffer = await response.arrayBuffer();
 				const test = new MDX(modelBuffer);
 				test.read();
 
-				console.log(1,this.model.geoset);
-				console.log(2,test.geoset);
+				console.log(1,this.model.sequences.items[0]);
+				console.log(2,test.sequences.items[0]);
+
+				//console.log(1,this.model.textureAnimations.items[0].translations);
+				//console.log(1,test.textureAnimations.items[0].translations);
 				return;
 			}
 

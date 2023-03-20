@@ -51,7 +51,8 @@ dropzone.addEventListener('bufferupload', async e => {
 if (location.host.indexOf('localhost') === 0) {
 	//const name = 'boobs2.gif';
 	//const name = 'sweaty-gamer-speedrun-whipping.gif';
-	const name = 'cat_walk.gif';
+	//const name = 'cat_walk.gif';
+	const name = 'anime.gif';
 	const response = await fetch(`images/${name}`);
 	const buffer = await response.arrayBuffer();
 

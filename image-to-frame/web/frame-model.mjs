@@ -92,6 +92,15 @@ export class FrameModel extends HTMLElement {
 			pos[10].value = vh;
 			pos[11].value = 0;
 
+			// faces
+			const face = geoset.faces.items;
+			face[0].value = 0;
+			face[1].value = 1;
+			face[2].value = 2;
+			face[3].value = 0;
+			face[4].value = 3;
+			face[5].value = 1;
+
 			// extent
 			const model = this.model.model.items[0];
 			model.minimumExtent.list = [-vw, -vh, 0];

@@ -110,6 +110,7 @@ export class ImagePreview extends HTMLElement {
 					box-shadow: 0 0 10px black;
 					position: relative;
 					max-width: 100%;
+					align-self: flex-start;
 				}
 
 				canvas {

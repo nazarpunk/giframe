@@ -28,19 +28,22 @@ export class WtsTranslate extends HTMLElement {
 
 	async #send() {
 		// https://cloud.yandex.ru/docs/translate/api-ref/Translation/translate
-		const request = new XMLHttpRequest();
-		request.open('POST', 'https://translate.api.cloud.yandex.net/translate/v2/translate', true);
-		request.setRequestHeader('Authorization', `Bearer ${this.#keys.token}`);
-		request.setRequestHeader('Content-Type', 'application/json');
-		request.onload = r => {
-			const data = JSON.parse(r.target.response);
-			this.#tb.value = data.translations[0].text;
-		};
-		request.send(JSON.stringify({
-			targetLanguageCode: 'ru',
-			folderId: this.#keys.folder,
-			texts: [this.#ta.value],
-		}).toString());
+
+		const request = await fetch(
+			'https://translate.api.cloud.yandex.net/translate/v2/translate', {
+				headers: {
+					Authorization: `Bearer ${this.#keys.token}`,
+					'Content-Type': 'application/json',
+				},
+				method: 'post', body: JSON.stringify({
+					targetLanguageCode: 'ru',
+					folderId: this.#keys.folder,
+					texts: [this.#ta.value],
+				}).toString()
+			});
+
+		const response = await request.json();
+		this.#tb.value = response.translations[0].text;
 	}
 
 	/** @type {number} */ id;

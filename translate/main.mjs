@@ -4,18 +4,15 @@ import {Dropzone} from "../web/dropzone.mjs";
 import {RibbonHeader} from "../web/ribbon-header.mjs";
 import {ErrorMessage} from "../web/error-message.mjs";
 import {WtsTranslate} from "./web/wts-translate.mjs";
+import {YaInput} from "./web/ya-input.mjs";
+import {Cyberlink} from "../web/cyberlink.mjs";
 
 const dropzone = new Dropzone();
 dropzone.accept = '.wts';
 document.body.appendChild(dropzone);
 
-const key = 'trnsl.1.1.20160820T064946Z.14df1873a2a59784.ed80e4711ea99e81c36aaf18c4fdd4dd7de857c7';
-
-const input = document.createElement('input');
-input.classList.add('key-input');
-document.body.appendChild(input);
-input.value = key;
-input.value = '1b58c185.6415be34.9cce44e7.74722d74657874-0-0';
+const ya = new YaInput();
+document.body.appendChild(ya);
 
 /**
  * @param {File} file
@@ -29,6 +26,8 @@ dropzone.readAsText = (file, text) => {
 
 	const map = new Map();
 
+	/** @type {WtsTranslate[]} */ const list = [];
+
 	for (const match of matches) {
 		const id = +match[1];
 		if (map.has(id)) {
@@ -36,8 +35,34 @@ dropzone.readAsText = (file, text) => {
 			continue;
 		}
 		map.set(id, match[2]);
-		WtsTranslate.fromMap(map, id, document.body);
+		list.push(WtsTranslate.fromMap(map, id, document.body, ya));
 	}
+
+	const b = new Cyberlink();
+	b.color = 'green';
+	b.text = 'DOWNLOAD';
+	b.onclick = () => {
+		let out = '';
+		for (const e of list) {
+			out += `STRING ${e.id}\r\n{\r\n${e.translate}\r\n}\r\n\r\n`;
+		}
+		const blob = new Blob([out],
+			{type: "text/plain;charset=utf-8"});
+
+		const a = document.createElement('a');
+		a.href = URL.createObjectURL(blob);
+		a.target = '_blank';
+		a.download = `translate.txt`;
+		a.click();
+	};
+
+	const buttons = document.createElement('div');
+	buttons.appendChild(b);
+	buttons.classList.add('buttons');
+	buttons.style.display = 'flex';
+	buttons.style.justifyContent = 'center';
+
+	document.body.appendChild(buttons);
 };
 
 

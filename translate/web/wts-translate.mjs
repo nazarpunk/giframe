@@ -7,25 +7,20 @@ export class WtsTranslate extends HTMLElement {
 		this.#shadow = this.attachShadow({mode: 'open'});
 		this.#shadow.adoptedStyleSheets = [sheet];
 
-	}
-
-	// noinspection JSUnusedGlobalSymbols
-	connectedCallback() {
-		const id = document.createElement('div');
-		id.classList.add('label');
-		id.textContent = `${this.#id}`;
-		this.#shadow.appendChild(id);
-
-		const value = this.#map.get(this.#id);
+		this.#id = document.createElement('div');
+		this.#id.classList.add('label');
+		this.#shadow.appendChild(this.#id);
 
 		this.#ta = document.createElement('textarea');
-		this.#ta.value = value;
 		this.#shadow.appendChild(this.#ta);
 
 		this.#tb = document.createElement('textarea');
 		this.#shadow.appendChild(this.#tb);
+	}
 
-		this.#key = document.body.querySelector('.key-input');
+	send() {
+		this.#id.textContent = `${this.id}`;
+		this.#ta.value = this.#map.get(this.id);
 
 		// noinspection JSIgnoredPromiseFromCall
 		this.#send();
@@ -33,51 +28,48 @@ export class WtsTranslate extends HTMLElement {
 
 	async #send() {
 		// https://cloud.yandex.ru/docs/translate/api-ref/Translation/translate
-		const formData = new FormData();
-		formData.set('sourceLanguageCode', 'en');
-		formData.set('targetLanguageCode', 'ru');
-		formData.set('texts[]', this.#ta.value);
-
-		const request = await fetch('https://translate.api.cloud.yandex.net/translate/v2/translate', {
-			headers: {Authentication: `Bearer ${this.#key.value}`},
-			method: 'post',
-			body: formData,
-		});
-		const response = await request.text();
-
-		/*
-		{
-  "translations": [
-    {
-      "text": "string",
-      "detectedLanguageCode": "string"
-    }
-  ]
-}
-		 */
-
-		console.log(response);
+		const request = new XMLHttpRequest();
+		request.open('POST', 'https://translate.api.cloud.yandex.net/translate/v2/translate', true);
+		request.setRequestHeader('Authorization', `Bearer ${this.#keys.token}`);
+		request.setRequestHeader('Content-Type', 'application/json');
+		request.onload = r => {
+			const data = JSON.parse(r.target.response);
+			this.#tb.value = data.translations[0].text;
+		};
+		request.send(JSON.stringify({
+			targetLanguageCode: 'ru',
+			folderId: this.#keys.folder,
+			texts: [this.#ta.value],
+		}).toString());
 	}
 
+	/** @type {number} */ id;
 
-	/** @type {number} */ #id;
+	get translate() {
+		return this.#tb.value;
+	}
+
+	/** @type {HTMLElement} */ #id;
 	/** @type {Map<number,string>} */ #map;
 	/** @type {ShadowRoot} */ #shadow;
 	/** @type {HTMLTextAreaElement} */ #ta;
 	/** @type {HTMLTextAreaElement} */ #tb;
-	/** @type {HTMLInputElement} */ #key;
+	/** @type {YaInput} */ #keys;
 
 	/**
 	 * @param {Map<number,string>} map
 	 * @param {number} id
 	 * @param {HTMLElement|ShadowRoot} parent
+	 * @param {YaInput} keys
 	 * @return {WtsTranslate}
 	 */
-	static fromMap(map, id, parent) {
+	static fromMap(map, id, parent, keys) {
 		const wts = new WtsTranslate();
-		wts.#id = id;
+		wts.id = id;
 		wts.#map = map;
+		wts.#keys = keys;
 		parent.appendChild(wts);
+		wts.send();
 		return wts;
 	}
 }

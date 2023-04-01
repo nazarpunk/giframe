@@ -4,6 +4,10 @@ import * as fs from 'fs';
 const DIR = 'models/test';
 const MOVE = true;
 const TEMP = 'models/temp';
+const EXCLUDE = [
+    'ex',
+    'ex.blp',
+];
 
 const getAllFiles = dir =>
     fs.readdirSync(dir).reduce((files, file) => {
@@ -52,15 +56,37 @@ for (const file of models) {
 
 const textures = getAllFiles(DIR).filter(f => ['.blp', '.dds'].indexOf(path.extname(f)) >= 0);
 
-for (const t of textures) {
-    if (map.has(t)) continue;
-    if (MOVE) {
-        console.log(`Move: ${t}`);
-        const name = t.startsWith(DIR) ? t.slice(DIR.length) : t;
-        const p = path.join(TEMP, name);
-        fs.mkdirSync(path.dirname(p), {recursive: true});
-        fs.renameSync(t, p);
+console.log(EXCLUDE);
+
+const folders = [];
+
+for (const e of EXCLUDE) {
+    const p = path.join(DIR, e);
+
+    if (path.extname(p).length === 0) {
+        folders.push(`${p}${path.sep}`);
     } else {
-        console.log(`Found: ${t}`);
+        map.set(p, true);
     }
+
 }
+
+loop:
+    for (const t of textures) {
+        if (map.has(t)) continue;
+
+        for (const f of folders) {
+            console.log(t, f);
+            if (t.startsWith(f)) continue loop;
+        }
+
+        if (MOVE) {
+            console.log(`Move: ${t}`);
+            const name = t.startsWith(DIR) ? t.slice(DIR.length) : t;
+            const p = path.join(TEMP, name);
+            fs.mkdirSync(path.dirname(p), {recursive: true});
+            fs.renameSync(t, p);
+        } else {
+            console.log(`Found: ${t}`);
+        }
+    }

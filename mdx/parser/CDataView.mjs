@@ -17,16 +17,28 @@ export class CDataView extends DataView {
      */
     cursor;
 
-    getFloat32(byteOffset, littleEndian) {
-        return super.getFloat32(byteOffset, littleEndian);
+    /** @returns {number} */
+    get Uint8() {
+        this.cursor += 1;
+        return super.getUint8(this.cursor - 1);
     }
 
-    getUint8(byteOffset) {
-        return super.getUint8(byteOffset);
+    /** @param {number} v */
+    set Uint8(v) {
+        super.setUint8(this.cursor, v);
+        this.cursor += 1;
     }
 
-    getUint16(byteOffset, littleEndian) {
-        return super.getUint16(byteOffset, littleEndian);
+    /** @returns {number} */
+    get Uint16() {
+        this.cursor += 2;
+        return super.getUint32(this.cursor - 2, true);
+    }
+
+    /** @param {number} v */
+    set Uint16(v) {
+        super.setUint16(this.cursor, v, true);
+        this.cursor += 2;
     }
 
     /** @returns {number} */
@@ -39,6 +51,36 @@ export class CDataView extends DataView {
     set Uint32(v) {
         super.setUint32(this.cursor, v, true);
         this.cursor += 4;
+    }
+
+    /** @returns {number} */
+    get Float32() {
+        this.cursor += 4;
+        return super.getFloat32(this.cursor - 4, true);
+    }
+
+    /** @param {number} v */
+    set Float32(v) {
+        super.setFloat32(this.cursor, v, true);
+        this.cursor += 4;
+    }
+
+    /**
+     * @deprecated
+     * @param {number} byteOffset
+     * @param {number} value
+     */
+    setUint8(byteOffset, value) {
+        super.setUint8(byteOffset, value);
+    }
+
+    /**
+     * @deprecated
+     * @param byteOffset
+     * @returns {number}
+     */
+    getUint8(byteOffset) {
+        return super.getUint8(byteOffset);
     }
 
     /** @returns {number} */
@@ -56,28 +98,6 @@ export class CDataView extends DataView {
     set sizeOffsetExclusive(o) {
         super.setUint32(o, this.cursor - o - 4, true);
     }
-
-
-    /**
-     * @deprecated
-     * @param {number} byteOffset
-     * @param {number} value
-     * @param {boolean} littleEndian
-     */
-    setUint32(byteOffset, value, littleEndian) {
-        super.setUint32(byteOffset, value, littleEndian);
-    }
-
-    /**
-     * @deprecated
-     * @param byteOffset
-     * @param littleEndian
-     * @returns {number}
-     */
-    getUint32(byteOffset, littleEndian) {
-        return super.getUint32(byteOffset, littleEndian);
-    }
-
 }
 
 
@@ -85,24 +105,37 @@ export class CDataView extends DataView {
 export class CDataViewWrite {
     /** @type {number} */ cursor = 0;
 
-    setFloat32(_, __, ___) {}
-
     setUint8(_, __) {}
+
+    set Uint8(_) {
+        this.cursor += 1;
+    }
 
     setUint16(_, __, ___) {}
 
+    set Uint16(_) {
+        this.cursor += 2;
+    }
+
     setUint32(_, __, ___) {}
 
-    // noinspection JSCheckFunctionSignatures
-    /** @returns {number} */
+    set Uint32(_) {
+        this.cursor += 4;
+    }
+
+    setFloat32(_, __, ___) {}
+
+    set Float32(_) {
+        this.cursor += 4;
+    }
+
     get sizeOffset() {
         this.cursor += 4;
         return this.cursor - 4;
     }
 
-    set sizeOffset(_) {}
+    set sizeOffsetInclusive(_) {}
 
-    set Uint32(_) {
-        this.cursor += 4;
-    }
+    set sizeOffsetExclusive(_) {}
+
 }

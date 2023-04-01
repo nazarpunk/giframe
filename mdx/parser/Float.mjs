@@ -3,14 +3,12 @@
 export class Float32 {
     /** @param {CDataView} view */
     read(view) {
-        this.value = view.getFloat32(view.cursor, true);
-        view.cursor += 4;
+        this.value = view.Float32;
     }
 
     /** @param {CDataView} view */
     write(view) {
-        view.setFloat32(view.cursor, this.value, true);
-        view.cursor += 4;
+        view.Float32 = this.value;
     }
 
     toJSON() {
@@ -34,17 +32,15 @@ export class Float32List {
     /** @param {CDataView} view */
     read(view) {
         for (let i = 0; i < this.length; i++) {
-            this.list.push(view.getFloat32(view.cursor, true));
-            view.cursor += 4;
+            this.list.push(view.Float32);
         }
     }
 
     /** @param {CDataView} view */
     write(view) {
-        for (let i = 0; i < this.list.length; i++) {
-            view.setFloat32(view.cursor + i * 4, this.list[i], true);
+        for (const i of this.list) {
+            view.Float32 = i;
         }
-        view.cursor += this.list.length * 4;
     }
 
     toJSON() {

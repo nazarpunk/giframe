@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 const DIR = 'models/test';
-const MOVE = true;
+const MOVE = false;
 const TEMP = 'models/temp';
 const LUA = 'models/test/dd/test.lua';
 
@@ -101,7 +101,7 @@ loop:
 
             const p = path.join(TEMP, name);
             fs.mkdirSync(path.dirname(p), {recursive: true});
-            //fs.renameSync(t, p);
+            fs.renameSync(t, p);
         } else {
             console.log(`Found: ${t}`);
         }

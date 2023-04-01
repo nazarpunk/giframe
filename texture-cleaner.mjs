@@ -2,9 +2,9 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 const DIR = 'models/test';
-const MOVE = true;
+const MOVE = false;
 const TEMP = 'models/temp';
-const LUA = 'models/test/dd/test.lua';
+const LUA = 'models/test/dd/war3map.lua';
 const EXTENSIONS = ['.blp', '.dds'];
 const EXCLUDE = [
     'war3map.blp',
@@ -90,7 +90,7 @@ loop:
 
         if (luaExists) {
             const p = path.parse(name);
-            const n = (p.dir + path.sep + p.name).replaceAll('//', '/').slice(1).replaceAll(path.sep, '\\\\').toLowerCase();
+            const n = path.normalize(p.dir + path.sep + p.name).slice(1).replaceAll(path.sep, '\\\\').toLowerCase();
             if (luaContent.indexOf(n) >= 0) {
                 console.log(`Lua skip: ${name}`);
                 continue;

@@ -96,6 +96,7 @@ loop:
             const n = (p.dir + path.sep + p.name).replaceAll('//', '/').slice(1).replaceAll(path.sep, '\\\\').toLowerCase();
             if (luaContent.indexOf(n) >= 0) {
                 console.log(`Lua skip: ${name}`);
+                continue;
             }
         }
 

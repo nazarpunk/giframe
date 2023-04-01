@@ -63,7 +63,7 @@ for (const e of EXCLUDE) {
     const p = path.join(DIR, e);
 
     if (path.extname(p).length === 0) {
-        folders.push(`${p}${path.sep}`);
+        folders.push(`${p}${path.sep}`.toLowerCase());
     } else {
         map.set(p, true);
     }

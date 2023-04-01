@@ -2,7 +2,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 const DIR = 'models/test';
-const DELETE = false;
+const MOVE = true;
+const TEMP = 'models/temp';
 
 const getAllFiles = dir =>
     fs.readdirSync(dir).reduce((files, file) => {
@@ -53,9 +54,12 @@ const textures = getAllFiles(DIR).filter(f => ['.blp', '.dds'].indexOf(path.extn
 
 for (const t of textures) {
     if (map.has(t)) continue;
-    if (DELETE) {
-        console.log(`Delete: ${t}`);
-        fs.unlinkSync(t);
+    if (MOVE) {
+        console.log(`Move: ${t}`);
+        const name = t.startsWith(DIR) ? t.slice(DIR.length) : t;
+        const p = path.join(TEMP, name);
+        fs.mkdirSync(path.dirname(p), {recursive: true});
+        fs.renameSync(t, p);
     } else {
         console.log(`Found: ${t}`);
     }

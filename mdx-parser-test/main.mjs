@@ -14,9 +14,11 @@ const dropzone = new Dropzone();
 dropzone.accept = '.mdx';
 document.body.appendChild(dropzone);
 
-dropzone.addEventListener('bufferupload', e => {
-    const [file, buffer] = /** @type [File, ArrayBuffer] */ e.detail;
-
+/**
+ * @param {File} file
+ * @param {ArrayBuffer} buffer
+ */
+const addFile = (file, buffer) => {
     const m = new Model(file.name);
 
     m.log('🏁 Начинаем парсинг.');
@@ -51,6 +53,15 @@ dropzone.addEventListener('bufferupload', e => {
 
     m.buttons.style.removeProperty('display');
 
+    const geo = model.geosets[0];
+
+    //console.log(model.textures);
+    console.log(geo.textureCoordinateSets);
+};
+
+dropzone.addEventListener('bufferupload', e => {
+    const [file, buffer] = /** @type [File, ArrayBuffer] */ e.detail;
+    addFile(file, buffer);
 });
 
 class Model {
@@ -91,4 +102,12 @@ class Model {
         p.textContent = text;
         this.logger.appendChild(p);
     }
+}
+
+if (location.host.indexOf('localhost') === 0) {
+    const name = 'Arthas.mdx';
+    const response = await fetch(`../models/${name}`);
+    const buffer = await response.arrayBuffer();
+
+    await addFile(new File([], name), buffer);
 }

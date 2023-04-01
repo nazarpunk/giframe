@@ -1,6 +1,6 @@
 /** @module MDX */
 
-import {Geoset} from './data/Geoset.mjs';
+import {Geoset} from './data/Geoset/Geoset.mjs';
 import {PivotPoint} from './data/PivotPoint.mjs';
 import {Attachment} from './data/Attachment.mjs';
 import {RibbonEmitter} from './data/RibbonEmitter.mjs';
@@ -51,8 +51,16 @@ export class MDX {
 
     /** {@type {Chunk}} */ #geosets;
 
-    get geoset() {
-        return this.#geosets?.items[0];
+    /** @returns {Geoset[]} */
+    get geosets() {
+        return this.#geosets?.items;
+    }
+
+    /** {@type {Chunk}} */ #textures;
+
+    /** @returns {Texture[]} */
+    get textures() {
+        return this.#textures?.items;
     }
 
     read() {
@@ -92,7 +100,7 @@ export class MDX {
                     this.materials = add(Material, true);
                     break;
                 case Chunk.TEXS:
-                    this.textures = add(Texture);
+                    this.#textures = add(Texture);
                     break;
                 case Chunk.GEOS:
                     this.#geosets = add(Geoset, true);
@@ -164,6 +172,7 @@ export class MDX {
             }
         }
 
+        console.log(this.textures);
         //console.log(this.errors);
     }
 
@@ -205,7 +214,7 @@ export class MDX {
             globalSequences: this.globalSequences,
             materials: this.materials,
             textures: this.textures,
-            geoset: this.geoset,
+            geosets: this.geoset,
             bones: this.bones,
             helper: this.helpers,
             attachments: this.attachments,

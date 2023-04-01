@@ -1,16 +1,22 @@
 /** @module MDX */
 
-import {Uint16, Uint32, Uint8} from '../parser/Uint.mjs';
-import {Char} from '../parser/Char.mjs';
-import {Extent} from './Extent.mjs';
-import {Float32} from '../parser/Float.mjs';
-import {Parser} from '../parser/Parser.mjs';
-import {Chunk} from '../parser/Chunk.mjs';
-import {int2s} from '../utils/hex.mjs';
+import {Uint16, Uint32, Uint8} from '../../parser/Uint.mjs';
+import {Char} from '../../parser/Char.mjs';
+import {Extent} from '../Extent.mjs';
+import {Float32} from '../../parser/Float.mjs';
+import {Parser} from '../../parser/Parser.mjs';
+import {Chunk} from '../../parser/Chunk.mjs';
+import {int2s} from '../../utils/hex.mjs';
 
 export class Geoset {
 
     /** @type {Vers} */ vers;
+
+    #textureCoordinateSets;
+
+    get textureCoordinateSets() {
+        return this.#textureCoordinateSets?.items[0]?.items;
+    }
 
     /** @param {DataView} view */
     read(view) {
@@ -37,7 +43,7 @@ export class Geoset {
             this.tangents = this.parser.add(new Child(Chunk.TANG, Float32, 4, true));
             this.skins = this.parser.add(new Child(Chunk.SKIN, Uint8, 1, true));
         }
-        this.textureCoordinateSets = this.parser.add(new Child(Chunk.UVAS, new Child(Chunk.UVBS, Float32, 2)));
+        this.#textureCoordinateSets = this.parser.add(new Child(Chunk.UVAS, new Child(Chunk.UVBS, Float32, 2)));
 
         this.parser.read(view);
     }
@@ -76,11 +82,13 @@ class Child {
         this.key = key;
         any && (this.id = key);
         this.child = child.copy ? child.copy() : child;
-        this._lx = lx;
+        this.#lx = lx;
     }
 
+    /** @type {number} */ #lx;
+
     copy() {
-        return new this.constructor(this.key, this.child, this._lx);
+        return new this.constructor(this.key, this.child, this.#lx);
     }
 
     items = [];
@@ -93,7 +101,7 @@ class Child {
                 throw new Error(`ChunkCountInclusive wrong id: ${int2s(this.key)} != ${int2s(id)}`);
             }
         }
-        this.length = view.Uint32 * this._lx;
+        this.length = view.Uint32 * this.#lx;
 
         for (let i = 0; i < this.length; i++) {
             const p = typeof this.child === 'object' ? this.child : new this.child();
@@ -107,7 +115,7 @@ class Child {
         if (this.key) {
             view.Uint32 = this.key;
         }
-        view.Uint32 = this.items.length / this._lx;
+        view.Uint32 = this.items.length / this.#lx;
 
         for (const i of this.items) {
             (i.write ? i : i.parser).write(view);

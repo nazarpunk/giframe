@@ -5,6 +5,7 @@ const DIR = 'models/test';
 const MOVE = true;
 const TEMP = 'models/temp';
 const LUA = 'models/test/dd/test.lua';
+const EXTENSIONS = ['.blp', '.dds'];
 const EXCLUDE = [
     'war3map.blp',
 ];
@@ -16,7 +17,7 @@ const getAllFiles = dir =>
         return isDirectory ? [...files, ...getAllFiles(name)] : [...files, name];
     }, []);
 
-const models = getAllFiles(DIR).filter(f => path.extname(f) === '.mdx');
+const models = getAllFiles(DIR).filter(f => path.extname(f).toLowerCase() === '.mdx');
 
 const map = new Map();
 
@@ -55,7 +56,7 @@ for (const file of models) {
     }
 }
 
-const textures = getAllFiles(DIR).filter(f => ['.blp', '.dds'].indexOf(path.extname(f)) >= 0);
+const textures = getAllFiles(DIR).filter(f => EXTENSIONS.indexOf(path.extname(f).toLowerCase()) >= 0);
 
 const folders = [];
 
@@ -81,7 +82,7 @@ console.log('💀 START CLEAN');
 
 loop:
     for (const t of textures) {
-        const  lt = t.toLowerCase();
+        const lt = t.toLowerCase();
         if (map.has(lt)) continue;
 
         for (const f of folders) {

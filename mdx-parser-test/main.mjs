@@ -105,7 +105,7 @@ class Model {
 }
 
 if (location.host.indexOf('localhost') === 0) {
-    const name = 'Arthas.mdx';
+    const name = 'Arthas.MDX';
     const response = await fetch(`../models/${name}`);
     const buffer = await response.arrayBuffer();
 

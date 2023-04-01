@@ -2,11 +2,12 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 const DIR = 'models/test';
-const MOVE = false;
+const MOVE = true;
 const TEMP = 'models/temp';
+const LUA = 'models/test/dd/test.lua';
+
 const EXCLUDE = [
-    'ex',
-    'ex.blp',
+    'war3map.blp',
 ];
 
 const getAllFiles = dir =>
@@ -21,7 +22,7 @@ const models = getAllFiles(DIR).filter(f => path.extname(f) === '.mdx');
 const map = new Map();
 
 for (const file of models) {
-    console.log(`Read file: ${file}`);
+    console.log(`Read: ${file}`);
     const data = fs.readFileSync(file);
     const buffer = new ArrayBuffer(data.length);
     data.copy(new Uint8Array(buffer));
@@ -56,8 +57,6 @@ for (const file of models) {
 
 const textures = getAllFiles(DIR).filter(f => ['.blp', '.dds'].indexOf(path.extname(f)) >= 0);
 
-console.log(EXCLUDE);
-
 const folders = [];
 
 for (const e of EXCLUDE) {
@@ -71,22 +70,40 @@ for (const e of EXCLUDE) {
 
 }
 
+let moved = 0;
+const luaExists = fs.existsSync(LUA);
+let luaContent;
+if (luaExists) {
+    luaContent = fs.readFileSync(LUA, 'utf8');
+}
+
 loop:
     for (const t of textures) {
         if (map.has(t)) continue;
 
         for (const f of folders) {
-            console.log(t, f);
             if (t.startsWith(f)) continue loop;
         }
 
+        const name = t.startsWith(DIR) ? t.slice(DIR.length) : t;
+
+        if (luaExists) {
+            const p = path.parse(name);
+            const n = (p.dir + path.sep + p.name).replaceAll('//', '/').slice(1).replaceAll(path.sep, '\\\\');
+            if (luaContent.indexOf(n) >= 0) {
+                console.log(`Lua skip: ${n}`);
+            }
+        }
+
         if (MOVE) {
+            moved++;
             console.log(`Move: ${t}`);
-            const name = t.startsWith(DIR) ? t.slice(DIR.length) : t;
+
             const p = path.join(TEMP, name);
             fs.mkdirSync(path.dirname(p), {recursive: true});
-            fs.renameSync(t, p);
+            //fs.renameSync(t, p);
         } else {
             console.log(`Found: ${t}`);
         }
     }
+console.log(`Files moved: ${moved}`);

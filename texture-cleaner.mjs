@@ -36,17 +36,14 @@ for (const file of models) {
         if (key === 0x53584554) {
             const end = byteOffset + byteLength;
             for (let i = byteOffset; i < end; i += 268) {
-                const s = [];
+                let s = '';
                 for (let k = 4; k < 264; k++) {
-                    s.push(String.fromCharCode(view.getUint8(i + k)));
-                }
-                for (let j = s.length - 1; j >= 0; j--) {
-                    if (s[j] !== '\x00') break;
-                    s.length -= 1;
+                    const b = view.getUint8(i + k);
+                    if (b === 0x00) break;
+                    s += String.fromCharCode(view.getUint8(i + k));
                 }
                 if (s.length === 0) continue;
-
-                const p = path.normalize(path.join(DIR, s.join('').toLowerCase().replace('\\', path.sep)));
+                const p = path.normalize(path.join(DIR, s.toLowerCase().replace('\\', path.sep)));
                 console.log(`Found texture: ${p}`);
                 map.set(p, true);
             }

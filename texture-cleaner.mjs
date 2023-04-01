@@ -22,7 +22,7 @@ const models = getAllFiles(DIR).filter(f => path.extname(f) === '.mdx');
 const map = new Map();
 
 for (const file of models) {
-    console.log(`Read: ${file}`);
+    console.log(`Read model: ${file}`);
     const data = fs.readFileSync(file);
     const buffer = new ArrayBuffer(data.length);
     data.copy(new Uint8Array(buffer));
@@ -47,6 +47,7 @@ for (const file of models) {
                 if (s.length === 0) continue;
 
                 const p = path.join(DIR, s.join('').toLowerCase().replace('\\', path.sep));
+                console.log(`Found texture: ${p}`);
                 map.set(p, true);
             }
             break;
@@ -76,6 +77,8 @@ let luaContent;
 if (luaExists) {
     luaContent = fs.readFileSync(LUA, 'utf8');
 }
+
+console.log('💀 START CLEAN');
 
 loop:
     for (const t of textures) {

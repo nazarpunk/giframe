@@ -5,7 +5,6 @@ const DIR = 'models/test';
 const MOVE = false;
 const TEMP = 'models/temp';
 const LUA = 'models/test/dd/test.lua';
-
 const EXCLUDE = [
     'war3map.blp',
 ];

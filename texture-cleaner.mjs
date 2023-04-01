@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 const DIR = 'models/test';
-const MOVE = false;
+const MOVE = true;
 const TEMP = 'models/temp';
 const LUA = 'models/test/dd/test.lua';
 const EXCLUDE = [
@@ -80,19 +80,19 @@ if (luaExists) {
 console.log('💀 START CLEAN');
 
 loop:
-    for (let t of textures) {
-        t = t.toLowerCase();
-        if (map.has(t)) continue;
+    for (const t of textures) {
+        const  lt = t.toLowerCase();
+        if (map.has(lt)) continue;
 
         for (const f of folders) {
-            if (t.startsWith(f)) continue loop;
+            if (lt.startsWith(f)) continue loop;
         }
 
         const name = t.startsWith(DIR) ? t.slice(DIR.length) : t;
 
         if (luaExists) {
             const p = path.parse(name);
-            const n = (p.dir + path.sep + p.name).replaceAll('//', '/').slice(1).replaceAll(path.sep, '\\\\');
+            const n = (p.dir + path.sep + p.name).replaceAll('//', '/').slice(1).replaceAll(path.sep, '\\\\').toLowerCase();
             if (luaContent.indexOf(n) >= 0) {
                 console.log(`Lua skip: ${name}`);
             }

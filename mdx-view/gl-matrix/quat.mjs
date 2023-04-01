@@ -426,9 +426,9 @@ export function fromMat3(out, m) {
  * Creates a quaternion from the given euler angle x, y, z.
  *
  * @param {quat} out the receiving quaternion
- * @param {x} Angle to rotate around X axis in degrees.
- * @param {y} Angle to rotate around Y axis in degrees.
- * @param {z} Angle to rotate around Z axis in degrees.
+ * @param {number} x to rotate around X axis in degrees.
+ * @param {number} y to rotate around Y axis in degrees.
+ * @param {number} z to rotate around Z axis in degrees.
  * @returns {quat} out
  * @function
  */

@@ -62,7 +62,7 @@ var JpegImage = (function jpegImage() {
                 p.index++;
                 code.push(p);
                 while (code.length <= i) {
-                    code.push((q = {children: [], index: 0}));
+                    code.push(q = {children: [], index: 0});
                     p.children[p.index] = q.children;
                     p = q;
                 }
@@ -70,7 +70,7 @@ var JpegImage = (function jpegImage() {
             }
             if (i + 1 < length) {
                 // p here points to last code
-                code.push((q = {children: [], index: 0}));
+                code.push(q = {children: [], index: 0});
                 p.children[p.index] = q.children;
                 p = q;
             }
@@ -98,13 +98,13 @@ var JpegImage = (function jpegImage() {
         function readBit() {
             if (bitsCount > 0) {
                 bitsCount--;
-                return (bitsData >> bitsCount) & 1;
+                return bitsData >> bitsCount & 1;
             }
             bitsData = data[offset++];
             if (bitsData == 0xff) {
                 var nextByte = data[offset++];
                 if (nextByte) {
-                    throw 'unexpected marker: ' + ((bitsData << 8) | nextByte).toString(16);
+                    throw 'unexpected marker: ' + (bitsData << 8 | nextByte).toString(16);
                 }
                 // unstuff 0
             }
@@ -128,7 +128,7 @@ var JpegImage = (function jpegImage() {
             while (length > 0) {
                 var bit = readBit();
                 if (bit === null) return;
-                n = (n << 1) | bit;
+                n = n << 1 | bit;
                 length--;
             }
             return n;
@@ -136,7 +136,7 @@ var JpegImage = (function jpegImage() {
 
         function receiveAndExtend(length) {
             var n = receive(length);
-            if (n >= 1 << (length - 1)) return n;
+            if (n >= 1 << length - 1) return n;
             return n + (-1 << length) + 1;
         }
 
@@ -259,7 +259,7 @@ var JpegImage = (function jpegImage() {
         }
 
         function decodeMcu(component, decode, mcu, row, col) {
-            var mcuRow = (mcu / mcusPerLine) | 0;
+            var mcuRow = mcu / mcusPerLine | 0;
             var mcuCol = mcu % mcusPerLine;
             var blockRow = mcuRow * component.v + row;
             var blockCol = mcuCol * component.h + col;
@@ -268,7 +268,7 @@ var JpegImage = (function jpegImage() {
         }
 
         function decodeBlock(component, decode, mcu) {
-            var blockRow = (mcu / component.blocksPerLine) | 0;
+            var blockRow = mcu / component.blocksPerLine | 0;
             var blockCol = mcu % component.blocksPerLine;
             var offset = getBlockBufferOffset(component, blockRow, blockCol);
             decode(component, offset);
@@ -328,7 +328,7 @@ var JpegImage = (function jpegImage() {
 
             // find marker
             bitsCount = 0;
-            marker = (data[offset] << 8) | data[offset + 1];
+            marker = data[offset] << 8 | data[offset + 1];
             if (marker <= 0xff00) {
                 throw 'marker was not found';
             }
@@ -373,7 +373,7 @@ var JpegImage = (function jpegImage() {
                 p[6 + row] == 0 &&
                 p[7 + row] == 0
             ) {
-                t = (dctSqrt2 * p[0 + row] + 512) >> 10;
+                t = dctSqrt2 * p[0 + row] + 512 >> 10;
                 p[0 + row] = t;
                 p[1 + row] = t;
                 p[2 + row] = t;
@@ -386,41 +386,41 @@ var JpegImage = (function jpegImage() {
             }
 
             // stage 4
-            v0 = (dctSqrt2 * p[0 + row] + 128) >> 8;
-            v1 = (dctSqrt2 * p[4 + row] + 128) >> 8;
+            v0 = dctSqrt2 * p[0 + row] + 128 >> 8;
+            v1 = dctSqrt2 * p[4 + row] + 128 >> 8;
             v2 = p[2 + row];
             v3 = p[6 + row];
-            v4 = (dctSqrt1d2 * (p[1 + row] - p[7 + row]) + 128) >> 8;
-            v7 = (dctSqrt1d2 * (p[1 + row] + p[7 + row]) + 128) >> 8;
+            v4 = dctSqrt1d2 * (p[1 + row] - p[7 + row]) + 128 >> 8;
+            v7 = dctSqrt1d2 * (p[1 + row] + p[7 + row]) + 128 >> 8;
             v5 = p[3 + row] << 4;
             v6 = p[5 + row] << 4;
 
             // stage 3
-            t = (v0 - v1 + 1) >> 1;
-            v0 = (v0 + v1 + 1) >> 1;
+            t = v0 - v1 + 1 >> 1;
+            v0 = v0 + v1 + 1 >> 1;
             v1 = t;
-            t = (v2 * dctSin6 + v3 * dctCos6 + 128) >> 8;
-            v2 = (v2 * dctCos6 - v3 * dctSin6 + 128) >> 8;
+            t = v2 * dctSin6 + v3 * dctCos6 + 128 >> 8;
+            v2 = v2 * dctCos6 - v3 * dctSin6 + 128 >> 8;
             v3 = t;
-            t = (v4 - v6 + 1) >> 1;
-            v4 = (v4 + v6 + 1) >> 1;
+            t = v4 - v6 + 1 >> 1;
+            v4 = v4 + v6 + 1 >> 1;
             v6 = t;
-            t = (v7 + v5 + 1) >> 1;
-            v5 = (v7 - v5 + 1) >> 1;
+            t = v7 + v5 + 1 >> 1;
+            v5 = v7 - v5 + 1 >> 1;
             v7 = t;
 
             // stage 2
-            t = (v0 - v3 + 1) >> 1;
-            v0 = (v0 + v3 + 1) >> 1;
+            t = v0 - v3 + 1 >> 1;
+            v0 = v0 + v3 + 1 >> 1;
             v3 = t;
-            t = (v1 - v2 + 1) >> 1;
-            v1 = (v1 + v2 + 1) >> 1;
+            t = v1 - v2 + 1 >> 1;
+            v1 = v1 + v2 + 1 >> 1;
             v2 = t;
-            t = (v4 * dctSin3 + v7 * dctCos3 + 2048) >> 12;
-            v4 = (v4 * dctCos3 - v7 * dctSin3 + 2048) >> 12;
+            t = v4 * dctSin3 + v7 * dctCos3 + 2048 >> 12;
+            v4 = v4 * dctCos3 - v7 * dctSin3 + 2048 >> 12;
             v7 = t;
-            t = (v5 * dctSin1 + v6 * dctCos1 + 2048) >> 12;
-            v5 = (v5 * dctCos1 - v6 * dctSin1 + 2048) >> 12;
+            t = v5 * dctSin1 + v6 * dctCos1 + 2048 >> 12;
+            v5 = v5 * dctCos1 - v6 * dctSin1 + 2048 >> 12;
             v6 = t;
 
             // stage 1
@@ -448,7 +448,7 @@ var JpegImage = (function jpegImage() {
                 p[6 * 8 + col] == 0 &&
                 p[7 * 8 + col] == 0
             ) {
-                t = (dctSqrt2 * p[i + 0] + 8192) >> 14;
+                t = dctSqrt2 * p[i + 0] + 8192 >> 14;
                 p[0 * 8 + col] = t;
                 p[1 * 8 + col] = t;
                 p[2 * 8 + col] = t;
@@ -461,41 +461,41 @@ var JpegImage = (function jpegImage() {
             }
 
             // stage 4
-            v0 = (dctSqrt2 * p[0 * 8 + col] + 2048) >> 12;
-            v1 = (dctSqrt2 * p[4 * 8 + col] + 2048) >> 12;
+            v0 = dctSqrt2 * p[0 * 8 + col] + 2048 >> 12;
+            v1 = dctSqrt2 * p[4 * 8 + col] + 2048 >> 12;
             v2 = p[2 * 8 + col];
             v3 = p[6 * 8 + col];
-            v4 = (dctSqrt1d2 * (p[1 * 8 + col] - p[7 * 8 + col]) + 2048) >> 12;
-            v7 = (dctSqrt1d2 * (p[1 * 8 + col] + p[7 * 8 + col]) + 2048) >> 12;
+            v4 = dctSqrt1d2 * (p[1 * 8 + col] - p[7 * 8 + col]) + 2048 >> 12;
+            v7 = dctSqrt1d2 * (p[1 * 8 + col] + p[7 * 8 + col]) + 2048 >> 12;
             v5 = p[3 * 8 + col];
             v6 = p[5 * 8 + col];
 
             // stage 3
-            t = (v0 - v1 + 1) >> 1;
-            v0 = (v0 + v1 + 1) >> 1;
+            t = v0 - v1 + 1 >> 1;
+            v0 = v0 + v1 + 1 >> 1;
             v1 = t;
-            t = (v2 * dctSin6 + v3 * dctCos6 + 2048) >> 12;
-            v2 = (v2 * dctCos6 - v3 * dctSin6 + 2048) >> 12;
+            t = v2 * dctSin6 + v3 * dctCos6 + 2048 >> 12;
+            v2 = v2 * dctCos6 - v3 * dctSin6 + 2048 >> 12;
             v3 = t;
-            t = (v4 - v6 + 1) >> 1;
-            v4 = (v4 + v6 + 1) >> 1;
+            t = v4 - v6 + 1 >> 1;
+            v4 = v4 + v6 + 1 >> 1;
             v6 = t;
-            t = (v7 + v5 + 1) >> 1;
-            v5 = (v7 - v5 + 1) >> 1;
+            t = v7 + v5 + 1 >> 1;
+            v5 = v7 - v5 + 1 >> 1;
             v7 = t;
 
             // stage 2
-            t = (v0 - v3 + 1) >> 1;
-            v0 = (v0 + v3 + 1) >> 1;
+            t = v0 - v3 + 1 >> 1;
+            v0 = v0 + v3 + 1 >> 1;
             v3 = t;
-            t = (v1 - v2 + 1) >> 1;
-            v1 = (v1 + v2 + 1) >> 1;
+            t = v1 - v2 + 1 >> 1;
+            v1 = v1 + v2 + 1 >> 1;
             v2 = t;
-            t = (v4 * dctSin3 + v7 * dctCos3 + 2048) >> 12;
-            v4 = (v4 * dctCos3 - v7 * dctSin3 + 2048) >> 12;
+            t = v4 * dctSin3 + v7 * dctCos3 + 2048 >> 12;
+            v4 = v4 * dctCos3 - v7 * dctSin3 + 2048 >> 12;
             v7 = t;
-            t = (v5 * dctSin1 + v6 * dctCos1 + 2048) >> 12;
-            v5 = (v5 * dctCos1 - v6 * dctSin1 + 2048) >> 12;
+            t = v5 * dctSin1 + v6 * dctCos1 + 2048 >> 12;
+            v5 = v5 * dctCos1 - v6 * dctSin1 + 2048 >> 12;
             v6 = t;
 
             // stage 1
@@ -513,7 +513,7 @@ var JpegImage = (function jpegImage() {
         for (i = 0; i < 64; ++i) {
             var index = blockBufferOffset + i;
             var q = p[i];
-            q = q <= -2056 ? 0 : q >= 2024 ? 255 : (q + 2056) >> 4;
+            q = q <= -2056 ? 0 : q >= 2024 ? 255 : q + 2056 >> 4;
             component.blockData[index] = q;
         }
     }
@@ -562,7 +562,7 @@ var JpegImage = (function jpegImage() {
 
         parse: function parse(data) {
             function readUint16() {
-                var value = (data[offset] << 8) | data[offset + 1];
+                var value = data[offset] << 8 | data[offset + 1];
                 offset += 2;
                 return value;
             }
@@ -644,8 +644,8 @@ var JpegImage = (function jpegImage() {
                                 jfif = {
                                     version: {major: appData[5], minor: appData[6]},
                                     densityUnits: appData[7],
-                                    xDensity: (appData[8] << 8) | appData[9],
-                                    yDensity: (appData[10] << 8) | appData[11],
+                                    xDensity: appData[8] << 8 | appData[9],
+                                    yDensity: appData[10] << 8 | appData[11],
                                     thumbWidth: appData[12],
                                     thumbHeight: appData[13],
                                     thumbData: appData.subarray(14, 14 + 3 * appData[12] * appData[13]),
@@ -665,8 +665,8 @@ var JpegImage = (function jpegImage() {
                                 // 'Adobe\x00'
                                 adobe = {
                                     version: appData[6],
-                                    flags0: (appData[7] << 8) | appData[8],
-                                    flags1: (appData[9] << 8) | appData[10],
+                                    flags0: appData[7] << 8 | appData[8],
+                                    flags1: appData[9] << 8 | appData[10],
                                     transformCode: appData[11],
                                 };
                             }
@@ -869,8 +869,8 @@ var JpegImage = (function jpegImage() {
                 var index;
                 for (y = 0; y < height; y++) {
                     for (x = 0; x < width; x++) {
-                        cy = 0 | (y * componentScaleY);
-                        cx = 0 | (x * componentScaleX);
+                        cy = 0 | y * componentScaleY;
+                        cx = 0 | x * componentScaleX;
                         index = cy * samplesPerLine + cx;
                         data[offset] = lineData[index];
                         offset += numComponents;

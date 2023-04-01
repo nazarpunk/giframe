@@ -13,7 +13,7 @@ function bitVal(data, bitCount, index) {
     // only 1, 4 or 8 bits
     const byte = data[Math.floor((index * bitCount) / 8)],
         valsPerByte = 8 / bitCount;
-    return (byte >> (valsPerByte - (index % valsPerByte) - 1)) & ((1 << bitCount) - 1);
+    return byte >> valsPerByte - index % valsPerByte - 1 & (1 << bitCount) - 1;
 }
 
 // node.js have no native ImageData

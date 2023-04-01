@@ -2,24 +2,22 @@
 
 export class Version {
 
-	/** @type {Vers} */ vers;
+    /** @type {Vers} */ vers;
 
-	/** @param {DataView} view */
-	read(view) {
-		this.version = view.getUint32(view.cursor, true);
-		view.cursor += 4;
-		this.vers.version = this.version;
-	}
+    /** @param {CDataView} view */
+    read(view) {
+        this.version = view.Uint32;
+        this.vers.version = this.version;
+    }
 
-	/** @param {DataView} view */
-	write(view) {
-		view.setUint32(view.cursor, this.version, true);
-		view.cursor += 4;
-	}
+    /** @param {CDataView} view */
+    write(view) {
+        view.Uint32 = this.version;
+    }
 
-	toJSON() {
-		return {
-			version: this.version,
-		}
-	}
+    toJSON() {
+        return {
+            version: this.version,
+        };
+    }
 }

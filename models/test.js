@@ -12,13 +12,13 @@ name = 'sprite';
 name = 'DNCAshenValeTerrain';
 name = 'BlackDragon';
 name = 'BlackDragon_Portrait';
-name = 'Footman';
 name = 'candelabra_01.MESH';
 name = 'heroarchmage_ref';
 name = 'heroarchmage';
 name = 'HumanMale';
 name = 'heroarchmage_hd';
 name = 'knight';
+name = 'Footman';
 
 const f1 = `${name}.mdx`;
 const buffer = fs.readFileSync(f1).buffer;

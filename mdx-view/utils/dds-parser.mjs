@@ -153,7 +153,7 @@ function fourCCToInt32(value) {
 }
 
 function int32ToFourCC(value) {
-    return String.fromCharCode(value & 0xff, (value >> 8) & 0xff, (value >> 16) & 0xff, (value >> 24) & 0xff);
+    return String.fromCharCode(value & 0xff, value >> 8 & 0xff, value >> 16 & 0xff, value >> 24 & 0xff);
 }
 
 /**
@@ -177,11 +177,11 @@ var red = new Uint8Array(8);
 var green = new Uint8Array(8);
 
 function dx1Colors(out, color0, color1) {
-    var r0 = ((color0 >> 11) & 31) * dxt5to8;
-    var g0 = ((color0 >> 5) & 63) * dxt6to8;
+    var r0 = (color0 >> 11 & 31) * dxt5to8;
+    var g0 = (color0 >> 5 & 63) * dxt6to8;
     var b0 = (color0 & 31) * dxt5to8;
-    var r1 = ((color1 >> 11) & 31) * dxt5to8;
-    var g1 = ((color1 >> 5) & 63) * dxt6to8;
+    var r1 = (color1 >> 11 & 31) * dxt5to8;
+    var g1 = (color1 >> 5 & 63) * dxt6to8;
     var b1 = (color1 & 31) * dxt5to8;
     // Minimum and maximum colors.
     out[0] = r0;
@@ -194,18 +194,18 @@ function dx1Colors(out, color0, color1) {
     out[7] = 255;
     // Interpolated colors.
     if (color0 > color1) {
-        out[8] = (5 * r0 + 3 * r1) >> 3;
-        out[9] = (5 * g0 + 3 * g1) >> 3;
-        out[10] = (5 * b0 + 3 * b1) >> 3;
+        out[8] = 5 * r0 + 3 * r1 >> 3;
+        out[9] = 5 * g0 + 3 * g1 >> 3;
+        out[10] = 5 * b0 + 3 * b1 >> 3;
         out[11] = 255;
-        out[12] = (5 * r1 + 3 * r0) >> 3;
-        out[13] = (5 * g1 + 3 * g0) >> 3;
-        out[14] = (5 * b1 + 3 * b0) >> 3;
+        out[12] = 5 * r1 + 3 * r0 >> 3;
+        out[13] = 5 * g1 + 3 * g0 >> 3;
+        out[14] = 5 * b1 + 3 * b0 >> 3;
         out[15] = 255;
     } else {
-        out[8] = (r0 + r1) >> 1;
-        out[9] = (g0 + g1) >> 1;
-        out[10] = (b0 + b1) >> 1;
+        out[8] = r0 + r1 >> 1;
+        out[9] = g0 + g1 >> 1;
+        out[10] = b0 + b1 >> 1;
         out[11] = 255;
         out[12] = 0;
         out[13] = 0;
@@ -215,11 +215,11 @@ function dx1Colors(out, color0, color1) {
 }
 
 function dx3Colors(out, color0, color1) {
-    var r0 = ((color0 >> 11) & 31) * dxt5to8;
-    var g0 = ((color0 >> 5) & 63) * dxt6to8;
+    var r0 = (color0 >> 11 & 31) * dxt5to8;
+    var g0 = (color0 >> 5 & 63) * dxt6to8;
     var b0 = (color0 & 31) * dxt5to8;
-    var r1 = ((color1 >> 11) & 31) * dxt5to8;
-    var g1 = ((color1 >> 5) & 63) * dxt6to8;
+    var r1 = (color1 >> 11 & 31) * dxt5to8;
+    var g1 = (color1 >> 5 & 63) * dxt6to8;
     var b1 = (color1 & 31) * dxt5to8;
     // Minimum and maximum colors.
     out[0] = r0;
@@ -229,12 +229,12 @@ function dx3Colors(out, color0, color1) {
     out[4] = g1;
     out[5] = b1;
     // Interpolated colors.
-    out[6] = (5 * r0 + 3 * r1) >> 3;
-    out[7] = (5 * g0 + 3 * g1) >> 3;
-    out[8] = (5 * b0 + 3 * b1) >> 3;
-    out[9] = (5 * r1 + 3 * r0) >> 3;
-    out[10] = (5 * g1 + 3 * g0) >> 3;
-    out[11] = (5 * b1 + 3 * b0) >> 3;
+    out[6] = 5 * r0 + 3 * r1 >> 3;
+    out[7] = 5 * g0 + 3 * g1 >> 3;
+    out[8] = 5 * b0 + 3 * b1 >> 3;
+    out[9] = 5 * r1 + 3 * r0 >> 3;
+    out[10] = 5 * g1 + 3 * g0 >> 3;
+    out[11] = 5 * b1 + 3 * b0 >> 3;
 }
 
 function dx5Alphas(out, alpha0, alpha1) {
@@ -243,17 +243,17 @@ function dx5Alphas(out, alpha0, alpha1) {
     out[1] = alpha1;
     // Interpolated alphas.
     if (alpha0 > alpha1) {
-        out[2] = (54 * alpha0 + 9 * alpha1) >> 6;
-        out[3] = (45 * alpha0 + 18 * alpha1) >> 6;
-        out[4] = (36 * alpha0 + 27 * alpha1) >> 6;
-        out[5] = (27 * alpha0 + 36 * alpha1) >> 6;
-        out[6] = (18 * alpha0 + 45 * alpha1) >> 6;
-        out[7] = (9 * alpha0 + 54 * alpha1) >> 6;
+        out[2] = 54 * alpha0 + 9 * alpha1 >> 6;
+        out[3] = 45 * alpha0 + 18 * alpha1 >> 6;
+        out[4] = 36 * alpha0 + 27 * alpha1 >> 6;
+        out[5] = 27 * alpha0 + 36 * alpha1 >> 6;
+        out[6] = 18 * alpha0 + 45 * alpha1 >> 6;
+        out[7] = 9 * alpha0 + 54 * alpha1 >> 6;
     } else {
-        out[2] = (12 * alpha0 + 3 * alpha1) >> 4;
-        out[3] = (9 * alpha0 + 6 * alpha1) >> 4;
-        out[4] = (6 * alpha0 + 9 * alpha1) >> 4;
-        out[5] = (3 * alpha0 + 12 * alpha1) >> 4;
+        out[2] = 12 * alpha0 + 3 * alpha1 >> 4;
+        out[3] = 9 * alpha0 + 6 * alpha1 >> 4;
+        out[4] = 6 * alpha0 + 9 * alpha1 >> 4;
+        out[5] = 3 * alpha0 + 12 * alpha1 >> 4;
         out[6] = 0;
         out[7] = 255;
     }
@@ -296,13 +296,13 @@ function decodeDxt1(src, width, height) {
             // The offset to the first pixel in the destination.
             var dstI = blockY * 16 * width + blockX * 16;
             // All 32 color bits.
-            var bits = src[i + 4] | (src[i + 5] << 8) | (src[i + 6] << 16) | (src[i + 7] << 24);
+            var bits = src[i + 4] | src[i + 5] << 8 | src[i + 6] << 16 | src[i + 7] << 24;
             for (var row = 0; row < 4; row++) {
                 var rowOffset = row * 8;
                 var dstOffset = dstI + row * width * 4;
                 for (var column = 0; column < 4; column++) {
                     var dstIndex = dstOffset + column * 4;
-                    var colorOffset = ((bits >> (rowOffset + column * 2)) & 3) * 4;
+                    var colorOffset = (bits >> rowOffset + column * 2 & 3) * 4;
                     dst[dstIndex + 0] = dx1colors[colorOffset + 0];
                     dst[dstIndex + 1] = dx1colors[colorOffset + 1];
                     dst[dstIndex + 2] = dx1colors[colorOffset + 2];
@@ -335,11 +335,11 @@ function decodeDxt3(src, width, height) {
                 var colorBits = src[i + 12 + row];
                 for (var column = 0; column < 4; column++) {
                     var dstIndex = dstI + column * 4;
-                    var colorIndex = ((colorBits >> (column * 2)) & 3) * 3;
+                    var colorIndex = (colorBits >> column * 2 & 3) * 3;
                     dst[dstIndex + 0] = dx3colors[colorIndex + 0];
                     dst[dstIndex + 1] = dx3colors[colorIndex + 1];
                     dst[dstIndex + 2] = dx3colors[colorIndex + 2];
-                    dst[dstIndex + 3] = ((alphaBits >> (column * 4)) & 0xf) * dxt4to8;
+                    dst[dstIndex + 3] = (alphaBits >> column * 4 & 0xf) * dxt4to8;
                 }
                 dstI += rowBytes;
             }
@@ -378,8 +378,8 @@ function decodeDxt5(src, width, height) {
                     // Go over four columns.
                     for (var column = 0; column < 4; column++) {
                         var dstIndex = dstI + column * 4;
-                        var colorIndex = ((colorBits >> (column * 2)) & 3) * 3;
-                        var alphaIndex = (alphaBits >> (row * 12 + column * 3)) & 7;
+                        var colorIndex = (colorBits >> column * 2 & 3) * 3;
+                        var alphaIndex = alphaBits >> row * 12 + column * 3 & 7;
                         // Set the pixel.
                         dst[dstIndex + 0] = dx3colors[colorIndex + 0];
                         dst[dstIndex + 1] = dx3colors[colorIndex + 1];
@@ -423,8 +423,8 @@ function decodeRgtc(src, width, height) {
                     for (var column = 0; column < 4; column++) {
                         var dstOffset = dstI + column * 2;
                         var shifts = 3 * (rowOffset + column);
-                        dst[dstOffset * 2 + 0] = red[(redbits >> shifts) & 7];
-                        dst[dstOffset * 2 + 1] = green[(greenbits >> shifts) & 7];
+                        dst[dstOffset * 2 + 0] = red[redbits >> shifts & 7];
+                        dst[dstOffset * 2 + 1] = green[greenbits >> shifts & 7];
                     }
                     // Next row.
                     dstI += rowBytes;

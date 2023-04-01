@@ -2,7 +2,7 @@
 
 export class BindPose {
 
-	/** @param {DataView} view */
+	/** @param {CDataView} view */
 	read(view) {
 		const l = view.byteLength / 4;
 		if (l === 0) {
@@ -14,7 +14,7 @@ export class BindPose {
 		view.cursor += l * 4;
 	}
 
-	/** @param {DataView} view */
+	/** @param {CDataView} view */
 	write(view) {
 		for (let i = 0; i < this.items.length; i++) {
 			view.setFloat32(view.cursor + i * 4, this.items[i], true);

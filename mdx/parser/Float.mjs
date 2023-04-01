@@ -1,13 +1,13 @@
 /** @module MDX */
 
 export class Float32 {
-    /** @param {DataView} view */
+    /** @param {CDataView} view */
     read(view) {
         this.value = view.getFloat32(view.cursor, true);
         view.cursor += 4;
     }
 
-    /** @param {DataView} view */
+    /** @param {CDataView} view */
     write(view) {
         view.setFloat32(view.cursor, this.value, true);
         view.cursor += 4;
@@ -31,7 +31,7 @@ export class Float32List {
 
     /** @type {number[]} */ list = [];
 
-    /** @param {DataView} view */
+    /** @param {CDataView} view */
     read(view) {
         for (let i = 0; i < this.length; i++) {
             this.list.push(view.getFloat32(view.cursor, true));
@@ -39,7 +39,7 @@ export class Float32List {
         }
     }
 
-    /** @param {DataView} view */
+    /** @param {CDataView} view */
     write(view) {
         for (let i = 0; i < this.list.length; i++) {
             view.setFloat32(view.cursor + i * 4, this.list[i], true);

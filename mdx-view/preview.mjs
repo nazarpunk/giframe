@@ -268,7 +268,7 @@ function initCameraMove() {
         if (event.type === 'touchmove') {
             event.preventDefault();
         }
-        if ((event.changedTouches && event.changedTouches.length > 1) || (event.touches && event.touches.length > 1)) {
+        if (event.changedTouches && event.changedTouches.length > 1 || event.touches && event.touches.length > 1) {
             return;
         }
         const [x, y] = coords(event);

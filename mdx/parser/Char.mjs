@@ -12,7 +12,7 @@ export class Char {
 
 	/** @type {string} */ value;
 
-	/** @param {DataView} view */
+	/** @param {CDataView} view */
 	read(view) {
 		const s = [];
 
@@ -29,7 +29,7 @@ export class Char {
 		this.value = s.join('');
 	}
 
-	/** @param {DataView} view */
+	/** @param {CDataView} view */
 	write(view) {
 		const str = this.value.padEnd(this.length, '\x00');
 		for (let i = 0; i < this.length; i++) {

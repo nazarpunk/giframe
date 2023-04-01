@@ -4,7 +4,7 @@
 [image-to-frame/split](https://nazarpunk.github.io/warodel/image-to-frame/split)
 [image-to-frame/pack](https://nazarpunk.github.io/warodel/image-to-frame/pack)
 
-[mdx-view](https://nazarpunk.github.io/warodel/image-to-frame/mdx-view)
+[mdx-view](https://nazarpunk.github.io/warodel/mdx-view)
 
 [translate](https://nazarpunk.github.io/warodel/translate)
 

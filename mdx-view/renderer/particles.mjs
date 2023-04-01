@@ -153,9 +153,9 @@ export class ParticlesController {
     }
 
     initShaders() {
-        const vertex = (this.vertexShader = getShader(this.gl, vertexShader, this.gl.VERTEX_SHADER));
-        const fragment = (this.fragmentShader = getShader(this.gl, fragmentShader, this.gl.FRAGMENT_SHADER));
-        const shaderProgram = (this.shaderProgram = this.gl.createProgram());
+        const vertex = this.vertexShader = getShader(this.gl, vertexShader, this.gl.VERTEX_SHADER);
+        const fragment = this.fragmentShader = getShader(this.gl, fragmentShader, this.gl.FRAGMENT_SHADER);
+        const shaderProgram = this.shaderProgram = this.gl.createProgram();
         this.gl.attachShader(shaderProgram, vertex);
         this.gl.attachShader(shaderProgram, fragment);
         this.gl.linkProgram(shaderProgram);

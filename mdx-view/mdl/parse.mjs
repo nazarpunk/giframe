@@ -665,7 +665,7 @@ function parseNode(state, type, model) {
             node[keyword] = parseString(state);
         } else {
             let val = parseKeyword(state) || parseNumber(state);
-            if ((keyword === 'GeosetId' && val === 'Multiple') || (keyword === 'GeosetAnimId' && val === 'None')) {
+            if (keyword === 'GeosetId' && val === 'Multiple' || keyword === 'GeosetAnimId' && val === 'None') {
                 val = null;
             }
             node[keyword] = val;

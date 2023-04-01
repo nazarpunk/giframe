@@ -779,8 +779,8 @@ export class ModelRenderer {
     }
 
     initSkeletonShaderProgram() {
-        const vertex = (this.skeletonVertexShader = getShader(this.gl, skeletonVertexShader, this.gl.VERTEX_SHADER));
-        const fragment = (this.skeletonFragmentShader = getShader(this.gl, skeletonFragmentShader, this.gl.FRAGMENT_SHADER));
+        const vertex = this.skeletonVertexShader = getShader(this.gl, skeletonVertexShader, this.gl.VERTEX_SHADER);
+        const fragment = this.skeletonFragmentShader = getShader(this.gl, skeletonFragmentShader, this.gl.FRAGMENT_SHADER);
         const shaderProgram = this.gl.createProgram();
         this.gl.attachShader(shaderProgram, vertex);
         this.gl.attachShader(shaderProgram, fragment);
@@ -862,9 +862,9 @@ export class ModelRenderer {
         } else {
             fragmentShaderSource = fragmentShader;
         }
-        const vertex = (this.vertexShader = getShader(this.gl, vertexShaderSource, this.gl.VERTEX_SHADER));
-        const fragment = (this.fragmentShader = getShader(this.gl, fragmentShaderSource, this.gl.FRAGMENT_SHADER));
-        const shaderProgram = (this.shaderProgram = this.gl.createProgram());
+        const vertex = this.vertexShader = getShader(this.gl, vertexShaderSource, this.gl.VERTEX_SHADER);
+        const fragment = this.fragmentShader = getShader(this.gl, fragmentShaderSource, this.gl.FRAGMENT_SHADER);
+        const shaderProgram = this.shaderProgram = this.gl.createProgram();
         this.gl.attachShader(shaderProgram, vertex);
         this.gl.attachShader(shaderProgram, fragment);
         this.gl.linkProgram(shaderProgram);

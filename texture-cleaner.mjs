@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 const DIR = 'models/test';
-const MOVE = true;
+const MOVE = false;
 const TEMP = 'models/temp';
 const EXCLUDE = [
     'ex',

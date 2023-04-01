@@ -74,14 +74,15 @@ let moved = 0;
 const luaExists = fs.existsSync(LUA);
 let luaContent;
 if (luaExists) {
-    luaContent = fs.readFileSync(LUA, 'utf8');
+    luaContent = fs.readFileSync(LUA, 'utf8').toLowerCase();
 }
 
 console.log('💀 START CLEAN');
 
 loop:
-    for (const t of textures) {
-        if (map.has(path.normalize(t))) continue;
+    for (let t of textures) {
+        t = t.toLowerCase();
+        if (map.has(t)) continue;
 
         for (const f of folders) {
             if (t.startsWith(f)) continue loop;

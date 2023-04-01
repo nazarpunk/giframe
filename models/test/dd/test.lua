@@ -1,1 +1,1 @@
-local x = 'ex\\a';
+local x = 'ex\\A';

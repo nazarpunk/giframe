@@ -60,10 +60,10 @@ const textures = getAllFiles(DIR).filter(f => ['.blp', '.dds'].indexOf(path.extn
 const folders = [];
 
 for (const e of EXCLUDE) {
-    const p = path.join(DIR, e);
+    const p = path.join(DIR, e).toLowerCase();
 
     if (path.extname(p).length === 0) {
-        folders.push(`${p}${path.sep}`.toLowerCase());
+        folders.push(`${p}${path.sep}`);
     } else {
         map.set(p, true);
     }

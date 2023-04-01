@@ -22,7 +22,7 @@ const models = getAllFiles(DIR).filter(f => path.extname(f) === '.mdx');
 const map = new Map();
 
 for (const file of models) {
-    console.log(`Read model: ${file}`);
+    console.log(`👉 Read model: ${file}`);
     const data = fs.readFileSync(file);
     const buffer = new ArrayBuffer(data.length);
     data.copy(new Uint8Array(buffer));
@@ -46,7 +46,7 @@ for (const file of models) {
                 }
                 if (s.length === 0) continue;
 
-                const p = path.join(DIR, s.join('').toLowerCase().replace('\\', path.sep));
+                const p = path.normalize(path.join(DIR, s.join('').toLowerCase().replace('\\', path.sep)));
                 console.log(`Found texture: ${p}`);
                 map.set(p, true);
             }
@@ -82,7 +82,7 @@ console.log('💀 START CLEAN');
 
 loop:
     for (const t of textures) {
-        if (map.has(t)) continue;
+        if (map.has(path.normalize(t))) continue;
 
         for (const f of folders) {
             if (t.startsWith(f)) continue loop;
@@ -94,14 +94,13 @@ loop:
             const p = path.parse(name);
             const n = (p.dir + path.sep + p.name).replaceAll('//', '/').slice(1).replaceAll(path.sep, '\\\\');
             if (luaContent.indexOf(n) >= 0) {
-                console.log(`Lua skip: ${n}`);
+                console.log(`Lua skip: ${name}`);
             }
         }
 
         if (MOVE) {
             moved++;
             console.log(`Move: ${t}`);
-
             const p = path.join(TEMP, name);
             fs.mkdirSync(path.dirname(p), {recursive: true});
             fs.renameSync(t, p);
@@ -109,4 +108,4 @@ loop:
             console.log(`Found: ${t}`);
         }
     }
-console.log(`Files moved: ${moved}`);
+console.log(`💋 Files moved: ${moved}`);

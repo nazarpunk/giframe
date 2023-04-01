@@ -16,14 +16,17 @@ const models = getAllFiles(DIR).filter(f => path.extname(f) === '.mdx');
 const map = new Map();
 
 for (const file of models) {
-    const view = new DataView(fs.readFileSync(file).buffer);
+    console.log(`Read file: ${file}`);
+    const data = fs.readFileSync(file);
+    const buffer = new ArrayBuffer(data.length);
+    data.copy(new Uint8Array(buffer));
+    const view = new DataView(buffer);
 
     let byteOffset = 4;
     while (byteOffset < view.byteLength) {
-        let key = view.getUint32(byteOffset, true);
+        const key = view.getUint32(byteOffset, true);
         const byteLength = view.getUint32(byteOffset += 4, true);
         byteOffset += 4;
-
         if (key === 0x53584554) {
             const end = byteOffset + byteLength;
             for (let i = byteOffset; i < end; i += 268) {

@@ -25,8 +25,9 @@ import {FaceEffect} from './data/FaceEffect.mjs';
 import {BindPose} from './data/BindPose.mjs';
 import {Info} from './data/Info.mjs';
 import {Chunk} from './parser/Chunk.mjs';
-import {CDataView, CDataViewWrite} from './parser/CDataView.mjs';
+import {CDataView} from '../utils/CDataView.mjs';
 import {int2s} from './utils/hex.mjs';
+import {CDataViewFake} from '../utils/CDataViewFake.mjs';
 
 /**
  * @callback MDXOnError
@@ -38,9 +39,7 @@ export class Vers {
 }
 
 export class MDX {
-    /**
-     * @param {ArrayBuffer} buffer
-     */
+    /** @param {ArrayBuffer} buffer */
     constructor(buffer) {
         this.buffer = buffer;
     }
@@ -195,7 +194,7 @@ export class MDX {
     write() {
         // noinspection JSValidateTypes
         /** @type {CDataView} */
-        const dvw = new CDataViewWrite();
+        const dvw = new CDataViewFake();
         this.#write(dvw);
 
         const ab = new ArrayBuffer(dvw.cursor);

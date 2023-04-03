@@ -20,67 +20,83 @@ export class CDataView extends DataView {
     /** @returns {number} */
     get Uint8() {
         this.cursor += 1;
-        return super.getUint8(this.cursor - 1);
+        return this.getUint8(this.cursor - 1);
     }
 
     /** @param {number} v */
     set Uint8(v) {
-        super.setUint8(this.cursor, v);
+        this.setUint8(this.cursor, v);
         this.cursor += 1;
     }
 
     /** @returns {number} */
     get Uint16() {
         this.cursor += 2;
-        return super.getUint32(this.cursor - 2, true);
+        return this.getUint32(this.cursor - 2, true);
     }
 
     /** @param {number} v */
     set Uint16(v) {
-        super.setUint16(this.cursor, v, true);
+        this.setUint16(this.cursor, v, true);
         this.cursor += 2;
     }
 
     /** @returns {number} */
     get Uint32() {
         this.cursor += 4;
-        return super.getUint32(this.cursor - 4, true);
+        return this.getUint32(this.cursor - 4, true);
+    }
+
+    /** @returns {number} */
+    get Uint32BE() {
+        this.cursor += 4;
+        return this.getUint32(this.cursor - 4, false);
     }
 
     /** @param {number} v */
     set Uint32(v) {
-        super.setUint32(this.cursor, v, true);
+        this.setUint32(this.cursor, v, true);
+        this.cursor += 4;
+    }
+
+    /** @param {number} v */
+    set Uint32BE(v) {
+        this.setUint32(this.cursor, v, false);
         this.cursor += 4;
     }
 
     /** @returns {number} */
     get Float32() {
         this.cursor += 4;
-        return super.getFloat32(this.cursor - 4, true);
+        return this.getFloat32(this.cursor - 4, true);
     }
 
     /** @param {number} v */
     set Float32(v) {
-        super.setFloat32(this.cursor, v, true);
+        this.setFloat32(this.cursor, v, true);
         this.cursor += 4;
     }
 
-    /**
-     * @deprecated
-     * @param {number} byteOffset
-     * @param {number} value
-     */
-    setUint8(byteOffset, value) {
-        super.setUint8(byteOffset, value);
+    /** @returns {string} */
+    get String() {
+        let s = '';
+        while (this.cursor < this.byteLength) {
+            const b = super.getUint8(this.cursor);
+            this.cursor += 1;
+            if (b === 0) {
+                break;
+            }
+            s += String.fromCharCode(b);
+        }
+        return s;
     }
 
-    /**
-     * @deprecated
-     * @param byteOffset
-     * @returns {number}
-     */
-    getUint8(byteOffset) {
-        return super.getUint8(byteOffset);
+    /** @param {string} s */
+    set String(s) {
+        for (let i = 0; i < s.length; i++) {
+            this.Uint8 = s.charCodeAt(i);
+        }
+        this.Uint8 = 0;
     }
 
     /** @returns {number} */
@@ -101,41 +117,3 @@ export class CDataView extends DataView {
 }
 
 
-/** @extends CDataView */
-export class CDataViewWrite {
-    /** @type {number} */ cursor = 0;
-
-    setUint8(_, __) {}
-
-    set Uint8(_) {
-        this.cursor += 1;
-    }
-
-    setUint16(_, __, ___) {}
-
-    set Uint16(_) {
-        this.cursor += 2;
-    }
-
-    setUint32(_, __, ___) {}
-
-    set Uint32(_) {
-        this.cursor += 4;
-    }
-
-    setFloat32(_, __, ___) {}
-
-    set Float32(_) {
-        this.cursor += 4;
-    }
-
-    get sizeOffset() {
-        this.cursor += 4;
-        return this.cursor - 4;
-    }
-
-    set sizeOffsetInclusive(_) {}
-
-    set sizeOffsetExclusive(_) {}
-
-}

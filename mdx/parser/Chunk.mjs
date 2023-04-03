@@ -1,5 +1,5 @@
 /** @module MDX */
-import {CDataView} from './CDataView.mjs';
+import {CDataView} from '../../utils/CDataView.mjs';
 
 export class Chunk {
     /** @type {Vers} */ vers;

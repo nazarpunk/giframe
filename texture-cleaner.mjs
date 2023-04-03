@@ -40,7 +40,7 @@ for (const file of models) {
                 for (let k = 4; k < 264; k++) {
                     const b = view.getUint8(i + k);
                     if (b === 0x00) break;
-                    s += String.fromCharCode(view.getUint8(i + k));
+                    s += String.fromCharCode(b);
                 }
                 if (s.length === 0) continue;
                 const p = path.normalize(path.join(DIR, s.toLowerCase().replace('\\', path.sep)));

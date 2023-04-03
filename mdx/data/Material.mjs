@@ -6,7 +6,7 @@ import {Parser} from '../parser/Parser.mjs';
 import {Chunk} from '../parser/Chunk.mjs';
 import {Layer} from './Layer.mjs';
 import {int2s} from '../utils/hex.mjs';
-import {CDataView} from '../parser/CDataView.mjs';
+import {CDataView} from '../../utils/CDataView.mjs';
 
 export class Material {
 

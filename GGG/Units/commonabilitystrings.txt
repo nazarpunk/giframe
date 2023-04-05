@@ -1,0 +1,2960 @@
+[AEsd]
+Buffart=,
+TargetArt=Abilities\Spells\NightElf\Starfall\StarfallTarget.mdl
+Targetattach=origin
+
+[AEtr]
+Buffart=,
+TargetArt=Abilities\Spells\NightElf\Tranquility\TranquilityTarget.mdl
+
+[ANmd]
+Buffart=,
+TargetArt=Abilities\Spells\Other\Monsoon\MonsoonBoltTarget.mdl
+Targetattach=origin
+
+[B000]
+Buffart=ReplaceableTextures\CommandButtons\BTNCleavingAttack.blp
+Bufftip=Storm
+TargetArt=Abilities\Spells\Other\Stampede\StampedeMissileDeath.mdl
+
+[B001]
+Buffart=ReplaceableTextures\CommandButtons\BTNStasisTrap.blp
+Bufftip=Self-imposed
+Buffubertip=Attack speed and movement speed increase and deal additional damage.
+TargetArt=Abilities\Weapons\IllidanMissile\IllidanMissile.mdl
+Targetattach=left,hand
+Targetattachcount=1
+
+[B002]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Angel Voice Aura
+Buffubertip=The guts of the 100th edition of the studio
+Spelldetail=2
+TargetArt=war3mapImported\holyaura.mdx
+Targetattach=origin
+
+[B003]
+Buffart=ReplaceableTextures\CommandButtons\BTNAntiMagicShell.blp
+Bufftip=Magician
+Buffubertip=This unit is protected by an anti-magic shell
+TargetArt=Abilities\Spells\Human\ManaShield\ManaShieldCaster.mdl
+Targetattach=origin
+
+[B004]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip=Aura the Traitor
+Buffubertip=They forsake the faith that others gave and the principles that people should keep. Or something like that.
+Spelldetail=2
+TargetArt=war3mapImported\Devil Aura.mdx
+Targetattach=origin
+
+[B005]
+Buffart=ReplaceableTextures\CommandButtons\BTNAntiMagicShell.blp
+Bufftip= Magician
+Buffubertip=This unit is protected by an anti-magic shell. In order to be affected by magic damage
+TargetArt=Abilities\Spells\Human\ManaShield\ManaShieldCaster.mdl
+Targetattach=origin
+
+[B006]
+Buffart=war3mapImported\Zion_E.blp
+Bufftip=Decisive time
+Buffubertip=Zion is determined to make a decisive battle.
+TargetArt=Abilities\Weapons\PhoenixMissile\Phoenix_Missile.mdl
+Targetattach=right,hand
+Targetattachcount=1
+
+[B007]
+Buffart=war3mapImported\BTNMiku_GateofPabilon.blp
+Bufftip=Gate of Pavilion
+Buffubertip=The Gate of Pavilion is open.
+TargetArt=Sprint_Cast_Base.mdx
+Targetattach=origin
+Targetattachcount=1
+
+[B008]
+Buffart=,
+Targetattach=chest
+
+[B009]
+Buffart=war3mapImported\BTNRyougi_Mugu.blp
+Bufftip=#Ryogi
+Buffubertip=Borderless ball
+TargetArt=Objects\Spawnmodels\Critters\Albatross\CritterBloodAlbatross.mdl
+Targetattach=chest
+
+[B00A]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Handcrafted Aura
+Buffubertip=The guts of the 100th edition of the studio
+Spelldetail=2
+TargetArt=war3mapImported\ManatapAura.mdx
+Targetattach=origin
+
+[B00B]
+Buffart=war3mapImported\BTNMinato_Bi2.blp
+Bufftip=#Minato
+Buffubertip=We have prepared 2 levels of trust. Counterattack against any attack.
+TargetArt=lxw jhxcom_2000.mdx
+Targetattach=right,hand
+Targetattachcount=1
+
+[B00C]
+Buffart=war3mapImported\verrrrrr.blp
+Bufftip=Sponge avesta
+Buffubertip=Reflects damage.
+TargetArt=Abilities\Spells\Undead\UnholyAura\UnholyAura.mdl
+
+[B00D]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Come on
+Buffubertip=Thank you
+Spelldetail=2
+TargetArt=-!shikieye2!-.mdx
+Targetattach=origin
+
+[B00E]
+Buffart=ReplaceableTextures\CommandButtons\BTNShadowStrike.blp
+Bufftip= Rubber rubber gun
+Buffubertip=Fuck it.
+TargetArt=Objects\Spawnmodels\Undead\UndeadLargeDeathExplode\UndeadLargeDeathExplode.mdl
+Targetattach=overhead
+
+[B00F]
+Buffart=ReplaceableTextures\CommandButtons\BTNOrbOfFrost.blp
+Bufftip=Freezing
+Buffubertip=This unit is frozen.
+TargetArt=freezing3.mdx
+Targetattach=origin
+
+[B00G]
+Buffart=ReplaceableTextures\CommandButtons\BTNBearForm.blp
+Bufftip=Strong
+Buffubertip=Gangshin Youngchang is in progress. Takes extra damage.
+TargetArt=Abilities\Spells\Human\FlameStrike\FlameStrikeTarget.mdl
+
+[B00H]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Traveler come
+Buffubertip=Model Shuttle
+Spelldetail=2
+TargetArt=Sasuke_VMSH.mdx
+Targetattach=origin
+
+[B00I]
+Buffart=ReplaceableTextures\CommandButtons\BTNSearingArrows.blp
+Bufftip=Hammer hell
+Buffubertip=A nail is stuck in the top of the head
+Spelldetail=1
+TargetArt=hammer_hell6.mdx
+Targetattach=overhead
+
+[B00J]
+Buffart=ReplaceableTextures\CommandButtons\BTNUnholyAura.blp
+Bufftip=Super regenerative ability
+Buffubertip=With the effect of Kamael
+Spelldetail=2
+Targetattach=origin
+Targetattachcount=1
+
+[B00K]
+Buffart=war3mapImported\BTNKotori_Jeng.blp
+Bufftip=Runaway
+Buffubertip=The fire spirit's power is open.
+TargetArt=Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSLeft.mdl,Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSRight.mdl
+Targetattach=weapon,left
+Targetattach1=weapon,right
+Targetattachcount=2
+
+[B00L]
+Buffart=ReplaceableTextures\CommandButtons\BTNMagicLariet.blp
+Bufftip=Remark
+Buffubertip=Got caught!
+TargetArt=war3mapImported\flames&smoke.MDX,war3mapImported\chargeflame.mdx
+Targetattach=origin
+
+[B00M]
+Buffart=war3mapImported\BTNSaber_Avalon.blp
+Bufftip=Avalon
+Buffubertip=Does not take damage.
+SpecialArt=mlimly jianqiao.mdx
+Specialattach=overhead
+TargetArt=AvalonORR2.mdx
+Targetattach=chest
+
+[B00N]
+Buffart=ReplaceableTextures\CommandButtons\BTNSummonWaterElemental.blp
+Bufftip=Langren
+Buffubertip=Summons
+
+[B00O]
+Buffart=ReplaceableTextures\CommandButtons\BTNBattleRoar.blp
+Bufftip=Killing stone
+Buffubertip=This unit has a killing stone and has increased attack damage.
+Spelldetail=1
+TargetArt=butter three.mdx
+Targetattach=origin
+
+[B00P]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B00Q]
+Buffart=ReplaceableTextures\CommandButtons\BTNSacrifice.blp
+Bufftip=Murder impulse
+Buffubertip=Stats increase.
+Spelldetail=1
+TargetArt=Abilities\Spells\Undead\Cripple\CrippleTarget.mdl
+Targetattach=origin
+Targetattachcount=1
+
+[B00R]
+Buffart=ReplaceableTextures\CommandButtons\BTNMagicLariet.blp
+Bufftip=stop
+Buffubertip=This unit has been stopped.
+Targetattach=chest,mount
+
+[B00S]
+Buffart=war3mapImported\nano.blp
+Bufftip=Acid Mode
+Buffubertip=This unit is benefiting from Chemical Rage. Increases movement and attack speed.
+TargetArt=Abilities\Spells\Orc\CommandAura\CommandAuraTarget
+Targetattach=origin
+Targetattachcount=1
+
+[B00T]
+Buffart=war3mapImported\BTNDes_R.blp
+Bufftip=Scud Genocide
+Buffubertip=Movement speed is increased.
+Spelldetail=1
+
+[B00U]
+Buffart=ReplaceableTextures\CommandButtons\BTNPatchouli_Flo.blp
+Bufftip=Endurance Aura
+Buffubertip=This unit is influenced by the phlogistic pillar. Movement speed decreases.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\Doom\DoomTarget.mdl
+Targetattach=origin
+
+[B00V]
+Buffart=war3mapImported\BTNAqua_Z.blp
+Bufftip=Goddess's Protection
+Buffubertip=Defense is increased.
+Spelldetail=1
+Targetattach=origin
+Targetattachcount=1
+
+[B00W]
+Buffart=war3mapImported\BTNToNa_Jinjo.blp
+Bufftip=Space killing
+Buffubertip=Damage is reduced.
+Spelldetail=1
+TargetArt=Abilities\Spells\Undead\Cripple\CrippleTarget.mdl
+Targetattach=origin
+Targetattachcount=1
+
+[B00X]
+Buffart=ReplaceableTextures\CommandButtons\BTNStasisTrap.blp
+Bufftip=Defense reduction
+Buffubertip=This unit is subject to serious penalties.
+TargetArt=Abilities\Spells\Other\Incinerate\IncinerateBuff.mdl
+Targetattach=chest
+
+[B00Y]
+Buffart=ReplaceableTextures\CommandButtons\BTNCommand.blp
+Bufftip= Reduce movement speed
+Buffubertip=Slowed down.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\Doom\DoomTarget.mdl
+Targetattach=origin
+
+[B00Z]
+Buffart=,
+TargetArt=war3mapImported\StarfallTarget.mdx
+Targetattach=origin
+
+[B010]
+Buffart=ReplaceableTextures\CommandButtons\BTNWallOfFire.blp
+TargetArt=Environment\NightelfBuildingFire\ElfLargeBuildingFire2
+
+[B011]
+Buffart=ReplaceableTextures\CommandButtons\BTNAdvancedEnergyTower.blp
+Bufftip=Cold armor
+Buffubertip=Cold armor
+TargetArt=war3mapImported\freezingfield.mdx
+Targetattach=chest
+Targetattachcount=1
+
+[B012]
+Buffart=ReplaceableTextures\CommandButtons\BTNIncinerate.blp
+Bufftip= Sasuke Ignition
+Buffubertip=Ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+Spelldetail=1
+TargetArt=AMWQQKSTDGD1GD1JVK.mdx
+Targetattach=origin
+Targetattachcount=1
+
+[B013]
+Buffart=,
+
+[B014]
+Buffart=ReplaceableTextures\CommandButtons\BTNBreathOfFrost.blp
+Bufftip=Frost Weapon
+Buffubertip=This unit deals additional damage to enemies.
+TargetArt=Abilities\Spells\Undead\FrostArmor\FrostArmorDamage.mdl
+Targetattach=weapon
+Targetattachcount=1
+
+[B015]
+Buffart=,
+SpecialArt=Abilities\Spells\NightElf\Immolation\ImmolationDamage.mdl
+Specialattach=head
+
+[B016]
+Buffart=war3mapImported\Skill_ichigo2.blp
+Bufftip= Horohwa
+Buffubertip=Attack speed and movement speed are increased to maximum.
+Spelldetail=1
+Targetattach=origin
+Targetattachcount=1
+
+[B017]
+Buffart=,
+SpecialArt=Abilities\Spells\Undead\FrostArmor\FrostArmorDamage.mdl
+
+[B018]
+Buffart=ReplaceableTextures\CommandButtons\BTNBattleRoar.blp
+Bufftip=Regenerate
+Buffubertip=This unit is recovering.
+Spelldetail=1
+TargetArt=Abilities\Spells\NightElf\Rejuvenation\RejuvenationTarget.mdl
+Targetattach=chest
+
+[B019]
+Buffart=ReplaceableTextures\CommandButtons\BTNManaFlare.blp
+Bufftip=paralysis
+Buffubertip=Paralyzed.
+TargetArt=Abilities\Spells\Orc\Purge\PurgeBuffTarget.mdl
+Targetattach=origin
+
+[B01A]
+Buffart=ReplaceableTextures\CommandButtons\BTNAdvancedEnergyTower.blp
+Bufftip=Aggressor Mode
+Buffubertip=Strengthen attack power
+TargetArt=Abilities\Spells\Human\FlameStrike\FlameStrikeTarget.mdl
+Targetattach=origin
+Targetattachcount=1
+
+[B01B]
+Buffart=ReplaceableTextures\PassiveButtons\PASBTNElunesBlessing.blp
+Bufftip=rest
+Buffubertip=Increases mana regeneration rate.
+Spelldetail=2
+Targetattach=origin
+
+[B01C]
+Buffart=war3mapImported\icicicic.blp
+Bufftip= A heavenly moon
+Buffubertip= Yongwoon Han
+TargetArt=Ichigo_Shade.mdx
+Targetattach=Chest
+Targetattach1=Origin
+Targetattach2=right,hand
+Targetattach3=left,hand
+Targetattach4=right,foot
+Targetattach5=left,foot
+Targetattachcount=6
+
+[B01D]
+Buffart=ReplaceableTextures\CommandButtons\BTNVampiricAura.blp
+Bufftip=anger
+Buffubertip=Every time you damage an enemy unit
+SpecialArt=Abilities\Spells\Undead\VampiricAura\VampiricAuraTarget.mdl
+Specialattach=origin
+Spelldetail=2
+Targetattach=origin
+
+[B01E]
+Buffart=war3mapImported\guts5berserk.blp
+Bufftip=Guts' Armor
+TargetArt=Guts_wolf.mdx
+Targetattach=head
+Targetattachcount=1
+
+[B01F]
+Buffart=war3mapImported\sirongmugum.blp
+Bufftip=Infinite sword
+Buffubertip=The stats increase.
+Spelldetail=1
+TargetArt=Abilities\Spells\Undead\Cripple\CrippleTarget.mdl
+Targetattach=origin
+Targetattachcount=1
+
+[B01G]
+Buffart=ReplaceableTextures\CommandButtons\BTNCommand.blp
+Bufftip= Reduce movement speed
+Buffubertip=Slowed down.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[B01H]
+Buffart=assa.blp
+Bufftip=Power of darkness
+Buffubertip=Increases movement and attack speed.
+
+[B01I]
+Buffart=war3mapImported\nananananana.blp
+Bufftip=Extreme story nanaya
+Buffubertip=This unit became the target of the extreme company Nanaya. When you use a skill
+Targetattach=origin
+
+[B01J]
+Buffart=ReplaceableTextures\CommandButtons\BTNBattleRoar.blp
+Bufftip=Hamgwabeop
+Buffubertip=The state of using the hamgwa method
+Spelldetail=1
+TargetArt=BG.mdx
+Targetattach=origin
+
+[B01K]
+Buffart=ReplaceableTextures\CommandButtons\BTNThunderclap.blp
+Bufftip=Speed ​​reduction
+Buffubertip=I was attacked. Movement speed and attack speed are slowed.
+TargetArt=Abilities\Spells\Orc\StasisTrap\StasisTotemTarget.mdl
+Targetattach=overhead
+
+[B01L]
+Buffart=war3mapImported\nana1.blp
+Bufftip= Reverse impulse
+Buffubertip=Let go of the mind
+
+[B01M]
+Buffart=ReplaceableTextures\CommandButtons\BTN3M3.blp
+Bufftip=Talisman
+Buffubertip=Talisman is used
+Spelldetail=1
+TargetArt=Abilities\Spells\Orc\SpiritLink\SpiritLinkTarget.mdl
+Targetattach=origin
+Targetattach1=head
+Targetattach2=left,hand
+Targetattach3=chest
+Targetattach4=weapon
+Targetattach5=right,leg
+Targetattachcount=6
+
+[B01N]
+Buffart=war3mapImported\Makise_icon_Ultimate.blp
+Bufftip=Causal gear
+Buffubertip=Defense is reduced.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[B01O]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B01P]
+Buffart=ReplaceableTextures\CommandButtons\BTNUnholyAura.blp
+Bufftip=Protective veil
+Buffubertip=This unit is within the enemy home area. Movement speed is very slow.
+Spelldetail=2
+Targetattach=origin
+
+[B01Q]
+Buffart=ReplaceableTextures\CommandButtons\BTNGoldMine.blp
+Bufftip=Protective veil
+Buffubertip=This unit is in the friendly home area. 5% health recovery rate
+Spelldetail=2
+Targetattach=origin
+
+[B01R]
+Buffart=ReplaceableTextures\CommandButtons\BTNEnsnare.blp
+Bufftip=Pobak
+Buffubertip=It cannot move and takes damage over time.
+TargetArt=war3mapImported\Chain Prison.mdx
+Targetattach=origin
+
+[B01S]
+Buffart=ReplaceableTextures\CommandButtons\BTNGoldMine.blp
+Bufftip=Protective veil
+Buffubertip=This unit is in the friendly home area. Mana regeneration rate increased by 40.
+Spelldetail=2
+Targetattach=origin
+
+[B01T]
+Buffart=ReplaceableTextures\CommandButtons\BTNThunderclap.blp
+Bufftip= Debuff
+Buffubertip=This unit has reduced stats.
+TargetArt=Abilities\Spells\Orc\StasisTrap\StasisTotemTarget.mdl
+Targetattach=overhead
+
+[B01U]
+Buffart=war3mapImported\gh.blp
+Bufftip=Goldian hammer
+Buffubertip=Those who have courage win!
+Spelldetail=1
+TargetArt=hammer_gold5.mdx
+Targetattach=weapon
+Targetattachcount=1
+
+[B01V]
+Buffart=ReplaceableTextures\CommandButtons\BTNDeathPact.blp
+Bufftip=Gear 2
+Buffubertip=This unit is benefiting from Chemical Rage. Increases movement and attack speed.
+TargetArt=Gear2nd_Aura.mdx
+Targetattach=chest
+Targetattachcount=1
+
+[B01W]
+Buffart=ReplaceableTextures\CommandButtons\BTNChemicalRage.blp
+Bufftip=Discharging horsepower
+Buffubertip=This unit is benefiting from Chemical Rage. Increases movement and attack speed.
+TargetArt=war3mapImported\Eff_Small.mdx
+Targetattach=right,hand
+Targetattach1=left,hand
+Targetattach2=right,foot
+Targetattach3=left,foot
+Targetattachcount=4
+
+[B01X]
+Buffart=127.blp
+Bufftip=Anti-horsepower
+Buffubertip=Damage is blocked using mana.
+TargetArt=Abilities\Spells\Items\StaffOfSanctuary\Staff_Sanctuary_Target.mdl
+Targetattach=chest
+Targetattachcount=1
+
+[B01Y]
+Buffart=ReplaceableTextures\CommandButtons\BTNGoldMine.blp
+Bufftip=Protective veil
+Buffubertip=This unit is in the friendly home area. Defense is increased.
+Spelldetail=2
+Targetattach=origin
+
+[B01Z]
+Buffart=ReplaceableTextures\CommandButtons\BTNReplay-Pause.blp
+Bufftip=No general attack
+Buffubertip=You cannot do general attacks.
+TargetArt=Abilities\Spells\Other\TalkToMe\TalkToMe
+Targetattach=overhead
+
+[B020]
+Buffart=ReplaceableTextures\CommandButtons\BTNAdvancedDeathTower.blp
+Bufftip=Equipment destruction
+Buffubertip=Attack power increases.
+Spelldetail=1
+TargetArt=Abilities\Spells\Items\ScrollOfRejuvenation\ScrollManaHealth
+Targetattach=origin
+
+[B021]
+Buffart=ReplaceableTextures\CommandButtons\BTNBreathOfFrost.blp
+Bufftip=Kusanagi sword dance
+Buffubertip=This unit deals additional damage to enemies.
+TargetArt=Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSLeft.mdl,Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSRight.mdl
+Targetattachcount=2
+
+[B022]
+Buffart=ReplaceableTextures\CommandButtons\BTNChemicalRage.blp
+Bufftip=Three-dimensional movement
+Buffubertip=This unit is benefiting from Chemical Rage. Increases movement and attack speed.
+TargetArt=war3mapImported\Eff_Small.mdx
+Targetattach=chest
+Targetattach1=chest
+Targetattach2=chest
+Targetattach3=chest
+Targetattachcount=4
+
+[B023]
+Buffart=ReplaceableTextures\CommandButtons\BTNChemicalRage.blp
+Bufftip=Dreamcatcher
+Buffubertip=The explanation is naked
+
+[B024]
+Buffart=ReplaceableTextures\CommandButtons\BTNSummonWaterElemental.blp
+Bufftip=Giant
+
+[B025]
+Buffart=ReplaceableTextures\CommandButtons\BTNNeutralManaShield.blp
+Bufftip=vane
+Buffubertip=Finding this...
+TargetArt=war3mapImported\Blaze Saw.mdx
+Targetattach=right,hand
+
+[B026]
+Buffart=ReplaceableTextures\CommandButtons\BTNBearForm.blp
+Bufftip=Vessel
+Buffubertip=I got the courage buff.
+TargetArt=Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSLeft.mdl,Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSRight.mdl
+Targetattach=weapon,left
+Targetattach1=weapon,right
+Targetattachcount=2
+
+[B027]
+Buffart=ReplaceableTextures\CommandButtons\BTNBreathOfFrost.blp
+Bufftip=Freezing
+Buffubertip=It is frozen.
+TargetArt=Abilities\Spells\Undead\FreezingBreath\FreezingBreathTargetArt.mdl
+Targetattach=origin
+
+[B028]
+Buffart=ReplaceableTextures\CommandButtons\BTNOrbOfFrost.blp
+Bufftip=cold frame
+Buffubertip=This unit is enchanted and slows its movement and attack speed.
+Spelldetail=1
+TargetArt=Abilities\Spells\Undead\FrostArmor\FrostArmorDamage.mdl
+Targetattach=chest
+
+[B029]
+Buffart=ReplaceableTextures\CommandButtons\BTNSacrificialSkull.blp
+Bufftip=Ominous blessing
+Buffubertip=Attack damage has been increased.
+Spelldetail=1
+TargetArt=Abilities\Spells\Undead\Curse\CurseTarget.mdl
+Targetattach=overhead
+
+[B02A]
+Buffart=,
+SpecialArt=Abilities\Spells\Undead\PlagueCloud\PlagueCloudCaster.mdl
+
+[B02B]
+Buffart=ReplaceableTextures\CommandButtons\BTNBrilliance.blp
+Bufftip=Hydro field
+Buffubertip=This unit is located within the Hydro Field of Zheyuan. Mana regeneration decreased.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\Drain\ManaDrainCaster.mdl
+Targetattach=origin
+
+[B02C]
+Buffart=ReplaceableTextures\CommandButtons\BTNEntanglingRoots.blp
+Bufftip=Face off
+Buffubertip=It cannot move and takes damage over time.
+TargetArt=Abilities\Spells\NightElf\Immolation\ImmolationDamage.mdl
+Targetattach=head
+
+[B02D]
+Buffart=ReplaceableTextures\CommandButtons\BTNDestroyer.blp
+Bufftip=Concentration avoidance
+Buffubertip=It is invincible.
+TargetArt=Abilities\Spells\Human\CloudOfFog\CloudOfFog.mdl
+Targetattach=origin
+
+[B02E]
+Buffart=ReplaceableTextures\CommandButtons\BTNHowlOfTerror.blp
+Bufftip=Space killing
+Buffubertip=This unit is affected by space killing. Damage is reduced by 50% for 4 seconds.
+TargetArt=Abilities\Spells\Other\HowlOfTerror\HowlTarget.mdl
+
+[B02F]
+Buffart=ReplaceableTextures\CommandButtons\BTNCommand.blp
+Bufftip=Speed ​​reduction
+Buffubertip=Slowed down.
+Spelldetail=2
+TargetArt=Abilities\Spells\Undead\DeathandDecay\DeathandDecayTarget.mdl
+Targetattach=origin
+
+[B02G]
+Buffart=,
+TargetArt=war3mapImported\NatureExplosion.mdx
+
+[B02H]
+Buffart=ReplaceableTextures\CommandButtons\BTNImmolationOn.blp
+Bufftip=Spiritual condensation
+Buffubertip=There is additional damage when this unit does damage.
+SpecialArt=Abilities\Spells\NightElf\Immolation\ImmolationDamage.mdl
+Specialattach=head
+TargetArt=war3mapImported\PsiShield.mdx
+Targetattach=chest
+Targetattachcount=1
+
+[B02I]
+Buffart=,
+
+[B02J]
+Buffart=,
+SpecialArt=Abilities\Spells\Undead\VampiricAura\VampiricAuraTarget.mdl
+
+[B02K]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B02L]
+Buffart=ReplaceableTextures\CommandButtons\BTNPhaseShift.blp
+Bufftip=damaged
+Buffubertip=The defense value has been reduced and is being detected by the enemy.
+Spelldetail=1
+TargetArt=Abilities\Spells\Undead\Possession\PossessionCaster.mdl
+Targetattach=head
+
+[B02M]
+Buffart=ReplaceableTextures\CommandButtons\BTNDeathCoil.blp
+Bufftip=Dark damage
+Buffubertip=Continuously take damage.
+Spelldetail=2
+TargetArt=Abilities\Spells\Human\FlameStrike\FlameStrikeDamageTarget.mdl
+
+[B02N]
+Buffart=ReplaceableTextures\CommandButtons\BTNDeathCoil.blp
+Bufftip=Dark damage
+Buffubertip=Continuously take damage.
+Spelldetail=2
+TargetArt=Abilities\Spells\Human\FlameStrike\FlameStrikeDamageTarget.mdl
+
+[B02O]
+Buffart=ReplaceableTextures\CommandButtons\BTNCommand.blp
+Bufftip= Reduce movement speed
+Buffubertip=Slowed down.
+Spelldetail=2
+TargetArt=Abilities\Spells\Orc\Purge\PurgeBuffTarget.mdl
+Targetattach=chest
+
+[B02P]
+Buffart=ReplaceableTextures\CommandButtons\BTNSpellSteal.blp
+Bufftip=hold
+Buffubertip=This unit is subdued.
+TargetArt=Abilities\Spells\Human\Thunderclap\ThunderclapTarget.mdl
+Targetattach=overhead
+
+[B02Q]
+Buffart=ReplaceableTextures\CommandButtons\BTNWand.blp
+Bufftip=Head
+Buffubertip=A being summoned from a different time zone.
+
+[B02R]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= KAIO's Star
+Buffubertip=Rice... It's not sweet because I want to wear it so much!
+Spelldetail=2
+TargetArt=1star.mdx
+Targetattach=overhead
+
+[B02S]
+Buffart=ReplaceableTextures\CommandButtons\BTNManaFlare.blp
+Bufftip=Electric shock
+Buffubertip=Buff Names Coming Soon Content
+TargetArt=Abilities\Spells\Orc\Purge\PurgeBuffTarget.mdl
+Targetattach=origin
+
+[B02T]
+Buffart=ReplaceableTextures\CommandButtons\BTNResurrection.blp
+Bufftip=Sun's wrath
+Buffubertip=This unit cannot be affected by the lunar protection.
+TargetArt=Abilities\Spells\NightElf\Tranquility\Tranquility.mdl
+Targetattach=origin
+
+[B02U]
+Buffart=ReplaceableTextures\CommandButtons\BTNMetamorphosis.blp
+Bufftip=Runaway
+Buffubertip=The stats increase.
+Spelldetail=1
+TargetArt=CrippleTargetBlackP2.mdx
+Targetattach=chest
+Targetattachcount=1
+
+[B02V]
+Buffart=ReplaceableTextures\CommandButtons\BTNAdvancedEnergyTower.blp
+Bufftip=Magical release
+Buffubertip=room
+TargetArt=Abilities\Spells\Human\FlameStrike\FlameStrikeTarget.mdl
+Targetattach=origin
+Targetattachcount=1
+
+[B02W]
+Buffart=war3mapImported\Ghost_lockdown.blp
+Bufftip=Lockdown
+Buffubertip=This unit was hit by lockdown. The skill you were casting is canceled
+TargetArt=war3mapImported\lightning ball.mdx
+Targetattach=chest
+
+[B02X]
+Buffart=war3mapImported\Ghost_Cloak.blp
+
+[B02Y]
+Buffart=war3mapImported\BTNHK416_E.blp
+Bufftip=EOT XPS3
+Buffubertip=This unit is equipped with dedicated equipment.
+Spelldetail=1
+TargetArt=Ichigo_Shade.mdx
+Targetattach=chest
+Targetattach1=origin
+Targetattach2=right,hand
+Targetattach3=left,hand
+Targetattach4=weapon
+Targetattachcount=5
+
+[B02Z]
+Buffart=ReplaceableTextures\CommandButtons\Kirito_SBS.blp
+Bufftip=Starburst Stream
+Buffubertip=Fast!... Faster!
+TargetArt=s_WateryAura.mdx
+
+[B030]
+Buffart=ReplaceableTextures\CommandButtons\BTNGreaterRejuvScroll.blp
+Bufftip=Rejuvenation (hamburger)
+Buffubertip=This unit continually restores health and mana.
+TargetArt=Abilities\Spells\Other\ANrl\ANrlTarget.mdl,Abilities\Spells\Other\ANrm\ANrmTarget.mdl
+Targetattach=origin
+Targetattach1=origin
+Targetattachcount=2
+
+[B031]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B032]
+Buffart=ReplaceableTextures\CommandButtons\BTNSpiritLink.blp
+Bufftip=sprint
+Buffubertip=Acceleration state
+Targetattachcount=2
+
+[B033]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= KAIO's Star
+Buffubertip=Rice... It's not sweet because I want to wear it so much!
+Spelldetail=2
+TargetArt=2star.mdx
+Targetattach=overhead
+
+[B034]
+Buffart=war3mapImported\JagarRun.blp
+Bufftip=Immolation
+Buffubertip=This unit is spraying gas. Keep moving forward
+SpecialArt=Abilities\Spells\NightElf\Immolation\ImmolationDamage.mdl
+Specialattach=head
+TargetArt=war3mapImported\Eff_Small.mdx
+Targetattach=right,hand
+Targetattach1=left,hand
+Targetattach2=right,foot
+Targetattach3=left,foot
+
+[B035]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Ponin's Wings
+Buffubertip=If you look into the abyss for a long time
+Spelldetail=2
+TargetArt=war3mapImported\Sanctus Wing.mdx
+Targetattach=chest
+Targetattachcount=1
+
+[B036]
+Buffart=war3mapImported\BTNKirito_Serch.blp
+Bufftip=Color
+Buffubertip=Kirito has found you.
+Spelldetail=1
+TargetArt=Abilities\Spells\Other\TalkToMe\TalkToMe
+Targetattach=overhead
+
+[B037]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= KAIO's Star
+Buffubertip=Rice... It's not sweet because I want to wear it so much!
+Spelldetail=2
+TargetArt=3star.mdx
+Targetattach=overhead
+
+[B038]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= KAIO's Star
+Buffubertip=Rice... It's not sweet because I want to wear it so much!
+Spelldetail=2
+TargetArt=4star.mdx
+Targetattach=overhead
+
+[B039]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= KAIO's Star
+Buffubertip=Rice... It's not sweet because I want to wear it so much!
+Spelldetail=2
+TargetArt=5star.mdx
+Targetattach=overhead
+
+[B03A]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B03B]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Zui's Yeon Sungjin
+Buffubertip=Those who fight monsters must be careful not to become monsters themselves.
+Spelldetail=2
+TargetArt=TianGuoJieJie.mdx
+Targetattach=origin
+
+[B03C]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Voltaire's Spirit
+Buffubertip=If you look into the abyss for a long time
+Spelldetail=2
+TargetArt=deadaura.mdx
+Targetattach=overhead
+
+[B03D]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Broken wing
+Buffubertip=Those who fight monsters must be careful not to become monsters themselves.
+Spelldetail=2
+TargetArt=mr.war3_xmy2.mdx
+Targetattach=origin
+
+[B03E]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= It will burn and become nature
+Buffubertip=Those who fight monsters must be careful not to become monsters themselves.
+Spelldetail=2
+TargetArt=Fireorigin03 .mdx
+Targetattach=origin
+
+[B03F]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Asshole
+Buffubertip=A condition in which any part of the body is malformed or has lost its function. Or someone like that.
+Spelldetail=2
+TargetArt=beyongsin_Aura.mdx
+Targetattach=overhead
+
+[B03G]
+Buffart=ReplaceableTextures\CommandButtons\BTNMagicLariet.blp
+TargetArt=Objects\Spawnmodels\Human\HumanBlood\BloodElfSpellThiefBlood.mdl,Objects\Spawnmodels\Other\HumanBloodCinematicEffect\HumanBloodCinematicEffect.mdl
+Targetattach=chest
+
+[B03H]
+Buffart=ReplaceableTextures\CommandButtons\BTNLightningShield.blp
+Bufftip=Protego
+Buffubertip=Protected by a strong shield.
+Spelldetail=1
+TargetArt=Buff_Stop.mdx
+Targetattach=overhead
+
+[B03I]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B03J]
+Buffart=ReplaceableTextures\CommandButtons\BTNBerserkForTrolls.blp
+Bufftip=Suck!
+Buffubertip=Twist!
+Targetattach=chest
+Targetattachcount=1
+
+[B03K]
+Buffart=ReplaceableTextures\PassiveButtons\PASBTNSlowPoison.blp
+Bufftip=Slow poison
+Buffubertip=This unit is infected with Slow Poison. Movement speed and attack speed decrease and take damage over time.
+Spelldetail=2
+
+[B03L]
+Buffart=ReplaceableTextures\CommandButtons\BTNChemicalRage.blp
+Bufftip=Van Kaguja
+Buffubertip=Anti-kaguja state
+
+[B03M]
+Buffart=war3mapImported\Kaneki_DPass.blp
+Bufftip=Ghoul
+Buffubertip=It slows down for a period of time!
+TargetArt=Objects\Spawnmodels\Human\HumanBlood\BloodElfSpellThiefBlood.mdl
+Targetattach=origin
+
+[B03N]
+Buffart=war3mapImported\BTNNanayaJungan.blp
+Bufftip=Color
+Buffubertip=Tohno Shiki has found you.
+Spelldetail=1
+Targetattach=head
+
+[B03O]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B03P]
+Buffart=ReplaceableTextures\CommandButtons\BTNMagicLariet.blp
+Bufftip=catch
+Buffubertip=Tenshi Yomi
+Targetattach=chest,mount
+
+[B03Q]
+Buffart=war3mapImported\BTNTenshi_Z.blp
+Bufftip=Donation 「A state of free spirit」
+Buffubertip=Stun resistance.
+Spelldetail=1
+TargetArt=Abilities\Spells\Other\Doom\DoomTarget.mdl
+Targetattach=origin
+
+[B03R]
+Buffart=ReplaceableTextures\CommandButtons\BTNBerserkForTrolls.blp
+Bufftip=Emergency 「Emergency Emergency Sword」
+TargetArt=Abilities\Spells\Human\ManaFlare\ManaFlareMissile.mdl
+Targetattach=right hand
+Targetattachcount=1
+
+[B03S]
+Buffart=ReplaceableTextures\PassiveButtons\PASBTNSlowPoison.blp
+Bufftip=Slow poison
+Buffubertip=This unit is infected with Slow Poison. Movement speed and attack speed decrease and take damage over time.
+Spelldetail=2
+
+[B03T]
+Buffart=ReplaceableTextures\CommandButtons\BTNCommand.blp
+Bufftip=Speed ​​reduction
+Buffubertip=Movement speed and attack speed decreased.
+Spelldetail=2
+TargetArt=Abilities\Spells\Orc\StasisTrap\StasisTotemTarget.mdl
+Targetattach=origin
+
+[B03U]
+Buffart=ReplaceableTextures\CommandButtons\BTNCommand.blp
+Bufftip= Reduce movement speed
+Buffubertip=Slowed down.
+Spelldetail=2
+TargetArt=Abilities\Spells\Undead\FrostArmor\FrostArmorDamage.mdl
+Targetattach=chest
+
+[B03V]
+Buffart=ReplaceableTextures\CommandButtons\BTNSummonWaterElemental.blp
+Bufftip=Remaining uptime
+
+[B03W]
+Buffart=war3mapImported\BTNTina_W.blp
+Bufftip=Chemical bomb
+Buffubertip=This unit was attacked by chemical bombs. You cannot use magic.
+Targetattach=overhead
+
+[B03X]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B03Y]
+Buffart=ReplaceableTextures\CommandButtons\BTNSpiritLink.blp
+Bufftip=Cell Ruler
+Buffubertip=Cell Ruler effect makes it difficult to take defensive actions.
+Spelldetail=1
+TargetArt=Abilities\Spells\Other\Parasite\ParasiteMissile.mdl
+Targetattach=overhead
+
+[B03Z]
+Buffart=ReplaceableTextures\CommandButtons\BTNChemicalRage.blp
+Bufftip=Mistake Chakra Mode
+Buffubertip=Mistake Chakra Mode
+
+[B040]
+Buffart=war3mapImported\BTNDOVA_Shout.blp
+Bufftip=Battle cry
+Buffubertip=Movement speed increases.
+TargetArt=Abilities\Spells\Orc\Bloodlust\BloodlustTarget.mdl,Abilities\Spells\Orc\Bloodlust\BloodlustSpecial.mdl
+Targetattach=hand,left
+Targetattach1=hand,right
+Targetattachcount=2
+
+[B041]
+Buffart=war3mapImported\BTNSpring_AP.blp
+Bufftip=Armored shells for shooting competitions
+Buffubertip=Loaded armor-piercing shells.
+Spelldetail=1
+TargetArt=war3mapImported\LaserRay.mdx
+Targetattach=weapon
+
+[B042]
+Buffart=ReplaceableTextures\CommandButtons\BTNStasisTrap.blp
+Bufftip=Defense reduction
+Buffubertip=This unit is subject to serious penalties.
+TargetArt=Abilities\Spells\Other\Incinerate\IncinerateBuff.mdl
+Targetattach=chest
+
+[B043]
+Buffart=ReplaceableTextures\CommandButtons\BTNResurrection.blp
+Bufftip=Time manipulation
+Buffubertip=This unit cannot be affected by the lunar protection.
+TargetArt=Environment\UndeadBuildingFire\UndeadLargeBuildingFire1.mdl
+Targetattach=origin
+
+[B044]
+Buffart=ReplaceableTextures\CommandButtons\BTNDevotion.blp
+Bufftip=Nicodon's Empress
+Buffubertip=It is under the protection of the Empress. Defense is increased.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[B045]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B046]
+Buffart=war3mapImported\BTNHK416_E.blp
+Bufftip=Laser Sight
+Buffubertip=This unit is equipped with dedicated equipment.
+Spelldetail=1
+TargetArt=HK_LaserScope_5.mdx
+Targetattach=weapon
+Targetattachcount=1
+
+[B047]
+Buffart=ReplaceableTextures\CommandButtons\BTNThunderLizardEgg.blp
+Bufftip=Coastal defense
+Buffubertip=Two Jindo dogs
+Spelldetail=2
+TargetArt=Abilities\Spells\Human\Brilliance\Brilliance.mdl
+Targetattach=origin
+Targetattachcount=1
+
+[B048]
+Buffart=,
+SpecialArt=Abilities\Spells\Undead\ReplenishHealth\ReplenishHealthCaster.mdl
+Specialattach=origin
+
+[B049]
+Buffart=ReplaceableTextures\PassiveButtons\PASBTNSlowPoison.blp
+Bufftip=Slow poison
+Buffubertip=This unit is infected with Slow Poison. Movement speed and attack speed decrease and take damage over time.
+Spelldetail=2
+
+[B04B]
+Buffart=ReplaceableTextures\CommandButtons\BTNGoldMine.blp
+Bufftip=|c00ff0000drinking|r
+Buffubertip=The Sado is absorbing the energy of the main town!
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\Doom\DoomTarget.mdl
+Targetattach=origin
+Targetattachcount=1
+
+[B04C]
+Buffart=ReplaceableTextures\CommandButtons\BTNOrbOfDarkness.blp
+Bufftip=black hole
+Buffubertip=Stop because the difference in gravity is so fast
+TargetArt=war3mapImported\BlackHoleReal.mdx
+Targetattach=origin
+
+[B04D]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04E]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04F]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Restaurants
+Buffubertip=Space-time Storm Resident
+Spelldetail=2
+TargetArt=HOSDAISKIDA.mdx
+Targetattach=origin
+
+[B04G]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04H]
+Buffart=ReplaceableTextures\CommandButtons\BTNStasisTrap.blp
+Bufftip=hamburger
+Buffubertip=Attack speed and movement speed increase and deal additional damage.
+TargetArt=war3mapImported\GranRayFXbyDeckai.mdx
+Targetattach=right,hand
+Targetattachcount=1
+
+[B04I]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Spacetime hero
+Buffubertip=This man is a real hero!
+Spelldetail=2
+TargetArt=HoS.mdx
+Targetattach=origin
+
+[B04J]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04K]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04L]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04M]
+Buffart=ReplaceableTextures\CommandButtons\BTNBerserkForTrolls.blp
+Bufftip=Individuality
+TargetArt=Abilities\Spells\Orc\Bloodlust\BloodlustTarget.mdl,Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSRight.mdl
+Targetattach=hand,light
+Targetattachcount=1
+
+[B04N]
+Buffart=war3mapImported\X_Charge.blp
+Bufftip=Buster charging
+Buffubertip=Wow ahhhhhhhhhhhhhhhhhh
+SpecialArt=Abilities\Spells\NightElf\Immolation\ImmolationDamage.mdl
+Specialattach=head
+TargetArt=war3mapImported\Megaman_Charge.mdx
+Targetattach=origin
+Targetattachcount=1
+
+[B04O]
+Buffart=ReplaceableTextures\PassiveButtons\PASBTNSlowPoison.blp
+Bufftip=Slow poison
+Buffubertip=This unit is infected with Slow Poison. Movement speed and attack speed decrease and take damage over time.
+Spelldetail=2
+
+[B04P]
+Buffart=,
+
+[B04Q]
+Buffart=ReplaceableTextures\PassiveButtons\PASBTNSlowPoison.blp
+Bufftip=Slow poison
+Buffubertip=This unit is infected with Slow Poison. Movement speed and attack speed decrease and take damage over time.
+Spelldetail=2
+
+[B04R]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04S]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04T]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04U]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04V]
+Buffart=war3mapImported\Rule_E.blp
+Bufftip=blessing
+Buffubertip=Amen
+Spelldetail=1
+TargetArt=Abilities\Spells\Human\InnerFire\InnerFireTarget.mdl
+Targetattach=overhead
+Targetattachcount=2
+
+[B04W]
+Buffart=war3mapImported\Rule_DD.blp
+Bufftip=timing
+Buffubertip=Movement speed and attack speed decreased.
+Spelldetail=2
+TargetArt=Abilities\Spells\Human\slow\slowtarget.mdl
+Targetattach=origin
+
+[B04X]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04Y]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B04Z]
+Buffart=ReplaceableTextures\CommandButtons\BTNHumanArmorUpTwo.blp
+Bufftip=Protection
+Buffubertip=It is protected by defensive magic.
+Spelldetail=1
+TargetArt=war3mapImported\energyshield-blue.mdx
+Targetattach=chest
+
+[B050]
+Buffart=ReplaceableTextures\CommandButtons\BTNBerserkForTrolls.blp
+Bufftip=Berserk
+Buffubertip=This unit is in Berserk state. It deals more damage to enemies
+TargetArt=Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSLeft.mdl,Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSRight.mdl
+Targetattach=weapon
+Targetattachcount=2
+
+[B051]
+Buffart=ReplaceableTextures\CommandButtons\BTNHumanArmorUpTwo.blp
+Bufftip=Protection
+Buffubertip=It is protected by defensive magic.
+Spelldetail=1
+TargetArt=war3mapImported\energyshield-blue.mdx
+Targetattach=chest
+
+[B052]
+Buffart=ReplaceableTextures\CommandButtons\BTNChemicalRage.blp
+Bufftip=Full armor mode
+Buffubertip=Letum non omnia finit
+TargetArt=war3mapImported\Eff_Small.mdx
+Targetattach=right,hand
+Targetattach1=left,hand
+Targetattach2=right,foot
+Targetattach3=left,foot
+Targetattachcount=4
+
+[B053]
+Buffart=ReplaceableTextures\CommandButtons\BTNCommand.blp
+Bufftip=challenger
+Buffubertip=Damage taken increases.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\Doom\DoomTarget.mdl
+Targetattach=origin
+
+[B054]
+Buffart=ReplaceableTextures\PassiveButtons\PASBTNSlowPoison.blp
+Bufftip=Slow poison
+Buffubertip=This unit is infected with Slow Poison. Movement speed and attack speed decrease and take damage over time.
+Spelldetail=2
+
+[B055]
+Buffart=ReplaceableTextures\CommandButtons\BTNTheBlackArrow.blp
+Bufftip=Blade of Hatred
+Buffubertip=This unit deals additional damage to enemies.
+TargetArt=blackfire.mdx
+Targetattach=right,hand
+Targetattachcount=1
+
+[B056]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B057]
+Buffart=ReplaceableTextures\CommandButtons\BTNSelectHeroOn.blp
+Bufftip=Stop
+Buffubertip=You can see the skill of this unit.
+Targetattach=overhead
+
+[B058]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlow.blp
+Bufftip=Restraint
+Buffubertip=This unit is enchanted by the enchantment
+Spelldetail=1
+
+[B059]
+Buffart=ReplaceableTextures\CommandButtons\BTNInvisibility.blp
+Bufftip=|c00ffff00Tatsumaki :|r Teleportation
+Buffubertip=Movement speed increased by 20%.
+Spelldetail=2
+Targetattach=origin
+
+[B05A]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B05B]
+Buffart=ReplaceableTextures\CommandButtons\BTNFireForTheCannon.blp
+Bufftip=Flame shot
+Buffubertip=Hot hot
+Spelldetail=1
+TargetArt=Abilities\Spells\Other\BreathOfFire\BreathOfFireDamage.mdl
+Targetattach=chest
+
+[B05C]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlow.blp
+Bufftip=Slow
+Buffubertip=This unit is struck by slow magic
+Spelldetail=1
+
+[B05D]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B05E]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B05F]
+Buffart=war3mapImported\Makise_icon_Ultimate.blp
+Bufftip=Causal gear
+Buffubertip=Movement speed decreases.
+Spelldetail=2
+TargetArt=Abilities\Spells\Human\slow\slowtarget.mdl
+Targetattach=origin
+
+[B05G]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2
+
+[B05H]
+Buffart=war3mapImported\Makise_icon_Ultimate.blp
+Bufftip=Causal gear
+Buffubertip=Defense is increased.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[B05I]
+Buffart=war3mapImported\BRS_icon3.blp
+Bufftip=Buster shot
+Buffubertip=Attack power increases.
+Spelldetail=1
+TargetArt=Abilities\Spells\Undead\Cripple\CrippleTarget.mdl
+Targetattach=origin
+Targetattachcount=1
+
+[B05J]
+Buffart=ReplaceableTextures\CommandButtons\BTNBattleRoar.blp
+Bufftip=Lower
+Buffubertip=Defense is increased
+Spelldetail=1
+TargetArt=Buff_Stop.mdx
+Targetattach=overhead
+
+[B05K]
+Buffart=ReplaceableTextures\WorldEditUI\Editor-Force.blp
+Bufftip= Lolicon aura
+Buffubertip=I don't like young girls.|nI just like the infinite possibilities that are in them.
+Spelldetail=2
+TargetArt=XD_GH01.mdx
+Targetattach=origin
+
+[BCbf]
+Buffart=ReplaceableTextures\CommandButtons\BTNBreathOfFrost.blp
+Bufftip=Breath of Frost
+Buffubertip=This unit was hit by Breath of Frost; it will take damage over time.
+TargetArt=Abilities\Spells\Other\BreathOfFrost\BreathOfFrostTarget.mdl
+
+[BCtc]
+Buffart=ReplaceableTextures\CommandButtons\BTNGolemThunderclap.blp
+Bufftip=Slam
+Buffubertip=This unit has been hit by Slam; its movement speed and attack rate are reduced.
+TargetArt=Abilities\Spells\Orc\StasisTrap\StasisTotemTarget.mdl
+Targetattach=overhead
+
+[BEah]
+Buffart=ReplaceableTextures\CommandButtons\BTNThorns.blp
+Bufftip=Thorns Aura
+Buffubertip=This unit is affected by Thorns Aura. Deals damage to melee units that attack you.
+SpecialArt=Abilities\Spells\NightElf\ThornsAura\ThornsAuraDamage.mdl
+Specialattach=head
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[BEar]
+Buffart=ReplaceableTextures\CommandButtons\BTNTrueShot.blp
+Bufftip=True Shot Aura
+Buffubertip=This unit is affected by the True Shot Aura. Ranged attack damage increased.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[BEer]
+Buffart=ReplaceableTextures\CommandButtons\BTNEntanglingRoots.blp
+Bufftip=Entangling Roots
+Buffubertip=This unit was attacked by Entangling Roots. It cannot move and takes damage over time.
+TargetArt=Abilities\Spells\NightElf\EntanglingRoots\EntanglingRootsTarget.mdl
+Targetattach=origin
+
+[BEfn]
+Buffart=ReplaceableTextures\CommandButtons\BTNEnt.blp
+Bufftip=Force of Nature
+Buffubertip=Summoned units are damaged by dispel magic.
+
+[BEia]
+Buffart=,
+
+[BEim]
+Buffart=ReplaceableTextures\CommandButtons\BTNImmolationOn.blp
+Bufftip=Immolation
+Buffubertip=This unit has an immolation ability. Continuously inflicts damage to enemy ground units that approach it.
+SpecialArt=Abilities\Spells\NightElf\Immolation\ImmolationDamage.mdl
+Specialattach=head
+TargetArt=Abilities\Spells\NightElf\Immolation\ImmolationTarget.mdl
+
+[BEme]
+Buffart=ReplaceableTextures\CommandButtons\BTNMetamorphosis.blp
+Bufftip=Metamorphosis
+Buffubertip=Transforms the Demon Hunter into a demon of great power that can attack from a distance.
+
+[BEsh]
+Buffart=ReplaceableTextures\CommandButtons\BTNShadowStrike.blp
+Bufftip=Weakness exposure
+Buffubertip=It slows down for a period of time!
+TargetArt=Abilities\Spells\Orc\Purge\PurgeBuffTarget.mdl
+Targetattach=origin
+
+[BEst]
+Buffart=,
+Bufftip=scout
+Buffubertip=Summoned units are damaged by dispel magic.
+
+[BEsv]
+Buffart=ReplaceableTextures\CommandButtons\BTNSpiritOfVengeance.blp
+Bufftip=Vengeance
+Buffubertip=Vengeance was angry.
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[BFig]
+Buffart=,
+Bufftip=Summoned Unit
+Buffubertip=Summoned units are damaged by dispel magic.
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[BHab]
+Buffart=ReplaceableTextures\CommandButtons\BTNBrilliance.blp
+Bufftip=Brilliance Aura
+Buffubertip=This unit is affected by Brilliance Aura. Increases mana regeneration rate.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[BHad]
+Buffart=ReplaceableTextures\CommandButtons\BTNDevotion.blp
+Bufftip=Devout Aura
+Buffubertip=This unit is affected by the Devotion Aura. Armor increases.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[BHav]
+Buffart=ReplaceableTextures\CommandButtons\BTNAvatar.blp
+Bufftip=Avatar
+Buffubertip="This unit is in Avatar form; it has increased hit points, attack damage, armor, and is immune to spells."
+
+[BHbd]
+Buffart=ReplaceableTextures\CommandButtons\BTNBlizzard.blp
+Bufftip=blizzard
+Buffubertip=This unit is taking damage from Blizzard.
+TargetArt=Abilities\Spells\Other\FrostDamage\FrostDamage.mdl
+
+[BHbn]
+Buffart=ReplaceableTextures\CommandButtons\BTNBanish.blp
+Bufftip=Abyss
+Buffubertip=This unit is enchanted and has no attack ability
+Effectsoundlooped=BanishLoop
+TargetArt=Abilities\Spells\Human\Banish\BanishTarget.mdl
+
+[BHbz]
+Buffart=,
+
+[BHca]
+Buffart=ReplaceableTextures\CommandButtons\BTNColdArrows.blp
+Bufftip=Cold Arrow
+Buffubertip=This unit was attacked by Cold Arrow. Attack speed and movement speed are slowed.
+
+[BHds]
+Buffart=ReplaceableTextures\CommandButtons\BTNDivineIntervention.blp
+Bufftip=Divine Shield
+Buffubertip=This unit is protected by the Divine Shield and is invincible.
+TargetArt=Abilities\Spells\Human\DivineShield\DivineShieldTarget.mdl
+Targetattach=origin
+
+[BHfs]
+Buffart=ReplaceableTextures\CommandButtons\BTNWallOfFire.blp
+Bufftip=Amaterasu
+Buffubertip=Continuously take damage.
+TargetArt=Abilities\Spells\Human\FlameStrike\FlameStrikeEmbers.mdl
+
+[BHtb]
+Buffart=ReplaceableTextures\CommandButtons\BTNStormBolt.blp
+Bufftip=Storm bolt
+Buffubertip=This unit was stunned by Storm Bolt. It cannot move
+TargetArt=Abilities\Spells\Human\StormBolt\StormBoltTarget.mdl
+Targetattach=overhead
+
+[BHtc]
+Buffart=ReplaceableTextures\CommandButtons\BTNThunderclap.blp
+Bufftip=Thunder Clap
+Buffubertip=This unit was attacked by the Thunder Clap. Movement speed and attack speed are slowed.
+TargetArt=Abilities\Spells\Orc\StasisTrap\StasisTotemTarget.mdl
+Targetattach=overhead
+
+[BHwe]
+Buffart=ReplaceableTextures\CommandButtons\BTNSummonWaterElemental.blp
+Bufftip=Remaining survival time
+Buffubertip=Summoned units are damaged by dispel magic.
+
+[BIcb]
+Buffart=ReplaceableTextures\CommandButtons\BTNOrbOfCorruption.blp
+Bufftip=Corruption
+Buffubertip=This unit is attacked by an Orb of Corruption
+
+[BIcf]
+Buffart=ReplaceableTextures\CommandButtons\BTNCloakOfFlames.blp
+Bufftip=Cloak of Flames
+Buffubertip=This unit has a Cloak of Flames; nearby enemy ground units will take damage over time.
+SpecialArt=Abilities\Spells\NightElf\Immolation\ImmolationDamage.mdl
+Specialattach=head
+TargetArt=Abilities\Spells\NightElf\Immolation\ImmolationTarget.mdl
+
+[BIil]
+Buffart=ReplaceableTextures\CommandButtons\BTNWand.blp
+Bufftip=Illusion
+Buffubertip=This unit is an illusion; it takes extra damage from enemies.
+SpecialArt=Abilities\Spells\Orc\MirrorImage\MirrorImageDeathCaster.mdl
+
+[BImo]
+Buffart=,
+Bufftip=Monster Lure
+Buffubertip=Nearby creeps will be summoned to this lure.
+
+[BIpb]
+Buffart=ReplaceableTextures\CommandButtons\BTNOrbOfVenom.blp
+Spelldetail=2
+TargetArt=Abilities\Weapons\PoisonSting\PoisonStingTarget.mdl
+
+[BIpd]
+Buffart=ReplaceableTextures\CommandButtons\BTNOrbOfVenom.blp
+Spelldetail=2
+TargetArt=Abilities\Weapons\PoisonSting\PoisonStingTarget.mdl
+
+[BIpv]
+Buffart=ReplaceableTextures\CommandButtons\BTNPotionOfVampirism.blp
+Bufftip=Vampiric Potion
+Buffubertip=This hero drank a vampire potion. Damage increases and vampiric attacks.
+TargetArt=Buff_Attack.mdx
+Targetattach=overhead
+Targetattachcount=1
+
+[BIrb]
+Buffart=ReplaceableTextures\CommandButtons\BTNRune.blp
+Bufftip=Reborn
+Buffubertip=This unit has been reborn.
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[BIrg]
+Buffart=ReplaceableTextures\CommandButtons\BTNGreaterRejuvScroll.blp
+Bufftip=Rejuvenation
+Buffubertip=This unit continually restores health and mana.
+TargetArt=Abilities\Spells\Other\ANrl\ANrlTarget.mdl,Abilities\Spells\Other\ANrm\ANrmTarget.mdl
+Targetattach=origin
+Targetattach1=origin
+Targetattachcount=2
+
+[BIrl]
+Buffart=ReplaceableTextures\CommandButtons\BTNHealingSalve.blp
+Bufftip=Regeneration
+Buffubertip=This unit has a regeneration
+TargetArt=Abilities\Spells\Other\ANrm\ANrmTarget.mdl
+Targetattach=origin
+
+[BIrm]
+Buffart=ReplaceableTextures\CommandButtons\BTNPotionOfClarity.blp
+Bufftip=Clarity Potion
+Buffubertip=This unit drank a clarity potion. Mana is continuously restored.
+TargetArt=Abilities\Spells\Other\ANrl\ANrlTarget.mdl
+Targetattach=origin
+
+[BIsh]
+Buffart=,
+Bufftip=Headhunter Spirit
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[BIsv]
+Buffart=ReplaceableTextures\CommandButtons\BTNUsedSoulGem.blp
+Bufftip=Soul thief
+Buffubertip=It is the soul of the hero.
+TargetArt=Abilities\Spells\Items\AIso\BIsvTarget.mdl
+
+[BIwb]
+Buffart=,
+
+[BNab]
+Buffart=ReplaceableTextures\CommandButtons\BTNStasisTrap.blp
+Bufftip=Defense reduction
+Buffubertip=This unit's defense is reduced.
+TargetArt=Environment\UndeadBuildingFire\UndeadLargeBuildingFire1.mdl
+Targetattach=chest
+
+[BNba]
+Buffart=ReplaceableTextures\CommandButtons\BTNTheBlackArrow.blp
+Bufftip=Black Arrow
+Buffubertip="This unit was hit by a Black Arrow; if it dies, it will turn into a skeleton for the enemy."
+
+[BNbf]
+Buffart=ReplaceableTextures\CommandButtons\BTNBreathOfFire.blp
+Bufftip=Breath of Fire
+Buffubertip=This unit was attacked by the Breath of Fire. You will take damage for a certain amount of time.
+TargetArt=Abilities\Spells\Other\BreathOfFire\BreathOfFireDamage.mdl
+
+[BNbr]
+Buffart=ReplaceableTextures\CommandButtons\BTNBattleRoar.blp
+Bufftip=Battle Roar
+Buffubertip=This unit has Battle Roar; its attack damage has been increased.
+Spelldetail=1
+TargetArt=Abilities\Spells\NightElf\BattleRoar\RoarTarget.mdl
+Targetattach=overhead
+
+[BNcg]
+Buffart=,
+Bufftip=Clockwerk Goblin
+Buffubertip=Clockwerk Goblin.
+
+[BNcr]
+Buffart=ReplaceableTextures\CommandButtons\BTNChemicalRage.blp
+Bufftip=Chemical Rage
+Buffubertip=This unit is benefiting from Chemical Rage. Increases movement and attack speed.
+
+[BNcs]
+Buffart=ReplaceableTextures\CommandButtons\BTNClusterRockets.blp
+Bufftip=Cluster rocket
+Buffubertip=Cluster rocket.
+TargetArt=Abilities\Spells\Human\Thunderclap\ThunderclapTarget.mdl
+Targetattach=overhead
+
+[BNdc]
+Buffart=ReplaceableTextures\CommandButtons\BTNSleep.blp
+Bufftip=Dark Conversion
+Buffubertip=This villager was hit by Dark Conversion; it will fall asleep and then turn into a zombie.
+EffectArt=Abilities\Spells\Demon\DarkConversion\ZombifyTarget.mdl
+TargetArt=Abilities\Spells\Undead\Sleep\SleepTarget.mdl
+Targetattach=overhead
+
+[BNdh]
+Buffart=ReplaceableTextures\CommandButtons\BTNStrongDrink.blp
+Bufftip=Drunken Haze
+Buffubertip=This unit was hit by a Drunken Haze; it has reduced movement speed and a chance to miss on attacks.
+TargetArt=Abilities\Spells\Other\StrongDrink\BrewmasterTarget.mdl
+Targetattach=overhead
+
+[BNdi]
+Buffart=,
+Bufftip=reposal
+Buffubertip=This unit was attacked by Doom. It takes damage until death
+EffectArt=Abilities\Spells\Other\Doom\DoomDeath.mdl
+TargetArt=Abilities\Spells\Other\Doom\DoomDeath.mdl
+
+[BNdm]
+Buffart=ReplaceableTextures\CommandButtons\BTNTheBlackArrow.blp
+Bufftip=Dark Minion
+Buffubertip=Summoned units take damage from dispels.
+
+[BNdo]
+Buffart=ReplaceableTextures\CommandButtons\BTNAttackGround.blp
+Bufftip=Non-combat zone
+Buffubertip=This unit is in a non-combat zone. Choose one of the summoning devices in the battle area and join the battle!
+
+[BNef]
+Buffart=ReplaceableTextures\CommandButtons\BTNStormEarth&Fire.blp
+Bufftip=Pandaren Elemental
+Buffubertip=I am a Pandaren Elemental; worship me.
+EffectArt=Abilities\Spells\Orc\MirrorImage\MirrorImageDeathCaster.mdl
+SpecialArt=Abilities\Spells\Orc\MirrorImage\MirrorImageDeathCaster.mdl
+
+[BNeg]
+Buffart=ReplaceableTextures\CommandButtons\BTNEngineeringUpgrade.blp
+Bufftip=Engineering Upgrade
+TargetArt=Abilities\Spells\Undead\ThornyShield\ThornyShieldTargetChestLeft.mdl,Abilities\Spells\Undead\ThornyShield\ThornyShieldTargetChestRight.mdl,Abilities\Spells\Undead\ThornyShield\ThornyShieldTargetChestMountLeft.mdl,Abilities\Spells\Undead\ThornyShield\ThornyShieldTargetChestMountRight.mdl
+Targetattach=chest,left
+Targetattach1=chest,right
+Targetattach2=chest,mount,left
+Targetattach3=chest,mount,right
+Targetattachcount=4
+
+[BNfy]
+Buffart=,
+Bufftip=Pocket Factory
+Buffubertip=Pocket Factory.
+
+[BNhs]
+Buffart=ReplaceableTextures\CommandButtons\BTNHealingSpray.blp
+Bufftip=Healing Spray
+Buffubertip=This unit is being healed by Healing Spray.
+
+[BNht]
+Buffart=ReplaceableTextures\CommandButtons\BTNHowlOfTerror.blp
+Bufftip=Howl of Terror
+Buffubertip=This unit has heard the Howl of Terror; it deals less damage for a duration.
+TargetArt=Abilities\Spells\Other\HowlOfTerror\HowlTarget.mdl
+
+[BNic]
+Buffart=ReplaceableTextures\CommandButtons\BTNIncinerate.blp
+Bufftip=Incinerate
+Buffubertip=This target is partially burning
+SpecialArt=Abilities\Spells\Other\Incinerate\FireLordDeathExplode.mdl
+TargetArt=Abilities\Spells\Other\Incinerate\IncinerateBuff.mdl
+Targetattach=chest
+
+[BNin]
+Buffart=,
+Bufftip=Infernal
+Buffubertip=This Infernal is powerful.
+
+[BNlm]
+Buffart=,
+Bufftip=Lava Spawn
+Buffubertip=Lava spawn.
+Missilearc=0.99
+Missileart=Abilities\Weapons\LavaSpawnMissile\LavaSpawnBirthMissile.mdl
+MissileHoming=1
+Missilespeed=200
+
+[BNmr]
+Buffart=ReplaceableTextures\CommandButtons\BTNTemp.blp
+Bufftip=Mind Rot
+Buffubertip=This unit has been hit by Mind Rot; it is losing mana over time.
+
+[BNms]
+Buffart=ReplaceableTextures\CommandButtons\BTNNeutralManaShield.blp
+Bufftip=Mana shield
+Buffubertip=This unit has a mana shield. Temporarily protected from physical damage and damaging magic.
+TargetArt=Abilities\Spells\Human\ManaShield\ManaShieldCaster.mdl
+
+[BNpa]
+Buffart=ReplaceableTextures\CommandButtons\BTNParasite.blp
+Bufftip=Parasite
+Buffubertip="This unit has been inflicted with a parasite; it will take damage over time, and if it dies while still afflicted, a minion will spawn from its corpse."
+TargetArt=Abilities\Spells\Other\Parasite\ParasiteTarget.mdl
+Targetattach=overhead
+
+[BNpi]
+Buffart=,
+SpecialArt=Abilities\Spells\NightElf\Immolation\ImmolationDamage.mdl
+Specialattach=head
+
+[BNpm]
+Buffart=ReplaceableTextures\CommandButtons\BTNParasite.blp
+Bufftip=Parasite
+Buffubertip="This unit has been inflicted with a parasite; it will take damage over time, and if it dies while still afflicted, a minion will spawn from its corpse."
+
+[BNrd]
+Buffart=ReplaceableTextures\CommandButtons\BTNFire.blp
+Bufftip=Rain of Fire
+Buffubertip=This unit was attacked by Rain of Fire. As time passes
+TargetArt=Abilities\Spells\Human\FlameStrike\FlameStrikeDamageTarget.mdl
+
+[BNrf]
+Buffart=,
+
+[BNsa]
+Buffart=ReplaceableTextures\CommandButtons\BTNStaffOfSanctuary.blp
+Bufftip=Sanctuary
+Buffubertip=This unit is affected by the Sanctuary Staff. You are constantly regaining health
+TargetArt=Abilities\Spells\Items\StaffOfSanctuary\Staff_Sanctuary_Target.mdl
+
+[BNsg]
+Buffart=ReplaceableTextures\CommandButtons\BTNGrizzlyBear.blp
+Bufftip=Bear
+Buffubertip=Strong bear.
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[BNsi]
+Buffart=ReplaceableTextures\CommandButtons\BTNSilence.blp
+Bufftip=Silence
+Buffubertip=This unit was attacked by Silence. You cannot use magic.
+TargetArt=Abilities\Spells\Other\Silence\SilenceTarget.mdl
+Targetattach=overhead
+
+[BNsl]
+Buffart=ReplaceableTextures\CommandButtons\BTNSleep.blp
+Effectsound=SoulPreservation
+
+[BNso]
+Buffart=ReplaceableTextures\CommandButtons\BTNSoulBurn.blp
+Bufftip=Soul Burn
+Buffubertip="This unit is afflicted by Soul Burn. It cannot cast spells, attacks for less damage, and will take damage over time."
+TargetArt=Abilities\Spells\Other\SoulBurn\SoulBurnbuff.mdl
+Targetattach=overhead
+
+[BNsq]
+Buffart=ReplaceableTextures\CommandButtons\BTNQuillBeast.blp
+Bufftip=Quill Beast
+Buffubertip=Angry Quilbist.
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[BNss]
+Buffart=ReplaceableTextures\CommandButtons\BTNSpellShieldAmulet.blp
+Bufftip=Spell Shield
+Buffubertip=A protective shield that blocks a spell.
+TargetArt=Abilities\Spells\Items\SpellShieldAmulet\SpellShieldCaster.mdl
+Targetattach=origin
+
+[BNst]
+Buffart=,
+
+[BNsw]
+Buffart=ReplaceableTextures\CommandButtons\BTNWarEagle.blp
+Bufftip=Hawk
+Buffubertip=A proud hawk.
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[BNtm]
+Buffart=ReplaceableTextures\CommandButtons\BTNTransmute.blp
+Bufftip=Transmute
+Buffubertip=This unit is being transmuted and will die very soon. It will be converted into gold which will be given to the player who cast Transmute.
+SpecialArt=Abilities\Spells\Other\Transmute\PileofGold.mdl
+
+[BNto]
+Buffart=,
+Bufftip=Tornado
+Effectsoundlooped=TornadoLoop
+
+[BNva]
+Buffart=,
+
+[BNvc]
+Buffart=ReplaceableTextures\CommandButtons\BTNVolcano.blp
+Bufftip=Volcano
+Buffubertip=Volcano.
+TargetArt=Abilities\Spells\Human\Thunderclap\ThunderclapTarget.mdl
+Targetattach=overhead
+
+[BNwm]
+Buffart=ReplaceableTextures\CommandButtons\BTNMurgulTideWarrior.blp
+Bufftip=Watery minions
+Buffubertip=Summoned units are damaged by dispel magic.
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[BOac]
+Buffart=ReplaceableTextures\CommandButtons\BTNGnollCommandAura.blp
+Bufftip=Damage increase
+Buffubertip=Attack damage increases.
+Spelldetail=1
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[BOae]
+Buffart=ReplaceableTextures\CommandButtons\BTNCommand.blp
+Bufftip=Speed ​​increase
+Buffubertip=Movement speed and attack speed increased.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[BOea]
+Buffart=,
+
+[BOeq]
+Buffart=ReplaceableTextures\CommandButtons\BTNEarthquake.blp
+Bufftip=Earthquake
+Buffubertip=This unit is in an earthquake-affected zone. Movement speed is drastically reduced.
+TargetArt=Abilities\Spells\Orc\StasisTrap\StasisTotemTarget.mdl
+Targetattach=overhead
+
+[BOhx]
+Buffart=ReplaceableTextures\CommandButtons\BTNHex.blp
+Bufftip=Hex
+Buffubertip=This unit has hex magic. Turned into Critter.
+EffectArt=Abilities\Spells\Human\Polymorph\PolyMorphDoneGround.mdl
+
+[BOmi]
+Buffart=ReplaceableTextures\CommandButtons\BTNMirrorImage.blp
+Bufftip=Mirror image
+Buffubertip=Welcome to Blademaster.
+SpecialArt=Abilities\Spells\Orc\MirrorImage\MirrorImageDeathCaster.mdl
+
+[BOsf]
+Buffart=ReplaceableTextures\CommandButtons\BTNSpiritWolf.blp
+Bufftip=Ferrule Spirit
+Buffubertip=Summoned units are damaged by dispel magic.
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[BOsh]
+Buffart=,
+
+[BOvc]
+Buffart=,
+TargetArt=Abilities\Spells\Orc\Voodoo\VoodooAura.mdl
+
+[BOvd]
+Buffart=ReplaceableTextures\CommandButtons\BTNBigBadVoodooSpell.blp
+Bufftip=Big Bad Pier
+Buffubertip=This unit is affected by Big Bad Voodoo. It is invincible.
+TargetArt=Abilities\Spells\Orc\Voodoo\VoodooAuraTarget.mdl
+Targetattach=overhead
+
+[BOwd]
+Buffart=,
+Bufftip=word
+Buffubertip=Summoned units are damaged by dispel magic.
+
+[BOwk]
+Buffart=ReplaceableTextures\CommandButtons\BTNWindWalkOn.blp
+Bufftip=Windwork
+Buffubertip=This unit is wind walking. Transparent and fast moving. The first attack while invisible deals additional damage to the target unit.
+
+[BOww]
+Buffart=,
+
+[BPSE]
+Buffart=ReplaceableTextures\CommandButtons\BTNStun.blp
+Bufftip=Stunned
+Buffubertip=This unit does not move.
+TargetArt=Abilities\Spells\Human\Thunderclap\ThunderclapTarget.mdl
+Targetattach=overhead
+
+[BSTN]
+Buffart=ReplaceableTextures\CommandButtons\BTNStun.blp
+Bufftip=Stunned
+Buffubertip=This unit is stunned. It cannot move
+TargetArt=Abilities\Spells\Human\Thunderclap\ThunderclapTarget.mdl
+Targetattach=overhead
+
+[BUad]
+Buffart=,
+
+[BUan]
+Buffart=ReplaceableTextures\CommandButtons\BTNAnimateDead.blp
+Bufftip=Animate Dead
+Buffubertip=Summoned units are damaged by dispel magic.
+SpecialArt=Objects\Spawnmodels\Undead\UndeadLargeDeathExplode\UndeadLargeDeathExplode.mdl
+
+[BUau]
+Buffart=ReplaceableTextures\CommandButtons\BTNUnholyAura.blp
+Bufftip=Corps command
+Buffubertip=This unit is within the Legion Command area.
+Spelldetail=2
+Targetattach=origin
+
+[BUav]
+Buffart=ReplaceableTextures\CommandButtons\BTNVampiricAura.blp
+Bufftip=Vampire Rick Aura
+Buffubertip=This unit is affected by the vampire aura. Every time you damage an enemy unit
+SpecialArt=Abilities\Spells\Undead\VampiricAura\VampiricAuraTarget.mdl
+Specialattach=origin
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[BUcb]
+Buffart=ReplaceableTextures\CommandButtons\BTNCarrionScarabs.blp
+Bufftip=Carion beetle
+Buffubertip=Summoned units are damaged by dispel magic.
+
+[BUcs]
+Buffart=,
+
+[BUdd]
+Buffart=ReplaceableTextures\CommandButtons\BTNDeathAndDecay.blp
+Bufftip=Death and Decay
+Buffubertip=This unit is under Death and Decay attacks. Continues to take damage until the magic ends.
+TargetArt=Abilities\Spells\Undead\DeathandDecay\DeathandDecayDamage.mdl
+
+[BUfa]
+Buffart=ReplaceableTextures\CommandButtons\BTNFrostArmor.blp
+Bufftip=Frost Armor
+Buffubertip=This unit is protected by Frost Armor. Armor is increased
+SpecialArt=Abilities\Spells\Undead\FrostArmor\FrostArmorDamage.mdl
+Specialattach=chest
+Spelldetail=1
+TargetArt=Abilities\Spells\Undead\FrostArmor\FrostArmorTarget.mdl
+Targetattach=chest
+
+[BUim]
+Buffart=ReplaceableTextures\CommandButtons\BTNImpale.blp
+Bufftip=Impale
+Buffubertip=This unit is under Impale attack. Floating in the air for a while
+EffectArt=Abilities\Spells\Undead\Impale\ImpaleHitTarget.mdl
+Effectattach=sprite,first
+TargetArt=Abilities\Spells\Human\StormBolt\StormBoltTarget.mdl
+Targetattach=overhead
+
+[BUsl]
+Buffart=ReplaceableTextures\CommandButtons\BTNSleep.blp
+Bufftip=slip
+Buffubertip=This unit is sleeping. You cannot move
+Effectsoundlooped=CreepSleepSnoreLoop
+TargetArt=Abilities\Spells\Undead\Sleep\SleepTarget.mdl
+Targetattach=overhead
+
+[BUsp]
+Buffart=ReplaceableTextures\CommandButtons\BTNSleep.blp
+TargetArt=Abilities\Spells\Undead\Sleep\SleepSpecialArt.mdl
+
+[BUst]
+Buffart=ReplaceableTextures\CommandButtons\BTNSleep.blp
+TargetArt=Abilities\Spells\Undead\Sleep\SleepSpecialArt.mdl
+
+[BUts]
+Buffart=ReplaceableTextures\CommandButtons\BTNThornShield.blp
+TargetArt=Abilities\Spells\Undead\ThornyShield\ThornyShieldTargetChestLeft.mdl,Abilities\Spells\Undead\ThornyShield\ThornyShieldTargetChestRight.mdl,Abilities\Spells\Undead\ThornyShield\ThornyShieldTargetChestMountLeft.mdl,Abilities\Spells\Undead\ThornyShield\ThornyShieldTargetChestMountRight.mdl
+Targetattach=chest,left
+Targetattach1=chest,right
+Targetattach2=chest,mount,left
+Targetattach3=chest,mount,right
+Targetattachcount=4
+
+[Babr]
+Buffart=ReplaceableTextures\CommandButtons\BTNRegenerationAura.blp
+Bufftip=Aura of Blight
+Buffubertip=This unit is under the effects of Aura of Blight; it has a bonus to hit point regeneration.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[Bakb]
+Buffart=ReplaceableTextures\CommandButtons\BTNDrum.blp
+Bufftip=War Drums
+Buffubertip=This unit hears War Drums; it has increased attack damage.
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\GeneralAuraTarget\GeneralAuraTarget.mdl
+Targetattach=origin
+
+[Bam2]
+Buffart=ReplaceableTextures\CommandButtons\BTNAntiMagicShell.blp
+Bufftip=Magic protection
+Buffubertip=This unit is protected by an anti-magic shell. In order to be affected by magic damage
+TargetArt=Abilities\Spells\Human\ManaShield\ManaShieldCaster.mdl
+Targetattach=overhead
+
+[Bams]
+Buffart=ReplaceableTextures\CommandButtons\BTNAntiMagicShell.blp
+Bufftip=Magic protection
+Buffubertip=This unit is protected by an anti-magic shell
+TargetArt=Abilities\Spells\Undead\AntiMagicShell\AntiMagicShell.mdl
+Targetattach=overhead
+
+[Bapl]
+Buffart=ReplaceableTextures\CommandButtons\BTNPlagueCloud.blp
+Bufftip=Disease
+Buffubertip=This unit is diseased; it will take damage over time.
+Spelldetail=2
+TargetArt=Units\Undead\PlagueCloud\PlagueCloudtarget.mdl
+Targetattach=head
+
+[Barm]
+Buffart=,
+Bufftip=Mana Regeneration Aura
+Buffubertip=This unit is under the effects of Mana Regeneration Aura; it has an increased mana regeneration rate.
+Effectsoundlooped=FountainOfLifeLoop
+Spelldetail=1
+TargetArt=Abilities\Spells\Other\ANrl\ANrlTarget.mdl
+
+[Basl]
+Buffart=ReplaceableTextures\CommandButtons\BTNTornado.blp
+Bufftip=Tornado
+Buffubertip=This unit is caught within a Tornado; its movement speed has been reduced temporarily.
+TargetArt=Abilities\Spells\Other\Tornado\Tornado_Target.mdl
+
+[Bbar]
+Buffart=ReplaceableTextures\CommandButtons\BTNBarkskin.blp
+Bufftip=Barkskin
+Buffubertip=This unit is equipped with bark skin to enhance its armor.
+TargetArt=Abilities\Spells\NightElf\Barkskin\BarkSkinTarget.mdl
+Targetattach=chest
+
+[Bblo]
+Buffart=ReplaceableTextures\CommandButtons\BTNBloodLust.blp
+Bufftip=Bloodlust
+Buffubertip=This unit has Bloodlust; its attack rate and movement speed are increased.
+Spelldetail=1
+TargetArt=Abilities\Spells\Orc\Bloodlust\BloodlustTarget.mdl,Abilities\Spells\Orc\Bloodlust\BloodlustSpecial.mdl
+Targetattach=hand,left
+Targetattach1=hand,right
+Targetattachcount=2
+
+[Bbof]
+Buffart=ReplaceableTextures\CommandButtons\BTNWallOfFire.blp
+Bufftip=Burning Oil
+Buffubertip=This unit is caught in a burning oil fire; it will take damage over time.
+TargetArt=Abilities\Spells\Human\FlameStrike\FlameStrikeDamageTarget.mdl
+
+[Bbsk]
+Buffart=ReplaceableTextures\CommandButtons\BTNBerserkForTrolls.blp
+Bufftip=Berserk
+Buffubertip=This unit is in Berserk state. It deals more damage to enemies
+TargetArt=Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSLeft.mdl,Abilities\Spells\Orc\TrollBerserk\HeadhunterWEAPONSRight.mdl
+Targetattach=weapon,left
+Targetattach1=weapon,right
+Targetattachcount=2
+
+[Bchd]
+Buffart=ReplaceableTextures\CommandButtons\BTNDizzy.blp
+Bufftip=Dizziness
+Buffubertip=This unit is dizzy; its attack rate and movement speed are reduced.
+TargetArt=Abilities\Spells\Orc\StasisTrap\StasisTotemTarget.mdl
+Targetattach=overhead
+
+[Bclf]
+Buffart=ReplaceableTextures\CommandButtons\BTNCloudOfFog.blp
+Bufftip=Cloud
+Buffubertip="This building has a Cloud on it, and cannot use its ranged attack."
+
+[Bcmg]
+Buffart=ReplaceableTextures\CommandButtons\BTNControlMagic.blp
+Bufftip=Control Magic
+Buffubertip=This unit has been controlled; it obeys a new master now.
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[Bcor]
+Buffart=ReplaceableTextures\CommandButtons\BTNCorrosiveBreath.blp
+Bufftip=Corrosive Breath
+Buffubertip=This building was hit by Corrosive Breath; it will take damage over time.
+TargetArt=Abilities\Spells\NightElf\CorrosiveBreath\ChimaeraAcidTargetArt.mdl
+
+[Bcri]
+Buffart=ReplaceableTextures\CommandButtons\BTNCripple.blp
+Bufftip=Cripple
+Buffubertip=This unit has a cripple spell. Movement speed
+TargetArt=Abilities\Spells\Undead\Cripple\CrippleTarget.mdl
+
+[Bcrs]
+Buffart=ReplaceableTextures\CommandButtons\BTNCurse.blp
+Bufftip=Curse
+Buffubertip=This unit is Cursed; it can miss when it attacks.
+Spelldetail=1
+TargetArt=Abilities\Spells\Undead\Curse\CurseTarget.mdl
+Targetattach=overhead
+
+[Bcsd]
+Buffart=ReplaceableTextures\CommandButtons\BTNColdArrows.blp
+Bufftip=Cold Arrow
+Buffubertip=This unit was attacked by Cold Arrow. Attack speed and movement speed are slowed.
+
+[Bcsi]
+Buffart=,
+
+[Bcy2]
+Buffart=ReplaceableTextures\CommandButtons\BTNCyclone.blp
+Bufftip=Cyclone
+Buffubertip="This unit is in a Cyclone; it cannot move, attack or cast spells."
+EffectArt=Abilities\Spells\NightElf\Cyclone\CycloneTarget.mdl
+Effectattach=sprite,first
+Effectsoundlooped=CycloneLoop
+
+[Bcyc]
+Buffart=ReplaceableTextures\CommandButtons\BTNCyclone.blp
+Bufftip=Cyclone
+Buffubertip="This unit is in a Cyclone; it cannot move, attack or cast spells."
+EffectArt=Abilities\Spells\NightElf\Cyclone\CycloneTarget.mdl
+Effectsoundlooped=CycloneLoop
+Targetattach=sprite,first
+
+[Bdbb]
+Buffart=ReplaceableTextures\CommandButtons\BTNLifeDrain.blp
+Bufftip=Drain Life and Mana
+Buffubertip=This unit temporarily received more than the maximum amount of health and mana. This bonus disappears quickly.
+
+[Bdbl]
+Buffart=ReplaceableTextures\CommandButtons\BTNLifeDrain.blp
+Bufftip=Drain life
+Buffubertip=This unit temporarily received more than the maximum amount of health. This bonus disappears quickly.
+
+[Bdbm]
+Buffart=ReplaceableTextures\CommandButtons\BTNManaDrain.blp
+Bufftip=Siphon Mana
+Buffubertip=This unit temporarily received more than the maximum amount of mana. This bonus disappears quickly.
+
+[Bdcb]
+Buffart=,
+TargetArt=Abilities\Spells\Other\Drain\DrainCaster.mdl
+Targetattach=origin
+
+[Bdcl]
+Buffart=,
+TargetArt=Abilities\Spells\Other\Drain\DrainCaster.mdl
+Targetattach=origin
+
+[Bdcm]
+Buffart=,
+TargetArt=Abilities\Spells\Other\Drain\ManaDrainCaster.mdl
+Targetattach=origin
+
+[Bdef]
+Buffart=war3mapImported\BTNAqua_Z.blp
+Bufftip=Goddess's Protection
+Buffubertip=Defense is increased.
+Spelldetail=1
+TargetArt=Buff_Stop.mdx
+Targetattach=overhead
+
+[Bdet]
+Buffart=ReplaceableTextures\CommandButtons\BTNDustOfAppearance.blp
+Bufftip=Appearance Dust
+Buffubertip=When attacked by Appearance Dust
+
+[Bdig]
+Buffart=,
+
+[Bdtb]
+Buffart=,
+TargetArt=Abilities\Spells\Other\Drain\DrainTarget.mdl
+Targetattach=chest
+
+[Bdtl]
+Buffart=,
+TargetArt=Abilities\Spells\Other\Drain\DrainTarget.mdl
+Targetattach=chest
+
+[Bdtm]
+Buffart=,
+TargetArt=Abilities\Spells\Other\Drain\ManaDrainTarget.mdl
+Targetattach=chest
+
+[Bdvv]
+Buffart=ReplaceableTextures\CommandButtons\BTNDevour.blp
+Bufftip=Devour
+Buffubertip=A unit is being devoured; it will take damage while providing vision to the owner.
+
+[Beat]
+Buffart=,
+
+[Bena]
+Buffart=ReplaceableTextures\CommandButtons\BTNEnsnare.blp
+Bufftip=Insnare
+Buffubertip=This unit has Ensnare. It cannot move or fly.
+TargetArt=Abilities\Spells\Orc\Ensnare\ensnare_AirTarget.mdl
+Targetattach=chest,mount
+
+[Beng]
+Buffart=ReplaceableTextures\CommandButtons\BTNEnsnare.blp
+Bufftip=Insnare
+Buffubertip=This unit has Ensnare. It cannot move or fly.
+TargetArt=Abilities\Spells\Orc\Ensnare\ensnareTarget.mdl
+
+[Bens]
+Buffart=ReplaceableTextures\CommandButtons\BTNEnsnare.blp
+TargetArt=Abilities\Spells\Orc\Ensnare\ensnareTarget.mdl
+Targetattach=origin
+
+[Beye]
+Buffart=ReplaceableTextures\CommandButtons\BTNSentryWard.blp
+Bufftip=Time limit survival
+Buffubertip=Summoned units are damaged by dispel magic.
+
+[Bfae]
+Buffart=ReplaceableTextures\CommandButtons\BTNFaerieFire.blp
+Bufftip=Fairy fire
+Buffubertip=This unit can use Fairy Fire magic
+Spelldetail=1
+TargetArt=Abilities\Spells\NightElf\FaerieFire\FaerieFireTarget.mdl
+Targetattach=head
+
+[Bfre]
+Buffart=,
+
+[Bfro]
+Buffart=ReplaceableTextures\CommandButtons\BTNFrost.blp
+Bufftip=Slow
+Buffubertip=This unit is subject to slow magic and moves slower than usual.
+TargetArt=Abilities\Spells\Other\FrostDamage\FrostDamage.mdl
+
+[Bfrz]
+Buffart=ReplaceableTextures\CommandButtons\BTNFreezingBreath.blp
+Bufftip=Freezing Breath
+Buffubertip=This building is frozen; its abilities cannot be used and it cannot be repaired.
+TargetArt=Abilities\Spells\Undead\FreezingBreath\FreezingBreathTargetArt.mdl
+Targetattach=origin
+
+[Bfzy]
+Buffart=ReplaceableTextures\CommandButtons\BTNBloodLust.blp
+Bufftip=Frenzy
+Buffubertip=This unit has a Frenzy ability. Attack speed and movement speed are increased.
+Spelldetail=1
+TargetArt=Abilities\Spells\Orc\Bloodlust\BloodlustTarget.mdl,Abilities\Spells\Orc\Bloodlust\BloodlustSpecial.mdl
+Targetattach=hand,left
+Targetattach1=hand,right
+Targetattachcount=2
+
+[Bgra]
+Buffart=,
+
+[Bhea]
+Buffart=ReplaceableTextures\CommandButtons\BTNHeal.blp
+Bufftip=heel
+Buffubertip=This unit is being treated. Restoring lost stamina.
+Spelldetail=1
+
+[Bhwd]
+Buffart=ReplaceableTextures\CommandButtons\BTNHealingWard.blp
+Bufftip=Healing Word
+Buffubertip=This ward heals nearby friendly units.
+
+[Binf]
+Buffart=ReplaceableTextures\CommandButtons\BTNInnerFire.blp
+Bufftip=Inner fire
+Buffubertip=This unit has an inner fire. Armor and attack damage increased.
+Spelldetail=1
+TargetArt=Abilities\Spells\Human\InnerFire\InnerFireTarget.mdl
+Targetattach=overhead
+Targetattachcount=1
+
+[Binv]
+Buffart=ReplaceableTextures\CommandButtons\BTNInvisibility.blp
+Bufftip=Invisibility
+Buffubertip=This unit is invisible and cannot be seen by the enemy. When you attack or use magic
+
+[Bivs]
+Buffart=,
+
+[Bliq]
+Buffart=ReplaceableTextures\PassiveButtons\PASBTNLiquidFire.blp
+Effectsoundlooped=LiquidFireLoop
+TargetArt=Abilities\Spells\Orc\LiquidFire\Liquidfire.mdl
+
+[Blsa]
+Buffart=,
+
+[Blsh]
+Buffart=ReplaceableTextures\CommandButtons\BTNLightningShield.blp
+Bufftip=Lightning Shield
+Buffubertip=This unit has a Lightning Shield; nearby friendly and enemy units will take damage if they are next to this unit.
+SpecialArt=Abilities\Spells\Orc\LightningShield\LightningShieldBuff.mdl
+TargetArt=Abilities\Spells\Orc\LightningShield\LightningShieldTarget.mdl
+Targetattach=origin
+
+[Bmec]
+Buffart=,
+Bufftip=Machine critter
+Buffubertip=Summoned units are damaged by dispel magic.
+
+[Bmfa]
+Buffart=ReplaceableTextures\CommandButtons\BTNManaFlare.blp
+Bufftip=Mana Flare
+Buffubertip=This unit has Mana Flare on it; nearby enemy units that cast spells will take damage.
+Missileart=Abilities\Spells\Human\ManaFlare\ManaFlareMissile.mdl
+MissileHoming=1
+Missilespeed=1000
+SpecialArt=Abilities\Spells\Human\ManaFlare\ManaFlareBoltImpact.mdl
+TargetArt=Abilities\Spells\Human\ManaFlare\ManaFlareTarget.mdl
+Targetattach=overhead
+
+[Bmfl]
+Buffart=ReplaceableTextures\CommandButtons\BTNManaFlare.blp
+Bufftip=Mana Flare
+Buffubertip=This unit has Mana Flare on it; nearby enemy units that cast spells will take damage.
+Effectsoundlooped=ManaFlareLoop
+LightningEffect=MFPB
+TargetArt=Abilities\Spells\Human\ManaFlare\ManaFlareBase.mdl
+Targetattach=overhead
+
+[Bmil]
+Buffart=ReplaceableTextures\CommandButtons\BTNCallToArms.blp
+Bufftip=Militia
+Buffubertip="This unit has become Militia; its movement speed, attack rate, attack damage, and armor have been increased."
+
+[Bmlc]
+Buffart=,
+Effectsoundlooped=AerialShacklesLoop
+
+[Bmlt]
+Buffart=ReplaceableTextures\CommandButtons\BTNMagicLariet.blp
+Bufftip=Aerial Shackle
+Buffubertip=This unit is tied to an aerial shack so it cannot move or attack
+TargetArt=Abilities\Spells\Human\AerialShackles\AerialShacklesTarget.mdl
+Targetattach=chest,mount
+
+[Boar]
+Buffart=ReplaceableTextures\CommandButtons\BTNHealingWard.blp
+Bufftip=Healing Word Aura
+Buffubertip=Restores stamina.
+Effectsoundlooped=FountainOfLifeLoop
+Spelldetail=2
+TargetArt=Abilities\Spells\Other\ANrm\ANrmTarget.mdl
+
+[Bphx]
+Buffart=,
+Bufftip=Phoenix
+Buffubertip=The power of the Phoenix unfolds.
+
+[Bpig]
+Buffart=,
+SpecialArt=Abilities\Spells\Other\ImmolationRed\ImmolationRedDamage.mdl
+Specialattach=chest
+TargetArt=Abilities\Spells\Other\ImmolationRed\ImmolationRedTarget.mdl
+Targetattach=chest
+
+[Bplg]
+Buffart=,
+
+[Bply]
+Buffart=ReplaceableTextures\CommandButtons\BTNPolymorph.blp
+Bufftip=Polymorph
+Buffubertip=This unit is Polymorphed; it is transformed into a sheep.
+EffectArt=Abilities\Spells\Human\Polymorph\PolyMorphDoneGround.mdl
+
+[Bpoc]
+Buffart=,
+TargetArt=Abilities\Spells\Undead\Possession\PossessionCaster.mdl
+Targetattach=overhead
+
+[Bpoi]
+Buffart=ReplaceableTextures\CommandButtons\BTNEnvenomedSpear.blp
+Bufftip=Poison
+Buffubertip="This unit is poisoned, and will take damage over time."
+Spelldetail=2
+TargetArt=Abilities\Weapons\PoisonSting\PoisonStingTarget.mdl
+
+[Bpos]
+Buffart=ReplaceableTextures\CommandButtons\BTNPossession.blp
+Bufftip=Possession
+Buffubertip=This unit is being possessed.
+TargetArt=Abilities\Spells\Undead\Possession\PossessionTarget.mdl
+Targetattach=overhead
+
+[Bprg]
+Buffart=ReplaceableTextures\CommandButtons\BTNPurge.blp
+Bufftip=Fudge
+Buffubertip=This unit was under a fuzzy attack. All magic you have is removed and your movement speed is slowed for a while.
+TargetArt=Abilities\Spells\Orc\Purge\PurgeBuffTarget.mdl
+Targetattach=origin
+
+[Bpsd]
+Buffart=ReplaceableTextures\CommandButtons\BTNEnvenomedSpear.blp
+Bufftip=Poison
+Buffubertip=This unit is poisoned; it will take damage over time.
+Spelldetail=2
+TargetArt=Abilities\Weapons\PoisonSting\PoisonStingTarget.mdl
+
+[Bpsh]
+Buffart=ReplaceableTextures\CommandButtons\BTNPhaseShift.blp
+Bufftip=Phase Shift
+Buffubertip=This unit has shifted out of existence and cannot be harmed temporarily.
+SpecialArt=Abilities\Spells\NightElf\FaerieDragonInvis\FaerieDragon_Invis.mdl
+
+[Bpsi]
+Buffart=,
+
+[Bpxf]
+Buffart=ReplaceableTextures\CommandButtons\BTNMarkOfFire.blp
+Bufftip=Under attack
+Buffubertip=You are taking damage.
+
+[Brai]
+Buffart=ReplaceableTextures\CommandButtons\BTNSkeletonWarrior.blp
+Bufftip=Skeletal minion
+Buffubertip=Summoned units are damaged by dispel magic.
+
+[Brej]
+Buffart=ReplaceableTextures\CommandButtons\BTNRejuvenation.blp
+Bufftip=recovery
+Buffubertip=Continuously restores stamina and magical power.
+TargetArt=Abilities\Spells\NightElf\Rejuvenation\RejuvenationTarget.mdl
+Targetattach=chest
+
+[Broa]
+Buffart=ReplaceableTextures\CommandButtons\BTNBattleRoar.blp
+Bufftip=Roar
+Buffubertip=This unit has Roar; its attack damage has been increased.
+Spelldetail=1
+TargetArt=Abilities\Spells\NightElf\BattleRoar\RoarTarget.mdl
+Targetattach=overhead
+
+[Brpb]
+Buffart=ReplaceableTextures\CommandButtons\BTNReplenishMana.blp
+Bufftip=Replenish
+Buffubertip=This unit has been hit by Replenish; some of its hit points and mana have been restored.
+
+[Brpl]
+Buffart=ReplaceableTextures\CommandButtons\BTNReplenishHealth.blp
+Bufftip=Essence of Blight
+Buffubertip=This unit has been hit by Essence of Blight; some of its hit points have been restored.
+
+[Brpm]
+Buffart=ReplaceableTextures\CommandButtons\BTNReplenishMana.blp
+Bufftip=Spirit Touch
+Buffubertip=This unit has been hit by Spirit Touch; some of its mana has been restored.
+
+[Bsha]
+Buffart=,
+
+[Bshs]
+Buffart=ReplaceableTextures\CommandButtons\BTNWandOfShadowSight.blp
+Bufftip=Wand of Shadowsight
+Buffubertip=This unit was hit by a Wand of Shadowsight; it is revealed to an enemy player.
+
+[Bslo]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlow.blp
+Bufftip=Slow
+Buffubertip=This unit is struck by slow magic
+Spelldetail=1
+TargetArt=Abilities\Spells\Human\slow\slowtarget.mdl
+
+[Bspa]
+Buffart=ReplaceableTextures\CommandButtons\BTNSpider.blp
+Bufftip=Spiderling
+TargetArt=Abilities\Weapons\CryptFiendMissile\CryptFiendMissileTarget.mdl
+Targetattach=origin
+
+[Bspe]
+Buffart=ReplaceableTextures\CommandButtons\BTNBoots.blp
+Bufftip=Speed ​​increase
+Buffubertip=This unit has a speed bonus. It moves faster than usual.
+TargetArt=Buff_Move.mdx
+Targetattach=overhead
+Targetattachcount=1
+
+[Bspl]
+Buffart=ReplaceableTextures\CommandButtons\BTNSpiritLink.blp
+Bufftip=Spirit Link
+Buffubertip=This unit is Spirit Linked; it will distribute some of the damage it takes across other Spirit Linked units.
+TargetArt=Abilities\Spells\Orc\SpiritLink\SpiritLinkTarget.mdl
+Targetattach=chest
+
+[Bspo]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=Slow poison
+Buffubertip=This unit is infected with Slow Poison. Movement speed and attack speed decrease and take damage over time.
+Spelldetail=2
+TargetArt=Abilities\Weapons\PoisonSting\PoisonStingTarget.mdl
+
+[Bssd]
+Buffart=ReplaceableTextures\PassiveButtons\PASBTNSlowPoison.blp
+Bufftip=Slow Poison
+Buffubertip="This unit was hit by Slow Poison; its movement speed and attack rate have been reduced, and it will take damage over time."
+Spelldetail=2
+TargetArt=Abilities\Weapons\PoisonSting\PoisonStingTarget.mdl
+
+[Bssi]
+Buffart=,
+
+[Bsta]
+Buffart=ReplaceableTextures\CommandButtons\BTNStasisTrap.blp
+Bufftip=Stasis trap
+Buffubertip=This unit was stunned by a stasis trap. You cannot move
+TargetArt=Abilities\Spells\Human\Thunderclap\ThunderclapTarget.mdl
+Targetattach=overhead
+
+[Bstt]
+Buffart=ReplaceableTextures\CommandButtons\BTNStasisTrap.blp
+Bufftip=Stasis Trap
+Buffubertip=This ward will stun enemy land units when triggered.
+
+[Btdg]
+Buffart=,
+
+[Btlf]
+Buffart=ReplaceableTextures\CommandButtons\BTNAcorn.blp
+Bufftip=Time limit life
+Buffubertip=Summoned units are damaged by dispel magic.
+
+[Btrv]
+Buffart=,
+
+[Btsa]
+Buffart=,
+
+[Btsp]
+Buffart=ReplaceableTextures\CommandButtons\BTNTornado.blp
+Bufftip=Tornado Spin
+Buffubertip=This unit is caught within a Tornado; it has been tossed into the air.
+EffectArt=Abilities\Spells\Other\Tornado\TornadoElementalSmall.mdl
+Effectattach=sprite,first
+
+[Buhf]
+Buffart=ReplaceableTextures\CommandButtons\BTNUnholyFrenzy.blp
+Bufftip=Unholy Frenzy
+Buffubertip="This unit has Unholy Frenzy; its attack rate is increased, but it takes damage over time."
+TargetArt=Abilities\Spells\Undead\UnholyFrenzy\UnholyFrenzyTarget.mdl
+Targetattach=overhead
+
+[Bult]
+Buffart=,
+
+[Buns]
+Buffart=ReplaceableTextures\CommandButtons\BTNUnsummonBuilding.blp
+Bufftip=Unsummon
+Effectsoundlooped=AcolyteUnsummonLoop
+TargetArt=Abilities\Spells\Undead\Unsummon\UnsummonTarget.mdl
+
+[Bvng]
+Buffart=ReplaceableTextures\CommandButtons\BTNAvengingWatcher.blp
+Bufftip=Spirit of Vengeance
+Buffubertip=Vengeance went.
+EffectArt=Abilities\Spells\Orc\FeralSpirit\feralspiritdone.mdl
+
+[Bvul]
+Buffart=ReplaceableTextures\CommandButtons\BTNInvulnerable.blp
+Bufftip=invincibility
+Buffubertip=Since this unit is invincible
+TargetArt=Abilities\Spells\Human\DivineShield\DivineShieldTarget.mdl
+Targetattach=origin
+
+[Bwea]
+Buffart=ReplaceableTextures\CommandButtons\BTNWeb.blp
+Bufftip=Web
+Buffubertip=This unit is webbed; it is stuck to the ground and cannot move.
+TargetArt=Abilities\Spells\Undead\Web\Web_AirTarget.mdl
+Targetattach=chest,mount
+
+[Bweb]
+Buffart=ReplaceableTextures\CommandButtons\BTNWeb.blp
+Bufftip=Web
+Buffubertip=This unit is webbed; it is stuck to the ground and cannot move.
+TargetArt=Abilities\Spells\Undead\Web\WebTarget.mdl
+Targetattach=origin
+
+[PR50]
+Buffart=ReplaceableTextures\CommandButtons\BTNBerserkForTrolls.blp
+Bufftip=What is it?
+Buffubertip=Called
+
+[X000]
+Buffart=,
+EffectArt=leaves.mdx
+Effectsoundlooped=TornadoLoop
+
+[X001]
+Buffart=,
+EffectArt=war3mapImported\t_effect_howling_sfx.mdx
+Effectsoundlooped=BlizzardWave
+
+[X002]
+Buffart=,
+EffectArt=Doodads\Cinematic\FirePillarMedium\FirePillarMedium
+Effectsoundlooped=HumanFireLarge
+
+[X003]
+Buffart=,
+EffectArt=Abilities\Spells\NightElf\Tranquility\Tranquility.mdl
+
+[X004]
+Buffart=,
+EffectArt=Abilities\Spells\NightElf\Starfall\StarfallCaster.mdl
+
+[X005]
+Buffart=,
+
+[XErc]
+Buffart=,
+
+[XErf]
+Buffart=,
+EffectArt=Abilities\Spells\Demon\RainOfFire\RainOfFireTarget.mdl
+Effectsound=RainOfFireWave
+Effectsoundlooped=RainOfFireLoop
+
+[XEsf]
+Buffart=,
+EffectArt=Abilities\Spells\NightElf\Starfall\StarfallCaster.mdl
+
+[XEtq]
+Buffart=,
+EffectArt=Abilities\Spells\NightElf\Tranquility\Tranquility.mdl
+Effectsoundlooped=TranquilityLoop
+
+[XHbz]
+Buffart=,
+EffectArt=Abilities\Spells\Human\Blizzard\BlizzardTarget.mdl
+Effectsound=BlizzardWave
+Effectsoundlooped=BlizzardLoop
+
+[XHfs]
+Buffart=,
+EffectArt=Abilities\Spells\Human\FlameStrike\FlameStrikeEmbers.mdl
+Effectsoundlooped=HumanFireLarge
+
+[XIct]
+Buffart=,
+
+[XNcs]
+Buffart=,
+
+[XNhs]
+Buffart=,
+SpecialArt=Abilities\Spells\Human\Heal\HealTarget.mdl
+
+[XNmo]
+Buffart=,
+EffectArt=Abilities\Spells\Other\Monsoon\MonsoonRain.mdl
+Effectsoundlooped=MonsoonLoop
+
+[XNvc]
+Buffart=,
+Effectsoundlooped=VolcanoLoop
+Missilearc=0.8
+Missileart=Abilities\Spells\Other\Volcano\VolcanoMissile.mdl
+MissileHoming=1
+Missilespeed=400
+SpecialArt=Abilities\Spells\Other\Volcano\VolcanoDeath.mdl
+
+[XOeq]
+Buffart=,
+Effectsoundlooped=EarthquakeLoop
+
+[XOre]
+Buffart=,
+
+[XUdd]
+Buffart=,
+EffectArt=Abilities\Spells\Undead\DeathandDecay\DeathandDecayTarget.mdl
+Effectsoundlooped=DeathAndDecayLoop
+
+[Xbdt]
+Buffart=,
+EffectArt=Abilities\Spells\Other\Andt\Andt.mdl
+
+[Xbli]
+Buffart=,
+
+[Xbof]
+Buffart=,
+EffectArt=Abilities\Spells\Human\FlameStrike\FlameStrikeEmbers.mdl
+Effectsoundlooped=HumanFireLarge
+
+[Xclf]
+Buffart=,
+
+[Xdis]
+Buffart=,
+
+[Xesn]
+Buffart=,
+TargetArt=Units\NightElf\Owl\Owl.mdl
+Targetattach=overhead
+
+[Xfhl]
+Buffart=,
+Effectsoundlooped=HumanFireLarge
+TargetArt=Environment\LargeBuildingFire\LargeBuildingFire1.mdl,Environment\LargeBuildingFire\LargeBuildingFire0.mdl,Environment\LargeBuildingFire\LargeBuildingFire0.mdl,Environment\SmallBuildingFire\SmallBuildingFire1.mdl,Environment\LargeBuildingFire\LargeBuildingFire1.mdl,Environment\SmallBuildingFire\SmallBuildingFire0.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,second
+Targetattach2=sprite,fifth
+Targetattach3=sprite,third
+Targetattach4=sprite,fourth
+Targetattach5=sprite,sixth
+Targetattachcount=6
+
+[Xfhm]
+Buffart=,
+Effectsoundlooped=HumanFireMedium
+TargetArt=Environment\LargeBuildingFire\LargeBuildingFire2.mdl,Environment\SmallBuildingFire\SmallBuildingFire1.mdl,Environment\LargeBuildingFire\LargeBuildingFire0.mdl,Environment\SmallBuildingFire\SmallBuildingFire2.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,second
+Targetattach2=sprite,fourth
+Targetattach3=sprite,fifth
+Targetattachcount=4
+
+[Xfhs]
+Buffart=,
+Effectsoundlooped=HumanFireSmall
+TargetArt=Environment\SmallBuildingFire\SmallBuildingFire2.mdl,Environment\SmallBuildingFire\SmallBuildingFire1.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,fourth
+Targetattachcount=2
+
+[Xfla]
+Buffart=,
+EffectArt=Abilities\Spells\Human\Flare\FlareTarget.mdl
+
+[Xfnl]
+Buffart=,
+Effectsoundlooped=NightElfFireLarge
+TargetArt=Environment\NightElfBuildingFire\ElfLargeBuildingFire1.mdl,Environment\NightElfBuildingFire\ElfLargeBuildingFire0.mdl,Environment\NightElfBuildingFire\ElfLargeBuildingFire0.mdl,Environment\NightElfBuildingFire\ElfSmallBuildingFire1.mdl,Environment\NightElfBuildingFire\ElfLargeBuildingFire2.mdl,Environment\NightElfBuildingFire\ElfSmallBuildingFire0.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,second
+Targetattach2=sprite,fifth
+Targetattach3=sprite,third
+Targetattach4=sprite,fourth
+Targetattach5=sprite,sixth
+Targetattachcount=6
+
+[Xfnm]
+Buffart=,
+Effectsoundlooped=NightElfFireMedium
+TargetArt=Environment\NightElfBuildingFire\ElfLargeBuildingFire2.mdl,Environment\NightElfBuildingFire\ElfSmallBuildingFire1.mdl,Environment\NightElfBuildingFire\ElfLargeBuildingFire0.mdl,Environment\NightElfBuildingFire\ElfSmallBuildingFire2.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,second
+Targetattach2=sprite,fourth
+Targetattach3=sprite,fifth
+Targetattachcount=4
+
+[Xfns]
+Buffart=,
+Effectsoundlooped=NightElfFireSmall
+TargetArt=Environment\NightElfBuildingFire\ElfSmallBuildingFire2.mdl,Environment\NightElfBuildingFire\ElfSmallBuildingFire1.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,fourth
+Targetattachcount=2
+
+[Xfol]
+Buffart=,
+Effectsoundlooped=HumanFireLarge
+TargetArt=Environment\LargeBuildingFire\LargeBuildingFire1.mdl,Environment\LargeBuildingFire\LargeBuildingFire0.mdl,Environment\LargeBuildingFire\LargeBuildingFire0.mdl,Environment\SmallBuildingFire\SmallBuildingFire1.mdl,Environment\LargeBuildingFire\LargeBuildingFire1.mdl,Environment\SmallBuildingFire\SmallBuildingFire0.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,second
+Targetattach2=sprite,fifth
+Targetattach3=sprite,third
+Targetattach4=sprite,fourth
+Targetattach5=sprite,sixth
+Targetattachcount=6
+
+[Xfom]
+Buffart=,
+Effectsoundlooped=HumanFireMedium
+TargetArt=Environment\LargeBuildingFire\LargeBuildingFire2.mdl,Environment\SmallBuildingFire\SmallBuildingFire1.mdl,Environment\LargeBuildingFire\LargeBuildingFire0.mdl,Environment\SmallBuildingFire\SmallBuildingFire2.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,second
+Targetattach2=sprite,fourth
+Targetattach3=sprite,fifth
+Targetattachcount=4
+
+[Xfos]
+Buffart=,
+Effectsoundlooped=HumanFireSmall
+TargetArt=Environment\SmallBuildingFire\SmallBuildingFire2.mdl,Environment\SmallBuildingFire\SmallBuildingFire1.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,fourth
+Targetattachcount=2
+
+[Xful]
+Buffart=,
+Effectsoundlooped=UndeadFireLarge
+TargetArt=Environment\UndeadBuildingFire\UndeadLargeBuildingFire1.mdl,Environment\UndeadBuildingFire\UndeadLargeBuildingFire0.mdl,Environment\UndeadBuildingFire\UndeadLargeBuildingFire0.mdl,Environment\UndeadBuildingFire\UndeadSmallBuildingFire1.mdl,Environment\UndeadBuildingFire\UndeadLargeBuildingFire2.mdl,Environment\UndeadBuildingFire\UndeadSmallBuildingFire0.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,second
+Targetattach2=sprite,fifth
+Targetattach3=sprite,third
+Targetattach4=sprite,fourth
+Targetattach5=sprite,sixth
+Targetattachcount=6
+
+[Xfum]
+Buffart=,
+Effectsoundlooped=UndeadFireMedium
+TargetArt=Environment\UndeadBuildingFire\UndeadLargeBuildingFire2.mdl,Environment\UndeadBuildingFire\UndeadSmallBuildingFire1.mdl,Environment\UndeadBuildingFire\UndeadLargeBuildingFire0.mdl,Environment\UndeadBuildingFire\UndeadSmallBuildingFire2.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,second
+Targetattach2=sprite,fourth
+Targetattach3=sprite,fifth
+Targetattachcount=4
+
+[Xfus]
+Buffart=,
+Effectsoundlooped=UndeadFireSmall
+TargetArt=Environment\UndeadBuildingFire\UndeadSmallBuildingFire2.mdl,Environment\UndeadBuildingFire\UndeadSmallBuildingFire1.mdl
+Targetattach=sprite,first
+Targetattach1=sprite,fourth
+Targetattachcount=2
+
+[ak33]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=Judok
+Buffubertip=This unit is dying by Juvenom.
+Spelldetail=2
+
+[bm66]
+Buffart=ReplaceableTextures\CommandButtons\BTNSlowPoison.blp
+Bufftip=!!
+Buffubertip=ㅡㅡ
+Spelldetail=2

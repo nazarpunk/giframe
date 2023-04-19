@@ -1,0 +1,119 @@
+/** @module MDX */
+
+export class CDataView extends DataView {
+    /**
+     * @param {ArrayBufferLike} buffer
+     * @param {number?} byteOffset
+     * @param {number?} byteLength
+     */
+    constructor(buffer, byteOffset, byteLength) {
+        super(buffer, byteOffset, byteLength);
+        this.cursor = 0;
+    }
+
+    /**
+     * deprecated
+     * @type {number}
+     */
+    cursor;
+
+    /** @returns {number} */
+    get Uint8() {
+        this.cursor += 1;
+        return this.getUint8(this.cursor - 1);
+    }
+
+    /** @param {number} v */
+    set Uint8(v) {
+        this.setUint8(this.cursor, v);
+        this.cursor += 1;
+    }
+
+    /** @returns {number} */
+    get Uint16() {
+        this.cursor += 2;
+        return this.getUint32(this.cursor - 2, true);
+    }
+
+    /** @param {number} v */
+    set Uint16(v) {
+        this.setUint16(this.cursor, v, true);
+        this.cursor += 2;
+    }
+
+    /** @returns {number} */
+    get Uint32() {
+        this.cursor += 4;
+        return this.getUint32(this.cursor - 4, true);
+    }
+
+    /** @returns {number} */
+    get Uint32BE() {
+        this.cursor += 4;
+        return this.getUint32(this.cursor - 4, false);
+    }
+
+    /** @param {number} v */
+    set Uint32(v) {
+        this.setUint32(this.cursor, v, true);
+        this.cursor += 4;
+    }
+
+    /** @param {number} v */
+    set Uint32BE(v) {
+        this.setUint32(this.cursor, v, false);
+        this.cursor += 4;
+    }
+
+    /** @returns {number} */
+    get Float32() {
+        this.cursor += 4;
+        return this.getFloat32(this.cursor - 4, true);
+    }
+
+    /** @param {number} v */
+    set Float32(v) {
+        this.setFloat32(this.cursor, v, true);
+        this.cursor += 4;
+    }
+
+    /** @returns {string} */
+    get String() {
+        let s = '';
+        while (this.cursor < this.byteLength) {
+            const b = super.getUint8(this.cursor);
+            this.cursor += 1;
+            if (b === 0) {
+                break;
+            }
+            s += String.fromCharCode(b);
+        }
+        return s;
+    }
+
+    /** @param {string} s */
+    set String(s) {
+        for (let i = 0; i < s.length; i++) {
+            this.Uint8 = s.charCodeAt(i);
+        }
+        this.Uint8 = 0;
+    }
+
+    /** @returns {number} */
+    get sizeOffset() {
+        this.cursor += 4;
+        return this.cursor - 4;
+    }
+
+    /** @param {number} o */
+    set sizeOffsetInclusive(o) {
+        super.setUint32(o, this.cursor - o, true);
+    }
+
+    /** @param {number} o */
+    set sizeOffsetExclusive(o) {
+        super.setUint32(o, this.cursor - o - 4, true);
+    }
+}
+
+

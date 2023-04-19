@@ -25,9 +25,9 @@ import {FaceEffect} from './data/FaceEffect.mjs';
 import {BindPose} from './data/BindPose.mjs';
 import {Info} from './data/Info.mjs';
 import {Chunk} from './parser/Chunk.mjs';
-import {CDataView} from '../utils/CDataView.mjs';
+import {CDataView} from '../utils/c-data-view.mjs';
 import {int2s} from './utils/hex.mjs';
-import {CDataViewFake} from '../utils/CDataViewFake.mjs';
+import {CDataViewFake} from '../utils/c-data-view-fake.mjs';
 
 /**
  * @callback MDXOnError

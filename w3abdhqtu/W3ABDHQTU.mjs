@@ -1,7 +1,7 @@
 /** @module W3A */
-import {CDataView} from '../utils/CDataView.mjs';
-import {HexInt2StringBE} from '../utils/Hex.mjs';
-import {CDataViewFake} from '../utils/CDataViewFake.mjs';
+import {CDataView} from '../utils/c-data-view.mjs';
+import {HexInt2StringBE} from '../utils/hex.mjs';
+import {CDataViewFake} from '../utils/c-data-view-fake.mjs';
 
 export class W3ABDHQTU {
 
@@ -44,7 +44,9 @@ export class W3ABDHQTU {
 
     /** @param {CDataView} view */
     #write(view) {
-
+        view.Uint32 = this.formatVersion;
+        this.defaultObjects.write(view);
+        this.customObjects.write(view);
     }
 
     write() {
@@ -84,7 +86,7 @@ class DataTable {
     read(view) {
         this.count = view.Uint32;
         for (let i = 0; i < this.count; i++) {
-            const obj = new DataObject();
+            const obj = new DataObject(this.#adq);
             obj.read(view);
             this.items.push(obj);
         }
@@ -109,6 +111,13 @@ class DataTable {
 }
 
 class DataObject {
+    /** @param {boolean} adq */
+    constructor(adq) {
+        this.#adq = adq;
+    }
+
+    /** @type {boolean} */ #adq;
+
     /** @type {DataObjectField[]} */ fields = [];
 
     /** @param {CDataView} view */
@@ -116,10 +125,15 @@ class DataObject {
         this.rawcode = view.Uint32BE;
         this.rawcodeName = HexInt2StringBE(this.rawcode);
         this.parent = view.Uint32BE;
-        this.parentName = HexInt2StringBE(this.parent);
+        if (this.parent === 0) {
+            this.parent = undefined;
+        } else {
+            this.parentName = HexInt2StringBE(this.parent);
+        }
+
         this.fieldCount = view.Uint32;
         for (let i = 0; i < this.fieldCount; i++) {
-            const f = new DataObjectField();
+            const f = new DataObjectField(this.#adq);
             f.read(view);
             this.fields.push(f);
         }
@@ -137,39 +151,46 @@ class DataObject {
 
     toJSON() {
         return {
-            'rawcode': this.rawcode,
-            'rawcodeName': this.rawcodeName,
-            'parent': this.parent,
-            'parentName': this.parentName,
-            'fieldCount': this.fieldCount,
+            'rawcode': this.rawcodeName,
+            'parent': this.parentName,
             'fields': this.fields,
         };
     }
 }
 
 class DataObjectField {
+    /** @param {boolean} adq */
+    constructor(adq) {
+        this.#adq = adq;
+    }
+
+    /** @type {boolean} */ #adq;
+
     /** @param {CDataView} view */
     read(view) {
         this.rawcode = view.Uint32BE;
         this.rawcodeName = HexInt2StringBE(this.rawcode);
 
         this.dataType = view.Uint32;
-        this.level = view.Uint32;
-        this.field = view.Uint32;
+
+        if (this.#adq) {
+            this.level = view.Uint32;
+            this.field = view.Uint32;
+        }
 
         switch (this.dataType) {
             case 0:
                 this.value = view.Uint32;
-                this.dataTypeName = 'Uint32';
+                this.dataTypeName = 'integer';
                 break;
             case 1:
             case 2:
                 this.value = view.Float32;
-                this.dataTypeName = 'Float32';
+                this.dataTypeName = 'real';
                 break;
             case 3:
                 this.value = view.String;
-                this.dataTypeName = 'String';
+                this.dataTypeName = 'string';
                 break;
             default:
                 throw new Error(`Unknown DataObjectField type: ${this.dataType}`);
@@ -202,10 +223,8 @@ class DataObjectField {
 
     toJSON() {
         return {
-            'rawcode': this.rawcode,
-            'rawcodeName': this.rawcodeName,
-            'dataType': this.dataType,
-            'dataTypeName': this.dataTypeName,
+            'rawcode': this.rawcodeName,
+            'dataType': this.dataTypeName,
             'level': this.level,
             'field': this.field,
             'value': this.value,

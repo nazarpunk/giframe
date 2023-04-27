@@ -63,18 +63,10 @@ export class GrowingPacker {
         const shouldGrowRight = canGrowRight && this.root.height >= this.root.width + width; // attempt to keep square-ish by growing right when height is much greater than width
         const shouldGrowDown = canGrowDown && this.root.width >= this.root.height + height; // attempt to keep square-ish by growing down  when width  is much greater than height
 
-        if (shouldGrowRight) {
-            return this.growRight(width, height);
-        }
-        if (shouldGrowDown) {
-            return this.growDown(width, height);
-        }
-        if (canGrowRight) {
-            return this.growRight(width, height);
-        }
-        if (canGrowDown) {
-            return this.growDown(width, height);
-        }
+        if (shouldGrowRight) return this.growRight(width, height);
+        if (shouldGrowDown) return this.growDown(width, height);
+        if (canGrowRight) return this.growRight(width, height);
+        if (canGrowDown) return this.growDown(width, height);
 
         return null; // need to ensure sensible root starting size to avoid this happening
     }

@@ -1,5 +1,7 @@
 // noinspection CssUnusedSymbol,JSUnusedGlobalSymbols
 
+import fileNameExtension from '../utils/file-name-extension.mjs';
+
 export class Dropzone extends HTMLElement {
 	constructor() {
 		super();
@@ -61,7 +63,7 @@ export class Dropzone extends HTMLElement {
 	/** @param {File} file */
 	upload(file) {
 		const exts = this.input.accept.split(',');
-		const ext = extension(file.name);
+		const ext = fileNameExtension(file.name);
 		if (!ext || exts.indexOf('.' + ext) < 0) {
 			return;
 		}
@@ -288,15 +290,6 @@ sheet.replaceSync(
 
 
 customElements.define('drop-zone', Dropzone);
-
-/**
- * @param {string} filename
- * @return {string|null}
- */
-const extension = filename => {
-	const r = /.+\.(.+)$/.exec(filename);
-	return r ? r[1] : null;
-};
 
 /**
  * @param dir

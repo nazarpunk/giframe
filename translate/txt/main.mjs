@@ -1,9 +1,10 @@
 import {Dropzone} from '../../web/dropzone.mjs';
 import {RibbonHeader} from '../../web/ribbon-header.mjs';
 import {WTS} from '../../wts/WTS.mjs';
+import fileNameExtension from '../../utils/file-name-extension.mjs';
 
 const dropzone = new Dropzone();
-dropzone.accept = '.wts';
+dropzone.accept = '.wts,.txt';
 document.body.appendChild(dropzone);
 
 /**
@@ -15,10 +16,25 @@ dropzone.readAsText = (file, text) => {
 
     const ta = document.createElement('textarea');
 
-    const wts = new WTS(text);
-    wts.read();
+    switch (fileNameExtension(file.name)) {
+        case 'wts':
+            const wts = new WTS(text);
+            wts.read();
+            ta.textContent = wts.toTXT();
+            break;
 
-    ta.textContent = wts.toTXT();
+        case 'txt':
+            const matches = text.matchAll(/^(\d+):([^(^\d+:)]+)/gm);
+
+            for (const match of matches) {
+                ta.textContent += `STRING ${match[1]}\n{\n${match[2].trim()}\n}\n\n`;
+            }
+            ta.textContent = ta.textContent.trim();
+            break;
+        default:
+            return;
+    }
+
     document.body.appendChild(ta);
 
     ta.style.height = '1px';
@@ -29,6 +45,7 @@ dropzone.readAsText = (file, text) => {
 if (location.host.indexOf('localhost') === 0) {
     let name;
     name = 'war3map.wts';
+    name = 'war3map.txt';
     const response = await fetch(`../files/${name}`);
     const buffer = await response.text();
 

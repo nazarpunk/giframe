@@ -3,10 +3,11 @@
 import {RibbonHeader} from '../../web/ribbon-header.mjs';
 import {AnimatedTexture} from './animated-texture.mjs';
 import {Cyberlink} from '../../web/cyberlink.mjs';
-import {nextDivisible, nextPow2} from '../../utils/utils.mjs';
 import {InterpolationTrack} from '../../mdx/parser/Interpolation.mjs';
 import {Float32List} from '../../mdx/parser/Float.mjs';
 import {MDX} from '../../mdx/MDX.mjs';
+import nextPow2 from '../../utils/next-pow2.mjs';
+import nextDivisible from '../../utils/next-divisible.mjs';
 
 export class FrameModel extends HTMLElement {
     constructor() {

@@ -83,9 +83,7 @@ export class CDataView extends DataView {
         while (this.cursor < this.byteLength) {
             const b = super.getUint8(this.cursor);
             this.cursor += 1;
-            if (b === 0) {
-                break;
-            }
+            if (b === 0) break;
             s += String.fromCharCode(b);
         }
         return s;

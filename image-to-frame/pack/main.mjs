@@ -5,9 +5,10 @@ import {GIF} from "../../gif/GIF.mjs";
 import {RibbonHeader} from "../../web/ribbon-header.mjs";
 import {ErrorMessage} from "../../web/error-message.mjs";
 import {GrowingPacker} from "../../utils/growing-packer.mjs";
-import {nextDivisible, nextPow2} from "../../utils/utils.mjs";
 import {ImagePreview} from "../../web/image-preview.mjs";
 import {Cyberlink} from "../../web/cyberlink.mjs";
+import nextPow2 from '../../utils/next-pow2.mjs';
+import nextDivisible from '../../utils/next-divisible.mjs';
 
 const dropzone = new Dropzone();
 dropzone.accept = '.gif';

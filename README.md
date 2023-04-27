@@ -7,6 +7,7 @@
 [mdx-view](https://nazarpunk.github.io/warodel/mdx-view)
 
 [translate](https://nazarpunk.github.io/warodel/translate)
+[translate/txt](https://nazarpunk.github.io/warodel/translate/txt)
 
 https://xgm.guru/p/wc3/steamframe
 

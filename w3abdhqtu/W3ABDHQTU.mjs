@@ -1,16 +1,16 @@
-/** @module W3A */
 import {CDataView} from '../utils/c-data-view.mjs';
 import {HexInt2StringBE} from '../utils/hex.mjs';
 import {CDataViewFake} from '../utils/c-data-view-fake.mjs';
+import fromBuffer from '../utils/from-buffer.mjs';
 
 export class W3ABDHQTU {
 
     /**
-     * @param {ArrayBuffer} buffer
+     * @param {Buffer|ArrayBuffer} buffer
      * @param {boolean} adq
      */
     constructor(buffer, adq) {
-        this.#buffer = buffer;
+        this.#buffer = fromBuffer(buffer);
         this.#adq = adq;
         this.defaultObjects = new DataTable(this.#adq);
         this.customObjects = new DataTable(this.#adq);

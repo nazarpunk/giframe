@@ -1,9 +1,15 @@
 ﻿STRING 7
+
+// comment
+
 {
 Dick
 }
 
 STRING 8
-{
+
+invalid someone
+
+ {
 Boobs
-}
+ }

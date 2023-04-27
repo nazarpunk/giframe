@@ -171,7 +171,6 @@ export class MDX {
             }
         }
 
-        console.log(this.textures);
         //console.log(this.errors);
     }
 
@@ -213,7 +212,7 @@ export class MDX {
             globalSequences: this.globalSequences,
             materials: this.materials,
             textures: this.textures,
-            geosets: this.geoset,
+            geosets: this.geosets,
             bones: this.bones,
             helper: this.helpers,
             attachments: this.attachments,

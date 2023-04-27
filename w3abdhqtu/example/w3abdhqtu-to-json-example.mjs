@@ -4,16 +4,12 @@ import path from 'path';
 
 let name;
 
-name = 'war3map.w3a';
 name = 'war3map.w3b';
+name = 'war3map.w3a';
 
 const adq = ['.w3a', '.w3d', '.w3q'].indexOf(path.extname(name)) >= 0;
 
-const data = fs.readFileSync(name);
-const buffer = new ArrayBuffer(data.length);
-data.copy(new Uint8Array(buffer));
-
-const w3a = new W3ABDHQTU(buffer, adq);
+const w3a = new W3ABDHQTU(fs.readFileSync(name), adq);
 w3a.read();
 
 console.log('🏁 Read: start');

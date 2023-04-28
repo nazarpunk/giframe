@@ -8,6 +8,7 @@ import {Float32List} from '../../mdx/parser/Float.mjs';
 import {MDX} from '../../mdx/MDX.mjs';
 import nextPow2 from '../../utils/next-pow2.mjs';
 import nextDivisible from '../../utils/next-divisible.mjs';
+import blobDownload from '../../utils/blob-download.mjs';
 
 export class FrameModel extends HTMLElement {
     constructor() {
@@ -134,11 +135,7 @@ export class FrameModel extends HTMLElement {
                 return;
             }
 
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(new Blob([this.model.write()]));
-            a.target = '_blank';
-            a.download = `${filename}.mdx`;
-            a.click();
+            blobDownload(new Blob([this.model.write()]),`${filename}.mdx`);
         });
 
         const png = new Cyberlink();
@@ -154,11 +151,7 @@ export class FrameModel extends HTMLElement {
             /** @type {Blob} */
             const iblob = await new Promise(resolve => canvas.toBlob(blob => resolve(blob)));
 
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(iblob);
-            a.target = '_blank';
-            a.download = `${filename}.png`;
-            a.click();
+            blobDownload(iblob,`${filename}.png`);
         });
 
         /** @param {number} active */

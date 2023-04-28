@@ -24,7 +24,7 @@ dropzone.readAsText = (file, text) => {
             break;
 
         case 'txt':
-            const matches = text.matchAll(/^(\d+):([^(^\d+:)]+)/gm);
+            const matches = text.matchAll(/^(\d+):([^\n]*(?:\n(?!\d+:)[^\n]*)*)/gm);
 
             for (const match of matches) {
                 ta.textContent += `STRING ${match[1]}\n{\n${match[2].trim()}\n}\n\n`;

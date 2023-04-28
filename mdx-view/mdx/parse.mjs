@@ -3,7 +3,7 @@ import {LineType, CollisionShapeType, ParticleEmitter2FramesFlags} from '../mode
 const BIG_ENDIAN = true;
 const NONE = -1;
 var AnimVectorType;
-(function (AnimVectorType) {
+(function(AnimVectorType) {
     AnimVectorType[(AnimVectorType['INT1'] = 0)] = 'INT1';
     AnimVectorType[(AnimVectorType['FLOAT1'] = 1)] = 'FLOAT1';
     AnimVectorType[(AnimVectorType['FLOAT3'] = 2)] = 'FLOAT3';
@@ -114,27 +114,15 @@ class State {
         for (let i = 0; i < keysCount; ++i) {
             const animKeyFrame = {};
             animKeyFrame.Frame = this.int32();
-            if (isInt) {
-                animKeyFrame.Vector = new Int32Array(vectorSize);
-            } else {
-                animKeyFrame.Vector = new Float32Array(vectorSize);
-            }
+            animKeyFrame.Vector = isInt ? new Int32Array(vectorSize) : new Float32Array(vectorSize);
             for (let j = 0; j < vectorSize; ++j) {
-                if (isInt) {
-                    animKeyFrame.Vector[j] = this.int32();
-                } else {
-                    animKeyFrame.Vector[j] = this.float32();
-                }
+                animKeyFrame.Vector[j] = isInt ? this.int32() : this.float32();
             }
             if (res.LineType === LineType.Hermite || res.LineType === LineType.Bezier) {
                 for (const part of ['InTan', 'OutTan']) {
                     animKeyFrame[part] = new Float32Array(vectorSize);
                     for (let j = 0; j < vectorSize; ++j) {
-                        if (isInt) {
-                            animKeyFrame[part][j] = this.int32();
-                        } else {
-                            animKeyFrame[part][j] = this.float32();
-                        }
+                        animKeyFrame[part][j] = isInt ? this.int32() : this.float32();
                     }
                 }
             }
@@ -210,9 +198,7 @@ function parseMaterials(model, state, size) {
             layer.Shading = state.int32();
             layer.TextureID = state.int32();
             layer.TVertexAnimId = state.int32();
-            if (layer.TVertexAnimId === NONE) {
-                layer.TVertexAnimId = null;
-            }
+            if (layer.TVertexAnimId === NONE) layer.TVertexAnimId = null;
             layer.CoordId = state.int32();
             layer.Alpha = state.float32();
             if (model.Version >= 900) {
@@ -225,21 +211,13 @@ function parseMaterials(model, state, size) {
             }
             while (state.pos < startPos2 + size2) {
                 const keyword = state.keyword();
-                if (keyword === 'KMTA') {
-                    layer.Alpha = state.animVector(AnimVectorType.FLOAT1);
-                } else if (keyword === 'KMTF') {
-                    layer.TextureID = state.animVector(AnimVectorType.INT1);
-                } else if (keyword === 'KMTE' && model.Version >= 900) {
-                    layer.EmissiveGain = state.animVector(AnimVectorType.FLOAT1);
-                } else if (keyword === 'KFC3' && model.Version >= 1000) {
-                    layer.FresnelColor = state.animVector(AnimVectorType.FLOAT3);
-                } else if (keyword === 'KFCA' && model.Version >= 1000) {
-                    layer.FresnelOpacity = state.animVector(AnimVectorType.FLOAT1);
-                } else if (keyword === 'KFTC' && model.Version >= 1000) {
-                    layer.FresnelTeamColor = state.animVector(AnimVectorType.FLOAT1);
-                } else {
-                    throw new Error('Unknown layer chunk data ' + keyword);
-                }
+                if (keyword === 'KMTA') layer.Alpha = state.animVector(AnimVectorType.FLOAT1);
+                else if (keyword === 'KMTF') layer.TextureID = state.animVector(AnimVectorType.INT1);
+                else if (keyword === 'KMTE' && model.Version >= 900) layer.EmissiveGain = state.animVector(AnimVectorType.FLOAT1);
+                else if (keyword === 'KFC3' && model.Version >= 1000) layer.FresnelColor = state.animVector(AnimVectorType.FLOAT3);
+                else if (keyword === 'KFCA' && model.Version >= 1000) layer.FresnelOpacity = state.animVector(AnimVectorType.FLOAT1);
+                else if (keyword === 'KFTC' && model.Version >= 1000) layer.FresnelTeamColor = state.animVector(AnimVectorType.FLOAT1);
+                else throw new Error('Unknown layer chunk data ' + keyword);
             }
             material.Layers.push(layer);
         }
@@ -339,19 +317,13 @@ function parseGeosets(model, state, size) {
         if (model.Version >= 900) {
             // eslint-disable-next-line no-constant-condition
             while (1) {
-                if (state.pos >= state.length) {
-                    throw new Error('Unexpected EOF');
-                }
+                if (state.pos >= state.length) throw new Error('Unexpected EOF');
                 if (keyword === 'TANG') {
-                    if (geoset.Tangents) {
-                        throw new Error('Incorrect geoset, multiple Tangents');
-                    }
+                    if (geoset.Tangents) throw new Error('Incorrect geoset, multiple Tangents');
                     const len = state.int32();
                     geoset.Tangents = state.float32Array(len * 4);
                 } else if (keyword === 'SKIN') {
-                    if (geoset.SkinWeights) {
-                        throw new Error('Incorrect geoset, multiple SkinWeights');
-                    }
+                    if (geoset.SkinWeights) throw new Error('Incorrect geoset, multiple SkinWeights');
                     const len = state.int32();
                     geoset.SkinWeights = state.uint8Array(len);
                 } else if (keyword === 'UVAS') {
@@ -359,9 +331,7 @@ function parseGeosets(model, state, size) {
                 }
                 keyword = state.keyword();
             }
-        } else if (keyword !== 'UVAS') {
-            throw new Error('Incorrect geosets format');
-        }
+        } else if (keyword !== 'UVAS') throw new Error('Incorrect geosets format');
         const textureChunkCount = state.int32();
         geoset.TVertices = [];
         for (let i = 0; i < textureChunkCount; ++i) {

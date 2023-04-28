@@ -41,9 +41,7 @@ function updateModel(timestamp) {
 }
 
 function initGL() {
-    if (gl) {
-        return;
-    }
+    if (gl) return;
     try {
         const opts = {
             antialias: true,
@@ -86,7 +84,7 @@ function drawScene() {
         cameraBasePos,
         Math.cos(cameraTheta) * Math.cos(cameraPhi) * cameraDistance,
         Math.cos(cameraTheta) * Math.sin(cameraPhi) * cameraDistance,
-        Math.sin(cameraTheta) * cameraDistance
+        Math.sin(cameraTheta) * cameraDistance,
     );
     cameraTarget[2] = cameraTargetZ;
     vec3RotateZ(cameraPos, cameraBasePos, window['angle'] || 0);
@@ -211,11 +209,7 @@ function initControls() {
     });
     const readSkeletonNodes = value => {
         const val = value.trim();
-        if (val === '*') {
-            return null;
-        } else {
-            return [val];
-        }
+        return val === '*' ? null : [val];
     };
     const skeleton = document.getElementById('skeleton');
     skeletonNodes = readSkeletonNodes(skeleton.value);
@@ -262,24 +256,16 @@ function initCameraMove() {
     }
 
     function pointerMove(event) {
-        if (!down) {
-            return;
-        }
-        if (event.type === 'touchmove') {
-            event.preventDefault();
-        }
-        if (event.changedTouches && event.changedTouches.length > 1 || event.touches && event.touches.length > 1) {
-            return;
-        }
+        if (!down) return;
+        if (event.type === 'touchmove') event.preventDefault();
+        if (event.changedTouches && event.changedTouches.length > 1 || event.touches && event.touches.length > 1) return;
         const [x, y] = coords(event);
         cameraPhi += -1 * (x - downX) * 0.01;
         cameraTheta += (y - downY) * 0.01;
-        if (cameraTheta > (Math.PI / 2) * 0.98) {
-            cameraTheta = (Math.PI / 2) * 0.98;
-        }
-        if (cameraTheta < 0) {
-            cameraTheta = 0;
-        }
+
+        const cm = (Math.PI / 2) * 0.98;
+        if (cameraTheta > cm) cameraTheta = cm;
+        if (cameraTheta < 0) cameraTheta = 0;
         downX = x;
         downY = y;
     }
@@ -369,9 +355,7 @@ function initDragDrop() {
         if (dropTarget && dropTarget !== event.target && dropTarget.classList) {
             dropTarget.classList.remove('drag_hovered');
         }
-        if (!target.classList) {
-            target = target.parentElement;
-        }
+        if (!target.classList) target = target.parentElement;
         dropTarget = target;
         if (target && target.classList && target.classList.contains('drag')) {
             target.classList.add('drag_hovered');
@@ -396,11 +380,7 @@ function initDragDrop() {
         const isMDX = file.name.indexOf('.mdx') > -1;
         reader.onload = () => {
             try {
-                if (isMDX) {
-                    model = parseMDX(reader.result);
-                } else {
-                    model = parseMDL(reader.result);
-                }
+                model = isMDX ? parseMDX(reader.result) : parseMDL(reader.result);
             } catch (err) {
                 console.error(err);
                 // showError(err);
@@ -457,7 +437,7 @@ function initDragDrop() {
                         modelRenderer.setTextureImageData(
                             textureName,
                             blp.mipmaps.map((_mipmap, i) => getImageData(blp, i)),
-                            textureFlags
+                            textureFlags,
                         );
                         resolve();
                     } else {
@@ -497,7 +477,7 @@ function initDragDrop() {
             dropTexture(files[0], dropTarget.getAttribute('data-texture'), Number(dropTarget.getAttribute('data-texture-flags'))).then(
                 () => {
                     handleLoadedTexture();
-                }
+                },
             );
         } else {
             let modelFile;
@@ -513,9 +493,7 @@ function initDragDrop() {
                 for (let i = 0; i < files.length; ++i) {
                     const file = files[i],
                         name = file.name.replace(CLEANUP_NAME_REGEXP, '$1').toLowerCase();
-                    if (file.name.indexOf('.mdl') > -1 || file.name.indexOf('.mdx') > -1) {
-                        continue;
-                    }
+                    if (file.name.indexOf('.mdl') > -1 || file.name.indexOf('.mdx') > -1) continue;
                     textures[name] = file;
                 }
                 dropModel(modelFile, textures);

@@ -22,6 +22,8 @@ dropzone.readAsText = (file, text) => {
 
 	RibbonHeader.fromText(file.name, document.body);
 
+
+
 	const matches = text.matchAll(/STRING\s+(\d+)(?:\r\n)+\{(?:\r\n)+([^}]+)(?:\r\n)+}/g);
 
 	const map = new Map();

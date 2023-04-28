@@ -545,9 +545,7 @@ export class ModelRenderer {
         let count = 1;
         for (let i = 1; i < ddsInfo.images.length; ++i) {
             const image = ddsInfo.images[i];
-            if (image.shape.width >= 2 && image.shape.height >= 2) {
-                count = i + 1;
-            }
+            if (image.shape.width >= 2 && image.shape.height >= 2) count = i + 1;
         }
         if (isWebGL2(this.gl)) {
             this.gl.texStorage2D(this.gl.TEXTURE_2D, count, format, ddsInfo.images[0].shape.width, ddsInfo.images[0].shape.height);

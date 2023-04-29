@@ -1,8 +1,8 @@
 // noinspection CssUnusedSymbol
 
-import {RibbonHeader} from '../../web/ribbon-header.mjs';
+import {RibbonHeader} from '../../components/ribbon-header.mjs';
 import {AnimatedTexture} from './animated-texture.mjs';
-import {Cyberlink} from '../../web/cyberlink.mjs';
+import {CyberLink} from '../../components/cyber-link.mjs';
 import {InterpolationTrack} from '../../mdx/parser/Interpolation.mjs';
 import {Float32List} from '../../mdx/parser/Float.mjs';
 import {MDX} from '../../mdx/MDX.mjs';
@@ -45,7 +45,7 @@ export class FrameModel extends HTMLElement {
 
         const filename = file.name.replace(/\.[a-z]+$/, '');
 
-        const mdx = new Cyberlink();
+        const mdx = new CyberLink();
         buttons.appendChild(mdx);
         mdx.color = 'red';
         mdx.text = 'MDX';
@@ -138,7 +138,7 @@ export class FrameModel extends HTMLElement {
             blobDownload(new Blob([this.model.write()]),`${filename}.mdx`);
         });
 
-        const png = new Cyberlink();
+        const png = new CyberLink();
         buttons.appendChild(png);
         png.color = 'green';
         png.addEventListener('click', async () => {

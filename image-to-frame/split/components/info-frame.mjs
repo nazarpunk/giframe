@@ -1,4 +1,4 @@
-import {ImagePreview} from "../../../web/image-preview.mjs";
+import {ImagePreview} from "../../../components/image-preview.mjs";
 
 export class InfoFrame extends HTMLElement {
 	constructor() {

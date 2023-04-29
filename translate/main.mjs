@@ -1,14 +1,14 @@
 // noinspection JSUnusedAssignment
 
-import {Dropzone} from '../web/dropzone.mjs';
-import {RibbonHeader} from '../web/ribbon-header.mjs';
-import {WtsTranslate} from './web/wts-translate.mjs';
-import {YaInput} from './web/ya-input.mjs';
-import {Cyberlink} from '../web/cyberlink.mjs';
+import {DropZone} from '../components/drop-zone.mjs';
+import {RibbonHeader} from '../components/ribbon-header.mjs';
+import {WtsTranslate} from './components/wts-translate.mjs';
+import {YaInput} from './components/ya-input.mjs';
+import {CyberLink} from '../components/cyber-link.mjs';
 import blobDownload from '../utils/blob-download.mjs';
 import {WTS} from '../wts/WTS.mjs';
 
-const dropzone = new Dropzone();
+const dropzone = new DropZone();
 dropzone.accept = '.wts';
 document.body.appendChild(dropzone);
 
@@ -36,7 +36,7 @@ dropzone.readAsText = (file, text) => {
         wts.send();
     }
 
-    const b = new Cyberlink();
+    const b = new CyberLink();
     b.color = 'green';
     b.text = 'DOWNLOAD';
     b.onclick = () => {

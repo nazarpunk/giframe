@@ -1,16 +1,16 @@
 // noinspection JSUnusedAssignment,DuplicatedCode
 
-import {Dropzone} from "../../web/dropzone.mjs";
+import {DropZone} from "../../components/drop-zone.mjs";
 import {GIF} from "../../gif/GIF.mjs";
-import {RibbonHeader} from "../../web/ribbon-header.mjs";
-import {ErrorMessage} from "../../web/error-message.mjs";
+import {RibbonHeader} from "../../components/ribbon-header.mjs";
+import {ErrorMessage} from "../../components/error-message.mjs";
 import {GrowingPacker} from "../../utils/growing-packer.mjs";
-import {ImagePreview} from "../../web/image-preview.mjs";
-import {Cyberlink} from "../../web/cyberlink.mjs";
+import {ImagePreview} from "../../components/image-preview.mjs";
+import {CyberLink} from "../../components/cyber-link.mjs";
 import nextPow2 from '../../utils/next-pow2.mjs';
 import nextDivisible from '../../utils/next-divisible.mjs';
 
-const dropzone = new Dropzone();
+const dropzone = new DropZone();
 dropzone.accept = '.gif';
 document.body.appendChild(dropzone);
 
@@ -65,7 +65,7 @@ const addFile = async (file, buffer) => {
 	 * @param {string} color
 	 */
 	const btn = (w, h, color) => {
-		const ba = new Cyberlink();
+		const ba = new CyberLink();
 		ba.color = color;
 		ba.text = `${w}x${h}`;
 		buttons.appendChild(ba);

@@ -1,6 +1,6 @@
 import {MDX} from '../mdx/MDX.mjs';
-import {Dropzone} from '../web/dropzone.mjs';
-import {Cyberlink} from '../web/cyberlink.mjs';
+import {DropZone} from '../components/drop-zone.mjs';
+import {CyberLink} from '../components/cyber-link.mjs';
 
 const equal = (a, b) => {
     if (a.byteLength !== b.byteLength) return false;
@@ -10,7 +10,7 @@ const equal = (a, b) => {
     return true;
 };
 
-const dropzone = new Dropzone();
+const dropzone = new DropZone();
 dropzone.accept = '.mdx';
 document.body.appendChild(dropzone);
 
@@ -85,12 +85,12 @@ class Model {
         this.buttons.classList.add('model-buttons');
         parent.appendChild(this.buttons);
 
-        this.mdx = new Cyberlink();
+        this.mdx = new CyberLink();
         this.mdx.text = 'MDX';
         this.mdx.color = 'blue';
         this.buttons.appendChild(this.mdx);
 
-        this.json = new Cyberlink();
+        this.json = new CyberLink();
         this.json.text = 'JSON';
         this.json.target = '_blank';
         this.json.color = 'green';

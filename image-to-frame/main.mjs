@@ -1,7 +1,7 @@
-import {Dropzone} from "../web/dropzone.mjs";
+import {DropZone} from "../components/drop-zone.mjs";
 import {MDX} from "../mdx/MDX.mjs";
-import {FrameModel} from "./web/frame-model.mjs";
-import {TextureSwitcher} from "./web/texture-switcher.mjs";
+import {FrameModel} from "./components/frame-model.mjs";
+import {TextureSwitcher} from "./components/texture-switcher.mjs";
 
 // noinspection JSUnusedLocalSymbols
 /**
@@ -24,7 +24,7 @@ const newModel = () => {
 	return model;
 };
 
-const dropzone = new Dropzone();
+const dropzone = new DropZone();
 dropzone.accept = '.gif';
 document.body.appendChild(dropzone);
 

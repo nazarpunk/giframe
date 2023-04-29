@@ -2,7 +2,7 @@
 
 import fileNameExtension from '../utils/file-name-extension.mjs';
 
-export class Dropzone extends HTMLElement {
+export class DropZone extends HTMLElement {
 	constructor() {
 		super();
 
@@ -289,7 +289,7 @@ sheet.replaceSync(
 	`);
 
 
-customElements.define('drop-zone', Dropzone);
+customElements.define('drop-zone', DropZone);
 
 /**
  * @param dir

@@ -1,14 +1,14 @@
 // noinspection JSUnusedAssignment,DuplicatedCode
 
-import {Dropzone} from "../../web/dropzone.mjs";
+import {DropZone} from "../../components/drop-zone.mjs";
 import {GIF} from "../../gif/GIF.mjs";
-import {RibbonHeader} from "../../web/ribbon-header.mjs";
-import {InfoTable} from "./web/info-table.mjs";
-import {InfoFrame} from "./web/info-frame.mjs";
-import {ErrorMessage} from "../../web/error-message.mjs";
-import {LineDivider} from "../../web/line-divider.mjs";
+import {RibbonHeader} from "../../components/ribbon-header.mjs";
+import {InfoTable} from "./components/info-table.mjs";
+import {InfoFrame} from "./components/info-frame.mjs";
+import {ErrorMessage} from "../../components/error-message.mjs";
+import {LineDivider} from "../../components/line-divider.mjs";
 
-const dropzone = new Dropzone();
+const dropzone = new DropZone();
 dropzone.accept = '.gif';
 document.body.appendChild(dropzone);
 

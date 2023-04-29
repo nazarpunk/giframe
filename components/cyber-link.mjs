@@ -1,6 +1,6 @@
 // noinspection CssUnusedSymbol
 
-export class Cyberlink extends HTMLElement {
+export class CyberLink extends HTMLElement {
 	constructor() {
 		super();
 
@@ -159,4 +159,4 @@ sheet.replaceSync(
 		}
 	`);
 
-customElements.define('cyber-link', Cyberlink);
+customElements.define('cyber-link', CyberLink);

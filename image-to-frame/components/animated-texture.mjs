@@ -1,9 +1,9 @@
 // noinspection CssUnusedSymbol
 
 import {GIF} from "../../gif/GIF.mjs";
-import {ErrorMessage} from "../../web/error-message.mjs";
+import {ErrorMessage} from "../../components/error-message.mjs";
 import {GrowingPacker} from "../../utils/growing-packer.mjs";
-import {ImagePreview} from "../../web/image-preview.mjs";
+import {ImagePreview} from "../../components/image-preview.mjs";
 
 export class AnimatedTexture extends HTMLElement {
 	constructor() {

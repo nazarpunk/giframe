@@ -9,6 +9,8 @@
 [translate](https://nazarpunk.github.io/warodel/translate)
 [translate/txt](https://nazarpunk.github.io/warodel/translate/txt)
 
+[rawcode](https://nazarpunk.github.io/warodel/rawcode)
+
 https://xgm.guru/p/wc3/steamframe
 
 https://github.com/4eb0da/war3-model

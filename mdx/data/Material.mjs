@@ -5,8 +5,8 @@ import {Char} from '../parser/Char.mjs';
 import {Parser} from '../parser/Parser.mjs';
 import {Chunk} from '../parser/Chunk.mjs';
 import {Layer} from './Layer.mjs';
-import {int2s} from '../utils/hex.mjs';
 import {CDataView} from '../../utils/c-data-view.mjs';
+import {HexInt2StringLE} from '../../utils/hex.mjs';
 
 export class Material {
 
@@ -53,7 +53,7 @@ class MaterialChunk {
     read(view) {
         const id = view.Uint32;
         if (id !== this.id) {
-            throw new Error(`ChunkCountInclusive wrong id: ${int2s(this.id)} != ${int2s(id)}`);
+            throw new Error(`ChunkCountInclusive wrong id: ${HexInt2StringLE(this.id)} != ${HexInt2StringLE(id)}`);
         }
         const count = view.Uint32;
         for (let i = 0; i < count; i++) {

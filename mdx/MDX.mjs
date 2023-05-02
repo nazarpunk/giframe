@@ -26,8 +26,8 @@ import {BindPose} from './data/BindPose.mjs';
 import {Info} from './data/Info.mjs';
 import {Chunk} from './parser/Chunk.mjs';
 import {CDataView} from '../utils/c-data-view.mjs';
-import {int2s} from './utils/hex.mjs';
 import {CDataViewFake} from '../utils/c-data-view-fake.mjs';
+import {HexInt2StringLE} from '../utils/hex.mjs';
 
 /**
  * @callback MDXOnError
@@ -157,7 +157,7 @@ export class MDX {
                     this.ribbinEmitters = add(RibbonEmitter, true);
                     break;
                 default:
-                    this.errors.push(new Error(`Missing chunk parser: ${int2s(key)}`));
+                    this.errors.push(new Error(`Missing chunk parser: ${HexInt2StringLE(key)}`));
             }
 
             byteOffset += byteLength;

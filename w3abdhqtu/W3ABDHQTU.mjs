@@ -1,5 +1,5 @@
 import {CDataView} from '../utils/c-data-view.mjs';
-import {HexInt2StringBE} from '../utils/hex.mjs';
+import {Dec2RawBE} from '../rawcode/convert.mjs';
 import {CDataViewFake} from '../utils/c-data-view-fake.mjs';
 import fromBuffer from '../utils/from-buffer.mjs';
 
@@ -123,12 +123,12 @@ class DataObject {
     /** @param {CDataView} view */
     read(view) {
         this.rawcode = view.Uint32BE;
-        this.rawcodeName = HexInt2StringBE(this.rawcode);
+        this.rawcodeName = Dec2RawBE(this.rawcode);
         this.parent = view.Uint32BE;
         if (this.parent === 0) {
             this.parent = undefined;
         } else {
-            this.parentName = HexInt2StringBE(this.parent);
+            this.parentName = Dec2RawBE(this.parent);
         }
 
         this.fieldCount = view.Uint32;
@@ -169,7 +169,7 @@ class DataObjectField {
     /** @param {CDataView} view */
     read(view) {
         this.rawcode = view.Uint32BE;
-        this.rawcodeName = HexInt2StringBE(this.rawcode);
+        this.rawcodeName = Dec2RawBE(this.rawcode);
 
         this.dataType = view.Uint32;
 

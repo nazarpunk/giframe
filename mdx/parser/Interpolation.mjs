@@ -1,7 +1,7 @@
 /** @module MDX */
 import {Uint32} from './Uint.mjs';
 import {Parser} from './Parser.mjs';
-import {HexInt2StringLE} from '../../utils/hex.mjs';
+import {Dec2RawLE} from '../../rawcode/convert.mjs';
 
 export class Interpolation {
 
@@ -23,7 +23,7 @@ export class Interpolation {
         const id = view.Uint32;
         this.length = view.Uint32;
         if (id !== this.id) {
-            throw new Error(`Interpolation wrong id: ${HexInt2StringLE(this.id)} != ${HexInt2StringLE(id)}`);
+            throw new Error(`Interpolation wrong id: ${Dec2RawLE(this.id)} != ${Dec2RawLE(id)}`);
         }
 
         this.parser = new Parser();
@@ -51,7 +51,7 @@ export class Interpolation {
 
     toJSON() {
         return {
-            id: HexInt2StringLE(this.id),
+            id: Dec2RawLE(this.id),
             length: this.length,
             type: this.type,
             items: this.items,

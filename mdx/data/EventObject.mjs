@@ -4,7 +4,7 @@ import {NodeData} from "./NodeData.mjs";
 import {Uint32} from "../parser/Uint.mjs";
 import {Parser} from "../parser/Parser.mjs";
 import {Chunk} from "../parser/Chunk.mjs";
-import {HexInt2StringLE} from '../../utils/hex.mjs';
+import {Dec2RawLE} from '../../rawcode/convert.mjs';
 
 export class EventObject {
 
@@ -18,7 +18,7 @@ export class EventObject {
 		this.globalSequenceId = this.parser.add(Uint32);
 		this.parser.read(view);
 		if (this.key.value !== Chunk.KEVT) {
-			throw new Error(`EventObject key error: ${HexInt2StringLE(this.key.value)} != ${HexInt2StringLE(Chunk.KEVT)}`);
+			throw new Error(`EventObject key error: ${Dec2RawLE(this.key.value)} != ${Dec2RawLE(Chunk.KEVT)}`);
 		}
 
 		for (let i = 0; i < this.count.value; i++) {

@@ -1,27 +1,17 @@
-// noinspection DuplicatedCode
-
-// Fucking FF
-ShadowRoot.prototype.getSelection = ShadowRoot.prototype.getSelection || function() {
-    return document.getSelection();
-};
-
-export class InputNumber extends HTMLElement {
+export class RawcodeInput {
     /** @type {HTMLDivElement} */ #input;
     /** @type {HTMLElement} */ #prefix;
     #maxLength = 0;
     #colorRegex;
-
-    /** @type {ShadowRoot} */ #shadow;
+    /** @type {HTMLDivElement} */ #shadow;
 
     constructor() {
-        super();
-
-        this.#shadow = this.attachShadow({mode: 'open'});
-        this.#shadow.adoptedStyleSheets = [sheet];
+        this.#shadow = document.createElement('div');
+        this.#shadow.classList.add('rawcode-input');
 
         const div = document.createElement('div');
         this.#shadow.appendChild(div);
-        div.classList.add('container');
+        div.classList.add('rawcode-input_container');
 
         // input
         this.#input = document.createElement('div');
@@ -32,7 +22,7 @@ export class InputNumber extends HTMLElement {
     }
 
     #update() {
-        const preSel = this.#shadow.getSelection();
+        const preSel = getSelection();
         const preSeg = getTextSegments(this.#input);
 
         let absoluteAnchorIndex = null;
@@ -66,9 +56,9 @@ export class InputNumber extends HTMLElement {
         }
 
         // restore selection
-        if (this.#shadow.host !== document.activeElement) return;
+        if (this.#input !== document.activeElement) return;
 
-        const newSel = this.#shadow.getSelection();
+        const newSel = getSelection();
         const newSeg = getTextSegments(this.#input);
 
         let anchorNode = this.#input;
@@ -117,6 +107,11 @@ export class InputNumber extends HTMLElement {
         return this.#input.textContent;
     }
 
+    /** @return {HTMLDivElement} */
+    get input() {
+        return this.#input;
+    }
+
     /** @param {number} length */
     set maxLength(length) {
         this.#maxLength = length;
@@ -134,12 +129,12 @@ export class InputNumber extends HTMLElement {
 
     /**
      * @param {HTMLElement} parent
-     * @return {InputNumber}
+     * @return {RawcodeInput}
      */
     static create(parent) {
-        const input = new InputNumber();
+        const input = new RawcodeInput();
 
-        parent.appendChild(input);
+        parent.appendChild(input.#shadow);
 
         return input;
     }
@@ -164,49 +159,3 @@ const getTextSegments = element => {
     });
     return textSegments;
 };
-
-
-const sheet = new CSSStyleSheet();
-// noinspection CssUnresolvedCustomProperty,CssUnusedSymbol
-sheet.replaceSync(
-    //language=CSS
-    `
-        :host {
-            --ipv: 4px;
-            --iph: 16px;
-            --ils: 6px;
-        }
-
-        .prefix {
-            color: #535353;
-            letter-spacing: 0;
-        }
-
-        [contenteditable] {
-            outline: none;
-            white-space: nowrap;
-        }
-
-        .container {
-            display: flex;
-            border: 1px solid gray;
-            border-radius: 3px;
-            background-color: #1e1e1e;
-            padding: var(--ipv) calc(var(--iph) - var(--ils)) var(--ipv) var(--iph);
-            transition: border-color 400ms ease-in-out;
-            font: 2rem/3rem Monaco, monospace;
-            letter-spacing: var(--ils);
-        }
-
-        .container:focus-within {
-            border-color: #0089ff;
-        }
-
-        input:focus {
-            outline: none;
-        }
-
-    `);
-
-customElements.define('input-number', InputNumber);
-

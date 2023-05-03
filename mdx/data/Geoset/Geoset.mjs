@@ -6,7 +6,7 @@ import {Extent} from '../Extent.mjs';
 import {Float32} from '../../parser/Float.mjs';
 import {Parser} from '../../parser/Parser.mjs';
 import {Chunk} from '../../parser/Chunk.mjs';
-import {HexInt2StringLE} from '../../../utils/hex.mjs';
+import {Dec2RawLE} from '../../../rawcode/convert.mjs';
 
 export class Geoset {
 
@@ -98,7 +98,7 @@ class Child {
         if (this.key) {
             const id = view.Uint32;
             if (id !== this.key) {
-                throw new Error(`ChunkCountInclusive wrong id: ${HexInt2StringLE(this.key)} != ${HexInt2StringLE(id)}`);
+                throw new Error(`ChunkCountInclusive wrong id: ${Dec2RawLE(this.key)} != ${Dec2RawLE(id)}`);
             }
         }
         this.length = view.Uint32 * this.#lx;

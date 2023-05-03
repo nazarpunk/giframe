@@ -27,7 +27,7 @@ import {Info} from './data/Info.mjs';
 import {Chunk} from './parser/Chunk.mjs';
 import {CDataView} from '../utils/c-data-view.mjs';
 import {CDataViewFake} from '../utils/c-data-view-fake.mjs';
-import {HexInt2StringLE} from '../utils/hex.mjs';
+import {Dec2RawLE} from '../rawcode/convert.mjs';
 
 /**
  * @callback MDXOnError
@@ -157,7 +157,7 @@ export class MDX {
                     this.ribbinEmitters = add(RibbonEmitter, true);
                     break;
                 default:
-                    this.errors.push(new Error(`Missing chunk parser: ${HexInt2StringLE(key)}`));
+                    this.errors.push(new Error(`Missing chunk parser: ${Dec2RawLE(key)}`));
             }
 
             byteOffset += byteLength;

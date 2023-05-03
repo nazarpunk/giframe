@@ -5,3 +5,38 @@
     margin: 0 auto;
     gap: 2rem;
 }
+
+.rawcode-input {
+    --ipv: 4px;
+    --iph: 16px;
+    --ils: 6px;
+}
+
+.prefix {
+    color: #535353;
+    letter-spacing: 0;
+}
+
+[contenteditable] {
+    outline: none;
+    white-space: nowrap;
+}
+
+.rawcode-input_container {
+    display: flex;
+    border: 1px solid gray;
+    border-radius: 3px;
+    background-color: #1e1e1e;
+    padding: var(--ipv) calc(var(--iph) - var(--ils)) var(--ipv) var(--iph);
+    transition: border-color 400ms ease-in-out;
+    font: 2rem/3rem Monaco, monospace;
+    letter-spacing: var(--ils);
+}
+
+.rawcode-input_container:focus-within {
+    border-color: #0089ff;
+}
+
+input:focus {
+    outline: none;
+}

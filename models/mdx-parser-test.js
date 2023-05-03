@@ -1,25 +1,24 @@
-// noinspection JSUnusedAssignment
-
 import * as fs from 'fs';
 import {MDX} from '../mdx/MDX.mjs';
 import * as chip from 'child_process';
 
-let name;
+const names = [
+    'VKbrute',
+    'heroarchmage_ref',
+    'Arthas_portrait',
+    'sprite',
+    'DNCAshenValeTerrain',
+    'BlackDragon',
+    'BlackDragon_Portrait',
+    'candelabra_01.MESH',
+    'heroarchmage',
+    'HumanMale',
+    'heroarchmage_hd',
+    'knight',
+    'Footman',
+];
 
-name = 'VKbrute';
-name = 'Arthas_portrait';
-name = 'sprite';
-name = 'DNCAshenValeTerrain';
-name = 'BlackDragon';
-name = 'BlackDragon_Portrait';
-name = 'candelabra_01.MESH';
-name = 'heroarchmage';
-name = 'HumanMale';
-name = 'heroarchmage_hd';
-name = 'knight';
-name = 'Footman';
-name = 'heroarchmage_ref';
-
+const name = names[0];
 const f1 = `${name}.mdx`;
 const buffer = fs.readFileSync(f1).buffer;
 
@@ -39,5 +38,5 @@ if (1)
     chip.exec(
         `osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
     do script "vbindiff ${cwd}/${f1} ${cwd}/${f2}"
-end tell'`
+end tell'`,
     );

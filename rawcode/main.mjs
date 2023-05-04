@@ -30,8 +30,6 @@ dec.input.addEventListener('update', () => {
     const number = BigInt(parseInt(string));
     raw.text = Dec2RawBE(number);
     hex.text = Dec2HexBE(number);
-
-    console.log(string, number);
 });
 
 const popstate = () => {

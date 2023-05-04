@@ -26,6 +26,7 @@ export class RawcodeInput {
         div.classList.add('rawcode-input_container');
 
         this.#input = document.createElement('div');
+        div.appendChild(this.#input);
 
         // setting
         switch (type) {
@@ -42,7 +43,7 @@ export class RawcodeInput {
                 break;
             case 'dec':
                 this.#maxLength = 10;
-                this.#validRegExp = /^[1-9]\d*$/g;
+                this.#validRegExp = /^[1-9]\d*$/;
                 break;
         }
 
@@ -51,16 +52,9 @@ export class RawcodeInput {
         // input
         this.#input.contentEditable = 'true';
         this.#input.spellcheck = false;
-        div.appendChild(this.#input);
         this.#input.addEventListener('input', () => {
             this.#update();
-
-
-            console.log('input', this.text, this.valid(this.text));
-            if (this.valid(this.text)) {
-                console.log('ddd');
-                this.dispatch();
-            }
+            if (this.valid(this.text)) this.dispatch();
             this.#history();
         });
 
@@ -146,7 +140,6 @@ export class RawcodeInput {
     }
 
     dispatch() {
-        console.log('dispatch', this.text);
         const event = new Event('update', {bubbles: true});
         this.#input.dispatchEvent(event);
     }
@@ -179,8 +172,6 @@ export class RawcodeInput {
      * @return {boolean}
      */
     valid(text) {
-        console.log('valid', text, this.#validRegExp.test(text));
-
         return this.#validRegExp.test(text);
     }
 

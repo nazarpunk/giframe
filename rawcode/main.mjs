@@ -35,7 +35,7 @@ dec.input.addEventListener('update', () => {
 const popstate = () => {
     const text = window.location.hash.substring(1);
     if (!hex.valid(text)) return;
-    hex.text = text;
+    hex.update(text, false);
     hex.dispatch();
 };
 popstate();

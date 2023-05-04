@@ -146,9 +146,16 @@ export class RawcodeInput {
 
     /** @param {string} text */
     set text(text) {
+        this.update(text, true);
+    }
+
+    /** @param {string} text
+     * @param {boolean} history
+     */
+    update(text, history) {
         this.#input.textContent = text;
         this.#update();
-        this.#history();
+        if (history) this.#history();
     }
 
     /** @return {string} */

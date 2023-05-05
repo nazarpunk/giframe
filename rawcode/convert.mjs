@@ -30,7 +30,6 @@ export const Raw2HexLE = string => `${string.charCodeAt(3).toString(16)}${string
  */
 export const Raw2HexBE = string => `${string.charCodeAt(0).toString(16)}${string.charCodeAt(1).toString(16)}${string.charCodeAt(2).toString(16)}${string.charCodeAt(3).toString(16)}`;
 
-
 /**
  * @param string
  * @return {string}

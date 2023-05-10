@@ -5,7 +5,7 @@ import path from 'node:path';
 
 import dirRemoveEmpty from '../utils/dir-remove-empty.mjs';
 
-const dir = './';
+const dir = './data';
 
 const list = fileListDir(dir);
 
@@ -20,17 +20,16 @@ for (const f of list) {
 dirRemoveEmpty(dir);
 
 // rename
-function renameContentsToLowerCase(dir) {
-    const files = fs.readdirSync(dir);
-    for (const f of files) {
-        const stat = fs.statSync(path.join(dir, f));
-        if (stat.isDirectory()) {
-            fs.renameSync(path.join(dir, f), f.toLowerCase());
-            //renameContentsToLowerCase(path.join(dir, f.toLowerCase()));
+const renameContentsToLowerCase = dir => {
+    for (const f of fs.readdirSync(dir)) {
+        if (fs.statSync(path.join(dir, f)).isDirectory()) {
+            console.log(path.join(dir, f))
+            //fs.renameSync(path.join(dir, f), f.toLowerCase());
+            renameContentsToLowerCase(path.join(dir, f));
         } else {
-            fs.renameSync(path.join(dir, f), f.toLowerCase());
+            fs.renameSync(path.join(dir, f), path.join(dir, f.toLowerCase()));
         }
     }
-}
+};
 
 //renameContentsToLowerCase(dir);

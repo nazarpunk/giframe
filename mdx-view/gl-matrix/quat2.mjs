@@ -12,7 +12,7 @@ import * as mat4 from './mat4.mjs';
 /**
  * Creates a new identity dual quat
  *
- * @returns {quat2} a new dual quaternion [real -> rotation, dual -> translation]
+ * @returns {Float32Array} a new dual quaternion [real -> rotation, dual -> translation]
  */
 
 export function create() {

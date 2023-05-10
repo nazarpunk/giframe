@@ -885,9 +885,7 @@ const parsers = {
 
 export function parse(arrayBuffer) {
     const state = new State(arrayBuffer);
-    if (state.keyword() !== 'MDLX') {
-        throw new Error('Not a mdx model');
-    }
+    if (state.keyword() !== 'MDLX') throw new Error('Not a mdx model');
     const model = {
         // default
         Version: 800,

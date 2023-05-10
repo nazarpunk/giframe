@@ -50,7 +50,7 @@ export class FrameModel extends HTMLElement {
         mdx.color = 'red';
         mdx.text = 'MDX';
         mdx.addEventListener('click', async () => {
-            this.model.textures[0].filename.value = `${filename}.${toggler.active ? 'dds' : 'blp'}`;
+            this.model.textures[0].filename = `${filename}.${toggler.active ? 'dds' : 'blp'}`;
 
             const iw = texture.gif.width;
             const ih = texture.gif.height;

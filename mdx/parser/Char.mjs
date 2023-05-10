@@ -14,18 +14,16 @@ export class Char {
 
     /** @param {CDataView} view */
     read(view) {
-        const s = [];
+        this.value = '';
 
         for (let i = 0; i < this.length; i++) {
-            s.push(String.fromCharCode(view.Uint8));
-        }
-        for (let i = s.length - 1; i >= 0; i--) {
-            if (s[i] !== '\x00') {
+            const b = view.Uint8;
+            if (b === 0) {
+                view.cursor += this.length - i - 1;
                 break;
             }
-            s.length -= 1;
+            this.value += String.fromCharCode(b);
         }
-        this.value = s.join('');
     }
 
     /** @param {CDataView} view */

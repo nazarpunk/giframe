@@ -71,6 +71,7 @@ const fragmentShader = `
 const DISCARD_ALPHA_KEY_LEVEL = 0.83;
 const DISCARD_MODULATE_LEVEL = 0.01;
 
+// noinspection JSBitwiseOperatorUsage
 export class ParticlesController {
     gl;
     shaderProgram;

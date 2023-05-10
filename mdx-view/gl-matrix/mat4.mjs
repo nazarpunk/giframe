@@ -8,11 +8,11 @@ import * as glMatrix from './common.mjs';
 /**
  * Creates a new identity mat4
  *
- * @returns {mat4} a new 4x4 matrix
+ * @returns {Float32Array} a new 4x4 matrix
  */
 
 export function create() {
-    var out = new Float32Array(16);
+    const out = new Float32Array(16);
 
     out[0] = 1;
     out[5] = 1;
@@ -24,12 +24,12 @@ export function create() {
 /**
  * Creates a new mat4 initialized with values from an existing matrix
  *
- * @param {ReadonlyMat4} a matrix to clone
- * @returns {mat4} a new 4x4 matrix
+ * @param {{Float32Array}} a matrix to clone
+ * @returns {Float32Array} a new 4x4 matrix
  */
 
 export function clone(a) {
-    var out = new Float32Array(16);
+    const out = new Float32Array(16);
     out[0] = a[0];
     out[1] = a[1];
     out[2] = a[2];
@@ -52,9 +52,9 @@ export function clone(a) {
 /**
  * Copy the values from one mat4 to another
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the source matrix
- * @returns {mat4} out
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the source matrix
+ * @returns {Float32Array} out
  */
 
 export function copy(out, a) {
@@ -96,11 +96,11 @@ export function copy(out, a) {
  * @param {Number} m31 Component in column 3, row 1 position (index 13)
  * @param {Number} m32 Component in column 3, row 2 position (index 14)
  * @param {Number} m33 Component in column 3, row 3 position (index 15)
- * @returns {mat4} A new mat4
+ * @returns {Float32Array} A new mat4
  */
 
 export function fromValues(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
-    var out = new Float32Array(16);
+    const out = new Float32Array(16);
     out[0] = m00;
     out[1] = m01;
     out[2] = m02;
@@ -123,7 +123,7 @@ export function fromValues(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22
 /**
  * Set the components of a mat4 to the given values
  *
- * @param {mat4} out the receiving matrix
+ * @param {Float32Array} out the receiving matrix
  * @param {Number} m00 Component in column 0, row 0 position (index 0)
  * @param {Number} m01 Component in column 0, row 1 position (index 1)
  * @param {Number} m02 Component in column 0, row 2 position (index 2)
@@ -140,7 +140,7 @@ export function fromValues(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22
  * @param {Number} m31 Component in column 3, row 1 position (index 13)
  * @param {Number} m32 Component in column 3, row 2 position (index 14)
  * @param {Number} m33 Component in column 3, row 3 position (index 15)
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function set(out, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
@@ -166,8 +166,8 @@ export function set(out, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, 
 /**
  * Set a mat4 to the identity matrix
  *
- * @param {mat4} out the receiving matrix
- * @returns {mat4} out
+ * @param {Float32Array} out the receiving matrix
+ * @returns {Float32Array} out
  */
 
 export function identity(out) {
@@ -193,20 +193,20 @@ export function identity(out) {
 /**
  * Transpose the values of a mat4
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the source matrix
- * @returns {mat4} out
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the source matrix
+ * @returns {Float32Array} out
  */
 
 export function transpose(out, a) {
     // If we are transposing ourselves we can skip a few steps but have to cache some values
     if (out === a) {
-        var a01 = a[1],
+        const a01 = a[1],
             a02 = a[2],
             a03 = a[3];
-        var a12 = a[6],
+        const a12 = a[6],
             a13 = a[7];
-        var a23 = a[11];
+        const a23 = a[11];
         out[1] = a[4];
         out[2] = a[8];
         out[3] = a[12];
@@ -244,42 +244,42 @@ export function transpose(out, a) {
 /**
  * Inverts a mat4
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the source matrix
- * @returns {mat4} out
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the source matrix
+ * @returns {Float32Array} out
  */
 
 export function invert(out, a) {
-    var a00 = a[0],
+    const a00 = a[0],
         a01 = a[1],
         a02 = a[2],
         a03 = a[3];
-    var a10 = a[4],
+    const a10 = a[4],
         a11 = a[5],
         a12 = a[6],
         a13 = a[7];
-    var a20 = a[8],
+    const a20 = a[8],
         a21 = a[9],
         a22 = a[10],
         a23 = a[11];
-    var a30 = a[12],
+    const a30 = a[12],
         a31 = a[13],
         a32 = a[14],
         a33 = a[15];
-    var b00 = a00 * a11 - a01 * a10;
-    var b01 = a00 * a12 - a02 * a10;
-    var b02 = a00 * a13 - a03 * a10;
-    var b03 = a01 * a12 - a02 * a11;
-    var b04 = a01 * a13 - a03 * a11;
-    var b05 = a02 * a13 - a03 * a12;
-    var b06 = a20 * a31 - a21 * a30;
-    var b07 = a20 * a32 - a22 * a30;
-    var b08 = a20 * a33 - a23 * a30;
-    var b09 = a21 * a32 - a22 * a31;
-    var b10 = a21 * a33 - a23 * a31;
-    var b11 = a22 * a33 - a23 * a32; // Calculate the determinant
+    const b00 = a00 * a11 - a01 * a10;
+    const b01 = a00 * a12 - a02 * a10;
+    const b02 = a00 * a13 - a03 * a10;
+    const b03 = a01 * a12 - a02 * a11;
+    const b04 = a01 * a13 - a03 * a11;
+    const b05 = a02 * a13 - a03 * a12;
+    const b06 = a20 * a31 - a21 * a30;
+    const b07 = a20 * a32 - a22 * a30;
+    const b08 = a20 * a33 - a23 * a30;
+    const b09 = a21 * a32 - a22 * a31;
+    const b10 = a21 * a33 - a23 * a31;
+    const b11 = a22 * a33 - a23 * a32; // Calculate the determinant
 
-    var det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+    let det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 
     if (!det) {
         return null;
@@ -308,25 +308,25 @@ export function invert(out, a) {
 /**
  * Calculates the adjugate of a mat4
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the source matrix
- * @returns {mat4} out
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the source matrix
+ * @returns {Float32Array} out
  */
 
 export function adjoint(out, a) {
-    var a00 = a[0],
+    const a00 = a[0],
         a01 = a[1],
         a02 = a[2],
         a03 = a[3];
-    var a10 = a[4],
+    const a10 = a[4],
         a11 = a[5],
         a12 = a[6],
         a13 = a[7];
-    var a20 = a[8],
+    const a20 = a[8],
         a21 = a[9],
         a22 = a[10],
         a23 = a[11];
-    var a30 = a[12],
+    const a30 = a[12],
         a31 = a[13],
         a32 = a[14],
         a33 = a[15];
@@ -352,39 +352,39 @@ export function adjoint(out, a) {
 /**
  * Calculates the determinant of a mat4
  *
- * @param {ReadonlyMat4} a the source matrix
+ * @param {{Float32Array}} a the source matrix
  * @returns {Number} determinant of a
  */
 
 export function determinant(a) {
-    var a00 = a[0],
+    const a00 = a[0],
         a01 = a[1],
         a02 = a[2],
         a03 = a[3];
-    var a10 = a[4],
+    const a10 = a[4],
         a11 = a[5],
         a12 = a[6],
         a13 = a[7];
-    var a20 = a[8],
+    const a20 = a[8],
         a21 = a[9],
         a22 = a[10],
         a23 = a[11];
-    var a30 = a[12],
+    const a30 = a[12],
         a31 = a[13],
         a32 = a[14],
         a33 = a[15];
-    var b00 = a00 * a11 - a01 * a10;
-    var b01 = a00 * a12 - a02 * a10;
-    var b02 = a00 * a13 - a03 * a10;
-    var b03 = a01 * a12 - a02 * a11;
-    var b04 = a01 * a13 - a03 * a11;
-    var b05 = a02 * a13 - a03 * a12;
-    var b06 = a20 * a31 - a21 * a30;
-    var b07 = a20 * a32 - a22 * a30;
-    var b08 = a20 * a33 - a23 * a30;
-    var b09 = a21 * a32 - a22 * a31;
-    var b10 = a21 * a33 - a23 * a31;
-    var b11 = a22 * a33 - a23 * a32; // Calculate the determinant
+    const b00 = a00 * a11 - a01 * a10;
+    const b01 = a00 * a12 - a02 * a10;
+    const b02 = a00 * a13 - a03 * a10;
+    const b03 = a01 * a12 - a02 * a11;
+    const b04 = a01 * a13 - a03 * a11;
+    const b05 = a02 * a13 - a03 * a12;
+    const b06 = a20 * a31 - a21 * a30;
+    const b07 = a20 * a32 - a22 * a30;
+    const b08 = a20 * a33 - a23 * a30;
+    const b09 = a21 * a32 - a22 * a31;
+    const b10 = a21 * a33 - a23 * a31;
+    const b11 = a22 * a33 - a23 * a32; // Calculate the determinant
 
     return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 }
@@ -392,31 +392,31 @@ export function determinant(a) {
 /**
  * Multiplies two mat4s
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the first operand
- * @param {ReadonlyMat4} b the second operand
- * @returns {mat4} out
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the first operand
+ * @param {{Float32Array}} b the second operand
+ * @returns {Float32Array} out
  */
 
 export function multiply(out, a, b) {
-    var a00 = a[0],
+    const a00 = a[0],
         a01 = a[1],
         a02 = a[2],
         a03 = a[3];
-    var a10 = a[4],
+    const a10 = a[4],
         a11 = a[5],
         a12 = a[6],
         a13 = a[7];
-    var a20 = a[8],
+    const a20 = a[8],
         a21 = a[9],
         a22 = a[10],
         a23 = a[11];
-    var a30 = a[12],
+    const a30 = a[12],
         a31 = a[13],
         a32 = a[14],
         a33 = a[15]; // Cache only the current line of the second matrix
 
-    var b0 = b[0],
+    let b0 = b[0],
         b1 = b[1],
         b2 = b[2],
         b3 = b[3];
@@ -454,19 +454,19 @@ export function multiply(out, a, b) {
 /**
  * Translate a mat4 by the given vector
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the matrix to translate
- * @param {ReadonlyVec3} v vector to translate by
- * @returns {mat4} out
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the matrix to translate
+ * @param {Float32Array} v vector to translate by
+ * @returns {Float32Array} out
  */
 
 export function translate(out, a, v) {
-    var x = v[0],
+    const x = v[0],
         y = v[1],
         z = v[2];
-    var a00, a01, a02, a03;
-    var a10, a11, a12, a13;
-    var a20, a21, a22, a23;
+    let a00, a01, a02, a03;
+    let a10, a11, a12, a13;
+    let a20, a21, a22, a23;
 
     if (a === out) {
         out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
@@ -510,14 +510,14 @@ export function translate(out, a, v) {
 /**
  * Scales the mat4 by the dimensions in the given vec3 not using vectorization
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the matrix to scale
- * @param {ReadonlyVec3} v the vec3 to scale the matrix by
- * @returns {mat4} out
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the matrix to scale
+ * @param {Float32Array} v the vec3 to scale the matrix by
+ * @returns {Float32Array} out
  **/
 
 export function scale(out, a, v) {
-    var x = v[0],
+    const x = v[0],
         y = v[1],
         z = v[2];
     out[0] = a[0] * x;
@@ -542,25 +542,25 @@ export function scale(out, a, v) {
 /**
  * Rotates a mat4 by the given angle around the given axis
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the matrix to rotate
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the matrix to rotate
  * @param {Number} rad the angle to rotate the matrix by
- * @param {ReadonlyVec3} axis the axis to rotate around
- * @returns {mat4} out
+ * @param {Float32Array} axis the axis to rotate around
+ * @returns {Float32Array} out
  */
 
 export function rotate(out, a, rad, axis) {
-    var x = axis[0],
+    let x = axis[0],
         y = axis[1],
         z = axis[2];
-    var len = Math.hypot(x, y, z);
-    var s, c, t;
-    var a00, a01, a02, a03;
-    var a10, a11, a12, a13;
-    var a20, a21, a22, a23;
-    var b00, b01, b02;
-    var b10, b11, b12;
-    var b20, b21, b22;
+    let len = Math.hypot(x, y, z);
+    let s, c, t;
+    let a00, a01, a02, a03;
+    let a10, a11, a12, a13;
+    let a20, a21, a22, a23;
+    let b00, b01, b02;
+    let b10, b11, b12;
+    let b20, b21, b22;
 
     if (len < glMatrix.EPSILON) {
         return null;
@@ -623,23 +623,23 @@ export function rotate(out, a, rad, axis) {
 /**
  * Rotates a matrix by the given angle around the X axis
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the matrix to rotate
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the matrix to rotate
  * @param {Number} rad the angle to rotate the matrix by
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function rotateX(out, a, rad) {
-    var s = Math.sin(rad);
-    var c = Math.cos(rad);
-    var a10 = a[4];
-    var a11 = a[5];
-    var a12 = a[6];
-    var a13 = a[7];
-    var a20 = a[8];
-    var a21 = a[9];
-    var a22 = a[10];
-    var a23 = a[11];
+    const s = Math.sin(rad);
+    const c = Math.cos(rad);
+    const a10 = a[4];
+    const a11 = a[5];
+    const a12 = a[6];
+    const a13 = a[7];
+    const a20 = a[8];
+    const a21 = a[9];
+    const a22 = a[10];
+    const a23 = a[11];
 
     if (a !== out) {
         // If the source and destination differ, copy the unchanged rows
@@ -667,23 +667,23 @@ export function rotateX(out, a, rad) {
 /**
  * Rotates a matrix by the given angle around the Y axis
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the matrix to rotate
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the matrix to rotate
  * @param {Number} rad the angle to rotate the matrix by
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function rotateY(out, a, rad) {
-    var s = Math.sin(rad);
-    var c = Math.cos(rad);
-    var a00 = a[0];
-    var a01 = a[1];
-    var a02 = a[2];
-    var a03 = a[3];
-    var a20 = a[8];
-    var a21 = a[9];
-    var a22 = a[10];
-    var a23 = a[11];
+    const s = Math.sin(rad);
+    const c = Math.cos(rad);
+    const a00 = a[0];
+    const a01 = a[1];
+    const a02 = a[2];
+    const a03 = a[3];
+    const a20 = a[8];
+    const a21 = a[9];
+    const a22 = a[10];
+    const a23 = a[11];
 
     if (a !== out) {
         // If the source and destination differ, copy the unchanged rows
@@ -711,23 +711,23 @@ export function rotateY(out, a, rad) {
 /**
  * Rotates a matrix by the given angle around the Z axis
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the matrix to rotate
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the matrix to rotate
  * @param {Number} rad the angle to rotate the matrix by
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function rotateZ(out, a, rad) {
-    var s = Math.sin(rad);
-    var c = Math.cos(rad);
-    var a00 = a[0];
-    var a01 = a[1];
-    var a02 = a[2];
-    var a03 = a[3];
-    var a10 = a[4];
-    var a11 = a[5];
-    var a12 = a[6];
-    var a13 = a[7];
+    const s = Math.sin(rad);
+    const c = Math.cos(rad);
+    const a00 = a[0];
+    const a01 = a[1];
+    const a02 = a[2];
+    const a03 = a[3];
+    const a10 = a[4];
+    const a11 = a[5];
+    const a12 = a[6];
+    const a13 = a[7];
 
     if (a !== out) {
         // If the source and destination differ, copy the unchanged last row
@@ -759,9 +759,9 @@ export function rotateZ(out, a, rad) {
  *     mat4.identity(dest);
  *     mat4.translate(dest, dest, vec);
  *
- * @param {mat4} out mat4 receiving operation result
- * @param {ReadonlyVec3} v Translation vector
- * @returns {mat4} out
+ * @param {Float32Array} out mat4 receiving operation result
+ * @param {Float32Array} v Translation vector
+ * @returns {Float32Array} out
  */
 
 export function fromTranslation(out, v) {
@@ -791,9 +791,9 @@ export function fromTranslation(out, v) {
  *     mat4.identity(dest);
  *     mat4.scale(dest, dest, vec);
  *
- * @param {mat4} out mat4 receiving operation result
- * @param {ReadonlyVec3} v Scaling vector
- * @returns {mat4} out
+ * @param {Float32Array} out mat4 receiving operation result
+ * @param {Float32Array} v Scaling vector
+ * @returns {Float32Array} out
  */
 
 export function fromScaling(out, v) {
@@ -823,18 +823,18 @@ export function fromScaling(out, v) {
  *     mat4.identity(dest);
  *     mat4.rotate(dest, dest, rad, axis);
  *
- * @param {mat4} out mat4 receiving operation result
+ * @param {Float32Array} out mat4 receiving operation result
  * @param {Number} rad the angle to rotate the matrix by
- * @param {ReadonlyVec3} axis the axis to rotate around
- * @returns {mat4} out
+ * @param {Float32Array} axis the axis to rotate around
+ * @returns {Float32Array} out
  */
 
 export function fromRotation(out, rad, axis) {
-    var x = axis[0],
+    let x = axis[0],
         y = axis[1],
         z = axis[2];
-    var len = Math.hypot(x, y, z);
-    var s, c, t;
+    let len = Math.hypot(x, y, z);
+    let s, c, t;
 
     if (len < glMatrix.EPSILON) {
         return null;
@@ -874,14 +874,14 @@ export function fromRotation(out, rad, axis) {
  *     mat4.identity(dest);
  *     mat4.rotateX(dest, dest, rad);
  *
- * @param {mat4} out mat4 receiving operation result
+ * @param {Float32Array} out mat4 receiving operation result
  * @param {Number} rad the angle to rotate the matrix by
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function fromXRotation(out, rad) {
-    var s = Math.sin(rad);
-    var c = Math.cos(rad); // Perform axis-specific matrix multiplication
+    const s = Math.sin(rad);
+    const c = Math.cos(rad); // Perform axis-specific matrix multiplication
 
     out[0] = 1;
     out[1] = 0;
@@ -909,14 +909,14 @@ export function fromXRotation(out, rad) {
  *     mat4.identity(dest);
  *     mat4.rotateY(dest, dest, rad);
  *
- * @param {mat4} out mat4 receiving operation result
+ * @param {Float32Array} out mat4 receiving operation result
  * @param {Number} rad the angle to rotate the matrix by
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function fromYRotation(out, rad) {
-    var s = Math.sin(rad);
-    var c = Math.cos(rad); // Perform axis-specific matrix multiplication
+    const s = Math.sin(rad);
+    const c = Math.cos(rad); // Perform axis-specific matrix multiplication
 
     out[0] = c;
     out[1] = 0;
@@ -944,14 +944,14 @@ export function fromYRotation(out, rad) {
  *     mat4.identity(dest);
  *     mat4.rotateZ(dest, dest, rad);
  *
- * @param {mat4} out mat4 receiving operation result
+ * @param {Float32Array} out mat4 receiving operation result
  * @param {Number} rad the angle to rotate the matrix by
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function fromZRotation(out, rad) {
-    var s = Math.sin(rad);
-    var c = Math.cos(rad); // Perform axis-specific matrix multiplication
+    const s = Math.sin(rad);
+    const c = Math.cos(rad); // Perform axis-specific matrix multiplication
 
     out[0] = c;
     out[1] = s;
@@ -982,30 +982,30 @@ export function fromZRotation(out, rad) {
  *     quat4.toMat4(quat, quatMat);
  *     mat4.multiply(dest, quatMat);
  *
- * @param {mat4} out mat4 receiving operation result
+ * @param {Float32Array} out mat4 receiving operation result
  * @param {quat4} q Rotation quaternion
- * @param {ReadonlyVec3} v Translation vector
- * @returns {mat4} out
+ * @param {Float32Array} v Translation vector
+ * @returns {Float32Array} out
  */
 
 export function fromRotationTranslation(out, q, v) {
     // Quaternion math
-    var x = q[0],
+    const x = q[0],
         y = q[1],
         z = q[2],
         w = q[3];
-    var x2 = x + x;
-    var y2 = y + y;
-    var z2 = z + z;
-    var xx = x * x2;
-    var xy = x * y2;
-    var xz = x * z2;
-    var yy = y * y2;
-    var yz = y * z2;
-    var zz = z * z2;
-    var wx = w * x2;
-    var wy = w * y2;
-    var wz = w * z2;
+    const x2 = x + x;
+    const y2 = y + y;
+    const z2 = z + z;
+    const xx = x * x2;
+    const xy = x * y2;
+    const xz = x * z2;
+    const yy = y * y2;
+    const yz = y * z2;
+    const zz = z * z2;
+    const wx = w * x2;
+    const wy = w * y2;
+    const wz = w * z2;
     out[0] = 1 - (yy + zz);
     out[1] = xy + wz;
     out[2] = xz - wy;
@@ -1028,14 +1028,14 @@ export function fromRotationTranslation(out, q, v) {
 /**
  * Creates a new mat4 from a dual quat.
  *
- * @param {mat4} out Matrix
+ * @param {Float32Array} out Matrix
  * @param {ReadonlyQuat2} a Dual Quaternion
- * @returns {mat4} mat4 receiving operation result
+ * @returns {Float32Array} mat4 receiving operation result
  */
 
 export function fromQuat2(out, a) {
-    var translation = new Float32Array(3);
-    var bx = -a[0],
+    const translation = new Float32Array(3);
+    const bx = -a[0],
         by = -a[1],
         bz = -a[2],
         bw = a[3],
@@ -1043,7 +1043,7 @@ export function fromQuat2(out, a) {
         ay = a[5],
         az = a[6],
         aw = a[7];
-    var magnitude = bx * bx + by * by + bz * bz + bw * bw; //Only scale if it makes sense
+    const magnitude = bx * bx + by * by + bz * bz + bw * bw; //Only scale if it makes sense
 
     if (magnitude > 0) {
         translation[0] = ((ax * bw + aw * bx + ay * bz - az * by) * 2) / magnitude;
@@ -1065,7 +1065,7 @@ export function fromQuat2(out, a) {
  *  the returned vector will be the same as the translation vector
  *  originally supplied.
  * @param  {vec3} out Vector to receive translation component
- * @param  {ReadonlyMat4} mat Matrix to be decomposed (input)
+ * @param  {{Float32Array}} mat Matrix to be decomposed (input)
  * @return {vec3} out
  */
 
@@ -1083,20 +1083,20 @@ export function getTranslation(out, mat) {
  *  the same as the scaling vector
  *  originally supplied.
  * @param  {vec3} out Vector to receive scaling factor component
- * @param  {ReadonlyMat4} mat Matrix to be decomposed (input)
+ * @param  {{Float32Array}} mat Matrix to be decomposed (input)
  * @return {vec3} out
  */
 
 export function getScaling(out, mat) {
-    var m11 = mat[0];
-    var m12 = mat[1];
-    var m13 = mat[2];
-    var m21 = mat[4];
-    var m22 = mat[5];
-    var m23 = mat[6];
-    var m31 = mat[8];
-    var m32 = mat[9];
-    var m33 = mat[10];
+    const m11 = mat[0];
+    const m12 = mat[1];
+    const m13 = mat[2];
+    const m21 = mat[4];
+    const m22 = mat[5];
+    const m23 = mat[6];
+    const m31 = mat[8];
+    const m32 = mat[9];
+    const m33 = mat[10];
     out[0] = Math.hypot(m11, m12, m13);
     out[1] = Math.hypot(m21, m22, m23);
     out[2] = Math.hypot(m31, m32, m33);
@@ -1109,27 +1109,27 @@ export function getScaling(out, mat) {
  *  fromRotationTranslation, the returned quaternion will be the
  *  same as the quaternion originally supplied.
  * @param {quat} out Quaternion to receive the rotation component
- * @param {ReadonlyMat4} mat Matrix to be decomposed (input)
+ * @param {{Float32Array}} mat Matrix to be decomposed (input)
  * @return {quat} out
  */
 
 export function getRotation(out, mat) {
-    var scaling = new Float32Array(3);
+    const scaling = new Float32Array(3);
     getScaling(scaling, mat);
-    var is1 = 1 / scaling[0];
-    var is2 = 1 / scaling[1];
-    var is3 = 1 / scaling[2];
-    var sm11 = mat[0] * is1;
-    var sm12 = mat[1] * is2;
-    var sm13 = mat[2] * is3;
-    var sm21 = mat[4] * is1;
-    var sm22 = mat[5] * is2;
-    var sm23 = mat[6] * is3;
-    var sm31 = mat[8] * is1;
-    var sm32 = mat[9] * is2;
-    var sm33 = mat[10] * is3;
-    var trace = sm11 + sm22 + sm33;
-    var S = 0;
+    const is1 = 1 / scaling[0];
+    const is2 = 1 / scaling[1];
+    const is3 = 1 / scaling[2];
+    const sm11 = mat[0] * is1;
+    const sm12 = mat[1] * is2;
+    const sm13 = mat[2] * is3;
+    const sm21 = mat[4] * is1;
+    const sm22 = mat[5] * is2;
+    const sm23 = mat[6] * is3;
+    const sm31 = mat[8] * is1;
+    const sm32 = mat[9] * is2;
+    const sm33 = mat[10] * is3;
+    const trace = sm11 + sm22 + sm33;
+    let S = 0;
 
     if (trace > 0) {
         S = Math.sqrt(trace + 1.0) * 2;
@@ -1171,34 +1171,34 @@ export function getRotation(out, mat) {
  *     mat4.multiply(dest, quatMat);
  *     mat4.scale(dest, scale)
  *
- * @param {mat4} out mat4 receiving operation result
+ * @param {Float32Array} out mat4 receiving operation result
  * @param {quat4} q Rotation quaternion
- * @param {ReadonlyVec3} v Translation vector
- * @param {ReadonlyVec3} s Scaling vector
- * @returns {mat4} out
+ * @param {Float32Array} v Translation vector
+ * @param {Float32Array} s Scaling vector
+ * @returns {Float32Array} out
  */
 
 export function fromRotationTranslationScale(out, q, v, s) {
     // Quaternion math
-    var x = q[0],
+    const x = q[0],
         y = q[1],
         z = q[2],
         w = q[3];
-    var x2 = x + x;
-    var y2 = y + y;
-    var z2 = z + z;
-    var xx = x * x2;
-    var xy = x * y2;
-    var xz = x * z2;
-    var yy = y * y2;
-    var yz = y * z2;
-    var zz = z * z2;
-    var wx = w * x2;
-    var wy = w * y2;
-    var wz = w * z2;
-    var sx = s[0];
-    var sy = s[1];
-    var sz = s[2];
+    const x2 = x + x;
+    const y2 = y + y;
+    const z2 = z + z;
+    const xx = x * x2;
+    const xy = x * y2;
+    const xz = x * z2;
+    const yy = y * y2;
+    const yz = y * z2;
+    const zz = z * z2;
+    const wx = w * x2;
+    const wy = w * y2;
+    const wz = w * z2;
+    const sx = s[0];
+    const sy = s[1];
+    const sz = s[2];
     out[0] = (1 - (yy + zz)) * sx;
     out[1] = (xy + wz) * sx;
     out[2] = (xz - wy) * sx;
@@ -1231,47 +1231,47 @@ export function fromRotationTranslationScale(out, q, v, s) {
  *     mat4.scale(dest, scale)
  *     mat4.translate(dest, negativeOrigin);
  *
- * @param {mat4} out mat4 receiving operation result
+ * @param {Float32Array} out mat4 receiving operation result
  * @param {quat4} q Rotation quaternion
- * @param {ReadonlyVec3} v Translation vector
- * @param {ReadonlyVec3} s Scaling vector
- * @param {ReadonlyVec3} o The origin vector around which to scale and rotate
- * @returns {mat4} out
+ * @param {Float32Array} v Translation vector
+ * @param {Float32Array} s Scaling vector
+ * @param {Float32Array} o The origin vector around which to scale and rotate
+ * @returns {Float32Array} out
  */
 
 export function fromRotationTranslationScaleOrigin(out, q, v, s, o) {
     // Quaternion math
-    var x = q[0],
+    const x = q[0],
         y = q[1],
         z = q[2],
         w = q[3];
-    var x2 = x + x;
-    var y2 = y + y;
-    var z2 = z + z;
-    var xx = x * x2;
-    var xy = x * y2;
-    var xz = x * z2;
-    var yy = y * y2;
-    var yz = y * z2;
-    var zz = z * z2;
-    var wx = w * x2;
-    var wy = w * y2;
-    var wz = w * z2;
-    var sx = s[0];
-    var sy = s[1];
-    var sz = s[2];
-    var ox = o[0];
-    var oy = o[1];
-    var oz = o[2];
-    var out0 = (1 - (yy + zz)) * sx;
-    var out1 = (xy + wz) * sx;
-    var out2 = (xz - wy) * sx;
-    var out4 = (xy - wz) * sy;
-    var out5 = (1 - (xx + zz)) * sy;
-    var out6 = (yz + wx) * sy;
-    var out8 = (xz + wy) * sz;
-    var out9 = (yz - wx) * sz;
-    var out10 = (1 - (xx + yy)) * sz;
+    const x2 = x + x;
+    const y2 = y + y;
+    const z2 = z + z;
+    const xx = x * x2;
+    const xy = x * y2;
+    const xz = x * z2;
+    const yy = y * y2;
+    const yz = y * z2;
+    const zz = z * z2;
+    const wx = w * x2;
+    const wy = w * y2;
+    const wz = w * z2;
+    const sx = s[0];
+    const sy = s[1];
+    const sz = s[2];
+    const ox = o[0];
+    const oy = o[1];
+    const oz = o[2];
+    const out0 = (1 - (yy + zz)) * sx;
+    const out1 = (xy + wz) * sx;
+    const out2 = (xz - wy) * sx;
+    const out4 = (xy - wz) * sy;
+    const out5 = (1 - (xx + zz)) * sy;
+    const out6 = (yz + wx) * sy;
+    const out8 = (xz + wy) * sz;
+    const out9 = (yz - wx) * sz;
+    const out10 = (1 - (xx + yy)) * sz;
     out[0] = out0;
     out[1] = out1;
     out[2] = out2;
@@ -1294,29 +1294,29 @@ export function fromRotationTranslationScaleOrigin(out, q, v, s, o) {
 /**
  * Calculates a 4x4 matrix from the given quaternion
  *
- * @param {mat4} out mat4 receiving operation result
+ * @param {Float32Array} out mat4 receiving operation result
  * @param {ReadonlyQuat} q Quaternion to create matrix from
  *
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function fromQuat(out, q) {
-    var x = q[0],
+    const x = q[0],
         y = q[1],
         z = q[2],
         w = q[3];
-    var x2 = x + x;
-    var y2 = y + y;
-    var z2 = z + z;
-    var xx = x * x2;
-    var yx = y * x2;
-    var yy = y * y2;
-    var zx = z * x2;
-    var zy = z * y2;
-    var zz = z * z2;
-    var wx = w * x2;
-    var wy = w * y2;
-    var wz = w * z2;
+    const x2 = x + x;
+    const y2 = y + y;
+    const z2 = z + z;
+    const xx = x * x2;
+    const yx = y * x2;
+    const yy = y * y2;
+    const zx = z * x2;
+    const zy = z * y2;
+    const zz = z * z2;
+    const wx = w * x2;
+    const wy = w * y2;
+    const wz = w * z2;
     out[0] = 1 - yy - zz;
     out[1] = yx + wz;
     out[2] = zx - wy;
@@ -1339,20 +1339,20 @@ export function fromQuat(out, q) {
 /**
  * Generates a frustum matrix with the given bounds
  *
- * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {Float32Array} out mat4 frustum matrix will be written into
  * @param {Number} left Left bound of the frustum
  * @param {Number} right Right bound of the frustum
  * @param {Number} bottom Bottom bound of the frustum
  * @param {Number} top Top bound of the frustum
  * @param {Number} near Near bound of the frustum
  * @param {Number} far Far bound of the frustum
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function frustum(out, left, right, bottom, top, near, far) {
-    var rl = 1 / (right - left);
-    var tb = 1 / (top - bottom);
-    var nf = 1 / (near - far);
+    const rl = 1 / (right - left);
+    const tb = 1 / (top - bottom);
+    const nf = 1 / (near - far);
     out[0] = near * 2 * rl;
     out[1] = 0;
     out[2] = 0;
@@ -1376,17 +1376,17 @@ export function frustum(out, left, right, bottom, top, near, far) {
  * Generates a perspective projection matrix with the given bounds.
  * Passing null/undefined/no value for far will generate infinite projection matrix.
  *
- * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {Float32Array} out mat4 frustum matrix will be written into
  * @param {number} fovy Vertical field of view in radians
  * @param {number} aspect Aspect ratio. typically viewport width/height
  * @param {number} near Near bound of the frustum
  * @param {number} far Far bound of the frustum, can be null or Infinity
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function perspective(out, fovy, aspect, near, far) {
-    var f = 1.0 / Math.tan(fovy / 2),
-        nf;
+    const f = 1.0 / Math.tan(fovy / 2);
+    let nf;
     out[0] = f / aspect;
     out[1] = 0;
     out[2] = 0;
@@ -1419,20 +1419,20 @@ export function perspective(out, fovy, aspect, near, far) {
  * This is primarily useful for generating projection matrices to be used
  * with the still experiemental WebVR API.
  *
- * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {Float32Array} out mat4 frustum matrix will be written into
  * @param {Object} fov Object containing the following values: upDegrees, downDegrees, leftDegrees, rightDegrees
  * @param {number} near Near bound of the frustum
  * @param {number} far Far bound of the frustum
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function perspectiveFromFieldOfView(out, fov, near, far) {
-    var upTan = Math.tan((fov.upDegrees * Math.PI) / 180.0);
-    var downTan = Math.tan((fov.downDegrees * Math.PI) / 180.0);
-    var leftTan = Math.tan((fov.leftDegrees * Math.PI) / 180.0);
-    var rightTan = Math.tan((fov.rightDegrees * Math.PI) / 180.0);
-    var xScale = 2.0 / (leftTan + rightTan);
-    var yScale = 2.0 / (upTan + downTan);
+    const upTan = Math.tan((fov.upDegrees * Math.PI) / 180.0);
+    const downTan = Math.tan((fov.downDegrees * Math.PI) / 180.0);
+    const leftTan = Math.tan((fov.leftDegrees * Math.PI) / 180.0);
+    const rightTan = Math.tan((fov.rightDegrees * Math.PI) / 180.0);
+    const xScale = 2.0 / (leftTan + rightTan);
+    const yScale = 2.0 / (upTan + downTan);
     out[0] = xScale;
     out[1] = 0.0;
     out[2] = 0.0;
@@ -1455,20 +1455,20 @@ export function perspectiveFromFieldOfView(out, fov, near, far) {
 /**
  * Generates a orthogonal projection matrix with the given bounds
  *
- * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {Float32Array} out mat4 frustum matrix will be written into
  * @param {number} left Left bound of the frustum
  * @param {number} right Right bound of the frustum
  * @param {number} bottom Bottom bound of the frustum
  * @param {number} top Top bound of the frustum
  * @param {number} near Near bound of the frustum
  * @param {number} far Far bound of the frustum
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function ortho(out, left, right, bottom, top, near, far) {
-    var lr = 1 / (left - right);
-    var bt = 1 / (bottom - top);
-    var nf = 1 / (near - far);
+    const lr = 1 / (left - right);
+    const bt = 1 / (bottom - top);
+    const nf = 1 / (near - far);
     out[0] = -2 * lr;
     out[1] = 0;
     out[2] = 0;
@@ -1492,24 +1492,24 @@ export function ortho(out, left, right, bottom, top, near, far) {
  * Generates a look-at matrix with the given eye position, focal point, and up axis.
  * If you want a matrix that actually makes an object look at another object, you should use targetTo instead.
  *
- * @param {mat4} out mat4 frustum matrix will be written into
- * @param {ReadonlyVec3} eye Position of the viewer
- * @param {ReadonlyVec3} center Point the viewer is looking at
- * @param {ReadonlyVec3} up vec3 pointing up
- * @returns {mat4} out
+ * @param {Float32Array} out mat4 frustum matrix will be written into
+ * @param {Float32Array} eye Position of the viewer
+ * @param {Float32Array} center Point the viewer is looking at
+ * @param {Float32Array} up vec3 pointing up
+ * @returns {Float32Array} out
  */
 
 export function lookAt(out, eye, center, up) {
-    var x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
-    var eyex = eye[0];
-    var eyey = eye[1];
-    var eyez = eye[2];
-    var upx = up[0];
-    var upy = up[1];
-    var upz = up[2];
-    var centerx = center[0];
-    var centery = center[1];
-    var centerz = center[2];
+    let x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
+    const eyex = eye[0];
+    const eyey = eye[1];
+    const eyez = eye[2];
+    const upx = up[0];
+    const upy = up[1];
+    const upz = up[2];
+    const centerx = center[0];
+    const centery = center[1];
+    const centerz = center[2];
 
     if (
         Math.abs(eyex - centerx) < glMatrix.EPSILON &&
@@ -1580,24 +1580,24 @@ export function lookAt(out, eye, center, up) {
 /**
  * Generates a matrix that makes something look at something else.
  *
- * @param {mat4} out mat4 frustum matrix will be written into
- * @param {ReadonlyVec3} eye Position of the viewer
- * @param {ReadonlyVec3} center Point the viewer is looking at
- * @param {ReadonlyVec3} up vec3 pointing up
- * @returns {mat4} out
+ * @param {Float32Array} out mat4 frustum matrix will be written into
+ * @param {Float32Array} eye Position of the viewer
+ * @param {Float32Array} center Point the viewer is looking at
+ * @param {Float32Array} up vec3 pointing up
+ * @returns {Float32Array} out
  */
 
 export function targetTo(out, eye, target, up) {
-    var eyex = eye[0],
+    const eyex = eye[0],
         eyey = eye[1],
         eyez = eye[2],
         upx = up[0],
         upy = up[1],
         upz = up[2];
-    var z0 = eyex - target[0],
+    let z0 = eyex - target[0],
         z1 = eyey - target[1],
         z2 = eyez - target[2];
-    var len = z0 * z0 + z1 * z1 + z2 * z2;
+    let len = z0 * z0 + z1 * z1 + z2 * z2;
 
     if (len > 0) {
         len = 1 / Math.sqrt(len);
@@ -1606,7 +1606,7 @@ export function targetTo(out, eye, target, up) {
         z2 *= len;
     }
 
-    var x0 = upy * z2 - upz * z1,
+    let x0 = upy * z2 - upz * z1,
         x1 = upz * z0 - upx * z2,
         x2 = upx * z1 - upy * z0;
     len = x0 * x0 + x1 * x1 + x2 * x2;
@@ -1640,7 +1640,7 @@ export function targetTo(out, eye, target, up) {
 /**
  * Returns a string representation of a mat4
  *
- * @param {ReadonlyMat4} a matrix to represent as a string
+ * @param {{Float32Array}} a matrix to represent as a string
  * @returns {String} string representation of the matrix
  */
 
@@ -1683,7 +1683,7 @@ export function str(a) {
 /**
  * Returns Frobenius norm of a mat4
  *
- * @param {ReadonlyMat4} a the matrix to calculate Frobenius norm of
+ * @param {{Float32Array}} a the matrix to calculate Frobenius norm of
  * @returns {Number} Frobenius norm
  */
 
@@ -1694,10 +1694,10 @@ export function frob(a) {
 /**
  * Adds two mat4's
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the first operand
- * @param {ReadonlyMat4} b the second operand
- * @returns {mat4} out
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the first operand
+ * @param {{Float32Array}} b the second operand
+ * @returns {Float32Array} out
  */
 
 export function add(out, a, b) {
@@ -1723,10 +1723,10 @@ export function add(out, a, b) {
 /**
  * Subtracts matrix b from matrix a
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the first operand
- * @param {ReadonlyMat4} b the second operand
- * @returns {mat4} out
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the first operand
+ * @param {{Float32Array}} b the second operand
+ * @returns {Float32Array} out
  */
 
 export function subtract(out, a, b) {
@@ -1752,10 +1752,10 @@ export function subtract(out, a, b) {
 /**
  * Multiply each element of the matrix by a scalar.
  *
- * @param {mat4} out the receiving matrix
- * @param {ReadonlyMat4} a the matrix to scale
+ * @param {Float32Array} out the receiving matrix
+ * @param {{Float32Array}} a the matrix to scale
  * @param {Number} b amount to scale the matrix's elements by
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function multiplyScalar(out, a, b) {
@@ -1781,11 +1781,11 @@ export function multiplyScalar(out, a, b) {
 /**
  * Adds two mat4's after multiplying each element of the second operand by a scalar value.
  *
- * @param {mat4} out the receiving vector
- * @param {ReadonlyMat4} a the first operand
- * @param {ReadonlyMat4} b the second operand
+ * @param {Float32Array} out the receiving vector
+ * @param {{Float32Array}} a the first operand
+ * @param {{Float32Array}} b the second operand
  * @param {Number} scale the amount to scale b's elements by before adding
- * @returns {mat4} out
+ * @returns {Float32Array} out
  */
 
 export function multiplyScalarAndAdd(out, a, b, scale) {
@@ -1811,8 +1811,8 @@ export function multiplyScalarAndAdd(out, a, b, scale) {
 /**
  * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
  *
- * @param {ReadonlyMat4} a The first matrix.
- * @param {ReadonlyMat4} b The second matrix.
+ * @param {{Float32Array}} a The first matrix.
+ * @param {{Float32Array}} b The second matrix.
  * @returns {Boolean} True if the matrices are equal, false otherwise.
  */
 
@@ -1838,41 +1838,41 @@ export function exactEquals(a, b) {
 /**
  * Returns whether or not the matrices have approximately the same elements in the same position.
  *
- * @param {ReadonlyMat4} a The first matrix.
- * @param {ReadonlyMat4} b The second matrix.
+ * @param {{Float32Array}} a The first matrix.
+ * @param {{Float32Array}} b The second matrix.
  * @returns {Boolean} True if the matrices are equal, false otherwise.
  */
 
 export function equals(a, b) {
-    var a0 = a[0],
+    const a0 = a[0],
         a1 = a[1],
         a2 = a[2],
         a3 = a[3];
-    var a4 = a[4],
+    const a4 = a[4],
         a5 = a[5],
         a6 = a[6],
         a7 = a[7];
-    var a8 = a[8],
+    const a8 = a[8],
         a9 = a[9],
         a10 = a[10],
         a11 = a[11];
-    var a12 = a[12],
+    const a12 = a[12],
         a13 = a[13],
         a14 = a[14],
         a15 = a[15];
-    var b0 = b[0],
+    const b0 = b[0],
         b1 = b[1],
         b2 = b[2],
         b3 = b[3];
-    var b4 = b[4],
+    const b4 = b[4],
         b5 = b[5],
         b6 = b[6],
         b7 = b[7];
-    var b8 = b[8],
+    const b8 = b[8],
         b9 = b[9],
         b10 = b[10],
         b11 = b[11];
-    var b12 = b[12],
+    const b12 = b[12],
         b13 = b[13],
         b14 = b[14],
         b15 = b[15];

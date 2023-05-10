@@ -83,7 +83,10 @@ export class Chunk {
         view.sizeOffsetExclusive = so;
     }
 
-    static MDLX = 0x584c444d;
+
+    static MDLX = 0x4d444c58;
+    static MDLX_ = 0x584c444d;
+
     static INFO = 0x4f464e49;
     static VERS = 0x53524556;
     static MODL = 0x4c444f4d;

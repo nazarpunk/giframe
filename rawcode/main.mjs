@@ -39,7 +39,7 @@ hex.input.addEventListener('update', () => {
 dec.input.addEventListener('update', () => {
     const string = dec.text;
     if (!dec.valid(string)) return;
-    const number = BigInt(parseInt(string));
+    const number = parseInt(string);
     raw.text = Dec2RawBE(number);
     hex.text = Dec2HexBE(number);
 });

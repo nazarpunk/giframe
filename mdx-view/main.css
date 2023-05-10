@@ -1,0 +1,50 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font: 16px sans-serif;
+    touch-action: none;
+    background: #262626;
+}
+
+canvas {
+    display: block;
+    flex: 1 1 auto;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 5px 10px;
+    box-sizing: border-box;
+}
+
+.skeleton-group {
+    padding: 0;
+    border: none;
+}
+
+label {
+    display: inline-block;
+    margin: 2px 5px;
+    white-space: nowrap;
+}
+input {
+    vertical-align: middle;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.inner {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+}

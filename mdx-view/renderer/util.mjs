@@ -20,10 +20,10 @@ export function mat4fromRotationOrigin(out, rotation, origin) {
 }
 /**
  * Rotate a 3D vector around the z-axis
- * @param {vec3} out The receiving vec3
- * @param {vec3} a The vec3 point to rotate
+ * @param {Float32Array} out The receiving vec3
+ * @param {Float32Array} a The vec3 point to rotate
  * @param {Number} c The angle of rotation
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 export function vec3RotateZ(out, a, c) {
     out[0] = a[0] * Math.cos(c) - a[1] * Math.sin(c);

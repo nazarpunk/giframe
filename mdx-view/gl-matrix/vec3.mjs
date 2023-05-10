@@ -7,23 +7,21 @@ import * as glMatrix from './common.mjs';
 /**
  * Creates a new, empty vec3
  *
- * @returns {vec3} a new 3D vector
+ * @returns {Float32Array} a new 3D vector
  */
 
 export function create() {
-    var out = new Float32Array(3);
-
-    return out;
+    return new Float32Array(3);
 }
 /**
  * Creates a new vec3 initialized with values from an existing vector
  *
- * @param {ReadonlyVec3} a vector to clone
- * @returns {vec3} a new 3D vector
+ * @param {Float32Array} a vector to clone
+ * @returns {Float32Array} a new 3D vector
  */
 
 export function clone(a) {
-    var out = new Float32Array(3);
+    const out = new Float32Array(3);
     out[0] = a[0];
     out[1] = a[1];
     out[2] = a[2];
@@ -32,14 +30,14 @@ export function clone(a) {
 /**
  * Calculates the length of a vec3
  *
- * @param {ReadonlyVec3} a vector to calculate length of
+ * @param {Float32Array} a vector to calculate length of
  * @returns {Number} length of a
  */
 
 export function length(a) {
-    var x = a[0];
-    var y = a[1];
-    var z = a[2];
+    const x = a[0];
+    const y = a[1];
+    const z = a[2];
     return Math.hypot(x, y, z);
 }
 /**
@@ -48,11 +46,11 @@ export function length(a) {
  * @param {Number} x X component
  * @param {Number} y Y component
  * @param {Number} z Z component
- * @returns {vec3} a new 3D vector
+ * @returns {Float32Array} a new 3D vector
  */
 
 export function fromValues(x, y, z) {
-    var out = new Float32Array(3);
+    const out = new Float32Array(3);
     out[0] = x;
     out[1] = y;
     out[2] = z;
@@ -61,9 +59,9 @@ export function fromValues(x, y, z) {
 /**
  * Copy the values from one vec3 to another
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the source vector
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the source vector
+ * @returns {Float32Array} out
  */
 
 export function copy(out, a) {
@@ -75,11 +73,11 @@ export function copy(out, a) {
 /**
  * Set the components of a vec3 to the given values
  *
- * @param {vec3} out the receiving vector
+ * @param {Float32Array} out the receiving vector
  * @param {Number} x X component
  * @param {Number} y Y component
  * @param {Number} z Z component
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function set(out, x, y, z) {
@@ -91,10 +89,10 @@ export function set(out, x, y, z) {
 /**
  * Adds two vec3's
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
+ * @returns {Float32Array} out
  */
 
 export function add(out, a, b) {
@@ -106,10 +104,10 @@ export function add(out, a, b) {
 /**
  * Subtracts vector b from vector a
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
+ * @returns {Float32Array} out
  */
 
 export function subtract(out, a, b) {
@@ -121,10 +119,10 @@ export function subtract(out, a, b) {
 /**
  * Multiplies two vec3's
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
+ * @returns {Float32Array} out
  */
 
 export function multiply(out, a, b) {
@@ -136,10 +134,10 @@ export function multiply(out, a, b) {
 /**
  * Divides two vec3's
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
+ * @returns {Float32Array} out
  */
 
 export function divide(out, a, b) {
@@ -151,9 +149,9 @@ export function divide(out, a, b) {
 /**
  * Math.ceil the components of a vec3
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a vector to ceil
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a vector to ceil
+ * @returns {Float32Array} out
  */
 
 export function ceil(out, a) {
@@ -165,9 +163,9 @@ export function ceil(out, a) {
 /**
  * Math.floor the components of a vec3
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a vector to floor
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a vector to floor
+ * @returns {Float32Array} out
  */
 
 export function floor(out, a) {
@@ -179,10 +177,10 @@ export function floor(out, a) {
 /**
  * Returns the minimum of two vec3's
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
+ * @returns {Float32Array} out
  */
 
 export function min(out, a, b) {
@@ -194,10 +192,10 @@ export function min(out, a, b) {
 /**
  * Returns the maximum of two vec3's
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
+ * @returns {Float32Array} out
  */
 
 export function max(out, a, b) {
@@ -209,9 +207,9 @@ export function max(out, a, b) {
 /**
  * Math.round the components of a vec3
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a vector to round
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a vector to round
+ * @returns {Float32Array} out
  */
 
 export function round(out, a) {
@@ -223,10 +221,10 @@ export function round(out, a) {
 /**
  * Scales a vec3 by a scalar number
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the vector to scale
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the vector to scale
  * @param {Number} b amount to scale the vector by
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function scale(out, a, b) {
@@ -238,11 +236,11 @@ export function scale(out, a, b) {
 /**
  * Adds two vec3's after scaling the second operand by a scalar value
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
  * @param {Number} scale the amount to scale b by before adding
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function scaleAndAdd(out, a, b, scale) {
@@ -254,50 +252,50 @@ export function scaleAndAdd(out, a, b, scale) {
 /**
  * Calculates the euclidian distance between two vec3's
  *
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
  * @returns {Number} distance between a and b
  */
 
 export function distance(a, b) {
-    var x = b[0] - a[0];
-    var y = b[1] - a[1];
-    var z = b[2] - a[2];
+    const x = b[0] - a[0];
+    const y = b[1] - a[1];
+    const z = b[2] - a[2];
     return Math.hypot(x, y, z);
 }
 /**
  * Calculates the squared euclidian distance between two vec3's
  *
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
  * @returns {Number} squared distance between a and b
  */
 
 export function squaredDistance(a, b) {
-    var x = b[0] - a[0];
-    var y = b[1] - a[1];
-    var z = b[2] - a[2];
+    const x = b[0] - a[0];
+    const y = b[1] - a[1];
+    const z = b[2] - a[2];
     return x * x + y * y + z * z;
 }
 /**
  * Calculates the squared length of a vec3
  *
- * @param {ReadonlyVec3} a vector to calculate squared length of
+ * @param {Float32Array} a vector to calculate squared length of
  * @returns {Number} squared length of a
  */
 
 export function squaredLength(a) {
-    var x = a[0];
-    var y = a[1];
-    var z = a[2];
+    const x = a[0];
+    const y = a[1];
+    const z = a[2];
     return x * x + y * y + z * z;
 }
 /**
  * Negates the components of a vec3
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a vector to negate
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a vector to negate
+ * @returns {Float32Array} out
  */
 
 export function negate(out, a) {
@@ -309,9 +307,9 @@ export function negate(out, a) {
 /**
  * Returns the inverse of the components of a vec3
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a vector to invert
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a vector to invert
+ * @returns {Float32Array} out
  */
 
 export function inverse(out, a) {
@@ -323,16 +321,16 @@ export function inverse(out, a) {
 /**
  * Normalize a vec3
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a vector to normalize
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a vector to normalize
+ * @returns {Float32Array} out
  */
 
 export function normalize(out, a) {
-    var x = a[0];
-    var y = a[1];
-    var z = a[2];
-    var len = x * x + y * y + z * z;
+    const x = a[0];
+    const y = a[1];
+    const z = a[2];
+    let len = x * x + y * y + z * z;
 
     if (len > 0) {
         //TODO: evaluate use of glm_invsqrt here?
@@ -347,8 +345,8 @@ export function normalize(out, a) {
 /**
  * Calculates the dot product of two vec3's
  *
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
  * @returns {Number} dot product of a and b
  */
 
@@ -358,17 +356,17 @@ export function dot(a, b) {
 /**
  * Computes the cross product of two vec3's
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
+ * @returns {Float32Array} out
  */
 
 export function cross(out, a, b) {
-    var ax = a[0],
+    const ax = a[0],
         ay = a[1],
         az = a[2];
-    var bx = b[0],
+    const bx = b[0],
         by = b[1],
         bz = b[2];
     out[0] = ay * bz - az * by;
@@ -379,17 +377,17 @@ export function cross(out, a, b) {
 /**
  * Performs a linear interpolation between two vec3's
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
  * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function lerp(out, a, b, t) {
-    var ax = a[0];
-    var ay = a[1];
-    var az = a[2];
+    const ax = a[0];
+    const ay = a[1];
+    const az = a[2];
     out[0] = ax + t * (b[0] - ax);
     out[1] = ay + t * (b[1] - ay);
     out[2] = az + t * (b[2] - az);
@@ -398,21 +396,21 @@ export function lerp(out, a, b, t) {
 /**
  * Performs a hermite interpolation with two control points
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
- * @param {ReadonlyVec3} c the third operand
- * @param {ReadonlyVec3} d the fourth operand
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
+ * @param {Float32Array} c the third operand
+ * @param {Float32Array} d the fourth operand
  * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function hermite(out, a, b, c, d, t) {
-    var factorTimes2 = t * t;
-    var factor1 = factorTimes2 * (2 * t - 3) + 1;
-    var factor2 = factorTimes2 * (t - 2) + t;
-    var factor3 = factorTimes2 * (t - 1);
-    var factor4 = factorTimes2 * (3 - 2 * t);
+    const factorTimes2 = t * t;
+    const factor1 = factorTimes2 * (2 * t - 3) + 1;
+    const factor2 = factorTimes2 * (t - 2) + t;
+    const factor3 = factorTimes2 * (t - 1);
+    const factor4 = factorTimes2 * (3 - 2 * t);
     out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
     out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
     out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
@@ -421,23 +419,23 @@ export function hermite(out, a, b, c, d, t) {
 /**
  * Performs a bezier interpolation with two control points
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the first operand
- * @param {ReadonlyVec3} b the second operand
- * @param {ReadonlyVec3} c the third operand
- * @param {ReadonlyVec3} d the fourth operand
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the first operand
+ * @param {Float32Array} b the second operand
+ * @param {Float32Array} c the third operand
+ * @param {Float32Array} d the fourth operand
  * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function bezier(out, a, b, c, d, t) {
-    var inverseFactor = 1 - t;
-    var inverseFactorTimesTwo = inverseFactor * inverseFactor;
-    var factorTimes2 = t * t;
-    var factor1 = inverseFactorTimesTwo * inverseFactor;
-    var factor2 = 3 * t * inverseFactorTimesTwo;
-    var factor3 = 3 * factorTimes2 * inverseFactor;
-    var factor4 = factorTimes2 * t;
+    const inverseFactor = 1 - t;
+    const inverseFactorTimesTwo = inverseFactor * inverseFactor;
+    const factorTimes2 = t * t;
+    const factor1 = inverseFactorTimesTwo * inverseFactor;
+    const factor2 = 3 * t * inverseFactorTimesTwo;
+    const factor3 = 3 * factorTimes2 * inverseFactor;
+    const factor4 = factorTimes2 * t;
     out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
     out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
     out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
@@ -446,16 +444,16 @@ export function bezier(out, a, b, c, d, t) {
 /**
  * Generates a random vector with the given scale
  *
- * @param {vec3} out the receiving vector
+ * @param {Float32Array} out the receiving vector
  * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function random(out, scale) {
     scale = scale || 1.0;
-    var r = glMatrix.RANDOM() * 2.0 * Math.PI;
-    var z = glMatrix.RANDOM() * 2.0 - 1.0;
-    var zScale = Math.sqrt(1.0 - z * z) * scale;
+    const r = glMatrix.RANDOM() * 2.0 * Math.PI;
+    const z = glMatrix.RANDOM() * 2.0 - 1.0;
+    const zScale = Math.sqrt(1.0 - z * z) * scale;
     out[0] = Math.cos(r) * zScale;
     out[1] = Math.sin(r) * zScale;
     out[2] = z * scale;
@@ -465,17 +463,17 @@ export function random(out, scale) {
  * Transforms the vec3 with a mat4.
  * 4th vector component is implicitly '1'
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the vector to transform
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the vector to transform
  * @param {ReadonlyMat4} m matrix to transform with
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function transformMat4(out, a, m) {
-    var x = a[0],
+    const x = a[0],
         y = a[1],
         z = a[2];
-    var w = m[3] * x + m[7] * y + m[11] * z + m[15];
+    let w = m[3] * x + m[7] * y + m[11] * z + m[15];
     w = w || 1.0;
     out[0] = (m[0] * x + m[4] * y + m[8] * z + m[12]) / w;
     out[1] = (m[1] * x + m[5] * y + m[9] * z + m[13]) / w;
@@ -485,14 +483,14 @@ export function transformMat4(out, a, m) {
 /**
  * Transforms the vec3 with a mat3.
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the vector to transform
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the vector to transform
  * @param {ReadonlyMat3} m the 3x3 matrix to transform with
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function transformMat3(out, a, m) {
-    var x = a[0],
+    const x = a[0],
         y = a[1],
         z = a[2];
     out[0] = x * m[0] + y * m[3] + z * m[6];
@@ -504,32 +502,32 @@ export function transformMat3(out, a, m) {
  * Transforms the vec3 with a quat
  * Can also be used for dual quaternions. (Multiply it with the real part)
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec3} a the vector to transform
+ * @param {Float32Array} out the receiving vector
+ * @param {Float32Array} a the vector to transform
  * @param {ReadonlyQuat} q quaternion to transform with
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function transformQuat(out, a, q) {
     // benchmarks: https://jsperf.com/quaternion-transform-vec3-implementations-fixed
-    var qx = q[0],
+    const qx = q[0],
         qy = q[1],
         qz = q[2],
         qw = q[3];
-    var x = a[0],
+    const x = a[0],
         y = a[1],
         z = a[2]; // var qvec = [qx, qy, qz];
     // var uv = vec3.cross([], qvec, a);
 
-    var uvx = qy * z - qz * y,
+    let uvx = qy * z - qz * y,
         uvy = qz * x - qx * z,
         uvz = qx * y - qy * x; // var uuv = vec3.cross([], qvec, uv);
 
-    var uuvx = qy * uvz - qz * uvy,
+    let uuvx = qy * uvz - qz * uvy,
         uuvy = qz * uvx - qx * uvz,
         uuvz = qx * uvy - qy * uvx; // vec3.scale(uv, uv, 2 * w);
 
-    var w2 = qw * 2;
+    const w2 = qw * 2;
     uvx *= w2;
     uvy *= w2;
     uvz *= w2; // vec3.scale(uuv, uuv, 2);
@@ -545,15 +543,15 @@ export function transformQuat(out, a, q) {
 }
 /**
  * Rotate a 3D vector around the x-axis
- * @param {vec3} out The receiving vec3
- * @param {ReadonlyVec3} a The vec3 point to rotate
- * @param {ReadonlyVec3} b The origin of the rotation
+ * @param {Float32Array} out The receiving vec3
+ * @param {Float32Array} a The vec3 point to rotate
+ * @param {Float32Array} b The origin of the rotation
  * @param {Number} rad The angle of rotation in radians
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function rotateX(out, a, b, rad) {
-    var p = [],
+    const p = [],
         r = []; //Translate point to the origin
 
     p[0] = a[0] - b[0];
@@ -571,15 +569,15 @@ export function rotateX(out, a, b, rad) {
 }
 /**
  * Rotate a 3D vector around the y-axis
- * @param {vec3} out The receiving vec3
- * @param {ReadonlyVec3} a The vec3 point to rotate
- * @param {ReadonlyVec3} b The origin of the rotation
+ * @param {Float32Array} out The receiving vec3
+ * @param {Float32Array} a The vec3 point to rotate
+ * @param {Float32Array} b The origin of the rotation
  * @param {Number} rad The angle of rotation in radians
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function rotateY(out, a, b, rad) {
-    var p = [],
+    const p = [],
         r = []; //Translate point to the origin
 
     p[0] = a[0] - b[0];
@@ -597,15 +595,15 @@ export function rotateY(out, a, b, rad) {
 }
 /**
  * Rotate a 3D vector around the z-axis
- * @param {vec3} out The receiving vec3
- * @param {ReadonlyVec3} a The vec3 point to rotate
- * @param {ReadonlyVec3} b The origin of the rotation
+ * @param {Float32Array} out The receiving vec3
+ * @param {Float32Array} a The vec3 point to rotate
+ * @param {Float32Array} b The origin of the rotation
  * @param {Number} rad The angle of rotation in radians
- * @returns {vec3} out
+ * @returns {Float32Array} out
  */
 
 export function rotateZ(out, a, b, rad) {
-    var p = [],
+    const p = [],
         r = []; //Translate point to the origin
 
     p[0] = a[0] - b[0];
@@ -623,13 +621,13 @@ export function rotateZ(out, a, b, rad) {
 }
 /**
  * Get the angle between two 3D vectors
- * @param {ReadonlyVec3} a The first operand
- * @param {ReadonlyVec3} b The second operand
+ * @param {Float32Array} a The first operand
+ * @param {Float32Array} b The second operand
  * @returns {Number} The angle in radians
  */
 
 export function angle(a, b) {
-    var ax = a[0],
+    const ax = a[0],
         ay = a[1],
         az = a[2],
         bx = b[0],
@@ -644,8 +642,8 @@ export function angle(a, b) {
 /**
  * Set the components of a vec3 to zero
  *
- * @param {vec3} out the receiving vector
- * @returns {vec3} out
+ * @param {Float32Array} out the receiving vector
+ * @returns {Float32Array} out
  */
 
 export function zero(out) {
@@ -657,7 +655,7 @@ export function zero(out) {
 /**
  * Returns a string representation of a vector
  *
- * @param {ReadonlyVec3} a vector to represent as a string
+ * @param {Float32Array} a vector to represent as a string
  * @returns {String} string representation of the vector
  */
 
@@ -667,8 +665,8 @@ export function str(a) {
 /**
  * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
  *
- * @param {ReadonlyVec3} a The first vector.
- * @param {ReadonlyVec3} b The second vector.
+ * @param {Float32Array} a The first vector.
+ * @param {Float32Array} b The second vector.
  * @returns {Boolean} True if the vectors are equal, false otherwise.
  */
 
@@ -678,16 +676,16 @@ export function exactEquals(a, b) {
 /**
  * Returns whether or not the vectors have approximately the same elements in the same position.
  *
- * @param {ReadonlyVec3} a The first vector.
- * @param {ReadonlyVec3} b The second vector.
+ * @param {Float32Array} a The first vector.
+ * @param {Float32Array} b The second vector.
  * @returns {Boolean} True if the vectors are equal, false otherwise.
  */
 
 export function equals(a, b) {
-    var a0 = a[0],
+    const a0 = a[0],
         a1 = a[1],
         a2 = a[2];
-    var b0 = b[0],
+    const b0 = b[0],
         b1 = b[1],
         b2 = b[2];
     return Math.abs(a0 - b0) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
@@ -750,9 +748,9 @@ export var sqrLen = squaredLength;
  */
 
 export var forEach = (function () {
-    var vec = create();
+    const vec = create();
     return function (a, stride, offset, count, fn, arg) {
-        var i, l;
+        let i, l;
 
         if (!stride) {
             stride = 3;

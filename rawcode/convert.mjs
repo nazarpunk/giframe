@@ -1,22 +1,26 @@
 /**
- * @param {bigint} number
+ * @param {number} number
  * @return {string}
  */
-export const Dec2RawBE = number => String.fromCharCode(Number(number >> 24n & 255n), Number(number >> 16n & 255n), Number(number >> 8n & 255n), Number(number & 255n));
+export const Dec2RawBE = number => {
+    const n = BigInt(number);
+    return String.fromCharCode(Number(n >> 24n & 255n), Number(n >> 16n & 255n), Number(n >> 8n & 255n), Number(n & 255n));
+};
 
 /**
- * @param {bigint} number
+ * @param {number} number
  * @return {string}
  */
 export const Dec2RawLE = number => {
-    return String.fromCharCode(Number(number & 0xff), Number(number >> 8n & 0xff), Number(number >> 16n & 0xff), Number(number >> 24n & 0xff));
+    const n = BigInt(number);
+    return String.fromCharCode(Number(n & 0xff), Number(n >> 8n & 0xff), Number(n >> 16n & 0xff), Number(n >> 24n & 0xff));
 };
 
 /**
  * @param {string} string
- * @return {bigint}
+ * @return {number}
  */
-export const Raw2Dec = string => BigInt(string.charCodeAt(3)) | BigInt(string.charCodeAt(2)) << 8n | BigInt(string.charCodeAt(1)) << 16n | BigInt(string.charCodeAt(0)) << 24n;
+export const Raw2Dec = string => Number(BigInt(string.charCodeAt(3)) | BigInt(string.charCodeAt(2)) << 8n | BigInt(string.charCodeAt(1)) << 16n | BigInt(string.charCodeAt(0)) << 24n);
 
 /**
  * @param {string} string
@@ -43,7 +47,7 @@ export const HexLE2Raw = string => `${String.fromCharCode(parseInt(`${string[7]}
 export const HexBE2Raw = string => `${String.fromCharCode(parseInt(`${string[0]}${string[1]}`, 16))}${String.fromCharCode(parseInt(`${string[2]}${string[3]}`, 16))}${String.fromCharCode(parseInt(`${string[4]}${string[5]}`, 16))}${String.fromCharCode(parseInt(`${string[6]}${string[7]}`, 16))}`;
 
 /**
- * @param {bigint} number
+ * @param {number} number
  * @return {string}
  */
 export const Dec2HexBE = number => number.toString(16).padStart(8, '0');

@@ -97,6 +97,34 @@ export class CDataView extends DataView {
         this.Uint8 = 0;
     }
 
+    /**
+     * @param {number} length
+     * @return {string}
+     */
+    getStringFixed(length) {
+        let value = '';
+        for (let i = 0; i < length; i++) {
+            const b = this.Uint8;
+            if (b === 0) {
+                this.cursor += length - i - 1;
+                break;
+            }
+            value += String.fromCharCode(b);
+        }
+        return value;
+    }
+
+    /**
+     * @param {string} value
+     * @param {number} length
+     */
+    setStringFixed(value, length) {
+        const str = value.padEnd(length, '\x00');
+        for (let i = 0; i < length; i++) {
+            this.Uint8 = str.charCodeAt(i);
+        }
+    }
+
     /** @returns {number} */
     get sizeOffset() {
         this.cursor += 4;

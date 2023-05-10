@@ -3,7 +3,7 @@ import {MDX} from '../mdx/MDX.mjs';
 import * as chip from 'child_process';
 
 const names = [
-    'VKbrute',
+    'Footman',
     'heroarchmage_ref',
     'Arthas_portrait',
     'sprite',
@@ -15,7 +15,6 @@ const names = [
     'HumanMale',
     'heroarchmage_hd',
     'knight',
-    'Footman',
 ];
 
 const name = names[0];

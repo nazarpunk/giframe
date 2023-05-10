@@ -1,9 +1,5 @@
 /** @module MDX */
 
-import {Uint32} from '../parser/Uint.mjs';
-import {Char} from '../parser/Char.mjs';
-import {Parser} from '../parser/Parser.mjs';
-
 export class Texture {
 
     #filenameSize = 260;

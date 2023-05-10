@@ -338,20 +338,26 @@ const dropTexture = (texture, buffer, isDDS, isBLP, textureName, textureFlags) =
 
 // load
 if (location.host.indexOf('localhost') === 0) {
-    let response = await fetch('./../models/Footman.mdx');
+    const name = [
+        'Footman',
+        'heroarchmage_hd',
+    ][0];
+
+    let response = await fetch(`./../models/${name}.mdx`);
     let buffer = await response.arrayBuffer();
 
-    model = parseMDX(buffer);
+
     const mdx = new MDX(buffer);
     mdx.read();
+
+    console.log(mdx.textures);
+
+    model = parseMDX(buffer);
 
     processModelLoading(mdx);
     handleLoadedTexture();
 
-    console.log(model.Textures);
-
     for (const texture of mdx.textures) {
-        console.log(texture);
         if (texture.filename) {
             response = await fetch(`./../textures/data/${texture.filename.toLowerCase()}`);
             buffer = await response.arrayBuffer();

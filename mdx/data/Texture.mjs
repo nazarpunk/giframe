@@ -8,25 +8,34 @@ export class Texture {
 
     #filenameSize = 260;
 
+    #wrapWidthFlag = 0x1;
+    #wrapHeightFlag = 0x2;
+
     /** @param {CDataView} view */
     read(view) {
         this.replaceableId = view.Uint32;
         this.filename = view.getStringFixed(this.#filenameSize);
-        this.flags = view.Uint32;
+        let flags = view.Uint32;
+        this.wrapWidth = flags & this.#wrapWidthFlag > 0;
+        this.wrapHeight = flags & this.#wrapHeightFlag > 0;
     }
 
     /** @param {CDataView} view */
     write(view) {
         view.Uint32 = this.replaceableId;
         view.setStringFixed(this.filename, this.#filenameSize);
-        view.Uint32 = this.flags;
+        let flags = 0;
+        if (this.wrapWidth) flags |= this.#wrapWidthFlag;
+        if (this.wrapHeight) flags |= this.#wrapHeightFlag;
+        view.Uint32 = flags;
     }
 
     toJSON() {
         return {
             replaceableId: this.replaceableId,
             filename: this.filename,
-            flags: this.flags,
+            wrapWidth: this.wrapWidth,
+            wrapHeight: this.wrapHeight,
         };
     }
 }

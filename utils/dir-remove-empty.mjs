@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'node:path';
 
+/** @param {string} dir */
 export const dirRemoveEmpty = dir => {
     if (!fs.statSync(dir).isDirectory()) return;
     let files = fs.readdirSync(dir);

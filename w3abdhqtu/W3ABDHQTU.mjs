@@ -1,7 +1,7 @@
 import {CDataView} from '../utils/c-data-view.mjs';
 import {Dec2RawBE} from '../rawcode/convert.mjs';
 import {CDataViewFake} from '../utils/c-data-view-fake.mjs';
-import fromBuffer from '../utils/from-buffer.mjs';
+import fromBuffer from '../utils/bufffer-to-buffer.mjs';
 
 export class W3ABDHQTU {
 

@@ -1,6 +1,10 @@
 import fs from 'fs';
 import path from 'node:path';
 
+/**
+ * @param {string} dir
+ * @return {string[]}
+ */
 const fileListDir = dir =>
     fs.readdirSync(dir).reduce((files, file) => {
         const name = path.join(dir, file);

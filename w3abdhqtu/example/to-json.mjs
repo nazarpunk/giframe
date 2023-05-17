@@ -2,10 +2,11 @@ import fs from 'fs';
 import {W3ABDHQTU} from '../W3ABDHQTU.mjs';
 import path from 'path';
 
-let name;
+const name = [
+    'war3map.w3b',
+    'war3map.w3a',
 
-name = 'war3map.w3b';
-name = 'war3map.w3a';
+][0];
 
 const adq = ['.w3a', '.w3d', '.w3q'].indexOf(path.extname(name)) >= 0;
 

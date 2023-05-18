@@ -1,8 +1,11 @@
-export var TextureFlags;
-(function (TextureFlags) {
-    TextureFlags[(TextureFlags['WrapWidth'] = 1)] = 'WrapWidth';
-    TextureFlags[(TextureFlags['WrapHeight'] = 2)] = 'WrapHeight';
-})(TextureFlags || (TextureFlags = {}));
+export var AnimVectorType;
+(function(AnimVectorType) {
+    AnimVectorType[(AnimVectorType['INT1'] = 0)] = 'INT1';
+    AnimVectorType[(AnimVectorType['FLOAT1'] = 1)] = 'FLOAT1';
+    AnimVectorType[(AnimVectorType['FLOAT3'] = 2)] = 'FLOAT3';
+    AnimVectorType[(AnimVectorType['FLOAT4'] = 3)] = 'FLOAT4';
+})(AnimVectorType || (AnimVectorType = {}));
+
 export var FilterMode;
 (function (FilterMode) {
     FilterMode[(FilterMode['None'] = 0)] = 'None';
@@ -13,6 +16,7 @@ export var FilterMode;
     FilterMode[(FilterMode['Modulate'] = 5)] = 'Modulate';
     FilterMode[(FilterMode['Modulate2x'] = 6)] = 'Modulate2x';
 })(FilterMode || (FilterMode = {}));
+
 export var LineType;
 (function (LineType) {
     LineType[(LineType['DontInterp'] = 0)] = 'DontInterp';
@@ -20,6 +24,7 @@ export var LineType;
     LineType[(LineType['Hermite'] = 2)] = 'Hermite';
     LineType[(LineType['Bezier'] = 3)] = 'Bezier';
 })(LineType || (LineType = {}));
+
 export var LayerShading;
 (function (LayerShading) {
     LayerShading[(LayerShading['Unshaded'] = 1)] = 'Unshaded';

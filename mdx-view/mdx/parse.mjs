@@ -1,14 +1,9 @@
-import {LineType, CollisionShapeType, ParticleEmitter2FramesFlags} from '../model.mjs';
+import {LineType, CollisionShapeType, ParticleEmitter2FramesFlags, AnimVectorType} from '../model.mjs';
+import parseNode from './parser/parse-node.mjs';
 
 const BIG_ENDIAN = true;
 const NONE = -1;
-var AnimVectorType;
-(function(AnimVectorType) {
-    AnimVectorType[(AnimVectorType['INT1'] = 0)] = 'INT1';
-    AnimVectorType[(AnimVectorType['FLOAT1'] = 1)] = 'FLOAT1';
-    AnimVectorType[(AnimVectorType['FLOAT3'] = 2)] = 'FLOAT3';
-    AnimVectorType[(AnimVectorType['FLOAT4'] = 3)] = 'FLOAT4';
-})(AnimVectorType || (AnimVectorType = {}));
+
 const animVectorSize = {
     [AnimVectorType.INT1]: 1,
     [AnimVectorType.FLOAT1]: 1,
@@ -365,46 +360,12 @@ function parseGeosetAnims(model, state, size) {
         }
         while (state.pos < animStartPos + animSize) {
             const keyword = state.keyword();
-            if (keyword === 'KGAO') {
-                geosetAnim.Alpha = state.animVector(AnimVectorType.FLOAT1);
-            } else if (keyword === 'KGAC') {
-                geosetAnim.Color = state.animVector(AnimVectorType.FLOAT3);
-            } else {
-                throw new Error('Incorrect GeosetAnim chunk data ' + keyword);
-            }
+            if (keyword === 'KGAO') geosetAnim.Alpha = state.animVector(AnimVectorType.FLOAT1);
+            else if (keyword === 'KGAC') geosetAnim.Color = state.animVector(AnimVectorType.FLOAT3);
+            else throw new Error('Incorrect GeosetAnim chunk data ' + keyword);
         }
         model.GeosetAnims.push(geosetAnim);
     }
-}
-
-const MODEL_NODE_NAME_LENGTH = 0x50;
-
-function parseNode(model, node, state) {
-    const startPos = state.pos;
-    const size = state.int32();
-    node.Name = state.str(MODEL_NODE_NAME_LENGTH);
-    node.ObjectId = state.int32();
-    if (node.ObjectId === NONE) {
-        node.ObjectId = null;
-    }
-    node.Parent = state.int32();
-    if (node.Parent === NONE) {
-        node.Parent = null;
-    }
-    node.Flags = state.int32();
-    while (state.pos < startPos + size) {
-        const keyword = state.keyword();
-        if (keyword === 'KGTR') {
-            node.Translation = state.animVector(AnimVectorType.FLOAT3);
-        } else if (keyword === 'KGRT') {
-            node.Rotation = state.animVector(AnimVectorType.FLOAT4);
-        } else if (keyword === 'KGSC') {
-            node.Scaling = state.animVector(AnimVectorType.FLOAT3);
-        } else {
-            throw new Error('Incorrect node chunk data ' + keyword);
-        }
-    }
-    model.Nodes[node.ObjectId] = node;
 }
 
 function parseBones(model, state, size) {
@@ -413,13 +374,9 @@ function parseBones(model, state, size) {
         const bone = {};
         parseNode(model, bone, state);
         bone.GeosetId = state.int32();
-        if (bone.GeosetId === NONE) {
-            bone.GeosetId = null;
-        }
+        if (bone.GeosetId === NONE) bone.GeosetId = null;
         bone.GeosetAnimId = state.int32();
-        if (bone.GeosetAnimId === NONE) {
-            bone.GeosetAnimId = null;
-        }
+        if (bone.GeosetAnimId === NONE) bone.GeosetAnimId = null;
         model.Bones.push(bone);
     }
 }
@@ -926,6 +883,8 @@ export function parse(arrayBuffer) {
             state.pos += size;
         }
     }
+    console.log(model.Nodes);
+
     for (let i = 0; i < model.Nodes.length; ++i) {
         if (model.Nodes[i] && model.PivotPoints[i]) {
             model.Nodes[i].PivotPoint = model.PivotPoints[i];

@@ -69,7 +69,8 @@ export class RibbonsController {
     rendererData;
     emitters;
 
-    constructor(interp, rendererData) {
+    constructor(model, interp, rendererData) {
+        this.model = model;
         this.shaderProgramLocations = {
             vertexPositionAttribute: null,
             textureCoordAttribute: null,
@@ -84,8 +85,8 @@ export class RibbonsController {
         this.interp = interp;
         this.rendererData = rendererData;
         this.emitters = [];
-        if (rendererData.model.RibbonEmitters.length) {
-            for (const ribbonEmitter of rendererData.model.RibbonEmitters) {
+        if (this.model.RibbonEmitters.length) {
+            for (const ribbonEmitter of this.model.RibbonEmitters) {
                 const emitter = {
                     emission: 0,
                     props: ribbonEmitter,
@@ -151,7 +152,7 @@ export class RibbonsController {
             );
             this.setGeneralBuffers(emitter);
             const materialID = emitter.props.MaterialID;
-            const material = this.rendererData.model.Materials[materialID];
+            const material = this.model.Materials[materialID];
             for (let j = 0; j < material.Layers.length; ++j) {
                 this.setLayerProps(material.Layers[j], this.rendererData.materialLayerTextureID[materialID][j]);
                 this.renderEmitter(emitter);
@@ -271,7 +272,7 @@ export class RibbonsController {
     }
 
     setLayerProps(layer, textureID) {
-        const texture = this.rendererData.model.Textures[textureID];
+        const texture = this.model.Textures[textureID];
         if (layer.Shading & LayerShading.TwoSided) {
             this.gl.disable(this.gl.CULL_FACE);
         } else {
@@ -333,8 +334,9 @@ export class RibbonsController {
         if (layer.Shading & LayerShading.NoDepthSet) {
             this.gl.depthMask(false);
         }
+
         /*if (typeof layer.TVertexAnimId === 'number') {
-            let anim: TVertexAnim = this.rendererData.model.TextureAnims[layer.TVertexAnimId];
+            let anim: TVertexAnim = this.model.TextureAnims[layer.TVertexAnimId];
             let translationRes = this.interp.vec3(translation, anim.Translation);
             let rotationRes = this.interp.quat(rotation, anim.Rotation);
             let scalingRes = this.interp.vec3(scaling, anim.Scaling);

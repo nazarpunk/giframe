@@ -22,14 +22,14 @@ export class Geoset {
     read(view) {
         this.parser = new Parser();
 
-        this.vertexPositions = this.parser.add(new Child(Chunk.VRTX, Float32, 3));
-        this.vertexNormals = this.parser.add(new Child(Chunk.NRMS, Float32, 3));
-        this.faceTypeGroups = this.parser.add(new Child(Chunk.PTYP, Uint32));
-        this.faceGroups = this.parser.add(new Child(Chunk.PCNT, Uint32));
-        this.faces = this.parser.add(new Child(Chunk.PVTX, Uint16));
-        this.vertexGroups = this.parser.add(new Child(Chunk.GNDX, Uint8));
-        this.matrixGroups = this.parser.add(new Child(Chunk.MTGC, Uint32));
-        this.matrixIndices = this.parser.add(new Child(Chunk.MATS, Uint32));
+        this.vertexPositions = this.parser.add(new GeosetChunk(Chunk.VRTX, Float32, 3));
+        this.vertexNormals = this.parser.add(new GeosetChunk(Chunk.NRMS, Float32, 3));
+        this.faceTypeGroups = this.parser.add(new GeosetChunk(Chunk.PTYP, Uint32));
+        this.faceGroups = this.parser.add(new GeosetChunk(Chunk.PCNT, Uint32));
+        this.faces = this.parser.add(new GeosetChunk(Chunk.PVTX, Uint16));
+        this.vertexGroups = this.parser.add(new GeosetChunk(Chunk.GNDX, Uint8));
+        this.matrixGroups = this.parser.add(new GeosetChunk(Chunk.MTGC, Uint32));
+        this.matrixIndices = this.parser.add(new GeosetChunk(Chunk.MATS, Uint32));
         this.materialId = this.parser.add(Uint32);
         this.selectionGroup = this.parser.add(Uint32);
         this.selectionFlags = this.parser.add(Uint32);
@@ -38,12 +38,12 @@ export class Geoset {
             this.lodName = this.parser.add(new Char(80));
         }
         this.parser.add(Extent);
-        this.sequenceExtents = this.parser.add(new Child(null, Extent));
+        this.sequenceExtents = this.parser.add(new GeosetChunk(null, Extent));
         if (this.vers.version > 800) {
-            this.tangents = this.parser.add(new Child(Chunk.TANG, Float32, 4, true));
-            this.skins = this.parser.add(new Child(Chunk.SKIN, Uint8, 1, true));
+            this.tangents = this.parser.add(new GeosetChunk(Chunk.TANG, Float32, 4, true));
+            this.skins = this.parser.add(new GeosetChunk(Chunk.SKIN, Uint8, 1, true));
         }
-        this.#textureCoordinateSets = this.parser.add(new Child(Chunk.UVAS, new Child(Chunk.UVBS, Float32, 2)));
+        this.#textureCoordinateSets = this.parser.add(new GeosetChunk(Chunk.UVAS, new GeosetChunk(Chunk.UVBS, Float32, 2)));
 
         this.parser.read(view);
     }
@@ -71,7 +71,7 @@ export class Geoset {
     }
 }
 
-class Child {
+class GeosetChunk {
     /**
      * @param {?number} key
      * @param child
@@ -112,9 +112,7 @@ class Child {
 
     /** @param {CDataView} view */
     write(view) {
-        if (this.key) {
-            view.Uint32 = this.key;
-        }
+        if (this.key) view.Uint32 = this.key;
         view.Uint32 = this.items.length / this.#lx;
 
         for (const i of this.items) {

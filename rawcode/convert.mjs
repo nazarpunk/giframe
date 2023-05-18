@@ -13,7 +13,7 @@ export const Dec2RawBE = number => {
  */
 export const Dec2RawLE = number => {
     const n = BigInt(number);
-    return String.fromCharCode(Number(n & 0xff), Number(n >> 8n & 0xff), Number(n >> 16n & 0xff), Number(n >> 24n & 0xff));
+    return String.fromCharCode(Number(n & 255n), Number(n >> 8n & 255n), Number(n >> 16n & 255n), Number(n >> 24n & 255n));
 };
 
 /**

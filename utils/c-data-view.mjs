@@ -79,20 +79,21 @@ export class CDataView extends DataView {
 
     /** @returns {string} */
     get String() {
-        let s = '';
+        const list = [];
         while (this.cursor < this.byteLength) {
             const b = super.getUint8(this.cursor);
             this.cursor += 1;
             if (b === 0) break;
-            s += String.fromCharCode(b);
+            list.push(b);
         }
-        return s;
+        return new TextDecoder('utf-8').decode((new Uint8Array(list)).buffer);
     }
 
     /** @param {string} s */
     set String(s) {
-        for (let i = 0; i < s.length; i++) {
-            this.Uint8 = s.charCodeAt(i);
+        const list = new TextEncoder().encode(s);
+        for (let i = 0; i < list.length; i++) {
+            this.Uint8 = list[i];
         }
         this.Uint8 = 0;
     }

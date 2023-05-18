@@ -983,7 +983,7 @@ export function fromZRotation(out, rad) {
  *     mat4.multiply(dest, quatMat);
  *
  * @param {Float32Array} out mat4 receiving operation result
- * @param {quat4} q Rotation quaternion
+ * @param {Float32Array} q Rotation quaternion
  * @param {Float32Array} v Translation vector
  * @returns {Float32Array} out
  */
@@ -1108,9 +1108,9 @@ export function getScaling(out, mat) {
  *  of a transformation matrix. If a matrix is built with
  *  fromRotationTranslation, the returned quaternion will be the
  *  same as the quaternion originally supplied.
- * @param {quat} out Quaternion to receive the rotation component
- * @param {{Float32Array}} mat Matrix to be decomposed (input)
- * @return {quat} out
+ * @param {Float32Array} out Quaternion to receive the rotation component
+ * @param {Float32Array} mat Matrix to be decomposed (input)
+ * @return {Float32Array} out
  */
 
 export function getRotation(out, mat) {
@@ -1172,7 +1172,7 @@ export function getRotation(out, mat) {
  *     mat4.scale(dest, scale)
  *
  * @param {Float32Array} out mat4 receiving operation result
- * @param {quat4} q Rotation quaternion
+ * @param {Float32Array} q Rotation quaternion
  * @param {Float32Array} v Translation vector
  * @param {Float32Array} s Scaling vector
  * @returns {Float32Array} out
@@ -1232,7 +1232,7 @@ export function fromRotationTranslationScale(out, q, v, s) {
  *     mat4.translate(dest, negativeOrigin);
  *
  * @param {Float32Array} out mat4 receiving operation result
- * @param {quat4} q Rotation quaternion
+ * @param {Float32Array} q Rotation quaternion
  * @param {Float32Array} v Translation vector
  * @param {Float32Array} s Scaling vector
  * @param {Float32Array} o The origin vector around which to scale and rotate

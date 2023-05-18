@@ -1,5 +1,7 @@
 export function mat4fromRotationOrigin(out, rotation, origin) {
-    const x = rotation[0], y = rotation[1], z = rotation[2], w = rotation[3], x2 = x + x, y2 = y + y, z2 = z + z, xx = x * x2, xy = x * y2, xz = x * z2, yy = y * y2, yz = y * z2, zz = z * z2, wx = w * x2, wy = w * y2, wz = w * z2, ox = origin[0], oy = origin[1], oz = origin[2];
+    const x = rotation[0], y = rotation[1], z = rotation[2], w = rotation[3], x2 = x + x, y2 = y + y, z2 = z + z,
+        xx = x * x2, xy = x * y2, xz = x * z2, yy = y * y2, yz = y * z2, zz = z * z2, wx = w * x2, wy = w * y2,
+        wz = w * z2, ox = origin[0], oy = origin[1], oz = origin[2];
     out[0] = 1 - (yy + zz);
     out[1] = xy + wz;
     out[2] = xz - wy;
@@ -18,6 +20,7 @@ export function mat4fromRotationOrigin(out, rotation, origin) {
     out[15] = 1;
     return out;
 }
+
 /**
  * Rotate a 3D vector around the z-axis
  * @param {Float32Array} out The receiving vec3
@@ -31,12 +34,15 @@ export function vec3RotateZ(out, a, c) {
     out[2] = a[2];
     return out;
 }
+
 export function rand(from, to) {
     return from + Math.random() * (to - from);
 }
+
 export function degToRad(angle) {
     return angle * Math.PI / 180;
 }
+
 export function getShader(gl, source, type) {
     const shader = gl.createShader(type);
     gl.shaderSource(shader, source);
@@ -46,7 +52,4 @@ export function getShader(gl, source, type) {
         return null;
     }
     return shader;
-}
-export function isWebGL2(gl) {
-    return gl instanceof WebGL2RenderingContext;
 }

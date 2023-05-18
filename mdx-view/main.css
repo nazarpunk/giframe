@@ -1,12 +1,16 @@
+:root {
+    color-scheme: dark;
+}
+
 html, body {
     height: 100%;
 }
 
 body {
-    margin: 0;
     font: 16px sans-serif;
-    touch-action: none;
+    margin: 0;
     background: #262626;
+    touch-action: none;
 }
 
 canvas {
@@ -17,9 +21,9 @@ canvas {
 .controls {
     display: flex;
     align-items: center;
-    background: #fff;
-    padding: 5px 10px;
     box-sizing: border-box;
+    padding: 5px 10px;
+    background: #3c3c3c;
 }
 
 .skeleton-group {
@@ -32,6 +36,7 @@ label {
     margin: 2px 5px;
     white-space: nowrap;
 }
+
 input {
     vertical-align: middle;
 }

@@ -103,10 +103,7 @@ class DataTable {
     }
 
     toJSON() {
-        return {
-            'count': this.count,
-            'items': this.items,
-        };
+        return this.items;
     }
 }
 

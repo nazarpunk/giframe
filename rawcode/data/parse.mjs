@@ -24,7 +24,6 @@ for (const i of getFile(file)) {
     if (i.alias === null) continue;
     map[i.alias] = [file, i.comments];
     map[i.code] = [file, i.comments];
-    map[i.uberAlias] = [file, i.comments];
 }
 
 file = 'DestructableData.slk';

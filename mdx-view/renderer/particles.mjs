@@ -84,7 +84,9 @@ export class ParticlesController {
     emitters;
     particleBaseVectors;
 
-    constructor(interp, rendererData) {
+    constructor(model, interp, rendererData) {
+        this.model = model;
+
         this.shaderProgramLocations = {
             vertexPositionAttribute: null,
             textureCoordAttribute: null,
@@ -100,9 +102,9 @@ export class ParticlesController {
         this.interp = interp;
         this.rendererData = rendererData;
         this.emitters = [];
-        if (rendererData.model.ParticleEmitters2.length) {
+        if (this.model.ParticleEmitters2.length) {
             this.particleBaseVectors = [vec3.create(), vec3.create(), vec3.create(), vec3.create()];
-            for (const particleEmitter of rendererData.model.ParticleEmitters2) {
+            for (const particleEmitter of this.model.ParticleEmitters2) {
                 const emitter = {
                     emission: 0,
                     squirtFrame: 0,

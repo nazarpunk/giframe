@@ -1,7 +1,7 @@
 import {vec3, mat4, quat} from './gl-matrix/index.mjs';
 import {decodeDds, parseHeaders} from './utils/dds-parser.mjs';
 import {parse as parseMDX} from './mdx/parse.mjs';
-import {ModelRenderer} from './renderer/modelRenderer.mjs';
+import {ModelRenderer} from './renderer/model-renderer.mjs';
 import {vec3RotateZ} from './renderer/util.mjs';
 import {decode, getImageData} from './blp/decode.mjs';
 import {MDX} from '../mdx/MDX.mjs';
@@ -101,8 +101,8 @@ const handleLoadedTexture = () => {
 };
 
 /** @param {MDX} mdx */
-const processModelLoading = (mdx) => {
-    modelRenderer = new ModelRenderer(model);
+const processModelLoading = mdx => {
+    modelRenderer = new ModelRenderer(mdx, model);
     modelRenderer.setTeamColor(parseColor(inputColor.value));
     initGL();
     modelRenderer.initGL(gl);
@@ -236,7 +236,7 @@ document.addEventListener('touchmove', pointerMove);
 document.addEventListener('mouseup', pointerUp);
 document.addEventListener('touchend', pointerUp);
 document.addEventListener('touchcancel', pointerUp);
-document.addEventListener('wheel', event => updateCameraDistance(cameraDistance * (1 - event.deltaY / 600)));
+document.addEventListener('wheel', event => updateCameraDistance(cameraDistance * (1 - event.deltaY / 600) ));
 document.addEventListener('gesturestart', () => startCameraDistance = cameraDistance);
 document.addEventListener('gesturechange', event => updateCameraDistance(startCameraDistance * (1 / event.scale)));
 
@@ -279,15 +279,12 @@ addEventListener('resize', updateCanvasSize);
  * @param {ArrayBuffer} buffer
  * @param {boolean} isDDS
  * @param {boolean} isBLP
- * @param {string} textureName
- * @param {number} textureFlags
  * @return {Promise<unknown>}
  */
-const dropTexture = (texture, buffer, isDDS, isBLP, textureName, textureFlags) => {
-    return new Promise(resolve => {
+const dropTexture = (texture, buffer, isDDS, isBLP) =>
+    new Promise(resolve => {
         if (isDDS) {
-            const array = buffer;
-            const dds = parseHeaders(array);
+            const dds = parseHeaders(buffer);
             let format;
             switch (dds.format) {
                 case 'dxt1':
@@ -303,10 +300,9 @@ const dropTexture = (texture, buffer, isDDS, isBLP, textureName, textureFlags) =
                     format = rgtcExt?.COMPRESSED_RED_GREEN_RGTC2_EXT;
                     break;
             }
-            if (format) {
-                modelRenderer.setTextureCompressedImage(textureName, format, buffer, dds, textureFlags);
-            } else {
-                const uint8 = new Uint8Array(array);
+            if (format) modelRenderer.setTextureCompressedImage(texture, format, buffer, dds);
+            else {
+                const uint8 = new Uint8Array(buffer);
                 const datas = dds.images
                     .filter(image => image.shape.width > 0 && image.shape.height > 0)
                     .map(image => {
@@ -314,27 +310,22 @@ const dropTexture = (texture, buffer, isDDS, isBLP, textureName, textureFlags) =
                         const rgba = decodeDds(src, dds.format, image.shape.width, image.shape.height);
                         return new ImageData(new Uint8ClampedArray(rgba), image.shape.width, image.shape.height);
                     });
-                modelRenderer.setTextureImageData(textureName, datas, textureFlags);
+                modelRenderer.setTextureImageData(texture, datas);
             }
             resolve();
         } else if (isBLP) {
             const blp = decode(buffer);
-            modelRenderer.setTextureImageData(
-                textureName,
-                blp.mipmaps.map((_mipmap, i) => getImageData(blp, i)),
-                textureFlags,
-            );
+            modelRenderer.setTextureImageData(texture, blp.mipmaps.map((_mipmap, i) => getImageData(blp, i)));
             resolve();
         } else {
             const img = new Image();
             img.onload = () => {
-                modelRenderer.setTextureImage(textureName, img, textureFlags);
+                modelRenderer.setTextureImage(texture, img);
                 resolve();
             };
             img.src = buffer;
         }
     });
-};
 
 // load
 if (location.host.indexOf('localhost') === 0) {
@@ -346,11 +337,8 @@ if (location.host.indexOf('localhost') === 0) {
     let response = await fetch(`./../models/${name}.mdx`);
     let buffer = await response.arrayBuffer();
 
-
     const mdx = new MDX(buffer);
     mdx.read();
-
-    console.log(mdx.textures);
 
     model = parseMDX(buffer);
 
@@ -361,7 +349,7 @@ if (location.host.indexOf('localhost') === 0) {
         if (texture.filename) {
             response = await fetch(`./../textures/data/${texture.filename.toLowerCase()}`);
             buffer = await response.arrayBuffer();
-            await dropTexture(texture, buffer, false, true, texture.filename, texture.flags);
+            await dropTexture(texture, buffer, false, true);
         }
     }
 

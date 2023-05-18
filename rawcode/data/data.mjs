@@ -3,10 +3,6 @@ export default {
         "AbilityData.slk",
         "Blizzard (creep)"
     ],
-    "undefined": [
-        "AbilityData.slk",
-        "Beserk (item)"
-    ],
     "AHab": [
         "AbilityData.slk",
         "ItemAuraBrilliance"

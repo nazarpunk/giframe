@@ -3,6 +3,7 @@ import {W3ABDHQTU} from '../W3ABDHQTU.mjs';
 import path from 'path';
 
 const name = [
+    'millenium.w3a',
     'war3map.w3b',
     'war3map.w3a',
 

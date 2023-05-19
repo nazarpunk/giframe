@@ -56,6 +56,4 @@ for (const i of getFile(file)) {
     map[i.upgradeid] = [file, i.comments];
 }
 
-
-
 fs.writeFileSync('data.mjs', `export default ${JSON.stringify(map, null, 4)}`, {flag: 'w+'});

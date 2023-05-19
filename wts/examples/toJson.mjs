@@ -12,5 +12,8 @@ if (wts.errors.length) {
 } else {
     console.log('🏆 Read: end');
     console.log(wts);
+    for (const s of wts.strings) {
+        console.log(s);
+    }
     //fs.writeFileSync(`${name}.json`, JSON.stringify(wts, null, 2), {flag: 'w+'});
 }

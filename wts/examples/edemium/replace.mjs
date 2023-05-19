@@ -15,8 +15,8 @@ if (wts.errors.length) {
 } else {
     console.log('🏆 Read: end');
     for (const s of wts.strings) {
-        const text = s.text.replaceAll('\n', '|n').replaceAll('"', '').trim();
-        j = j.replaceAll(`"TRIGSTR_${s.line}"`, `"${text}"`);
+        const text = s.text.replaceAll(/(\r\n|\r|\n)/g, '|n').replaceAll('"', '').trim();
+        j = j.replaceAll(`"TRIGSTR_${s.line.toString().padStart(3,'0')}"`, `"${text}"`);
     }
-    fs.writeFileSync(jName, j, {flag: 'w+'});
+    fs.writeFileSync(jName+'.j', j, {flag: 'w+'});
 }

@@ -2977,11 +2977,11 @@ function Trig_Initialisation_Actions takes nothing returns nothing
     call UseTimeOfDayBJ(false)
     call AddWeatherEffectSaveLast(gg_rct_Dungeon, 0x4C526D61)
     call SelectUnitForPlayerSingle(udg_Arct, Player(0))
-    call CreateQuestBJ(bj_QUESTTYPE_OPT_DISCOVERED, "TRIGSTR_6310", "TRIGSTR_6311", "ReplaceableTextures\\CommandButtons\\BTNCombo4.blp")
-    call CreateQuestBJ(bj_QUESTTYPE_OPT_DISCOVERED, "TRIGSTR_6308", "TRIGSTR_6309", "ReplaceableTextures\\CommandButtons\\BTNBeltEnhance.blp")
-    call CreateQuestBJ(bj_QUESTTYPE_OPT_DISCOVERED, "TRIGSTR_6303", "TRIGSTR_6304", "ReplaceableTextures\\CommandButtons\\BTNSkullFusion.blp")
-    call CreateQuestBJ(bj_QUESTTYPE_OPT_DISCOVERED, "TRIGSTR_6314", "TRIGSTR_6315", "ReplaceableTextures\\CommandButtons\\BTNMove.blp")
-    call CreateQuestBJ(bj_QUESTTYPE_OPT_DISCOVERED, "TRIGSTR_3827", "TRIGSTR_3828", "ReplaceableTextures\\CommandButtons\\BTNMeditate.blp")
+    call CreateQuestBJ(bj_QUESTTYPE_OPT_DISCOVERED, "Боевая система|n", "- Во время боя над монстрами может появиться одна из 3 иконок, от игрока требуется успеть нажать на один из 3 приёмов на панели умений, в зависимости от цвета появившейся иконки.|n- Правильное нажатие наносит монстру урон и исцеляет Аркта, так же повышает серию ударов, от которой зависит общий наносимый урон и получаемое исцеление.|n", "ReplaceableTextures\\CommandButtons\\BTNCombo4.blp")
+    call CreateQuestBJ(bj_QUESTTYPE_OPT_DISCOVERED, "Навыки|n", "- Навыки это способности которые Аркт автоматически применяет если правильно нажимать на приёмы (три разноцветных кнопки) необходимое количество раз подряд (зависит от того на какой серии стоит навык).|n- Навык можно установить на 4 разных серии (3,5,7,9); от этого зависит сколько раз подряд нужно правильно нажать на приёмы чтобы навык применился.|n- К примеру: если выучить навык и поставить его на 3 серию, то после каждых правильных трёх нажатий на приёмы - навык будет применятся.|n- Чтобы изучить навык необходимо 300 очков навыка; одно очко дается за одно применение навыка.|n- Каждые 70 применений навык повышает свой уровень; всего у навыков 5 уровней (необходимо применить навык 350 раз чтобы полностью его улучшить).|n", "ReplaceableTextures\\CommandButtons\\BTNBeltEnhance.blp")
+    call CreateQuestBJ(bj_QUESTTYPE_OPT_DISCOVERED, "Секреты (таланты)|n", "- Секреты это бесконечно улучшаемые таланты, дарующие Аркту новые пассивные способности.|n- Секреты можно раскрыть выбив рецепты с монстров и боссов или купить в лавке Онки.|n- При поднятии рецепта он появляется в замке на стене возле Ядра.|n- Чтобы прокачать секрет необходимо найти необходимые элементы (которые описаны в рецепте), затем использовать Ядро; нажать на него, добавить необходимые элементы и нажать на кнопку Изучить секрет.|n", "ReplaceableTextures\\CommandButtons\\BTNSkullFusion.blp")
+    call CreateQuestBJ(bj_QUESTTYPE_OPT_DISCOVERED, "Карта Эдемиума|n", "- После захода в портал открывается Карта Эдемиума, на которой расположено множество разнообразных уровней.|n- Между уровнями можно перемещаться разными способами (обычное перемещение и телепортация) применяя необходимые способности расположенные на панели снизу.|n- После перемещения на уровень можно начать его прохождение (кнопка Отправиться).|n- Если слишком много блуждать по карте, то может произойти что-нибудь неприятное (этого можно избежать используя телепортацию).|n", "ReplaceableTextures\\CommandButtons\\BTNMove.blp")
+    call CreateQuestBJ(bj_QUESTTYPE_OPT_DISCOVERED, "Прочее|n", "- Очень важно качать характеристики: они лучше всего влияют на силу Аркта.|n- После прохождения подземелий повышаются случайные хар-ки в зависимости от количества поднятых Арктом уровней.|n- Награда за прохождение уровня зависит от сложности и от количества убитых монстров.|n- Новые режимы сложности открываются после убийства боссов.|n- Телепортация между уровнями Эдемиума открывается после убийства первого босса.|n- Угол камеры в Эдемиуме можно поменять стрелками вправо/влево и отдалять/приближать стрелками вниз/вверх.|n", "ReplaceableTextures\\CommandButtons\\BTNMeditate.blp")
     call SetPlayerFlagBJ(PLAYER_STATE_GIVES_BOUNTY, false, Player(11))
     call SetPlayerAllianceStateBJ(Player(10), Player(0), bj_ALLIANCE_UNALLIED)
     call RegionAddRect(udg_Region1, gg_rct_Training)
@@ -3197,17 +3197,17 @@ function Trig_Initialisation_Elapsed_Actions takes nothing returns nothing
     call EnableMinimapFilterButtons(false, false)
     call SetMusicVolumeBJ(100.00)
     call VolumeGroupSetVolumeBJ(SOUND_VOLUMEGROUP_MUSIC, 100)
-    call CreateTextTagUnitBJ("TRIGSTR_6666", udg_Arct, 0.00, 11.00, 100, 100, 100, 0)
+    call CreateTextTagUnitBJ("III|n", udg_Arct, 0.00, 11.00, 100, 100, 100, 0)
     set udg_DungeonColdText = GetLastCreatedTextTag()
     call ShowTextTagForceBJ(false, udg_DungeonColdText, bj_FORCE_PLAYER[0])
     call ConditionalTriggerExecute(gg_trg_Music_Castle)
     call DialogClearBJ(udg_InitDialog)
-    call DialogSetMessageBJ(udg_InitDialog, "TRIGSTR_6212")
-    call DialogAddButtonBJ(udg_InitDialog, "TRIGSTR_6213")
+    call DialogSetMessageBJ(udg_InitDialog, "|n")
+    call DialogAddButtonBJ(udg_InitDialog, "Пройти обучение|n")
     set udg_DialogButton[1] = GetLastCreatedButtonBJ()
-    call DialogAddButtonBJ(udg_InitDialog, "TRIGSTR_6214")
+    call DialogAddButtonBJ(udg_InitDialog, "Обойтись без обучения|n")
     set udg_DialogButton[2] = GetLastCreatedButtonBJ()
-    call DialogAddButtonBJ(udg_InitDialog, "TRIGSTR_6215")
+    call DialogAddButtonBJ(udg_InitDialog, "Загрузить сохранение|n")
     set udg_DialogButton[3] = GetLastCreatedButtonBJ()
     call DialogDisplayBJ(true, udg_InitDialog, Player(0))
     call DestroyTrigger(GetTriggeringTrigger())
@@ -3279,7 +3279,7 @@ function Trig_Initialisation_Dialog_Actions takes nothing returns nothing
             set udg_AS_SeriesNumber = 2
             set udg_AS_Effect[udg_AS_SeriesNumber] = 1
             set udg_AS_AbilityStudied[1] = 1
-            call CreateTextTagUnitBJ("TRIGSTR_6331", gg_unit_h006_0081, 0, 15.00, 100, 100, 100, 0)
+            call CreateTextTagUnitBJ("5|n", gg_unit_h006_0081, 0, 15.00, 100, 100, 100, 0)
             set udg_AS_TextNumber[2] = GetLastCreatedTextTag()
             call UnitRemoveAbilityBJ(0x41303241, gg_unit_h006_0081)
             call UnitAddAbilityBJ(0x41303649, gg_unit_h006_0081)
@@ -3552,7 +3552,7 @@ function InitTrig_Game_Save takes nothing returns nothing
 endfunction
 function Trig_Game_Save_Timer_Actions takes nothing returns nothing
     call DialogDisplayBJ(false, udg_TeleportDialog, Player(0))
-    call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_3857")
+    call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "|cFFE30000Прогресс сохраняется автоматически.|r|n")
 endfunction
 function InitTrig_Game_Save_Timer takes nothing returns nothing
     set gg_trg_Game_Save_Timer = CreateTrigger()
@@ -3784,7 +3784,7 @@ function Trig_CodeGen_Save_4_Actions takes nothing returns nothing
     set udg_Code = CodeGen_Compile()
     call Preload("\")\ncall SetPlayerName(Player(15),\"" + udg_Code + "\")\ncall ExecuteFunc(\"Load4\")\n//")
     call PreloadGenEnd("Edemium\\Save4.txt")
-    call DisplayTimedTextToForce(GetForceOfPlayer(GetTriggerPlayer()), 0.50, "TRIGSTR_6440")
+    call DisplayTimedTextToForce(GetForceOfPlayer(GetTriggerPlayer()), 0.50, "|cFF00FF00Автосохранение|r|n")
     call ClearTextMessagesBJ(bj_FORCE_PLAYER[0])
     call SelectUnitForPlayerSingle(udg_Arct, Player(0))
 endfunction
@@ -4246,27 +4246,27 @@ function Trig_CodeGen_Other_Func029A takes nothing returns nothing
             set udg_MagneticField[1] = GetLastCreatedDestructable()
             set udg_AS_Logic[1] = true
             set udg_AS_SeriesNumber = 1
-            call CreateTextTagUnitBJ("TRIGSTR_6487", udg_Target, 0, 15.00, 100, 100, 100, 0)
+            call CreateTextTagUnitBJ("3|n", udg_Target, 0, 15.00, 100, 100, 100, 0)
             set udg_AS_TextNumber[1] = GetLastCreatedTextTag()
         else
             if(Trig_CodeGen_Other_Func029Func002Func004Func001C())then
     set udg_MagneticField[2] = GetLastCreatedDestructable()
     set udg_AS_Logic[2] = true
     set udg_AS_SeriesNumber = 2
-    call CreateTextTagUnitBJ("TRIGSTR_6488", udg_Target, 0, 15.00, 100, 100, 100, 0)
+    call CreateTextTagUnitBJ("5|n", udg_Target, 0, 15.00, 100, 100, 100, 0)
     set udg_AS_TextNumber[2] = GetLastCreatedTextTag()
             else
     if(Trig_CodeGen_Other_Func029Func002Func004Func001Func001C())then
                     set udg_MagneticField[3] = GetLastCreatedDestructable()
                     set udg_AS_Logic[3] = true
                     set udg_AS_SeriesNumber = 3
-                    call CreateTextTagUnitBJ("TRIGSTR_6489", udg_Target, 0, 15.00, 100, 100, 100, 0)
+                    call CreateTextTagUnitBJ("7|n", udg_Target, 0, 15.00, 100, 100, 100, 0)
                     set udg_AS_TextNumber[3] = GetLastCreatedTextTag()
     else
                     set udg_MagneticField[4] = GetLastCreatedDestructable()
                     set udg_AS_Logic[4] = true
                     set udg_AS_SeriesNumber = 4
-                    call CreateTextTagUnitBJ("TRIGSTR_6490", udg_Target, 0, 15.00, 100, 100, 100, 0)
+                    call CreateTextTagUnitBJ("9|n", udg_Target, 0, 15.00, 100, 100, 100, 0)
                     set udg_AS_TextNumber[4] = GetLastCreatedTextTag()
     endif
             endif
@@ -4567,10 +4567,10 @@ function Trig_Loading_Succes_Actions takes nothing returns nothing
         call DestroyTrigger(gg_trg_Initialisation_Dialog)
     else
         call DialogClearBJ(udg_InitDialog)
-        call DialogSetMessageBJ(udg_InitDialog, "TRIGSTR_6349")
-        call DialogAddButtonBJ(udg_InitDialog, "TRIGSTR_6298")
+        call DialogSetMessageBJ(udg_InitDialog, "|n")
+        call DialogAddButtonBJ(udg_InitDialog, "Пройти обучение|n")
         set udg_DialogButton[1] = GetLastCreatedButtonBJ()
-        call DialogAddButtonBJ(udg_InitDialog, "TRIGSTR_6299")
+        call DialogAddButtonBJ(udg_InitDialog, "Обойтись без обучения|n")
         set udg_DialogButton[2] = GetLastCreatedButtonBJ()
         call DialogDisplayBJ(true, udg_InitDialog, Player(0))
     endif
@@ -5089,48 +5089,48 @@ function Trig_Map_Buttons_Actions takes nothing returns nothing
                                         call ConditionalTriggerExecute(gg_trg_Edemor_Start)
                                     else
                                         call ClearTextMessagesBJ(GetPlayersAll())
-                                        call DisplayTimedTextToForce(GetPlayersAll(), 1.00, "TRIGSTR_5280")
+                                        call DisplayTimedTextToForce(GetPlayersAll(), 1.00, "Для входа требуется Ключ Эдемора.|n")
                                     endif
                                 else
                                     if(Trig_Map_Buttons_Func002Func004Func001Func003Func001Func001Func001Func006Func003C())then
                                         set udg_EM_BossEnterDialog = 1
                                         call DialogClearBJ(udg_MapBossDialog)
-                                        call DialogSetMessageBJ(udg_MapBossDialog, "TRIGSTR_6466")
-                                        call DialogAddButtonBJ(udg_MapBossDialog, "TRIGSTR_6469")
+                                        call DialogSetMessageBJ(udg_MapBossDialog, "Чтобы пройти дальше нужен|n1 ключ Эдемора. Потратить?|n")
+                                        call DialogAddButtonBJ(udg_MapBossDialog, "Да.|n")
                                         set udg_MapBossButton[1] = GetLastCreatedButtonBJ()
-                                        call DialogAddButtonBJ(udg_MapBossDialog, "TRIGSTR_6470")
+                                        call DialogAddButtonBJ(udg_MapBossDialog, "Нет.|n")
                                         set udg_MapBossButton[2] = GetLastCreatedButtonBJ()
                                         call DialogDisplayBJ(true, udg_MapBossDialog, Player(0))
                                     else
                                         if(Trig_Map_Buttons_Func002Func004Func001Func003Func001Func001Func001Func006Func003Func009C())then
                                             set udg_EM_BossEnterDialog = 2
                                             call DialogClearBJ(udg_MapBossDialog)
-                                            call DialogSetMessageBJ(udg_MapBossDialog, "TRIGSTR_6472")
-                                            call DialogAddButtonBJ(udg_MapBossDialog, "TRIGSTR_6474")
+                                            call DialogSetMessageBJ(udg_MapBossDialog, "Чтобы пройти дальше нужны|n2 ключа Эдемора. Потратить?|n")
+                                            call DialogAddButtonBJ(udg_MapBossDialog, "Да.|n")
                                             set udg_MapBossButton[1] = GetLastCreatedButtonBJ()
-                                            call DialogAddButtonBJ(udg_MapBossDialog, "TRIGSTR_6475")
+                                            call DialogAddButtonBJ(udg_MapBossDialog, "Нет.|n")
                                             set udg_MapBossButton[2] = GetLastCreatedButtonBJ()
                                             call DialogDisplayBJ(true, udg_MapBossDialog, Player(0))
                                         else
                                             if(Trig_Map_Buttons_Func002Func004Func001Func003Func001Func001Func001Func006Func003Func009Func009C())then
                                                 set udg_EM_BossEnterDialog = 3
                                                 call DialogClearBJ(udg_MapBossDialog)
-                                                call DialogSetMessageBJ(udg_MapBossDialog, "TRIGSTR_6478")
-                                                call DialogAddButtonBJ(udg_MapBossDialog, "TRIGSTR_6479")
+                                                call DialogSetMessageBJ(udg_MapBossDialog, "Чтобы пройти дальше нужны|n3 ключа Эдемора. Потратить?|n")
+                                                call DialogAddButtonBJ(udg_MapBossDialog, "Да.|n")
                                                 set udg_MapBossButton[1] = GetLastCreatedButtonBJ()
-                                                call DialogAddButtonBJ(udg_MapBossDialog, "TRIGSTR_6480")
+                                                call DialogAddButtonBJ(udg_MapBossDialog, "Нет.|n")
                                                 set udg_MapBossButton[2] = GetLastCreatedButtonBJ()
                                                 call DialogDisplayBJ(true, udg_MapBossDialog, Player(0))
                                             else
                                                 call ClearTextMessagesBJ(GetPlayersAll())
                                                 if(Trig_Map_Buttons_Func002Func004Func001Func003Func001Func001Func001Func006Func003Func009Func009Func010C())then
-                                                    call DisplayTimedTextToForce(GetPlayersAll(), 3.00, "TRIGSTR_6427")
+                                                    call DisplayTimedTextToForce(GetPlayersAll(), 3.00, "Для входа требуется 1 ключ Эдемора.|n")
                                                 else
                                                     if(Trig_Map_Buttons_Func002Func004Func001Func003Func001Func001Func001Func006Func003Func009Func009Func010Func001C())then
-                                                        call DisplayTimedTextToForce(GetPlayersAll(), 3.00, "TRIGSTR_6426")
+                                                        call DisplayTimedTextToForce(GetPlayersAll(), 3.00, "Для входа требуются 2 ключа Эдемора.|n")
                                                     else
                                                         if(Trig_Map_Buttons_Func002Func004Func001Func003Func001Func001Func001Func006Func003Func009Func009Func010Func001Func001C())then
-                                                            call DisplayTimedTextToForce(GetPlayersAll(), 3.00, "TRIGSTR_6425")
+                                                            call DisplayTimedTextToForce(GetPlayersAll(), 3.00, "Для входа требуются 3 ключа Эдемора.|n")
                                                         else
                                                         endif
                                                     endif
@@ -5194,7 +5194,7 @@ function Trig_Map_Boss_Button_Actions takes nothing returns nothing
             set udg_D_CreepType[5] = 0x6E30304B
             set udg_CC_IngredientDrop = 3
             call SetTerrainFogExBJ(0, 500.00, 10000.00, 0.50, 0.00, 100.00, 0.00)
-            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6462", gg_snd_HeroAlchemistYes2, "TRIGSTR_6463", bj_TIMETYPE_ADD, 0, false)
+            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Сумасшедший|n", gg_snd_HeroAlchemistYes2, "Сейчас похимичим...|n", bj_TIMETYPE_ADD, 0, false)
         else
             if(Trig_Map_Boss_Button_Func002Func005Func001C())then
     set udg_EM_BossLevel = gg_unit_h00K_0123
@@ -5209,7 +5209,7 @@ function Trig_Map_Boss_Button_Actions takes nothing returns nothing
     set udg_D_CreepType[5] = 0x6E303050
     set udg_CC_IngredientDrop = 5
     call SetTerrainFogExBJ(0, 1500.00, 6000.00, 0.50, 70.00, 50.00, 0.00)
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6460", gg_snd_O04Mannoroth38, "TRIGSTR_6461", bj_TIMETYPE_ADD, 0, false)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Изуродов Отец|n", gg_snd_O04Mannoroth38, "*гнилой смех*|n", bj_TIMETYPE_ADD, 0, false)
             else
     set udg_EM_BossLevel = gg_unit_h00K_0142
     set udg_EM_BossCreate[3] = true
@@ -5476,37 +5476,37 @@ function Trig_Map_Events_Actions takes nothing returns nothing
     set udg_EventLux = (udg_EventAttribute * 3)
     call DialogClearBJ(udg_EventDialog)
     if(Trig_Map_Events_Func005C())then
-        call DialogSetMessageBJ(udg_EventDialog, "TRIGSTR_5430")
-        call DialogAddButtonBJ(udg_EventDialog, "TRIGSTR_5431")
+        call DialogSetMessageBJ(udg_EventDialog, "О чем-то глубого задумавшись,|nя только спустя несколько часов|nосознал, что всё это время шёл|nнепонятно куда. Точно не туда,|nкуда хотел. Чёрт, это безыдейное|nблуждание чревато проблемами.|n")
+        call DialogAddButtonBJ(udg_EventDialog, "И где я!?|n")
         set udg_EM_Encounter = true
         call ConditionalTriggerExecute(gg_trg_Map_Move)
     else
         if(Trig_Map_Events_Func005Func001C())then
             if(Trig_Map_Events_Func005Func001Func001C())then
-    call DialogSetMessageBJ(udg_EventDialog, "TRIGSTR_5433")
+    call DialogSetMessageBJ(udg_EventDialog, "На полпути коридор с обеих |nсторон завалило непонятно |nоткуда свалившимися камнями;|nя в ловушке. Могу попробовать |nразгрести завал, но у меня |nможет не хватить сил. Чем |nдольше я тут - тем хуже.|n")
     call DialogAddButtonBJ(udg_EventDialog, ("Разгрести (необходимо " + (I2S(udg_EventAttribute) + " стойкости).")))
             else
-    call DialogSetMessageBJ(udg_EventDialog, "TRIGSTR_6712")
+    call DialogSetMessageBJ(udg_EventDialog, "Прямо напротив одной из|nдверей подземелья стоит|nогромный валун. Наверняка|nего прикатил кто-то очень|nбольшой. Очень мило с его |nстороны, но теперь мне|nпридётся откатывать валун|nв сторону, если я планирую |nидти дальше.|n")
     call DialogAddButtonBJ(udg_EventDialog, ("Откатить (необходимо " + (I2S(udg_EventAttribute) + " стойкости).")))
             endif
             set udg_EventButton[1] = GetLastCreatedButtonBJ()
         else
             if(Trig_Map_Events_Func005Func001Func002C())then
     if(Trig_Map_Events_Func005Func001Func002Func001C())then
-                    call DialogSetMessageBJ(udg_EventDialog, "TRIGSTR_6713")
+                    call DialogSetMessageBJ(udg_EventDialog, "В конце коридора стоят две двери. |nОдна из них - та, что мне нужна, |nтолько вот какая из них? Что-то |nмне подсказывает, что открыв |nодну дверь - вторая уже не |nподдастся.|n")
                     call DialogAddButtonBJ(udg_EventDialog, ("Изучить (необходимо " + (I2S(udg_EventAttribute) + " мудрости).")))
     else
-                    call DialogSetMessageBJ(udg_EventDialog, "TRIGSTR_6714")
+                    call DialogSetMessageBJ(udg_EventDialog, "Какой-то странный парень|n(откуда он взялся?) в капюшоне |nпредлагает мне отгадать одну|nиз его загадок. Если у меня|nполучится, то он обещает не|nотбирать у меня Свет. Что же,|nя уверен в своих умственных|nсилах; можно попробовать.|n")
                     call DialogAddButtonBJ(udg_EventDialog, ("Отгадать (необходимо " + (I2S(udg_EventAttribute) + " мудрости).")))
     endif
     set udg_EventButton[2] = GetLastCreatedButtonBJ()
             else
     if(Trig_Map_Events_Func005Func001Func002Func002C())then
                     if(Trig_Map_Events_Func005Func001Func002Func002Func001C())then
-                        call DialogSetMessageBJ(udg_EventDialog, "TRIGSTR_6715")
+                        call DialogSetMessageBJ(udg_EventDialog, "Кто-то явно обо мне заботится.|nВесь коридор впереди устлан|nраскачивающимися ловушками|nс недавно заостренными лезвиями|n(если верить ярким отблескам |nметалла). Не очень хочется туда|nлезть, но у меня нет выбора.|n")
                         call DialogAddButtonBJ(udg_EventDialog, ("Пройти (необходимо " + (I2S(udg_EventAttribute) + " ловкости).")))
                     else
-                        call DialogSetMessageBJ(udg_EventDialog, "TRIGSTR_6716")
+                        call DialogSetMessageBJ(udg_EventDialog, "Мне кажется, или сзади |nприближается что-то огромное… |nи оно, судя по всему, катится... |nКатится!? Это огромный |nвалун, что-ли!?|n")
                         call DialogAddButtonBJ(udg_EventDialog, ("Бежать! (необходимо " + (I2S(udg_EventAttribute) + " ловкости).")))
                     endif
                     set udg_EventButton[3] = GetLastCreatedButtonBJ()
@@ -5625,11 +5625,11 @@ function Trig_Map_Events_Buttons_Actions takes nothing returns nothing
         endif
     endif
     if(Trig_Map_Events_Buttons_Func002C())then
-        call CreateTextTagUnitBJ("TRIGSTR_6709", udg_Target, 0, 10.00, 0.00, 100.00, 0.00, 0)
+        call CreateTextTagUnitBJ("Успех!|n", udg_Target, 0, 10.00, 0.00, 100.00, 0.00, 0)
     else
         if(Trig_Map_Events_Buttons_Func002Func001C())then
             call SetPlayerStateBJ(Player(0), PLAYER_STATE_RESOURCE_GOLD, (GetPlayerState(Player(0), PLAYER_STATE_RESOURCE_GOLD) - udg_EventLux))
-            call CreateTextTagUnitBJ("TRIGSTR_6711", udg_Target, 0, 10.00, 100.00, 0.00, 0.00, 0)
+            call CreateTextTagUnitBJ("Неудача (часть Света пропала)...|n", udg_Target, 0, 10.00, 100.00, 0.00, 0.00, 0)
         else
         endif
     endif
@@ -9456,7 +9456,7 @@ function Trig_Gen_Events_Actions takes nothing returns nothing
         call SetDayNightModels("", "")
         call SetTerrainFogExBJ(0, 0.00, 4000.00, 0.50, 0.00, 0.00, 0.00)
         call StartTimerBJ(udg_DungeonDarkTimer, false, (120.00 + I2R(GetHeroStatBJ(bj_HEROSTAT_STR, udg_Arct, true))))
-        call CreateTimerDialogBJ(GetLastCreatedTimerBJ(), "TRIGSTR_6730")
+        call CreateTimerDialogBJ(GetLastCreatedTimerBJ(), "Бесстрашие: |n")
         set udg_DungeonDarkTimerWindow = GetLastCreatedTimerDialogBJ()
         call EnableTrigger(gg_trg_Dungeon_Dark)
     else
@@ -10148,8 +10148,8 @@ function Trig_Pause_Off_Actions takes nothing returns nothing
     if(Trig_Pause_Off_Func005C())then
         set udg_TutorialHint[3] = true
         call DialogClearBJ(udg_TeleportDialog)
-        call DialogSetMessageBJ(udg_TeleportDialog, "TRIGSTR_5106")
-        call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_5107")
+        call DialogSetMessageBJ(udg_TeleportDialog, "Смерть для Аркта не страшна, но|nвсё равно умирая он будет терять|nвсе предметы снаряжения. Твоя |nцель: найти и убить хозяина уровня. |nВ зависимости от сложности зависит |nнаграда за прохождение уровня. |nДа пребудут с тобой Боги Эдемиума.|n")
+        call DialogAddButtonBJ(udg_TeleportDialog, "Понятно, спасибо!|n")
         call DialogDisplayBJ(true, udg_TeleportDialog, Player(0))
         call TriggerSleepAction(1.00)
         set udg_TutorialHint[4] = true
@@ -10164,7 +10164,7 @@ function Trig_Pause_Off_Actions takes nothing returns nothing
     if(Trig_Pause_Off_Func006C())then
         if(Trig_Pause_Off_Func006Func001C())then
             set udg_Boss3PortalCounter = 0
-            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6245", gg_snd_AbominationYesAttack3, "TRIGSTR_6246", bj_TIMETYPE_ADD, 0, false)
+            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Бледная Королева|n", gg_snd_AbominationYesAttack3, "Свежее мясо!|n", bj_TIMETYPE_ADD, 0, false)
             call EnableTrigger(gg_trg_Boss_III_Creep_Spawn)
             call EnableTrigger(gg_trg_Boss_III_Portal_Spawn)
             call EnableTrigger(gg_trg_Boss_III_Phase_2_Init)
@@ -10188,12 +10188,12 @@ function Trig_Events_Elapsed_Actions takes nothing returns nothing
     if(Trig_Events_Elapsed_Func002C())then
         set udg_EventAttribute = (10 + GetHeroLevel(udg_Arct))
         call DialogClearBJ(udg_EdemEventDialog)
-        call DialogSetMessageBJ(udg_EdemEventDialog, "TRIGSTR_5580")
-        call DialogAddButtonBJ(udg_EdemEventDialog, "TRIGSTR_5581")
+        call DialogSetMessageBJ(udg_EdemEventDialog, "Бродя по Эдемиуму, его стены всегда |nказались Аркту безупречно гладкими, |nбудто вытесанный и отполированный |nмрамор, однако в одном месте Аркт|nслучайно нащупал небольшое |nотверстие, идеально подходящее для |nуказательного пальца. Стоит ли Аркту |nпросунуть в отверстие палец, или нет?|n")
+        call DialogAddButtonBJ(udg_EdemEventDialog, "Засунуть палец.|n")
         set udg_EdemEventButton[1] = GetLastCreatedButtonBJ()
         call DialogAddButtonBJ(udg_EdemEventDialog, ("Осмотреться (необходимо " + (I2S(udg_EventAttribute) + " мудрости).")))
         set udg_EdemEventButton[2] = GetLastCreatedButtonBJ()
-        call DialogAddButtonBJ(udg_EdemEventDialog, "TRIGSTR_5583")
+        call DialogAddButtonBJ(udg_EdemEventDialog, "Пройти мимо.|n")
         call DialogDisplayBJ(true, udg_EdemEventDialog, Player(0))
     else
     endif
@@ -10252,8 +10252,8 @@ function Trig_Events_Buttons_Actions takes nothing returns nothing
     if(Trig_Events_Buttons_Func002C())then
         if(Trig_Events_Buttons_Func002Func001C())then
             call DialogClearBJ(udg_EdemEventDialog)
-            call DialogSetMessageBJ(udg_EdemEventDialog, "TRIGSTR_5584")
-            call DialogAddButtonBJ(udg_EdemEventDialog, "TRIGSTR_5585")
+            call DialogSetMessageBJ(udg_EdemEventDialog, "Просунув палец в отверстие, оно с |nгрохотом захлопывается, оставляя |nпалец Аркта навечно запечатанным|nв стене. Резкий крик боли разлета-|nется по залам Эдемиума, оглашая |nмонстров о присутствии незваного|nгостя. Истекая кровью и с пеленой|nна глазах, Аркт продолжает схватку|nс монстрами, с Эдемиумом и с|nсамим собой.|n")
+            call DialogAddButtonBJ(udg_EdemEventDialog, "Замечательно!|n")
             call DialogDisplayBJ(true, udg_EdemEventDialog, Player(0))
             set udg_Point = GetUnitLoc(udg_Arct)
             call CreateNUnitsAtLoc(1, 0x68303039, Player(11), udg_Point, bj_UNIT_FACING)
@@ -10274,8 +10274,8 @@ function Trig_Events_Buttons_Actions takes nothing returns nothing
     endif
     if(Trig_Events_Buttons_Func002Func001Func001Func002C())then
                     call DialogClearBJ(udg_EdemEventDialog)
-                    call DialogSetMessageBJ(udg_EdemEventDialog, "TRIGSTR_6704")
-                    call DialogAddButtonBJ(udg_EdemEventDialog, "TRIGSTR_6705")
+                    call DialogSetMessageBJ(udg_EdemEventDialog, "Может Аркт и опрометчив, но сейчас |nему кажется всё слишком подозри- |nтельным. Пошарив немного вокруг |nон находит небольшой кусок деревян- |nной рукояти молота. Аркт отсёк |nлишнее мечем и засунул палку в |nотверстие. Оно захлопнулось, разло- |nмав отесанную рукоять пополам, од- |nнако рядом с Арктом появился |nтяжеленный сундук.|n")
+                    call DialogAddButtonBJ(udg_EdemEventDialog, "Замечательно!|n")
                     call DialogDisplayBJ(true, udg_EdemEventDialog, Player(0))
                     set udg_Point = GetUnitLoc(udg_Arct)
                     call CreateNUnitsAtLoc(1, 0x6E303046, Player(PLAYER_NEUTRAL_PASSIVE), udg_Point, 180.00)
@@ -10285,10 +10285,10 @@ function Trig_Events_Buttons_Actions takes nothing returns nothing
                     endif
     else
                     call DialogClearBJ(udg_EdemEventDialog)
-                    call DialogSetMessageBJ(udg_EdemEventDialog, "TRIGSTR_6706")
-                    call DialogAddButtonBJ(udg_EdemEventDialog, "TRIGSTR_6707")
+                    call DialogSetMessageBJ(udg_EdemEventDialog, "Может Аркт и опрометчив, но сейчас |nему кажется всё слишком подозри- |nтельным. Он решает пошарить немно- |nго вокруг, однако найти что-нибудь |nподходящее так и не получилось. |nКругом только пыль, ржавое железо |nи старые кости.|n")
+                    call DialogAddButtonBJ(udg_EdemEventDialog, "Просунуть палец.|n")
                     set udg_EdemEventButton[1] = GetLastCreatedButtonBJ()
-                    call DialogAddButtonBJ(udg_EdemEventDialog, "TRIGSTR_6708")
+                    call DialogAddButtonBJ(udg_EdemEventDialog, "Пройти мимо.|n")
                     call DialogDisplayBJ(true, udg_EdemEventDialog, Player(0))
     endif
             else
@@ -10427,9 +10427,9 @@ function Trig_Dungeon_Cold_Hearth_Actions takes nothing returns nothing
     else
         call IssuePointOrderLocBJ(udg_Arct, "move", udg_Point)
         if(Trig_Dungeon_Cold_Hearth_Func003Func004C())then
-            call CreateTextTagUnitBJ("TRIGSTR_6644", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+            call CreateTextTagUnitBJ("Поближе бы...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
         else
-            call CreateTextTagUnitBJ("TRIGSTR_6643", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+            call CreateTextTagUnitBJ("Слишком далеко.|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
         endif
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
@@ -10466,15 +10466,15 @@ function Trig_Dungeon_Cold_Text_Func001C takes nothing returns boolean
 endfunction
 function Trig_Dungeon_Cold_Text_Actions takes nothing returns nothing
     if(Trig_Dungeon_Cold_Text_Func001C())then
-        call SetTextTagTextBJ(udg_DungeonColdText, "TRIGSTR_6662", 11.00)
+        call SetTextTagTextBJ(udg_DungeonColdText, "|cFF449EFFI|rII|n", 11.00)
     else
         if(Trig_Dungeon_Cold_Text_Func001Func001C())then
-            call SetTextTagTextBJ(udg_DungeonColdText, "TRIGSTR_6663", 11.00)
+            call SetTextTagTextBJ(udg_DungeonColdText, "|cFF449EFFII|rI|n", 11.00)
         else
             if(Trig_Dungeon_Cold_Text_Func001Func001Func001C())then
-    call SetTextTagTextBJ(udg_DungeonColdText, "TRIGSTR_6664", 11.00)
+    call SetTextTagTextBJ(udg_DungeonColdText, "|cFF449EFFIII|r|n", 11.00)
             else
-    call SetTextTagTextBJ(udg_DungeonColdText, "TRIGSTR_6665", 11.00)
+    call SetTextTagTextBJ(udg_DungeonColdText, "III|n", 11.00)
             endif
         endif
     endif
@@ -10583,22 +10583,22 @@ function Trig_Dungeon_Battle_Portal_Actions takes nothing returns nothing
         call EnableTrigger(gg_trg_Follower_Movement)
         set udg_RandomNumber = GetRandomInt(1, 9)
         if(Trig_Dungeon_Battle_Portal_Func003Func017C())then
-            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_HeroPaladinYesAttack1, "TRIGSTR_6696", bj_TIMETYPE_ADD, 0, false)
+            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_HeroPaladinYesAttack1, "Да свершится правосудие!|n", bj_TIMETYPE_ADD, 0, false)
         else
             if(Trig_Dungeon_Battle_Portal_Func003Func017Func001C())then
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_HeroPaladinYesAttack2, "TRIGSTR_6695", bj_TIMETYPE_ADD, 0, false)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_HeroPaladinYesAttack2, "Во имя Света!|n", bj_TIMETYPE_ADD, 0, false)
             else
     if(Trig_Dungeon_Battle_Portal_Func003Func017Func001Func001C())then
-                    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_HeroPaladinYesAttack3, "TRIGSTR_6694", bj_TIMETYPE_ADD, 0, false)
+                    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_HeroPaladinYesAttack3, "Смерть неверным!|n", bj_TIMETYPE_ADD, 0, false)
     else
                     if(Trig_Dungeon_Battle_Portal_Func003Func017Func001Func001Func001C())then
-                        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_ArthasWhat1, "TRIGSTR_6693", bj_TIMETYPE_ADD, 0, false)
+                        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_ArthasWhat1, "Свет даёт мне силу!|n", bj_TIMETYPE_ADD, 0, false)
                     else
                         if(Trig_Dungeon_Battle_Portal_Func003Func017Func001Func001Func001Func001C())then
-                            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_PriestYesAttack3, "TRIGSTR_6692", bj_TIMETYPE_ADD, 0, false)
+                            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_PriestYesAttack3, "Свет испепелит тебя!|n", bj_TIMETYPE_ADD, 0, false)
                         else
                             if(Trig_Dungeon_Battle_Portal_Func003Func017Func001Func001Func001Func001Func001C())then
-                                call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_FootmanYesAttack3, "TRIGSTR_6691", bj_TIMETYPE_ADD, 0, false)
+                                call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_FootmanYesAttack3, "К оружию!|n", bj_TIMETYPE_ADD, 0, false)
                             else
                             endif
                         endif
@@ -10609,9 +10609,9 @@ function Trig_Dungeon_Battle_Portal_Actions takes nothing returns nothing
     else
         call IssuePointOrderLocBJ(udg_Arct, "move", udg_Point)
         if(Trig_Dungeon_Battle_Portal_Func003Func004C())then
-            call CreateTextTagUnitBJ("TRIGSTR_6685", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+            call CreateTextTagUnitBJ("Поближе бы...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
         else
-            call CreateTextTagUnitBJ("TRIGSTR_6684", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+            call CreateTextTagUnitBJ("Слишком далеко.|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
         endif
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
@@ -12008,28 +12008,28 @@ function Trig_IG_Text_Actions takes nothing returns nothing
         endif
         if(Trig_IG_Text_Func008Func014C())then
             if(Trig_IG_Text_Func008Func014Func001C())then
-    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6758")
+    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFFFFFC2Скорость Света|r: рывок в указанную точку; при достижении врага он отталкивается и получает урон (зависит от стойкости)|n")
             else
     if(Trig_IG_Text_Func008Func014Func001Func001C())then
-                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6765")
+                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFFF4F20Огненный шар|r: все монстры вокруг указанной точки получают урон (зависит от мудрости и стойкости)|n")
     else
                     if(Trig_IG_Text_Func008Func014Func001Func001Func001C())then
-                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6783")
+                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFFF6C76Ослабление|r: понижает скорость и силу атаки цели на 50% на 10 сек.|n")
                     else
                         if(Trig_IG_Text_Func008Func014Func001Func001Func001Func001C())then
-                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6784")
+                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFA05AFFСлово Пилигрима|r: подчиняет указанного противника (время зависит от мудрости)|n")
                         else
                             if(Trig_IG_Text_Func008Func014Func001Func001Func001Func001Func001C())then
-                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6785")
+                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFFFFFC9Освобождение|r: мгновенно убивает слабого врага у которого меньше 50% здоровья и создаёт Свет (кол-во зависит от ловкости)|n")
                             else
                                 if(Trig_IG_Text_Func008Func014Func001Func001Func001Func001Func001Func001C())then
-                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6786")
+                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFFFDC00Осырение|r: превращает указанного монстра в сыр на 5 сек.|n")
                                 else
                                     if(Trig_IG_Text_Func008Func014Func001Func001Func001Func001Func001Func001Func001C())then
-                                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6787")
+                                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBF00Пугало|r: создает на несколько секунд провоцирующее монстров пугало|n")
                                     else
                                         if(Trig_IG_Text_Func008Func014Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6788")
+                                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFA90000Жнец|r: крадёт здоровье монстра и передает Аркту (зависит от ловкости)|n")
                                         else
                                         endif
                                     endif
@@ -12060,19 +12060,19 @@ function Trig_IG_Text_Actions takes nothing returns nothing
             else
             endif
             if(Trig_IG_Text_Func008Func001Func007C())then
-    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5180")
+    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFF00AD50Ядовитое|r (при разгроме): волна яда, отравлящая стоящих перед Арктом монстров|n")
             else
     if(Trig_IG_Text_Func008Func001Func007Func001C())then
-                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5181")
+                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFF81DBF5Морозное|r (при разгроме): замедляет скорость монстра и высасывает энергию|n")
     else
                     if(Trig_IG_Text_Func008Func001Func007Func001Func001C())then
-                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5185")
+                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFF8C7A00Проклятое|r (при разгроме): сильно снижает защиту монстра и исцеляет Аркта|n")
                     else
                         if(Trig_IG_Text_Func008Func001Func007Func001Func001Func001C())then
-                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5182")
+                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFF9E24A2Магическое|r (при разгроме): оглушает и временно повышает шанс разгрома|n")
                         else
                             if(Trig_IG_Text_Func008Func001Func007Func001Func001Func001Func001C())then
-                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5184")
+                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFF00DB93Астральное|r: разгром наносит урон монстрам всем вокруг|n")
                             else
                             endif
                         endif
@@ -12099,16 +12099,16 @@ function Trig_IG_Text_Actions takes nothing returns nothing
     endif
     if(Trig_IG_Text_Func008Func001Func001Func006C())then
                     if(Trig_IG_Text_Func008Func001Func001Func006Func001C())then
-                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6745")
+                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFE32B00Жизнеотвод|r: восстанавливает энергию (10%) за счёт здоровья (20%)|n")
                     else
                         if(Trig_IG_Text_Func008Func001Func001Func006Func001Func001C())then
-                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6752")
+                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFF449EFFДушеотвод|r: восстанавливает здоровье (20%) за счёт энергии (20%)|n")
                         else
                             if(Trig_IG_Text_Func008Func001Func001Func006Func001Func001Func001C())then
-                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6753")
+                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFF449EFFРунический доспех|r: создаёт случайный свиток (ценой 50% энергии)|n")
                             else
                                 if(Trig_IG_Text_Func008Func001Func001Func006Func001Func001Func001Func001C())then
-                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6764")
+                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFF90DFFFЗащитные символы|r: отталкивает всех вокруг и наносит урон (зависит от стойкости и ловкости)|n")
                                 else
                                 endif
                             endif
@@ -12306,64 +12306,64 @@ endfunction
 function Trig_Core_Secret_Select_Actions takes nothing returns nothing
     call ClearTextMessagesBJ(GetPlayersAll())
     if(Trig_Core_Secret_Select_Func003C())then
-        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5910")
+        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Энергии Света|r: поднятие Света восстанавливает энергию (1 ед. за уровень).|n|cFFBFBFC2Элементы|r: 3 субстанции смерти, 3 души превратности.|n")
     else
         if(Trig_Core_Secret_Select_Func003Func001C())then
-            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5350")
+            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Сущности Света|r: в бою каждые десять секунд создается Свет (1 ед. за уровень).|n|cFFBFBFC2Элементы|r: 3 субстанции смерти, 2 души превратности.|n")
         else
             if(Trig_Core_Secret_Select_Func003Func001Func001C())then
-    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5911")
+    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Богатой Добычи|r: увеличивает шанс выпадения предметов с монстров (1% за уровень).|n|cFFBFBFC2Элементы|r: 5 субстанций смерти, 5 душ превратности.|n")
             else
     if(Trig_Core_Secret_Select_Func003Func001Func001Func001C())then
-                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5912")
+                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Жатвы Крови|r: каждое убийство монстра восстанавливает здоровье (2% за уровень).|n|cFFBFBFC2Элементы|r: 1 субстанция смерти, 3 экстракта гниения.|n")
     else
                     if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001C())then
-                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5913")
+                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Искры Пилигрима|r: после убийства монстра есть шанс (3% за уровень) применить случайный навык.|n|cFFBFBFC2Элементы|r: 4 души превратности, 4 экстракта гниения.|n")
                     else
                         if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001C())then
-                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5914")
+                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Распыления|r: увеличивает количество получаемого Света за распыление (3 ед. за уровень).|n|cFFBFBFC2Элементы|r: 3 экстракта гниения, 8 сущностей невежества.|n")
                         else
                             if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001C())then
-                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5915")
+                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Меча|r: увеличивает шанс разгрома (1% за уровень).|n|cFFBFBFC2Элементы|r: 10 сущностей невежества, 3 сердца ненависти.|n")
                             else
                                 if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001C())then
-                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5916")
+                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Бури|r: ежесекундно шанс 5% ударить ближайшего монстра молнией (50 ед. урона за уровень).|n|cFFBFBFC2Элементы|r: 5 душ превратности, 5 экстрактов гниения.|n")
                                 else
                                     if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5917")
+                                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Пилигримов|r: в бою каждые пять секунд серия ударов увеличивается (на 1 ед. за уровень).|n|cFFBFBFC2Элементы|r: 4 природы падения, 3 ядра тьмы.|n")
                                     else
                                         if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5918")
+                                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Анимирования|r: открытие сундуков призывает на 60 сек. ожившее оружие (сила зависит от уровня) помогающее Аркту.|n|cFFBFBFC2Элементы|r: 8 сущностей невежества, 5 эссенций жадности.|n")
                                         else
                                             if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5919")
+                                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Вливания Света|r: после каждого приёма есть шанс (5% за уровень) запустить наносящий урон (сила зависит от хар-ик и серии ударов) снаряд в монстра.|n|cFFBFBFC2Элементы|r: 2 экстракта гниения, 6 сердцевин лжи.|n")
                                             else
                                                 if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5920")
+                                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Защиты|r: увеличивает шанс блока (1% за уровень).|n|cFFBFBFC2Элементы|r: 3 сердцевины лжи, 3 природы падения.|n")
                                                 else
                                                     if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5922")
+                                                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Вынесения Урока|r: прохождение трех подземелий повышает случайную хар-ку (1 ед. за уровень).|n|cFFBFBFC2Элементы|r: 10 сущностей невежества.|n")
                                                     else
                                                         if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5923")
+                                                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Сильной Воли|r: при снижении здоровья до 20% - оно восстанавливается (100 ед. за уровень). Срабатывает один раз за уровень.|n|cFFBFBFC2Элементы|r: 5 сердец ненависти.|n")
                                                         else
                                                             if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5924")
+                                                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Отражений Души|r: при блоке создаёт иллюзию Аркта на 10 сек. (сила зависит от уровня).|n|cFFBFBFC2Элементы|r: 6 эссенций жадности, 6 сердцевин лжи.|n")
                                                             else
                                                                 if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5925")
+                                                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Роста Души|r: увеличивает все хар-ки (1 ед. за уровень).|n|cFFBFBFC2Элементы|r: 5 субстанций смерти, 3 сердца ненависти.|n")
                                                                 else
                                                                     if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                                                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5926")
+                                                                        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Проницательности|r: увеличивает максимальное количество секретов на уровне (1 ед. за уровень).|n|cFFBFBFC2Элементы|r: 7 эссенций жадности.|n")
                                                                     else
                                                                         if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                                                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5927")
+                                                                            call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Мастерства|r: применение навыков дополнительно увеличивают серию ударов (1 ед. за уровень).|n|cFFBFBFC2Элементы|r: 3 природы падения, 2 ядра тьмы.|n")
                                                                         else
                                                                             if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                                                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5928")
+                                                                                call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Техники Стража|r: во время действия рывка увеличивается шанс блока (3% за уровень).|n|cFFBFBFC2Элементы|r: 6 сущностей невежества, 2 сердцевины лжи.|n")
                                                                             else
                                                                                 if(Trig_Core_Secret_Select_Func003Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001Func001C())then
-                                                                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_5929")
+                                                                                    call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFFBFBFC2Секрет Единства Света|r: в начале боя на 15 сек. появляется Собрат, помогающий в бою (сила растет с уровнем).|n|cFFBFBFC2Элементы|r: 2 субстанции смерти, 2 души превратности, 2 экстракта гниения, 2 сущности невежества.|n")
                                                                                 else
                                                                                 endif
                                                                             endif
@@ -12755,7 +12755,7 @@ function Trig_Core_Create_Actions takes nothing returns nothing
                                                                                     call ConditionalTriggerExecute(gg_trg_Core_Start_Timer)
                                                                                     set udg_CC_SecretNumber = GetUnitUserData(gg_unit_h01G_0027)
                                                                                 else
-                                                                                    call CreateTextTagUnitBJ("TRIGSTR_6047", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+                                                                                    call CreateTextTagUnitBJ("Ничего...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
                                                                                     call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
                                                                                     call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
                                                                                     call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 3.00)
@@ -12895,7 +12895,7 @@ function Trig_Core_Item_Pickup_Actions takes nothing returns nothing
         call DestroyEffectBJ(GetLastCreatedEffectBJ())
         call AddSpecialEffectTargetUnitBJ("overhead", gg_unit_H000_0004, "war3mapImported\\SoundEffect3.mdx")
         call DestroyEffectBJ(GetLastCreatedEffectBJ())
-        call CreateTextTagUnitBJ("TRIGSTR_6197", udg_Arct, 0, 11.00, 100.00, 100.00, 100.00, 0)
+        call CreateTextTagUnitBJ("Секрет раскрыт!|n", udg_Arct, 0, 11.00, 100.00, 100.00, 100.00, 0)
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
         call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 1.50)
@@ -13342,7 +13342,7 @@ function Trig_Combo_Ability_Use_Actions takes nothing returns nothing
         endloop
         call SetUnitManaBJ(udg_Arct, (GetUnitStateSwap(UNIT_STATE_MANA, udg_Arct) - 1))
         call SetUnitLifeBJ(udg_Arct, (GetUnitStateSwap(UNIT_STATE_LIFE, udg_Arct) - 2.00))
-        call CreateTextTagUnitBJ("TRIGSTR_6228", udg_Arct, 0, 20.00, 80.00, 0.00, 0.00, 10.00)
+        call CreateTextTagUnitBJ("X|n", udg_Arct, 0, 20.00, 80.00, 0.00, 0.00, 10.00)
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 200.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
         call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 0.60)
@@ -13636,7 +13636,7 @@ function Trig_Combat_Timer_Actions takes nothing returns nothing
         set bj_forLoopAIndex = bj_forLoopAIndex + 1
     endloop
     call LeaderboardSetLabelBJ(udg_CO_ComboBoard, ("|cFFFFFFFFСерия ударов:|r |cFF449EFF" + I2S(udg_CO_Combo)))
-    call CreateTextTagUnitBJ("TRIGSTR_5315", udg_Arct, 0, 20.00, 80.00, 0.00, 0.00, 10.00)
+    call CreateTextTagUnitBJ("X|n", udg_Arct, 0, 20.00, 80.00, 0.00, 0.00, 10.00)
     call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 200.00, 90.00)
     call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
     call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 0.50)
@@ -13735,7 +13735,7 @@ function Trig_Secret_Found_Func003A takes nothing returns nothing
     endif
             endif
         else
-            call CreateTextTagUnitBJ("TRIGSTR_6499", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+            call CreateTextTagUnitBJ("Не здесь...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
             call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
             call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
             call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 2.00)
@@ -13798,28 +13798,28 @@ endfunction
 function Trig_Enter_Dialog_Actions takes nothing returns nothing
     if(Trig_Enter_Dialog_Func001C())then
         call DialogClearBJ(udg_TeleportDialog)
-        call DialogSetMessageBJ(udg_TeleportDialog, "TRIGSTR_4885")
-        call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_4886")
+        call DialogSetMessageBJ(udg_TeleportDialog, "Вперёд?|n")
+        call DialogAddButtonBJ(udg_TeleportDialog, "Да!|n")
         set udg_DialogButton[1] = GetLastCreatedButtonBJ()
         if(Trig_Enter_Dialog_Func001Func011C())then
-            call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_4891")
+            call DialogAddButtonBJ(udg_TeleportDialog, "Уровень сложности: |cFF00C850Послушник|r|n")
         else
             if(Trig_Enter_Dialog_Func001Func011Func001C())then
-    call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_4890")
+    call DialogAddButtonBJ(udg_TeleportDialog, "Уровень сложности: |cFFBFBFC2Паломник|r|n")
             else
     if(Trig_Enter_Dialog_Func001Func011Func001Func001C())then
-                    call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_4889")
+                    call DialogAddButtonBJ(udg_TeleportDialog, "Уровень сложности: |cFFFFDC00Пастырь|r|n")
     else
                     if(Trig_Enter_Dialog_Func001Func011Func001Func001Func001C())then
-                        call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_4888")
+                        call DialogAddButtonBJ(udg_TeleportDialog, "Уровень сложности: |cFFFF8900Паладин|r|n")
                     else
-                        call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_4887")
+                        call DialogAddButtonBJ(udg_TeleportDialog, "Уровень сложности: |cFFE30000Пилигрим|r|n")
                     endif
     endif
             endif
         endif
         set udg_DialogButton[2] = GetLastCreatedButtonBJ()
-        call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_4892")
+        call DialogAddButtonBJ(udg_TeleportDialog, "Ещё минутку...|n")
         call DialogDisplayBJ(true, udg_TeleportDialog, Player(0))
     else
         set udg_Tutorial[5] = false
@@ -13879,7 +13879,7 @@ function Trig_Escape_Guardian_Kill_Actions takes nothing returns nothing
     call FogEnableOff()
     call FogMaskEnableOff()
     call CreateFogModifierRectBJ(true, Player(0), FOG_OF_WAR_VISIBLE, GetPlayableMapRect())
-    call DisplayTimedTextToForce(GetPlayersAll(), 30.00, "TRIGSTR_4945")
+    call DisplayTimedTextToForce(GetPlayersAll(), 30.00, "Для выхода нажмите ESC.|n")
     call SetDayNightModels("DNCLordaeronTerrain.mdx", "DNCLordaeronUnit.mdx")
     call EnableTrigger(gg_trg_Escape_Dialog_Dummy)
     call EnableTrigger(gg_trg_Escape_Dialog)
@@ -13923,14 +13923,14 @@ endfunction
 function Trig_Escape_Dialog_Actions takes nothing returns nothing
     call DestroyGroup(udg_UnitGroup)
     call DialogClearBJ(udg_LeaveDialog)
-    call DialogSetMessageBJ(udg_LeaveDialog, "TRIGSTR_3868")
-    call DialogAddButtonBJ(udg_LeaveDialog, "TRIGSTR_3869")
+    call DialogSetMessageBJ(udg_LeaveDialog, "Покинуть Эдемиум?|n")
+    call DialogAddButtonBJ(udg_LeaveDialog, "Да!|n")
     if(Trig_Escape_Dialog_Func005C())then
         set udg_LeaveButton = GetLastCreatedButtonBJ()
     else
         set udg_LeaveButton2 = GetLastCreatedButtonBJ()
     endif
-    call DialogAddButtonBJ(udg_LeaveDialog, "TRIGSTR_3870")
+    call DialogAddButtonBJ(udg_LeaveDialog, "Стоп, забыл кое-что.|n")
     call DialogDisplayBJ(true, udg_LeaveDialog, Player(0))
 endfunction
 function InitTrig_Escape_Dialog takes nothing returns nothing
@@ -14083,7 +14083,7 @@ function Trig_Edemium_Portals_Actions takes nothing returns nothing
         call RemoveLocation(udg_D_Point1)
         call ForGroupBJ(GetRandomSubGroup(1, udg_D_Pick), function Trig_Edemium_Portals_Func006Func008A)
     else
-        call CreateTextTagUnitBJ("TRIGSTR_4095", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+        call CreateTextTagUnitBJ("Поближе бы...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
         call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 2.00)
@@ -14127,24 +14127,24 @@ function Trig_Edemium_Difficulty_Dialog_Func010C takes nothing returns boolean
 endfunction
 function Trig_Edemium_Difficulty_Dialog_Actions takes nothing returns nothing
     call DialogClearBJ(udg_DifficultyDialog)
-    call DialogSetMessageBJ(udg_DifficultyDialog, "TRIGSTR_3171")
-    call DialogAddButtonBJ(udg_DifficultyDialog, "TRIGSTR_3172")
+    call DialogSetMessageBJ(udg_DifficultyDialog, "Уровень сложности:|n")
+    call DialogAddButtonBJ(udg_DifficultyDialog, "|cFF00C850Послушник|r|n")
     set udg_DialogButton[3] = GetLastCreatedButtonBJ()
-    call DialogAddButtonBJ(udg_DifficultyDialog, "TRIGSTR_3175")
+    call DialogAddButtonBJ(udg_DifficultyDialog, "|cFFBFBFC2Паломник|r|n")
     set udg_DialogButton[4] = GetLastCreatedButtonBJ()
-    call DialogAddButtonBJ(udg_DifficultyDialog, "TRIGSTR_3176")
+    call DialogAddButtonBJ(udg_DifficultyDialog, "|cFFFFDC00Пастырь|r|n")
     set udg_DialogButton[5] = GetLastCreatedButtonBJ()
     if(Trig_Edemium_Difficulty_Dialog_Func009C())then
-        call DialogAddButtonBJ(udg_DifficultyDialog, "TRIGSTR_3177")
+        call DialogAddButtonBJ(udg_DifficultyDialog, "|cFFFF9000Паладин|r|n")
         set udg_DialogButton[6] = GetLastCreatedButtonBJ()
     else
     endif
     if(Trig_Edemium_Difficulty_Dialog_Func010C())then
-        call DialogAddButtonBJ(udg_DifficultyDialog, "TRIGSTR_5120")
+        call DialogAddButtonBJ(udg_DifficultyDialog, "|cFFE30000Пилигрим|r|n")
         set udg_DialogButton[7] = GetLastCreatedButtonBJ()
     else
     endif
-    call DialogAddButtonBJ(udg_DifficultyDialog, "TRIGSTR_3174")
+    call DialogAddButtonBJ(udg_DifficultyDialog, "Мне и так хорошо.|n")
     set udg_DialogButton[8] = GetLastCreatedButtonBJ()
     call DialogDisplayBJ(true, udg_DifficultyDialog, Player(0))
 endfunction
@@ -14240,28 +14240,28 @@ function Trig_Edemium_Difficulty_Buttons_Actions takes nothing returns nothing
         endif
     endif
     call DialogClearBJ(udg_TeleportDialog)
-    call DialogSetMessageBJ(udg_TeleportDialog, "TRIGSTR_3194")
-    call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_3195")
+    call DialogSetMessageBJ(udg_TeleportDialog, "Вперёд?|n")
+    call DialogAddButtonBJ(udg_TeleportDialog, "Да!|n")
     set udg_DialogButton[1] = GetLastCreatedButtonBJ()
     if(Trig_Edemium_Difficulty_Buttons_Func006C())then
-        call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_3202")
+        call DialogAddButtonBJ(udg_TeleportDialog, "Уровень сложности: |cFF00C850Послушник|r|n")
     else
         if(Trig_Edemium_Difficulty_Buttons_Func006Func001C())then
-            call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_3203")
+            call DialogAddButtonBJ(udg_TeleportDialog, "Уровень сложности: |cFFBFBFC2Паломник|r|n")
         else
             if(Trig_Edemium_Difficulty_Buttons_Func006Func001Func001C())then
-    call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_3204")
+    call DialogAddButtonBJ(udg_TeleportDialog, "Уровень сложности: |cFFFFDC00Пастырь|r|n")
             else
     if(Trig_Edemium_Difficulty_Buttons_Func006Func001Func001Func001C())then
-                    call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_3205")
+                    call DialogAddButtonBJ(udg_TeleportDialog, "Уровень сложности: |cFFFF8900Паладин|r|n")
     else
-                    call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_3206")
+                    call DialogAddButtonBJ(udg_TeleportDialog, "Уровень сложности: |cFFE30000Пилигрим|r|n")
     endif
             endif
         endif
     endif
     set udg_DialogButton[2] = GetLastCreatedButtonBJ()
-    call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_3197")
+    call DialogAddButtonBJ(udg_TeleportDialog, "Ещё минутку...|n")
     call DialogDisplayBJ(true, udg_TeleportDialog, Player(0))
 endfunction
 function InitTrig_Edemium_Difficulty_Buttons takes nothing returns nothing
@@ -14620,7 +14620,7 @@ function Trig_Decorations_Click_Actions takes nothing returns nothing
             endif
         else
             call IssuePointOrderLocBJ(udg_Arct, "move", udg_D_Point2)
-            call CreateTextTagUnitBJ("TRIGSTR_5370", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+            call CreateTextTagUnitBJ("Поближе бы...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
             call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
             call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
             call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 2.00)
@@ -14630,7 +14630,7 @@ function Trig_Decorations_Click_Actions takes nothing returns nothing
         if(Trig_Decorations_Click_Func004Func001C())then
             call ModifyGateBJ(bj_GATEOPERATION_OPEN, GetOrderTargetDestructable())
             if(Trig_Decorations_Click_Func004Func001Func008C())then
-    call CreateTextTagUnitBJ("TRIGSTR_5514", udg_Arct, 0, 11.00, 100.00, 100.00, 100.00, 0)
+    call CreateTextTagUnitBJ("ЛОВУШКА!|n", udg_Arct, 0, 11.00, 100.00, 100.00, 100.00, 0)
     call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
     call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
     call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 1.50)
@@ -14662,9 +14662,9 @@ function Trig_Decorations_Click_Actions takes nothing returns nothing
         else
             call IssuePointOrderLocBJ(udg_Arct, "move", udg_D_Point2)
             if(Trig_Decorations_Click_Func004Func001Func002C())then
-    call CreateTextTagUnitBJ("TRIGSTR_6500", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+    call CreateTextTagUnitBJ("Поближе бы...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
             else
-    call CreateTextTagUnitBJ("TRIGSTR_6502", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+    call CreateTextTagUnitBJ("Слишком далеко.|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
             endif
             call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
             call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
@@ -14745,12 +14745,12 @@ function Trig_Chest_Unlock_Actions takes nothing returns nothing
         call DialogSetMessageBJ(udg_ChestDialog, GetUnitName(udg_Chest))
         call DialogAddButtonBJ(udg_ChestDialog, ("Открыть потратив |cFF449EFF" + (I2S(udg_ChestEnergy) + " |rэнергии.")))
         set udg_ChestButtonEnergy = GetLastCreatedButtonBJ()
-        call DialogAddButtonBJ(udg_ChestDialog, "TRIGSTR_5267")
+        call DialogAddButtonBJ(udg_ChestDialog, "|cFFFFFFFFОткрыть Ключом Эдемора.|r|n")
         set udg_ChestButtonKey = GetLastCreatedButtonBJ()
-        call DialogAddButtonBJ(udg_ChestDialog, "TRIGSTR_5268")
+        call DialogAddButtonBJ(udg_ChestDialog, "Обойдусь.|n")
         call DialogDisplayBJ(true, udg_ChestDialog, Player(0))
     else
-        call CreateTextTagUnitBJ("TRIGSTR_5269", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+        call CreateTextTagUnitBJ("Поближе бы...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
         call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 2.00)
@@ -14803,14 +14803,14 @@ function Trig_Chest_Unlock_Button_Actions takes nothing returns nothing
             if(Trig_Chest_Unlock_Button_Func001Func002Func002C())then
     call ConditionalTriggerExecute(gg_trg_Chest_Reward)
             else
-    call CreateTextTagUnitBJ("TRIGSTR_5257", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+    call CreateTextTagUnitBJ("Не получилось...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
     call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
     call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
     call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 3.00)
     call SetTextTagFadepointBJ(GetLastCreatedTextTag(), 2.50)
             endif
         else
-            call CreateTextTagUnitBJ("TRIGSTR_5253", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+            call CreateTextTagUnitBJ("Нет сил...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
             call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
             call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
             call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 3.00)
@@ -14822,7 +14822,7 @@ function Trig_Chest_Unlock_Button_Actions takes nothing returns nothing
     call SetPlayerStateBJ(Player(0), PLAYER_STATE_RESOURCE_LUMBER, (GetPlayerState(Player(0), PLAYER_STATE_RESOURCE_LUMBER) - 1))
     call ConditionalTriggerExecute(gg_trg_Chest_Reward)
             else
-    call CreateTextTagUnitBJ("TRIGSTR_5265", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+    call CreateTextTagUnitBJ("Нет ключей...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
     call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
     call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
     call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 3.00)
@@ -14906,7 +14906,7 @@ function Trig_Chest_Reward_Actions takes nothing returns nothing
     call AddSpecialEffectLocBJ(udg_IG_Point, "war3mapImported\\GoldCoinBuffLargeV.015.mdx")
     call DestroyEffectBJ(GetLastCreatedEffectBJ())
     if(Trig_Chest_Reward_Func007C())then
-        call CreateTextTagUnitBJ("TRIGSTR_5520", udg_Arct, 0, 11.00, 100.00, 100.00, 100.00, 0)
+        call CreateTextTagUnitBJ("ЛОВУШКА!|n", udg_Arct, 0, 11.00, 100.00, 100.00, 100.00, 0)
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
         call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 1.50)
@@ -15149,7 +15149,7 @@ function Trig_QG_Generate_Actions takes nothing returns nothing
         endif
     endif
     call PlaySoundBJ(gg_snd_NewQuest)
-    call CreateQuestBJ(bj_QUESTTYPE_REQ_DISCOVERED, "TRIGSTR_6810", ("Текущий коэффициент получения опыта и Света: |cFF00FF00" + R2SW(udg_EX_Rate, 1, 1)), "ReplaceableTextures\\CommandButtons\\BTNArcturus.blp")
+    call CreateQuestBJ(bj_QUESTTYPE_REQ_DISCOVERED, "Миссия Пилигрима|n", ("Текущий коэффициент получения опыта и Света: |cFF00FF00" + R2SW(udg_EX_Rate, 1, 1)), "ReplaceableTextures\\CommandButtons\\BTNArcturus.blp")
     call CreateQuestItemBJ(GetLastCreatedQuestBJ(), udg_QG_Objective[1])
     set udg_QG_Requirement[1] = GetLastCreatedQuestItemBJ()
     call CreateQuestItemBJ(GetLastCreatedQuestBJ(), udg_QG_Objective[2])
@@ -15174,7 +15174,7 @@ endfunction
 function Trig_QG_Completion_Check_Actions takes nothing returns nothing
     if(Trig_QG_Completion_Check_Func001C())then
         call DestroyQuestBJ(GetLastCreatedQuestBJ())
-        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "TRIGSTR_6809")
+        call DisplayTimedTextToForce(GetPlayersAll(), 10.00, "|cFF00FF00Миссия осуществлена, коэффициент повышен.|r|n")
         set udg_EX_Rate = (udg_EX_Rate + 0.10)
         set udg_QG_QuestCompleted = (udg_QG_QuestCompleted + 1)
         call ConditionalTriggerExecute(gg_trg_QG_Generate)
@@ -15453,7 +15453,7 @@ function Trig_Creep_Kill_Actions takes nothing returns nothing
                     if(Trig_Creep_Kill_Func003Func012Func003Func005Func002C())then
                         set udg_Difficulty_Unlocked[1] = true
                         set udg_TierUnlocked = 1
-                        call DisplayTimedTextToForce(GetPlayersAll(), 30, "TRIGSTR_6053")
+                        call DisplayTimedTextToForce(GetPlayersAll(), 30, "|cFF00C850Открыта новая сложность!|r|n")
                         set udg_IG_Point = GetUnitLoc(udg_IG_Monster)
                         set udg_IG_ItemQuality = 3
                         call ConditionalTriggerExecute(gg_trg_IG_Generate)
@@ -15471,7 +15471,7 @@ function Trig_Creep_Kill_Actions takes nothing returns nothing
                             set udg_Difficulty_Unlocked[2] = true
                             set udg_Difficulty_Unlocked[3] = true
                             set udg_TierUnlocked = 2
-                            call DisplayTimedTextToForce(GetPlayersAll(), 30, "TRIGSTR_6049")
+                            call DisplayTimedTextToForce(GetPlayersAll(), 30, "|cFF00C850Открыты новые сложности!|r|n")
                             set udg_IG_Point = GetUnitLoc(udg_IG_Monster)
                             set udg_IG_ItemQuality = 3
                             call ConditionalTriggerExecute(gg_trg_IG_Generate)
@@ -15486,7 +15486,7 @@ function Trig_Creep_Kill_Actions takes nothing returns nothing
                     else
                     endif
     endif
-    call DisplayTimedTextToForce(GetPlayersAll(), 30.00, "TRIGSTR_5339")
+    call DisplayTimedTextToForce(GetPlayersAll(), 30.00, "Для выхода нажмите ESC.|n")
     set bj_forLoopAIndex = 1
     set bj_forLoopAIndexEnd = 4
     loop
@@ -16045,7 +16045,7 @@ function Trig_Creep_Skills_Cast_Actions takes nothing returns nothing
             endif
         endif
     endif
-    call CreateTextTagUnitBJ("TRIGSTR_6394", GetTriggerUnit(), 0, 16.00, 100.00, 0.00, 0.00, 0)
+    call CreateTextTagUnitBJ("!!!|n", GetTriggerUnit(), 0, 16.00, 100.00, 0.00, 0.00, 0)
     call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 30.00, 90.00)
     call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
     call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 1.00)
@@ -17219,7 +17219,7 @@ endfunction
 function Trig_Boss_Casts_Actions takes nothing returns nothing
     if(Trig_Boss_Casts_Func001C())then
         set udg_Boss_Ability_Point = GetUnitLoc(GetSpellTargetUnit())
-        call CreateTextTagUnitBJ("TRIGSTR_6055", GetTriggerUnit(), 0, 12.00, 100.00, 0.00, 0.00, 0)
+        call CreateTextTagUnitBJ("!!!|n", GetTriggerUnit(), 0, 12.00, 100.00, 0.00, 0.00, 0)
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 30.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
         call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 1.00)
@@ -17364,18 +17364,18 @@ function Trig_Boss_I_Throw_Actions takes nothing returns nothing
     if(Trig_Boss_I_Throw_Func007C())then
         set udg_RandomNumber = GetRandomInt(1, 5)
         if(Trig_Boss_I_Throw_Func007Func002C())then
-            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6082", gg_snd_HeroAlchemistYesAttack1, "TRIGSTR_6083", bj_TIMETYPE_ADD, 0, false)
+            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Сумасшедший|n", gg_snd_HeroAlchemistYesAttack1, "Всего один эликсир! *злобно хихикает*|n", bj_TIMETYPE_ADD, 0, false)
         else
             if(Trig_Boss_I_Throw_Func007Func002Func001C())then
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6086", gg_snd_HeroAlchemistYesAttack2, "TRIGSTR_6087", bj_TIMETYPE_ADD, 0, false)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Сумасшедший|n", gg_snd_HeroAlchemistYesAttack2, "Взрываю!|n", bj_TIMETYPE_ADD, 0, false)
             else
     if(Trig_Boss_I_Throw_Func007Func002Func001Func001C())then
-                    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6088", gg_snd_HeroAlchemistWhat4, "TRIGSTR_6089", bj_TIMETYPE_ADD, 0, false)
+                    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Сумасшедший|n", gg_snd_HeroAlchemistWhat4, "Попробуем новый состав...|n", bj_TIMETYPE_ADD, 0, false)
     else
                     if(Trig_Boss_I_Throw_Func007Func002Func001Func001Func001C())then
-                        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6090", gg_snd_GoblinZeppelinYes4, "TRIGSTR_6091", bj_TIMETYPE_ADD, 0, false)
+                        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Сумасшедший|n", gg_snd_GoblinZeppelinYes4, "*радостное исступление*|n", bj_TIMETYPE_ADD, 0, false)
                     else
-                        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6092", gg_snd_GoblinZeppelinYes3, "TRIGSTR_6093", bj_TIMETYPE_ADD, 0, false)
+                        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Сумасшедший|n", gg_snd_GoblinZeppelinYes3, "*нездоровый смех*|n", bj_TIMETYPE_ADD, 0, false)
                     endif
     endif
             endif
@@ -17499,7 +17499,7 @@ function Trig_Boss_II_Phase_2_Init_Conditions takes nothing returns boolean
     return true
 endfunction
 function Trig_Boss_II_Phase_2_Init_Actions takes nothing returns nothing
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6076", gg_snd_HPitLordYesAttack2, "TRIGSTR_6077", bj_TIMETYPE_ADD, 0, false)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Изуродов Отец|n", gg_snd_HPitLordYesAttack2, "Час Хаоса!|n", bj_TIMETYPE_ADD, 0, false)
     call UnitAddAbilityBJ(0x41303553, GetTriggerUnit())
     call UnitRemoveAbilityBJ(0x4130354F, GetTriggerUnit())
     call EnableTrigger(gg_trg_Boss_II_Channel_Init)
@@ -17529,9 +17529,9 @@ function Trig_Boss_II_Channel_Init_Actions takes nothing returns nothing
     call EnableTrigger(gg_trg_Boss_II_Channel_Periodic)
     call StartTimerBJ(udg_Boss2Timer, false, 5.00)
     if(Trig_Boss_II_Channel_Init_Func004C())then
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6078", gg_snd_PitLordYesAttack1, "TRIGSTR_6079", bj_TIMETYPE_ADD, 0, false)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Изуродов Отец|n", gg_snd_PitLordYesAttack1, "*читает заклинание*|n", bj_TIMETYPE_ADD, 0, false)
     else
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6080", gg_snd_PitLordWhat1, "TRIGSTR_6081", bj_TIMETYPE_ADD, 0, false)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Изуродов Отец|n", gg_snd_PitLordWhat1, "*читает заклинание*|n", bj_TIMETYPE_ADD, 0, false)
     endif
 endfunction
 function InitTrig_Boss_II_Channel_Init takes nothing returns nothing
@@ -17680,7 +17680,7 @@ function Trig_Boss_III_Portal_Use_Actions takes nothing returns nothing
         set udg_Boss3PortalEffect = GetLastCreatedLightningBJ()
     else
         call IssuePointOrderLocBJ(udg_Arct, "move", udg_Point2)
-        call CreateTextTagUnitBJ("TRIGSTR_6240", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+        call CreateTextTagUnitBJ("Поближе бы...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
         call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 2.00)
@@ -17765,25 +17765,25 @@ function Trig_Boss_III_Portal_Timer_Actions takes nothing returns nothing
     call DestroyLightningBJ(udg_Boss3PortalEffect)
     set udg_RandomNumber = GetRandomInt(1, 10)
     if(Trig_Boss_III_Portal_Timer_Func012C())then
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_TyrandeWarcry1, "TRIGSTR_6249", bj_TIMETYPE_ADD, 0, false)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_TyrandeWarcry1, "Стражи, к бою!|n", bj_TIMETYPE_ADD, 0, false)
     else
         if(Trig_Boss_III_Portal_Timer_Func012Func001C())then
-            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_TyrandePissed1, "TRIGSTR_6250", bj_TIMETYPE_ADD, 0, false)
+            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_TyrandePissed1, "Вечная жизнь - вечная служба.|n", bj_TIMETYPE_ADD, 0, false)
         else
             if(Trig_Boss_III_Portal_Timer_Func012Func001Func001C())then
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_TyrandePissed4, "TRIGSTR_6251", bj_TIMETYPE_ADD, 0, false)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_TyrandePissed4, "Анутерадор-мали!|n", bj_TIMETYPE_ADD, 0, false)
             else
     if(Trig_Boss_III_Portal_Timer_Func012Func001Func001Func001C())then
-                    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_TyrandeYes4, "TRIGSTR_6252", bj_TIMETYPE_ADD, 0, false)
+                    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_TyrandeYes4, "Без промедления!|n", bj_TIMETYPE_ADD, 0, false)
     else
                     if(Trig_Boss_III_Portal_Timer_Func012Func001Func001Func001Func001C())then
-                        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_ArcherYesAttack4, "TRIGSTR_6253", bj_TIMETYPE_ADD, 0, false)
+                        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_ArcherYesAttack4, "Пощады не будет!|n", bj_TIMETYPE_ADD, 0, false)
                     else
                         if(Trig_Boss_III_Portal_Timer_Func012Func001Func001Func001Func001Func001C())then
-                            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_HeroWardenYesAttack2, "TRIGSTR_6254", bj_TIMETYPE_ADD, 0, false)
+                            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_HeroWardenYesAttack2, "Да свершится правосудие!|n", bj_TIMETYPE_ADD, 0, false)
                         else
                             if(Trig_Boss_III_Portal_Timer_Func012Func001Func001Func001Func001Func001Func001C())then
-                                call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_HeroWardenYesAttack1, "TRIGSTR_6255", bj_TIMETYPE_ADD, 0, false)
+                                call TransmissionFromUnitWithNameBJ(GetPlayersAll(), GetLastCreatedUnit(), GetUnitName(GetLastCreatedUnit()), gg_snd_HeroWardenYesAttack1, "Исполняю приговор!|n", bj_TIMETYPE_ADD, 0, false)
                             else
                             endif
                         endif
@@ -17893,7 +17893,7 @@ function Trig_Boss_III_Phase_2_Init_Conditions takes nothing returns boolean
     return true
 endfunction
 function Trig_Boss_III_Phase_2_Init_Actions takes nothing returns nothing
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6256", gg_snd_AbominationYesAttack2, "TRIGSTR_6257", bj_TIMETYPE_ADD, 0, false)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Бледная Королева|n", gg_snd_AbominationYesAttack2, "Убью!|n", bj_TIMETYPE_ADD, 0, false)
     set udg_Boss3Pukes = 0
     call EnableTrigger(gg_trg_Boss_III_Phase_3_Init)
     call EnableTrigger(gg_trg_Boss_III_Puke_Rain)
@@ -17916,7 +17916,7 @@ function Trig_Boss_III_Phase_3_Init_Conditions takes nothing returns boolean
     return true
 endfunction
 function Trig_Boss_III_Phase_3_Init_Actions takes nothing returns nothing
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "TRIGSTR_6260", gg_snd_AbominationYesAttack1, "TRIGSTR_6261", bj_TIMETYPE_ADD, 0, false)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), udg_EM_BossUnit, "Бледная Королева|n", gg_snd_AbominationYesAttack1, "Смерть!|n", bj_TIMETYPE_ADD, 0, false)
     call UnitAddAbilityBJ(0x41303553, GetTriggerUnit())
     call DisableTrigger(GetTriggeringTrigger())
 endfunction
@@ -18048,7 +18048,7 @@ function Trig_Meditation_Cast_Func001C takes nothing returns boolean
 endfunction
 function Trig_Meditation_Cast_Actions takes nothing returns nothing
     if(Trig_Meditation_Cast_Func001C())then
-        call CreateTextTagUnitBJ("TRIGSTR_6360", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+        call CreateTextTagUnitBJ("Нет сил...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
         call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 1.00)
@@ -18077,7 +18077,7 @@ function Trig_Meditation_Cast_Actions takes nothing returns nothing
             call PanCameraToTimedLocForPlayer(Player(0), udg_Point, 0)
             call RemoveLocation(udg_Point)
         else
-            call CreateTextTagUnitBJ("TRIGSTR_6359", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+            call CreateTextTagUnitBJ("Я в бою!|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
             call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
             call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
             call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 1.00)
@@ -18224,7 +18224,7 @@ function Trig_Sprint_Cast_Func002C takes nothing returns boolean
 endfunction
 function Trig_Sprint_Cast_Actions takes nothing returns nothing
     if(Trig_Sprint_Cast_Func002C())then
-        call CreateTextTagUnitBJ("TRIGSTR_4133", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
+        call CreateTextTagUnitBJ("Нет сил...|n", udg_Arct, 0, 10.00, 100.00, 100.00, 100.00, 0)
         call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
         call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
         call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 1.00)
@@ -18391,40 +18391,40 @@ function Trig_Abilities_Info_Actions takes nothing returns nothing
     else
     endif
     if(Trig_Abilities_Info_Func008C())then
-        call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_3921")
+        call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Накладывает исцеление на 5/6/7/8/9/10 сек. и повышает броню на это время на 5/10/15/20/25 ед.|n")
     else
         if(Trig_Abilities_Info_Func008Func001C())then
-            call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_3957")
+            call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Наносит урон всем вокруг и повышает шанс разгрома на 10% на 4/8/12/16/20 сек.|n")
         else
             if(Trig_Abilities_Info_Func008Func001Func001C())then
-    call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_3958")
+    call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Добавляет, помимо медитации и рывка, одноразовое умение невидимости, действующее 5/10/15/20/25 сек.|n")
             else
     if(Trig_Abilities_Info_Func008Func001Func001Func001C())then
-                    call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_3959")
+                    call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Увеличивает скорость атаки на 50% на 3/6/9/12/15 сек. и добавляет вампиризм 30% к любому исходящему урону.|n")
     else
                     if(Trig_Abilities_Info_Func008Func001Func001Func001Func001C())then
-                        call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_3977")
+                        call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Создаёт бесплотный призрак случайного монстра, сражающегося на стороне Аркта в течение 7/9/11/13/15 сек.|n")
                     else
                         if(Trig_Abilities_Info_Func008Func001Func001Func001Func001Func001C())then
-                            call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_3978")
+                            call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Пассивно периодически наносит урон случайному ближайшему противнику. При активации навыка следующие 1/2/3/4/5 ударов нанесут дополнительный урон.|n")
                         else
                             if(Trig_Abilities_Info_Func008Func001Func001Func001Func001Func001Func001C())then
-                                call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_3979")
+                                call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Если запас энергии ниже 90%, то восстанавливает 3/4/5/6/7 ед., иначе происходит взрыв, наносящий урон в зависимости её количества.|n")
                             else
                                 if(Trig_Abilities_Info_Func008Func001Func001Func001Func001Func001Func001Func001C())then
-                                    call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_3980")
+                                    call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Запускает шар света: если приземлится на монстре - нанесет ему урон, если на Аркте - исцелит, после этого перепрыгивает на случайную цель ещё 3/4/5/6/7 раз.|n")
                                 else
                                     if(Trig_Abilities_Info_Func008Func001Func001Func001Func001Func001Func001Func001Func002C())then
-                                        call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_4605")
+                                        call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Создает в случайной точке недалеко от Аркта источник испепеляющего света на 2/4/6/8/10 сек., наносящего урон монстрам. Каждое третье применение повышает все хар-ки на 1 ед. (действует до конца выхода из подземелья).|n")
                                     else
                                         if(Trig_Abilities_Info_Func008Func001Func001Func001Func001Func001Func001Func001Func002Func001C())then
-                                            call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_4604")
+                                            call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Бессрочно призывает духа помогающего в бою. Активация навыка когда дух уже призван - вызывает нову исходящую от духа, наносящую урон врагам и исцеляющую союзников. Сила духа растет с уровнем навыка.|n")
                                         else
                                             if(Trig_Abilities_Info_Func008Func001Func001Func001Func001Func001Func001Func001Func002Func001Func001C())then
-                                                call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_4603")
+                                                call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Накладывает ледяной щит повышающий шанс блока на 20% на 4/8/12/16/20 сек. Во время этого любой блок нанесёт урон монстру и исцелит Аркта.|n")
                                             else
                                                 if(Trig_Abilities_Info_Func008Func001Func001Func001Func001Func001Func001Func001Func002Func001Func001Func001C())then
-                                                    call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "TRIGSTR_4602")
+                                                    call DisplayTimedTextToForce(GetPlayersAll(), 1000000000.00, "Создаёт под Арктом зону, находясь в которой его сила атаки возрастает на 20/40/60/80/100%, а враги ежесекундно получают урон.|n")
                                                 else
                                                 endif
                                             endif
@@ -18608,12 +18608,12 @@ function Trig_Abilities_Study_Actions takes nothing returns nothing
             endif
         endif
     else
-        call DisplayTimedTextToForce(GetPlayersAll(), 1.00, "TRIGSTR_4009")
+        call DisplayTimedTextToForce(GetPlayersAll(), 1.00, "Недостаточно очков умений (всего требуется 300 ед.).|n")
     endif
     if(Trig_Abilities_Study_Func002C())then
         set udg_Tutorial[2] = false
         set udg_Tutorial[3] = true
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_4801", gg_snd_9F, "TRIGSTR_4802", bj_TIMETYPE_ADD, 0.00, true)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_9F, "Советую выставить навык на 3 серию. Чем меньше серия - тем меньше кнопок подряд надо нажать и тем чаще Аркт будет применять его.|n", bj_TIMETYPE_ADD, 0.00, true)
     else
     endif
 endfunction
@@ -18695,7 +18695,7 @@ endfunction
 function Trig_Abilities_Activate_Actions takes nothing returns nothing
     if(Trig_Abilities_Activate_Func001C())then
         if(Trig_Abilities_Activate_Func001Func002C())then
-            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_4038")
+            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Сначала необходимо деактивировать навык который уже присутствует на данной серии.|n")
         else
             call RemoveDestructable(udg_MagneticField[1])
             set udg_Point = GetUnitLoc(udg_Target)
@@ -18706,7 +18706,7 @@ function Trig_Abilities_Activate_Actions takes nothing returns nothing
             set udg_AS_Value[GetUnitUserData(udg_Target)] = 1
             set udg_AS_SeriesNumber = 1
             set udg_AS_Effect[udg_AS_SeriesNumber] = GetUnitUserData(udg_Target)
-            call CreateTextTagUnitBJ("TRIGSTR_4056", udg_Target, 0, 15.00, 100, 100, 100, 0)
+            call CreateTextTagUnitBJ("3|n", udg_Target, 0, 15.00, 100, 100, 100, 0)
             set udg_AS_TextNumber[1] = GetLastCreatedTextTag()
             call ConditionalTriggerExecute(gg_trg_Abilities_Remove)
             call TriggerExecute(gg_trg_Abilities_Effect)
@@ -18715,7 +18715,7 @@ function Trig_Abilities_Activate_Actions takes nothing returns nothing
     endif
     if(Trig_Abilities_Activate_Func002C())then
         if(Trig_Abilities_Activate_Func002Func002C())then
-            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_4039")
+            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Сначала необходимо деактивировать навык который уже присутствует на данной серии.|n")
         else
             call RemoveDestructable(udg_MagneticField[2])
             set udg_Point = GetUnitLoc(udg_Target)
@@ -18726,7 +18726,7 @@ function Trig_Abilities_Activate_Actions takes nothing returns nothing
             set udg_AS_Value[GetUnitUserData(udg_Target)] = 2
             set udg_AS_SeriesNumber = 2
             set udg_AS_Effect[udg_AS_SeriesNumber] = GetUnitUserData(udg_Target)
-            call CreateTextTagUnitBJ("TRIGSTR_4055", udg_Target, 0, 15.00, 100, 100, 100, 0)
+            call CreateTextTagUnitBJ("5|n", udg_Target, 0, 15.00, 100, 100, 100, 0)
             set udg_AS_TextNumber[2] = GetLastCreatedTextTag()
             call TriggerExecute(gg_trg_Abilities_Remove)
             call TriggerExecute(gg_trg_Abilities_Effect)
@@ -18735,7 +18735,7 @@ function Trig_Abilities_Activate_Actions takes nothing returns nothing
     endif
     if(Trig_Abilities_Activate_Func003C())then
         if(Trig_Abilities_Activate_Func003Func001C())then
-            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_4042")
+            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Сначала необходимо деактивировать навык который уже присутствует на данной серии.|n")
         else
             call RemoveDestructable(udg_MagneticField[3])
             set udg_Point = GetUnitLoc(udg_Target)
@@ -18746,7 +18746,7 @@ function Trig_Abilities_Activate_Actions takes nothing returns nothing
             set udg_AS_Value[GetUnitUserData(udg_Target)] = 3
             set udg_AS_SeriesNumber = 3
             set udg_AS_Effect[udg_AS_SeriesNumber] = GetUnitUserData(udg_Target)
-            call CreateTextTagUnitBJ("TRIGSTR_4053", udg_Target, 0, 15.00, 100, 100, 100, 0)
+            call CreateTextTagUnitBJ("7|n", udg_Target, 0, 15.00, 100, 100, 100, 0)
             set udg_AS_TextNumber[3] = GetLastCreatedTextTag()
             call TriggerExecute(gg_trg_Abilities_Remove)
             call TriggerExecute(gg_trg_Abilities_Effect)
@@ -18755,7 +18755,7 @@ function Trig_Abilities_Activate_Actions takes nothing returns nothing
     endif
     if(Trig_Abilities_Activate_Func004C())then
         if(Trig_Abilities_Activate_Func004Func001C())then
-            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_4043")
+            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Сначала необходимо деактивировать навык который уже присутствует на данной серии.|n")
         else
             call RemoveDestructable(udg_MagneticField[4])
             set udg_Point = GetUnitLoc(udg_Target)
@@ -18766,7 +18766,7 @@ function Trig_Abilities_Activate_Actions takes nothing returns nothing
             set udg_AS_Value[GetUnitUserData(udg_Target)] = 4
             set udg_AS_SeriesNumber = 4
             set udg_AS_Effect[udg_AS_SeriesNumber] = GetUnitUserData(udg_Target)
-            call CreateTextTagUnitBJ("TRIGSTR_4054", udg_Target, 0, 15.00, 100, 100, 100, 0)
+            call CreateTextTagUnitBJ("9|n", udg_Target, 0, 15.00, 100, 100, 100, 0)
             set udg_AS_TextNumber[4] = GetLastCreatedTextTag()
             call TriggerExecute(gg_trg_Abilities_Remove)
             call TriggerExecute(gg_trg_Abilities_Effect)
@@ -20578,7 +20578,7 @@ function FireRecursiveDmgEv takes nothing returns nothing
         call FireDmgEv()
     else
         call ClearTextMessagesBJ(GetPlayersAll())
-        call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "TRIGSTR_064")
+        call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "WARNING: Recursion error when dealing damage! Make sure when you deal damage from within a DamageEvent trigger, do it like this:|n|n    Trigger - Turn off DamageEventTrigger|n    Unit - Cause...|n    Trigger - Turn on DamageEventTrigger|n")
     endif
     set udg_DamageEventOverride = override
     set udg_DamageEventExplodesUnit = explode
@@ -20704,13 +20704,13 @@ function Trig_Augment_Info_Actions takes nothing returns nothing
         call ClearTextMessagesBJ(GetPlayersAll())
         set udg_AugmentValue = GetUnitUserData(udg_Target)
         if(Trig_Augment_Info_Func001Func007C())then
-            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_4699")
+            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Повышает ловкость на |cFF00D8001|r.|n")
         else
             if(Trig_Augment_Info_Func001Func007Func001C())then
-    call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_4698")
+    call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Повышает стойкость на |cFF00D8001|r.|n")
             else
     if(Trig_Augment_Info_Func001Func007Func001Func001C())then
-                    call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_4697")
+                    call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Повышает мудрость на |cFF00D8001|r.|n")
     else
     endif
             endif
@@ -20771,15 +20771,15 @@ function Trig_Augment_Buy_Actions takes nothing returns nothing
         call ClearTextMessagesBJ(GetPlayersAll())
         if(Trig_Augment_Buy_Func001Func010C())then
             call ModifyHeroStat(bj_HEROSTAT_AGI, udg_Arct, bj_MODIFYMETHOD_ADD, 1)
-            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_5838")
+            call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Повышает ловкость на |cFF00D8001|r.|n")
         else
             if(Trig_Augment_Buy_Func001Func010Func001C())then
     call ModifyHeroStat(bj_HEROSTAT_STR, udg_Arct, bj_MODIFYMETHOD_ADD, 1)
-    call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_5837")
+    call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Повышает стойкость на |cFF00D8001|r.|n")
             else
     if(Trig_Augment_Buy_Func001Func010Func001Func001C())then
                     call ModifyHeroStat(bj_HEROSTAT_INT, udg_Arct, bj_MODIFYMETHOD_ADD, 1)
-                    call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_5836")
+                    call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Повышает мудрость на |cFF00D8001|r.|n")
     else
     endif
             endif
@@ -20805,7 +20805,7 @@ function Trig_WhosYourDaddy_Conditions takes nothing returns boolean
     return true
 endfunction
 function Trig_WhosYourDaddy_Actions takes nothing returns nothing
-    call CustomDefeatBJ(Player(0), "TRIGSTR_3881")
+    call CustomDefeatBJ(Player(0), "Боги наблюдают на тобой.|n")
 endfunction
 function InitTrig_WhosYourDaddy takes nothing returns nothing
     set gg_trg_WhosYourDaddy = CreateTrigger()
@@ -20820,7 +20820,7 @@ function Trig_GreedIsGood_Conditions takes nothing returns boolean
     return true
 endfunction
 function Trig_GreedIsGood_Actions takes nothing returns nothing
-    call CustomDefeatBJ(Player(0), "TRIGSTR_3879")
+    call CustomDefeatBJ(Player(0), "Жадность губит твою душу.|n")
 endfunction
 function InitTrig_GreedIsGood takes nothing returns nothing
     set gg_trg_GreedIsGood = CreateTrigger()
@@ -21219,7 +21219,7 @@ function Trig_Enter_Regions_Actions takes nothing returns nothing
         call AddUnitAnimationPropertiesBJ(true, "gold", gg_unit_H000_0004)
         set udg_Camera = gg_cam_Camera_Abilities
         call EnableTrigger(gg_trg_Trees_Choose_ESC)
-        call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "TRIGSTR_3849")
+        call DisplayTimedTextToForce(GetPlayersAll(), 5.00, "Чтобы открыть новые умения нажмите ESC.|n")
     else
     endif
     if(Trig_Enter_Regions_Func008C())then
@@ -21238,8 +21238,8 @@ function Trig_Enter_Regions_Actions takes nothing returns nothing
         if(Trig_Enter_Regions_Func010Func003C())then
             set udg_TutorialHint[6] = true
             call DialogClearBJ(udg_TeleportDialog)
-            call DialogSetMessageBJ(udg_TeleportDialog, "TRIGSTR_5348")
-            call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_5349")
+            call DialogSetMessageBJ(udg_TeleportDialog, "Ядро - это магический механизм |nдля раскрытия секретов (талантов),|nдающих Аркту пассивные умения. |nСейчас я раскрою тебе один из них|nи дам необходимые элементы, |nа дальше сам разберёшься. Не|nмаленький уже.|n")
+            call DialogAddButtonBJ(udg_TeleportDialog, "Ничего не понял, но спасибо!|n")
             call DialogDisplayBJ(true, udg_TeleportDialog, Player(0))
             set udg_Point = GetRectCenter(gg_rct_Workshop_Core)
             call CreateItemLoc(0x49303132, udg_Point)
@@ -21275,7 +21275,7 @@ function Trig_Enter_Regions_Actions takes nothing returns nothing
         call SetUnitFacingToFaceLocTimed(GetEnteringUnit(), udg_Point, 0)
         call RemoveLocation(udg_Point)
         if(Trig_Enter_Regions_Func011Func010C())then
-            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_4783", gg_snd_8F, "TRIGSTR_4784", bj_TIMETYPE_ADD, 0.00, false)
+            call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_8F, "Возле камина Аркт может войти в медитацию в которой может изучить новые навыки. Прямо сейчас у него имеется 1 очко навыка, так что можешь намедитировать что-нибудь новенькое.|n", bj_TIMETYPE_ADD, 0.00, false)
             set udg_Tutorial[1] = false
         else
         endif
@@ -21300,8 +21300,8 @@ function Trig_Enter_Regions_Actions takes nothing returns nothing
         if(Trig_Enter_Regions_Func013Func003C())then
             set udg_TutorialHint[1] = true
             call DialogClearBJ(udg_TeleportDialog)
-            call DialogSetMessageBJ(udg_TeleportDialog, "TRIGSTR_5100")
-            call DialogAddButtonBJ(udg_TeleportDialog, "TRIGSTR_5101")
+            call DialogSetMessageBJ(udg_TeleportDialog, "Сложность можно менять в любое|nвремя, но в начале игры менять её |nне советую: сперва привыкни к |nбоевой системе. На лёгком уровне |nсложности монстры не применяют |nумения. И да, за повышение уровня|nАркта после прохождения подземе-|nлий повышается случайная хар-ка.|n")
+            call DialogAddButtonBJ(udg_TeleportDialog, "Понятно, спасибо!|n")
             call DialogDisplayBJ(true, udg_TeleportDialog, Player(0))
         else
         endif
@@ -21437,7 +21437,7 @@ function InitTrig_Core_Autosave takes nothing returns nothing
     call TriggerAddAction(gg_trg_Core_Autosave, function Trig_Core_Autosave_Actions)
 endfunction
 function Trig_Attributes_Multiboard_Actions takes nothing returns nothing
-    call CreateMultiboardBJ(1, 3, "TRIGSTR_6348")
+    call CreateMultiboardBJ(1, 3, "|cFFFFFFFFХарактеристики:|r |n")
     set udg_AttributesBoard = GetLastCreatedMultiboard()
     call MultiboardSetItemIconBJ(udg_AttributesBoard, 1, 1, "ReplaceableTextures\\CommandButtons\\BTNArcturus.blp")
     call MultiboardSetItemIconBJ(udg_AttributesBoard, 1, 2, "ReplaceableTextures\\CommandButtons\\PASSkill20.blp")
@@ -21881,7 +21881,7 @@ function Trig_Item_Pickup_Actions takes nothing returns nothing
     call DestroyEffectBJ(GetLastCreatedEffectBJ())
     call AddSpecialEffectTargetUnitBJ("overhead", gg_unit_H000_0004, "war3mapImported\\SoundEffect3.mdx")
     call DestroyEffectBJ(GetLastCreatedEffectBJ())
-    call CreateTextTagUnitBJ("TRIGSTR_5638", udg_Arct, 0, 11.00, 100.00, 100.00, 100.00, 0)
+    call CreateTextTagUnitBJ("Секрет раскрыт!|n", udg_Arct, 0, 11.00, 100.00, 100.00, 100.00, 0)
     call SetTextTagVelocityBJ(GetLastCreatedTextTag(), 45.00, 90.00)
     call SetTextTagPermanentBJ(GetLastCreatedTextTag(), false)
     call SetTextTagLifespanBJ(GetLastCreatedTextTag(), 1.50)
@@ -23179,16 +23179,16 @@ function InitTrig_Knockback_System takes nothing returns nothing
 endfunction
 function Trig_Tutorial01_Actions takes nothing returns nothing
     call CinematicModeExBJ(false, GetPlayersAll(), 999.00)
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_6543", gg_snd_1F, "TRIGSTR_6544", bj_TIMETYPE_ADD, 0.00, true)
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_6545", gg_snd_2F, "TRIGSTR_6546", bj_TIMETYPE_ADD, 0.00, true)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_1F, "Наконец-то - хоть кто-то с мозгами! Добро пожаловать. Меня Беба зовут.|n", bj_TIMETYPE_ADD, 0.00, true)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_2F, "Я тут как раз решил провести тренировку с этим бездарем, я и тебя заодно научу самому главному. Начнём с боевой системы.|n", bj_TIMETYPE_ADD, 0.00, true)
     call CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 3.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0)
     call CinematicModeExBJ(false, GetPlayersAll(), 3.00)
     call TriggerSleepAction(4.00)
     call CameraSetSmoothingFactorBJ(10.00)
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_6547", gg_snd_3F, "TRIGSTR_6548", bj_TIMETYPE_ADD, 0.00, true)
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_6549", gg_snd_4F, "TRIGSTR_6550", bj_TIMETYPE_ADD, 0.00, true)
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_H000_0004, "TRIGSTR_6551", gg_snd_4BF, "TRIGSTR_6552", bj_TIMETYPE_ADD, 0.00, true)
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_6553", gg_snd_5F, "TRIGSTR_6554", bj_TIMETYPE_ADD, 0.00, true)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_3F, "Смотри, всё просто. У Аркта есть три навыка, они различаются по цвету. Во время боя над монстром может появиться одна из трёх иконок.|n", bj_TIMETYPE_ADD, 0.00, true)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_4F, "Тебе нужно успеть нажать на такую же на панели умений Аркта, тогда монстр получит урон, а герой исцелится.|n", bj_TIMETYPE_ADD, 0.00, true)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_H000_0004, "Аркт|n", gg_snd_4BF, "С кем ты разговариваешь?|n", bj_TIMETYPE_ADD, 0.00, true)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_5F, "Погоди ты, не мешай. Так вот. Всё понятно? Сейчас я создам монстра, а ты попробуй с помощью Аркта его убить.|n", bj_TIMETYPE_ADD, 0.00, true)
     call TriggerSleepAction(2.00)
     call LeaderboardDisplayBJ(true, udg_CO_ComboBoard)
     set udg_Point = GetRandomLocInRect(gg_rct_Artefactorium_Spawn)
@@ -23210,9 +23210,9 @@ endfunction
 function Trig_Tutorial02_Actions takes nothing returns nothing
     call DisableTrigger(gg_trg_Enter_Regions)
     set udg_Tutorial[3] = false
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_6555", gg_snd_10F, "TRIGSTR_6556", bj_TIMETYPE_ADD, 0.00, true)
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_H000_0004, "TRIGSTR_6557", gg_snd_11F, "TRIGSTR_6558", bj_TIMETYPE_ADD, 0.00, true)
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_6559", gg_snd_12F, "TRIGSTR_6560", bj_TIMETYPE_ADD, 0.00, true)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_10F, "Что же. Вы готовы. Можно отправляться в портал. Удачи.|n", bj_TIMETYPE_ADD, 0.00, true)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_H000_0004, "Аркт|n", gg_snd_11F, "Да с кем ты там разговариваешь!?|n", bj_TIMETYPE_ADD, 0.00, true)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_12F, "Заткнись.|n", bj_TIMETYPE_ADD, 0.00, true)
     call EnableTrigger(gg_trg_Enter_Dialog)
     call EnableTrigger(gg_trg_Damage_Effects)
     call DestroyTrigger(GetTriggeringTrigger())
@@ -23298,7 +23298,7 @@ function Trig_Artefactorium_Creep_Kill_Actions takes nothing returns nothing
     call EnableTrigger(gg_trg_Fade_Loop)
     call RemoveUnit(udg_CO_OpportunityUnit[GetUnitUserData(GetDyingUnit())])
     if(Trig_Artefactorium_Creep_Kill_Func008C())then
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_4776", gg_snd_6F, "TRIGSTR_4777", bj_TIMETYPE_ADD, 0.00, true)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_6F, "Ну, неплохо. Если хочешь ещё парочку призвать - нажми правой кнопкой на сферу. Когда наловчишься справляться с монстрами без проблем - пойди прогуляйся с Арктом по замку.|n", bj_TIMETYPE_ADD, 0.00, true)
         call EnableTrigger(gg_trg_Artefactorium_Spawn)
         call EnableTrigger(gg_trg_Enter_Regions)
         set udg_Target = gg_unit_h006_0081
@@ -23313,13 +23313,13 @@ function Trig_Artefactorium_Creep_Kill_Actions takes nothing returns nothing
         set udg_AS_SeriesNumber = 2
         set udg_AS_Effect[udg_AS_SeriesNumber] = 1
         set udg_AS_AbilityStudied[1] = 1
-        call CreateTextTagUnitBJ("TRIGSTR_4780", gg_unit_h006_0081, 0, 15.00, 100, 100, 100, 0)
+        call CreateTextTagUnitBJ("5|n", gg_unit_h006_0081, 0, 15.00, 100, 100, 100, 0)
         set udg_AS_TextNumber[2] = GetLastCreatedTextTag()
         call UnitRemoveAbilityBJ(0x41303241, gg_unit_h006_0081)
         call UnitAddAbilityBJ(0x41303649, gg_unit_h006_0081)
         set udg_AS_Points = 300
         call MultiboardSetItemValueBJ(udg_AttributesBoard, 1, 1, ("Очки навыков: " + I2S(udg_AS_Points)))
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "TRIGSTR_4778", gg_snd_7F, "TRIGSTR_4779", bj_TIMETYPE_ADD, 0.00, true)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_hrif_0000, "Беба|n", gg_snd_7F, "Кстати, теперь через каждые 5 правильных нажатий Аркт применяет навык, который повышает броню и периодически исцеляет. Можешь проверить.|n", bj_TIMETYPE_ADD, 0.00, true)
     else
     endif
 endfunction
@@ -24049,20 +24049,20 @@ function Trig_Ending_Init_Actions takes nothing returns nothing
     call ShowUnitShow(gg_unit_h00V_0029)
     call UnitAddAbilityBJ(0x416C6F63, gg_unit_h00V_0029)
     call TriggerSleepAction(3.00)
-    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "TRIGSTR_6568", gg_snd_Edemor1, "TRIGSTR_6569", bj_TIMETYPE_ADD, 0.00, true)
+    call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "Эдемор|n", gg_snd_Edemor1, "Путь Пилигрима пройден. Что ты чувствуешь?|n", bj_TIMETYPE_ADD, 0.00, true)
     call DialogClearBJ(udg_EndingDialog)
-    call DialogSetMessageBJ(udg_EndingDialog, "TRIGSTR_6573")
-    call DialogAddButtonBJ(udg_EndingDialog, "TRIGSTR_6570")
+    call DialogSetMessageBJ(udg_EndingDialog, "Что ты чувствуешь?|n")
+    call DialogAddButtonBJ(udg_EndingDialog, "Грусть|n")
     set udg_DialogButton[1] = GetLastCreatedButtonBJ()
-    call DialogAddButtonBJ(udg_EndingDialog, "TRIGSTR_6574")
+    call DialogAddButtonBJ(udg_EndingDialog, "Облегчение|n")
     set udg_DialogButton[2] = GetLastCreatedButtonBJ()
-    call DialogAddButtonBJ(udg_EndingDialog, "TRIGSTR_6575")
+    call DialogAddButtonBJ(udg_EndingDialog, "Радость|n")
     set udg_DialogButton[3] = GetLastCreatedButtonBJ()
-    call DialogAddButtonBJ(udg_EndingDialog, "TRIGSTR_6576")
+    call DialogAddButtonBJ(udg_EndingDialog, "Воодушевление|n")
     set udg_DialogButton[4] = GetLastCreatedButtonBJ()
-    call DialogAddButtonBJ(udg_EndingDialog, "TRIGSTR_6577")
+    call DialogAddButtonBJ(udg_EndingDialog, "Безразличие|n")
     set udg_DialogButton[5] = GetLastCreatedButtonBJ()
-    call DialogAddButtonBJ(udg_EndingDialog, "TRIGSTR_6578")
+    call DialogAddButtonBJ(udg_EndingDialog, "Голод|n")
     set udg_DialogButton[6] = GetLastCreatedButtonBJ()
     call DialogDisplayBJ(true, udg_EndingDialog, Player(0))
     call EnableTrigger(gg_trg_Ending_Dialogue_1)
@@ -24093,16 +24093,16 @@ endfunction
 function Trig_Ending_Dialogue_1_Actions takes nothing returns nothing
     if(Trig_Ending_Dialogue_1_Func001C())then
         call TriggerSleepAction(1.00)
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "TRIGSTR_6588", gg_snd_Edemor2, "TRIGSTR_6589", bj_TIMETYPE_ADD, 1.00, true)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "Эдемор|n", gg_snd_Edemor2, "Если это всё что ты чувствуешь на пороге в Эдем, мне становится неясно - зачем тогда ты прошёл весь этот путь не имея высшей цели. Эдем не открывается тем, кому он не нужен. Может когда-нибудь тебе снова выпадет шанс оказаться предо мной, но не в этой жизни.|n", bj_TIMETYPE_ADD, 1.00, true)
         call ConditionalTriggerExecute(gg_trg_Bad_Ending_Good_Job)
     else
         call TriggerSleepAction(1.00)
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "TRIGSTR_6590", gg_snd_Edemor3, "TRIGSTR_6591", bj_TIMETYPE_ADD, 1.00, true)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "Эдемор|n", gg_snd_Edemor3, "Ты достоин войти в Эдем, но готов ли ты ради этого отбросить свои привязанности, отпустить любимых и простить врагов, отказаться от всех желаний и испытать настоящую смерть?|n", bj_TIMETYPE_ADD, 1.00, true)
         call DialogClearBJ(udg_EndingDialog)
-        call DialogSetMessageBJ(udg_EndingDialog, "TRIGSTR_6592")
-        call DialogAddButtonBJ(udg_EndingDialog, "TRIGSTR_6593")
+        call DialogSetMessageBJ(udg_EndingDialog, "Готов ли ты?|n")
+        call DialogAddButtonBJ(udg_EndingDialog, "Да|n")
         set udg_DialogButton[1] = GetLastCreatedButtonBJ()
-        call DialogAddButtonBJ(udg_EndingDialog, "TRIGSTR_6594")
+        call DialogAddButtonBJ(udg_EndingDialog, "Нет|n")
         set udg_DialogButton[2] = GetLastCreatedButtonBJ()
         call DialogDisplayBJ(true, udg_EndingDialog, Player(0))
         call EnableTrigger(gg_trg_Ending_Dialogue_2)
@@ -24124,18 +24124,18 @@ endfunction
 function Trig_Ending_Dialogue_2_Actions takes nothing returns nothing
     if(Trig_Ending_Dialogue_2_Func001C())then
         call TriggerSleepAction(1.00)
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "TRIGSTR_6604", gg_snd_Edemor4, "TRIGSTR_6605", bj_TIMETYPE_ADD, 1.00, true)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "Эдемор|n", gg_snd_Edemor4, "Отвечай честно.|n", bj_TIMETYPE_ADD, 1.00, true)
         call DialogClearBJ(udg_EndingDialog)
-        call DialogSetMessageBJ(udg_EndingDialog, "TRIGSTR_6606")
-        call DialogAddButtonBJ(udg_EndingDialog, "TRIGSTR_6607")
+        call DialogSetMessageBJ(udg_EndingDialog, "Отвечай честно.|n")
+        call DialogAddButtonBJ(udg_EndingDialog, "Я готов|n")
         set udg_DialogButton[1] = GetLastCreatedButtonBJ()
-        call DialogAddButtonBJ(udg_EndingDialog, "TRIGSTR_6608")
+        call DialogAddButtonBJ(udg_EndingDialog, "Я не готов|n")
         set udg_DialogButton[2] = GetLastCreatedButtonBJ()
         call DialogDisplayBJ(true, udg_EndingDialog, Player(0))
         call EnableTrigger(gg_trg_Ending_Dialogue_3)
     else
         call TriggerSleepAction(1.00)
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "TRIGSTR_6599", gg_snd_Edemor5, "TRIGSTR_6600", bj_TIMETYPE_ADD, 1.00, true)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "Эдемор|n", gg_snd_Edemor5, "Тогда путь был проделан зря. Твои деяния потеряли значение. Возвращайся обратно и доживай свой век на поводу у своих слабостей. Может когда-нибудь тебе снова выпадет шанс оказаться предо мной, но не в этой жизни.|n", bj_TIMETYPE_ADD, 1.00, true)
         call ConditionalTriggerExecute(gg_trg_Bad_Ending_Good_Job)
     endif
     call DestroyTrigger(GetTriggeringTrigger())
@@ -24155,23 +24155,23 @@ endfunction
 function Trig_Ending_Dialogue_3_Actions takes nothing returns nothing
     if(Trig_Ending_Dialogue_3_Func001C())then
         call TriggerSleepAction(3.00)
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "TRIGSTR_6630", gg_snd_Edemor6, "TRIGSTR_6631", bj_TIMETYPE_ADD, 1.00, true)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "Эдемор|n", gg_snd_Edemor6, "Идём со мной.|n", bj_TIMETYPE_ADD, 1.00, true)
         set udg_Transparent = 0.00
         call EnableTrigger(gg_trg_Edemor_Transparent_2)
         call CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 4.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 100.00, 100.00, 100.00, 0.00)
         call CinematicModeExBJ(true, bj_FORCE_PLAYER[0], 5.00)
         call TriggerSleepAction(5.00)
-        call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "TRIGSTR_6794")
+        call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "Аркт достиг Эдема.|n")
         call StopMusicBJ(false)
         call ClearMapMusicBJ()
         call PlayMusic((("/Edemium/MusicEnding.mp3")))
         call TriggerSleepAction(10.00)
-        call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "TRIGSTR_6797")
+        call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "Ты справился, красавчик! Спасибо тебе!|nОставь отзыв на сайте (xgm.guru/p/edemium) - сделай мир лучше!|n")
         call TriggerSleepAction(25.00)
-        call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "TRIGSTR_6796")
+        call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "ALT + F4|n")
     else
         call TriggerSleepAction(1.00)
-        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "TRIGSTR_6634", gg_snd_Edemor5, "TRIGSTR_6635", bj_TIMETYPE_ADD, 1.00, true)
+        call TransmissionFromUnitWithNameBJ(GetPlayersAll(), gg_unit_h00V_0029, "Эдемор|n", gg_snd_Edemor5, "Тогда путь был проделан зря. Твои деяния потеряли значение. Возвращайся обратно и доживай свой век на поводу у своих слабостей. Может когда-нибудь тебе снова выпадет шанс оказаться предо мной, но не в этой жизни.|n", bj_TIMETYPE_ADD, 1.00, true)
         call ConditionalTriggerExecute(gg_trg_Bad_Ending_Good_Job)
     endif
     call DestroyTrigger(GetTriggeringTrigger())
@@ -24189,11 +24189,11 @@ function Trig_Bad_Ending_Good_Job_Actions takes nothing returns nothing
     call CinematicModeExBJ(true, bj_FORCE_PLAYER[0], 5.00)
     call TriggerSleepAction(5.00)
     call PlayMusic((("/Edemium/MusicEnding.mp3")))
-    call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "TRIGSTR_6800")
+    call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "Аркт не достиг Эдема.|n")
     call TriggerSleepAction(10.00)
-    call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "TRIGSTR_6798")
+    call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "Ты не справился, но всё равно спасибо тебе!|nОставь отзыв на сайте (xgm.guru/p/edemium) - сделай мир лучше!|n")
     call TriggerSleepAction(25.00)
-    call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "TRIGSTR_6799")
+    call DisplayTimedTextToForce(GetPlayersAll(), 999.00, "ALT + F4|n")
 endfunction
 function InitTrig_Bad_Ending_Good_Job takes nothing returns nothing
     set gg_trg_Bad_Ending_Good_Job = CreateTrigger()

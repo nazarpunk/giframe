@@ -4,12 +4,12 @@ export class Uint8 {
 
     /** @param {CDataView} view */
     read(view) {
-        this.value = view.Uint8;
+        this.value = view.uint8;
     }
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint8 = this.value;
+        view.uint8 = this.value;
     }
 
     toJSON() {
@@ -21,12 +21,12 @@ export class Uint16 {
 
     /** @param {CDataView} view */
     read(view) {
-        this.value = view.Uint16;
+        this.value = view.uint16;
     }
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint16 = this.value;
+        view.uint16 = this.value;
     }
 
     toJSON() {
@@ -38,12 +38,12 @@ export class Uint32 {
 
     /** @param {CDataView} view */
     read(view) {
-        this.value = view.Uint32;
+        this.value = view.uint32;
     }
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint32 = this.value;
+        view.uint32 = this.value;
     }
 
     toJSON() {
@@ -63,14 +63,14 @@ export class Uint8List {
     /** @param {CDataView} view */
     read(view) {
         for (let i = 0; i < this.length; i++) {
-            this.list.push(view.Uint8);
+            this.list.push(view.uint8);
         }
     }
 
     /** @param {CDataView} view */
     write(view) {
         for (const i of this.list) {
-            view.Uint8 = i;
+            view.uint8 = i;
         }
     }
 

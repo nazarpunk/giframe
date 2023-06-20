@@ -96,12 +96,12 @@ class GeosetChunk {
     /** @param {CDataView} view */
     read(view) {
         if (this.key) {
-            const id = view.Uint32;
+            const id = view.uint32;
             if (id !== this.key) {
                 throw new Error(`ChunkCountInclusive wrong id: ${Dec2RawLE(this.key)} != ${Dec2RawLE(id)}`);
             }
         }
-        this.length = view.Uint32 * this.#lx;
+        this.length = view.uint32 * this.#lx;
 
         for (let i = 0; i < this.length; i++) {
             const p = typeof this.child === 'object' ? this.child : new this.child();
@@ -112,8 +112,8 @@ class GeosetChunk {
 
     /** @param {CDataView} view */
     write(view) {
-        if (this.key) view.Uint32 = this.key;
-        view.Uint32 = this.items.length / this.#lx;
+        if (this.key) view.uint32 = this.key;
+        view.uint32 = this.items.length / this.#lx;
 
         for (const i of this.items) {
             (i.write ? i : i.parser).write(view);

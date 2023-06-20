@@ -75,12 +75,12 @@ class ShaderType {
 
     /** @param {CDataView} view */
     read(view) {
-        this.shaderTypeId = view.Uint32;
-        this.textureIdCount = view.Uint32;
+        this.shaderTypeId = view.uint32;
+        this.textureIdCount = view.uint32;
 
         for (let i = 0; i < this.textureIdCount; i++) {
-            this.texture.push(view.Uint32);
-            this.texture.push(view.Uint32);
+            this.texture.push(view.uint32);
+            this.texture.push(view.uint32);
         }
     }
 
@@ -88,10 +88,10 @@ class ShaderType {
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint32 = this.shaderTypeId;
-        view.Uint32 = this.textureIdCount;
+        view.uint32 = this.shaderTypeId;
+        view.uint32 = this.textureIdCount;
         for (const t of this.texture) {
-            view.Uint32 = t;
+            view.uint32 = t;
         }
     }
 }

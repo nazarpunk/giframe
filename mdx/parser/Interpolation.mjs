@@ -20,8 +20,8 @@ export class Interpolation {
 
     /** @param {CDataView} view */
     read(view) {
-        const id = view.Uint32;
-        this.length = view.Uint32;
+        const id = view.uint32;
+        this.length = view.uint32;
         if (id !== this.id) {
             throw new Error(`Interpolation wrong id: ${Dec2RawLE(this.id)} != ${Dec2RawLE(id)}`);
         }
@@ -40,8 +40,8 @@ export class Interpolation {
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint32 = this.id;
-        view.Uint32 = this.items.length;
+        view.uint32 = this.id;
+        view.uint32 = this.items.length;
 
         this.parser.write(view);
         for (const p of this.items) {
@@ -69,7 +69,7 @@ export class InterpolationTrack {
 
     /** @param {CDataView} view */
     read(view) {
-        this.time = view.Uint32;
+        this.time = view.uint32;
         this.value = new this.parent.child(this.parent.count);
         this.value.read(view);
 
@@ -84,7 +84,7 @@ export class InterpolationTrack {
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint32 = this.time;
+        view.uint32 = this.time;
         this.value.write(view);
         this.inTan?.write(view);
         this.outTan?.write(view);

@@ -18,6 +18,7 @@ const getFile = (name) => {
 };
 
 const map = {};
+const dir = '../../_data/slk'
 
 let file = 'AbilityData.slk';
 for (const i of getFile(file)) {

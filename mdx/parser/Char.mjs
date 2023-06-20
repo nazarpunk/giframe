@@ -17,7 +17,7 @@ export class Char {
         this.value = '';
 
         for (let i = 0; i < this.length; i++) {
-            const b = view.Uint8;
+            const b = view.uint8;
             if (b === 0) {
                 view.cursor += this.length - i - 1;
                 break;
@@ -30,7 +30,7 @@ export class Char {
     write(view) {
         const str = this.value.padEnd(this.length, '\x00');
         for (let i = 0; i < this.length; i++) {
-            view.Uint8 = str.charCodeAt(i);
+            view.uint8 = str.charCodeAt(i);
         }
     }
 

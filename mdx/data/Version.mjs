@@ -6,13 +6,13 @@ export class Version {
 
     /** @param {CDataView} view */
     read(view) {
-        this.version = view.Uint32;
+        this.version = view.uint32;
         this.vers.version = this.version;
     }
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint32 = this.version;
+        view.uint32 = this.version;
     }
 
     toJSON() {

@@ -65,12 +65,12 @@ export class MDX {
     read() {
         const view = new CDataView(this.buffer);
 
-        const k = view.Uint32;
+        const k = view.uint32;
         if (k !== Chunk.MDLX_) this.errors.push(new Error(`Missing MDLX bytes in start of file!`));
 
         while (view.cursor < view.byteLength) {
-            const key = view.Uint32;
-            let byteLength = view.Uint32;
+            const key = view.uint32;
+            let byteLength = view.uint32;
 
             const add = (parser, inclusive = false) => {
                 const p = new Chunk(view.cursor, byteLength, key, this.buffer, parser, this.vers, inclusive);
@@ -175,7 +175,7 @@ export class MDX {
      * @private
      */
     #write(view) {
-        view.Uint32 = Chunk.MDLX_;
+        view.uint32 = Chunk.MDLX_;
         for (const c of this.chunks) {
             try {
                 c.write(view);

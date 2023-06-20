@@ -9,14 +9,14 @@ export class BindPose {
             return;
         }
         for (let i = 0; i < l; i++) {
-            this.items.push(view.Float32);
+            this.items.push(view.float32);
         }
     }
 
     /** @param {CDataView} view */
     write(view) {
         for (const i of this.items) {
-            view.Float32 = i;
+            view.float32 = i;
         }
     }
 

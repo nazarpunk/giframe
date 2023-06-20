@@ -5,36 +5,40 @@ export class CDataViewFake {
     setUint8(_, __) {
     }
 
-    set Uint8(_) {
+    set uint8(_) {
         this.cursor += 1;
     }
 
     setUint16(_, __, ___) {
     }
 
-    set Uint16(_) {
+    set uint16(_) {
         this.cursor += 2;
     }
 
     setUint32(_, __, ___) {
     }
 
-    set Uint32(_) {
+    set uint32(_) {
         this.cursor += 4;
     }
 
-    set Uint32BE(_) {
+    set uint32BE(_) {
         this.cursor += 4;
     }
 
     setFloat32(_, __, ___) {
     }
 
-    set Float32(_) {
+    set float32(_) {
         this.cursor += 4;
     }
 
-    set String(s) {
+    set string(s) {
+        if (s === undefined){
+            throw new Error();
+        }
+
         this.cursor += s.length + 1;
     }
 

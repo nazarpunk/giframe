@@ -18,11 +18,12 @@ export class W3ABDHQTU {
 
     /** @type {ArrayBuffer} */ #buffer;
     /** @type {boolean} */ #adq;
+    /** @type {Error[]} */ errors = [];
 
     #read() {
         const view = new CDataView(this.#buffer);
-        this.formatVersion = view.Uint32;
-        if (this.formatVersion < 1 || this.formatVersion > 2) {
+        this.formatVersion = view.uint32;
+        if ([1, 2, 3].indexOf(this.formatVersion) < 0) {
             throw new Error(`This format is unsupported: ${this.formatVersion}`);
         }
 
@@ -44,7 +45,7 @@ export class W3ABDHQTU {
 
     /** @param {CDataView} view */
     #write(view) {
-        view.Uint32 = this.formatVersion;
+        view.uint32 = this.formatVersion;
         this.defaultObjects.write(view);
         this.customObjects.write(view);
     }
@@ -61,8 +62,6 @@ export class W3ABDHQTU {
 
         return ab;
     }
-
-    errors = [];
 
     toJSON() {
         return {
@@ -84,7 +83,7 @@ class DataTable {
 
     /** @param {CDataView} view */
     read(view) {
-        this.count = view.Uint32;
+        this.count = view.uint32;
         for (let i = 0; i < this.count; i++) {
             const obj = new DataObject(this.#adq);
             obj.read(view);
@@ -96,7 +95,7 @@ class DataTable {
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint32 = this.count;
+        view.uint32 = this.count;
         for (const item of this.items) {
             item.write(view);
         }
@@ -119,16 +118,16 @@ class DataObject {
 
     /** @param {CDataView} view */
     read(view) {
-        this.rawcode = view.Uint32BE;
+        this.rawcode = view.uint32BE;
         this.rawcodeName = Dec2RawBE(this.rawcode);
-        this.parent = view.Uint32BE;
+        this.parent = view.uint32BE;
         if (this.parent === 0) {
             this.parent = undefined;
         } else {
             this.parentName = Dec2RawBE(this.parent);
         }
 
-        this.fieldCount = view.Uint32;
+        this.fieldCount = view.uint32;
         for (let i = 0; i < this.fieldCount; i++) {
             const f = new DataObjectField(this.#adq);
             f.read(view);
@@ -138,9 +137,9 @@ class DataObject {
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint32BE = this.rawcode;
-        view.Uint32BE = this.parent;
-        view.Uint32 = this.fields.length;
+        view.uint32BE = this.rawcode;
+        view.uint32BE = this.parent;
+        view.uint32 = this.fields.length;
         for (const f of this.fields) {
             f.write(view);
         }
@@ -165,28 +164,28 @@ class DataObjectField {
 
     /** @param {CDataView} view */
     read(view) {
-        this.rawcode = view.Uint32BE;
+        this.rawcode = view.uint32BE;
         this.rawcodeName = Dec2RawBE(this.rawcode);
 
-        this.dataType = view.Uint32;
+        this.dataType = view.uint32;
 
         if (this.#adq) {
-            this.level = view.Uint32;
-            this.field = view.Uint32;
+            this.level = view.uint32;
+            this.field = view.uint32;
         }
 
         switch (this.dataType) {
             case 0:
-                this.value = view.Uint32;
+                this.value = view.uint32;
                 this.dataTypeName = 'integer';
                 break;
             case 1:
             case 2:
-                this.value = view.Float32;
+                this.value = view.float32;
                 this.dataTypeName = 'real';
                 break;
             case 3:
-                this.value = view.String;
+                this.value = view.string;
                 this.dataTypeName = 'string';
                 break;
             default:
@@ -198,24 +197,24 @@ class DataObjectField {
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint32BE = this.rawcode;
-        view.Uint32 = this.dataType;
-        view.Uint32BE = this.level;
-        view.Uint32 = this.field;
+        view.uint32BE = this.rawcode;
+        view.uint32 = this.dataType;
+        view.uint32BE = this.level;
+        view.uint32 = this.field;
 
         switch (this.dataType) {
             case 0:
-                view.Uint32 = this.value;
+                view.uint32 = this.value;
                 break;
             case 1:
             case 2:
-                view.Float32 = this.value;
+                view.float32 = this.value;
                 break;
             case 3:
-                view.String = this.value;
+                view.string = this.value;
         }
 
-        view.Uint32 = 0;
+        view.uint32 = 0;
     }
 
     toJSON() {

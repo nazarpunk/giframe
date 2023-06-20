@@ -18,67 +18,67 @@ export class CDataView extends DataView {
     cursor;
 
     /** @returns {number} */
-    get Uint8() {
+    get uint8() {
         this.cursor += 1;
         return this.getUint8(this.cursor - 1);
     }
 
     /** @param {number} v */
-    set Uint8(v) {
+    set uint8(v) {
         this.setUint8(this.cursor, v);
         this.cursor += 1;
     }
 
     /** @returns {number} */
-    get Uint16() {
+    get uint16() {
         this.cursor += 2;
         return this.getUint32(this.cursor - 2, true);
     }
 
     /** @param {number} v */
-    set Uint16(v) {
+    set uint16(v) {
         this.setUint16(this.cursor, v, true);
         this.cursor += 2;
     }
 
     /** @returns {number} */
-    get Uint32() {
+    get uint32() {
         this.cursor += 4;
         return this.getUint32(this.cursor - 4, true);
     }
 
     /** @returns {number} */
-    get Uint32BE() {
+    get uint32BE() {
         this.cursor += 4;
         return this.getUint32(this.cursor - 4, false);
     }
 
     /** @param {number} v */
-    set Uint32(v) {
+    set uint32(v) {
         this.setUint32(this.cursor, v, true);
         this.cursor += 4;
     }
 
     /** @param {number} v */
-    set Uint32BE(v) {
+    set uint32BE(v) {
         this.setUint32(this.cursor, v, false);
         this.cursor += 4;
     }
 
     /** @returns {number} */
-    get Float32() {
+    get float32() {
         this.cursor += 4;
         return this.getFloat32(this.cursor - 4, true);
     }
 
     /** @param {number} v */
-    set Float32(v) {
+    set float32(v) {
         this.setFloat32(this.cursor, v, true);
         this.cursor += 4;
     }
 
     /** @returns {string} */
-    get String() {
+    get string() {
         const list = [];
         while (this.cursor < this.byteLength) {
             const b = super.getUint8(this.cursor);
@@ -90,12 +90,12 @@ export class CDataView extends DataView {
     }
 
     /** @param {string} s */
-    set String(s) {
+    set string(s) {
         const list = new TextEncoder().encode(s);
         for (let i = 0; i < list.length; i++) {
-            this.Uint8 = list[i];
+            this.uint8 = list[i];
         }
-        this.Uint8 = 0;
+        this.uint8 = 0;
     }
 
     /**
@@ -105,7 +105,7 @@ export class CDataView extends DataView {
     getStringFixed(length) {
         let value = '';
         for (let i = 0; i < length; i++) {
-            const b = this.Uint8;
+            const b = this.uint8;
             if (b === 0) {
                 this.cursor += length - i - 1;
                 break;
@@ -122,7 +122,7 @@ export class CDataView extends DataView {
     setStringFixed(value, length) {
         const str = value.padEnd(length, '\x00');
         for (let i = 0; i < length; i++) {
-            this.Uint8 = str.charCodeAt(i);
+            this.uint8 = str.charCodeAt(i);
         }
     }
 

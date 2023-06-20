@@ -51,13 +51,13 @@ class MaterialChunk {
 
     /** @param {CDataView} view */
     read(view) {
-        const id = view.Uint32;
+        const id = view.uint32;
         if (id !== this.id) {
             throw new Error(`ChunkCountInclusive wrong id: ${Dec2RawLE(this.id)} != ${Dec2RawLE(id)}`);
         }
-        const count = view.Uint32;
+        const count = view.uint32;
         for (let i = 0; i < count; i++) {
-            const size = view.Uint32 - 4;
+            const size = view.uint32 - 4;
 
             if (size <= 0) {
                 throw new Error('ChunkCountInclusive size is 0!');
@@ -80,8 +80,8 @@ class MaterialChunk {
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint32 = this.id;
-        view.Uint32 = this.items.length;
+        view.uint32 = this.id;
+        view.uint32 = this.items.length;
         for (const i of this.items) {
             const so = view.sizeOffset;
             (i.write ? i : i.parser).write(view);

@@ -37,7 +37,7 @@ export class Chunk {
     read() {
         if (this.inclusive) {
             while (this.view.cursor < this.view.byteLength) {
-                const size = this.view.Uint32 - 4;
+                const size = this.view.uint32 - 4;
                 if (size <= 0) {
                     throw new Error('Chunk inclusive size is 0!');
                 }
@@ -69,7 +69,7 @@ export class Chunk {
 
     /** @param {CDataView} view */
     write(view) {
-        view.Uint32 = this.key;
+        view.uint32 = this.key;
         const so = view.sizeOffset;
         for (const i of this.items) {
             if (this.inclusive) {

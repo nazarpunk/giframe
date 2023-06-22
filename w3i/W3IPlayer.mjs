@@ -68,17 +68,17 @@ export class W3IPlayer {
 
     toJSON() {
         return {
-            'number': this.number,
-            'type': this.type,
-            'race': this.race,
-            'fixed': this.fixed,
-            'name': this.name,
-            'x': this.x,
-            'y': this.y,
-            'lowPrio': this.lowPrio,
-            'hightPrio': this.hightPrio,
-            'unknownA': this.unknownA,
-            'unknownB': this.unknownB,
+            number: this.number,
+            type: this.type,
+            race: this.race,
+            fixed: this.fixed,
+            name: this.name,
+            x: this.x,
+            y: this.y,
+            lowPrio: this.lowPrio,
+            hightPrio: this.hightPrio,
+            unknownA: this.unknownA,
+            unknownB: this.unknownB,
         };
     }
 }

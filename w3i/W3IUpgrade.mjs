@@ -32,10 +32,10 @@ export class W3IUpgrade {
 
     toJSON() {
         return {
-            'players': this.players,
-            'id': this.id,
-            'level': this.level,
-            'state': this.state,
+            players: this.players,
+            id: this.id,
+            level: this.level,
+            state: this.state,
         };
     }
 }

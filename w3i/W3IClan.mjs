@@ -30,9 +30,9 @@ export class W3IClan {
 
     toJSON() {
         return {
-            'flag': this.flag,
-            'players': this.players,
-            'name': this.name,
+            flag: this.flag,
+            players: this.players,
+            name: this.name,
         };
     }
 }

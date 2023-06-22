@@ -1,0 +1,37 @@
+{
+  "formatVersion": 3,
+  "list": [
+    {
+      "defaultId": "Udre",
+      "list": [
+        {
+          "flag": 0,
+          "list": [
+            {
+              "id": "unam",
+              "type": "string",
+              "value": "TRIGSTR_010",
+              "end": "Udre"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "defaultId": "hfoo",
+      "customId": "hfo1",
+      "list": [
+        {
+          "flag": 0,
+          "list": [
+            {
+              "id": "unam",
+              "type": "string",
+              "value": "TRIGSTR_011"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

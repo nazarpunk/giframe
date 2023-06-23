@@ -4,9 +4,10 @@ import {CDataView} from '../../utils/c-data-view.mjs';
 import {CDataViewFake} from '../../utils/c-data-view-fake.mjs';
 import fromBuffer from '../../utils/bufffer-to-buffer.mjs';
 import {W3ABDHQTUItem} from './W3ABDHQTUItem.mjs';
-import {Raw2Dec} from '../../rawcode/convert.mjs';
+import {Dec2RawBE, Raw2Dec} from '../../rawcode/convert.mjs';
 import {W3ABDHQTUItemData} from './W3ABDHQTUItemData.mjs';
 import {W3ABDHQTUItemDataValue} from './W3ABDHQTUItemDataValue.mjs';
+import ini from 'ini';
 
 export class W3ABDHQTU {
     /**
@@ -136,5 +137,53 @@ export class W3ABDHQTU {
             formatVersion: this.formatVersion,
             list: this.list,
         };
+    }
+
+    toINI() {
+        //ini.safe()
+        let out = `[Settings]\n`;
+        out += `; BinaryFormatVersion\nversion = ${this.formatVersion}\n`;
+        out += `; Is the file .w3a or .w3d or .w3q\nFile is  adq = ${this.#adq ? 'true' : 'false'}\n`;
+
+        for (const i of this.list) {
+            out += '\n';
+            if (i.customId > 0) {
+                out += `[${Dec2RawBE(i.customId)}]\nparent = "${Dec2RawBE(i.defaultId)}"\n`;
+            } else {
+                out += `[${Dec2RawBE(i.defaultId)}]\n`;
+            }
+
+            for (const id of i.list) {
+                if (this.formatVersion >= 3 && id.flag > 0) out += `flags = ${id.flag}\n`;
+                for (const idv of id.list) {
+                    const name = `${Dec2RawBE(idv.id)}`;
+                    switch (idv.type) {
+                        case 0:
+                            out += `${name} = ${idv.value}\n${name}Type = "integer"\n`;
+                            break;
+                        case 1:
+                            out += `${name} = ${idv.value}\n${name}Type = "real"\n`;
+                            break;
+                        case 2:
+                            out += `${name} = ${idv.value}\n${name}Type = "unreal"\n`;
+                            break;
+                        case 3:
+                            out += `${name} = "${ini.safe(idv.value)}"\n${name}Type = "string"\n`;
+                            break;
+                        default:
+                            throw new Error(`Unknown variable type: ${idv.type}`);
+                    }
+
+                    if (this.#adq) {
+                        if (idv.level !== undefined) out += `${name}Level = ${idv.level}\n`;
+                        if (idv.data !== undefined) out += `${name}Data = ${idv.level}\n`;
+                    }
+
+                    if (idv.end > 0) out += `${name}End = ${Dec2RawBE(idv.end)}\n`;
+                }
+            }
+        }
+
+        return out;
     }
 }

@@ -2,8 +2,8 @@ import fs from 'fs';
 import {W3U} from '../../W3U.mjs';
 
 const name = [
-    'war3map8.w3u',
     'war3map.w3u',
+    'war3map8.w3u',
     'skin.w3u',
     'bundle.w3u',
 ][0];
@@ -17,5 +17,5 @@ if (w3u.errors.length) {
     console.log('⚠️', w3u.errors);
 } else {
     console.log('🏆 W3U`: end');
-    fs.writeFileSync(`${name}.json`, JSON.stringify(w3u, null, 2), {flag: 'w+'});
+    fs.writeFileSync(`${name}.ini`, w3u.toINI(), {flag: 'w+'});
 }

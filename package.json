@@ -7,6 +7,9 @@
   "contributors": [],
   "license": "UNLICENSED",
   "type": "module",
+  "dependencies": {
+    "ini": "^4.1.1"
+  },
   "devDependencies": {
     "xlsx": "^0.18.5"
   }

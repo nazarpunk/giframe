@@ -7,7 +7,7 @@ import {W3ABDHQTUItem} from './W3ABDHQTUItem.mjs';
 import {Dec2RawBE, Raw2Dec} from '../../rawcode/convert.mjs';
 import {W3ABDHQTUItemData} from './W3ABDHQTUItemData.mjs';
 import {W3ABDHQTUItemDataValue} from './W3ABDHQTUItemDataValue.mjs';
-import ini from 'ini';
+import iniParser from 'ini';
 
 export class W3ABDHQTU {
     /**
@@ -17,55 +17,6 @@ export class W3ABDHQTU {
     constructor(buffer, adq) {
         this.#buffer = fromBuffer(buffer);
         this.#adq = adq;
-    }
-
-    /**
-     * @template T
-     * @param {T} self
-     * @param {string} json
-     * @param {boolean} adq
-     * @return {T}
-     */
-    static _fromJSON(self, json, adq) {
-        const o = JSON.parse(json);
-        self.formatVersion = o.formatVersion;
-        for (const i of o.list) {
-            const item = new W3ABDHQTUItem(adq, self.formatVersion);
-            self.list.push(item);
-            item.defaultId = Raw2Dec(String(i.defaultId));
-            item.customId = i.customId === undefined ? 0 : Raw2Dec(String(i.customId));
-            for (const id of i.list) {
-                const itemData = new W3ABDHQTUItemData(adq, self.formatVersion);
-                item.list.push(itemData);
-                itemData.flag = id.flag === undefined ? 0 : Number(id.flag);
-                for (const idv of id.list) {
-                    const itemDataValue = new W3ABDHQTUItemDataValue(adq);
-                    itemData.list.push(itemDataValue);
-                    itemDataValue.id = Raw2Dec(String(idv.id));
-                    if (adq) {
-                        itemDataValue.level = idv.level;
-                        itemDataValue.data = idv.data;
-                    }
-                    switch (idv.type) {
-                        case 'integer':
-                            itemDataValue.type = 0;
-                            break;
-                        case 'real':
-                            itemDataValue.type = 1;
-                            break;
-                        case 'unreal':
-                            itemDataValue.type = 2;
-                            break;
-                        case 'string':
-                            itemDataValue.type = 3;
-                            break;
-                    }
-                    itemDataValue.value = idv.value;
-                    itemDataValue.end = idv.end === undefined ? 0 : Raw2Dec(String(idv.end));
-                }
-            }
-        }
-        return self;
     }
 
     /** @type {ArrayBuffer} */ #buffer;
@@ -139,11 +90,59 @@ export class W3ABDHQTU {
         };
     }
 
+    /**
+     * @template T
+     * @param {T} self
+     * @param {string} json
+     * @param {boolean} adq
+     * @return {T}
+     */
+    static _fromJSON(self, json, adq) {
+        const o = JSON.parse(json);
+        self.formatVersion = o.formatVersion;
+        for (const i of o.list) {
+            const item = new W3ABDHQTUItem(adq, self.formatVersion);
+            self.list.push(item);
+            item.defaultId = Raw2Dec(String(i.defaultId));
+            item.customId = i.customId === undefined ? 0 : Raw2Dec(String(i.customId));
+            for (const id of i.list) {
+                const itemData = new W3ABDHQTUItemData(adq, self.formatVersion);
+                item.list.push(itemData);
+                itemData.flag = id.flag === undefined ? 0 : Number(id.flag);
+                for (const idv of id.list) {
+                    const itemDataValue = new W3ABDHQTUItemDataValue(adq);
+                    itemData.list.push(itemDataValue);
+                    itemDataValue.id = Raw2Dec(String(idv.id));
+                    if (adq) {
+                        itemDataValue.level = idv.level;
+                        itemDataValue.data = idv.data;
+                    }
+                    switch (idv.type) {
+                        case 'integer':
+                            itemDataValue.type = 0;
+                            break;
+                        case 'real':
+                            itemDataValue.type = 1;
+                            break;
+                        case 'unreal':
+                            itemDataValue.type = 2;
+                            break;
+                        case 'string':
+                            itemDataValue.type = 3;
+                            break;
+                    }
+                    itemDataValue.value = idv.value;
+                    itemDataValue.end = idv.end === undefined ? 0 : Raw2Dec(String(idv.end));
+                }
+            }
+        }
+        return self;
+    }
+
     toINI() {
         //ini.safe()
         let out = `[Settings]\n`;
         out += `; Binary format version\nversion = ${this.formatVersion}\n`;
-        out += `; Is the file .w3a or .w3d or .w3q\nadq = ${this.#adq ? 'true' : 'false'}\n`;
 
         for (const i of this.list) {
             out += '\n';
@@ -168,7 +167,7 @@ export class W3ABDHQTU {
                             out += `${name} = ${idv.value}\n${name}Type = "unreal"\n`;
                             break;
                         case 3:
-                            out += `${name} = "${ini.safe(idv.value)}"\n${name}Type = "string"\n`;
+                            out += `${name} = "${iniParser.safe(idv.value)}"\n${name}Type = "string"\n`;
                             break;
                         default:
                             throw new Error(`Unknown variable type: ${idv.type}`);
@@ -183,7 +182,72 @@ export class W3ABDHQTU {
                 }
             }
         }
-
         return out;
+    }
+
+    /**
+     * @template T
+     * @param {T} self
+     * @param {string} ini
+     * @param {boolean} adq
+     * @return {T}
+     */
+    static _fromINI(self, ini, adq) {
+        /** @type {Object.<string, any>} */
+        const o = iniParser.parse(ini);
+        self.formatVersion = Number(o.Settings.version);
+        delete o.Settings;
+
+        for (const [ki, vi] of Object.entries(o)) {
+            const item = new W3ABDHQTUItem(adq, self.formatVersion);
+            self.list.push(item);
+            if (vi.parent === undefined) {
+                item.defaultId = Raw2Dec(ki);
+            } else {
+                item.defaultId = Raw2Dec(vi.parent);
+                item.customId = Raw2Dec(ki);
+            }
+            delete vi.parent;
+
+            if (vi.length === 0) continue;
+
+            const itemData = new W3ABDHQTUItemData(adq, self.formatVersion);
+            item.list.push(itemData);
+            if (self.formatVersion >= 3) itemData.flag = 0;
+
+            for (const [kid, vid] of Object.entries(vi)) {
+                if (kid.length !== 4) continue;
+                const itemDataValue = new W3ABDHQTUItemDataValue(adq);
+                itemData.list.push(itemDataValue);
+                itemDataValue.id = Raw2Dec(String(kid));
+                switch (vi[`${kid}Type`]) {
+                    case 'integer':
+                        itemDataValue.type = 0;
+                        break;
+                    case 'real':
+                        itemDataValue.type = 1;
+                        break;
+                    case 'unreal':
+                        itemDataValue.type = 2;
+                        break;
+                    case 'string':
+                        itemDataValue.type = 3;
+                        break;
+                }
+                itemDataValue.value = vid;
+
+                if (adq) {
+                    itemDataValue.level = vi[`${kid}Level`] ?? 0;
+                    itemDataValue.data = vi[`${kid}Data`] ?? 0;
+                }
+
+                if (self.formatVersion >= 3) {
+                    const end = vi[`${kid}End`];
+                    itemDataValue.end = end === undefined ? 0 : Raw2Dec(String(end));
+                }
+            }
+        }
+
+        return self;
     }
 }

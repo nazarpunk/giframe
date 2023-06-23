@@ -13,4 +13,12 @@ export class W3U extends W3ABDHQTU {
     static fromJSON(json) {
         return super._fromJSON(new W3U(new ArrayBuffer(0)), json, false);
     }
+
+    /**
+     * @param {string} ini
+     * @return {W3U}
+     */
+    static fromINI(ini) {
+        return super._fromINI(new W3U(new ArrayBuffer(0)), ini, false);
+    }
 }

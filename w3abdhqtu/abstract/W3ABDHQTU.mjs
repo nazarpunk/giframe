@@ -142,8 +142,8 @@ export class W3ABDHQTU {
     toINI() {
         //ini.safe()
         let out = `[Settings]\n`;
-        out += `; BinaryFormatVersion\nversion = ${this.formatVersion}\n`;
-        out += `; Is the file .w3a or .w3d or .w3q\nFile is  adq = ${this.#adq ? 'true' : 'false'}\n`;
+        out += `; Binary format version\nversion = ${this.formatVersion}\n`;
+        out += `; Is the file .w3a or .w3d or .w3q\nadq = ${this.#adq ? 'true' : 'false'}\n`;
 
         for (const i of this.list) {
             out += '\n';
@@ -179,7 +179,7 @@ export class W3ABDHQTU {
                         if (idv.data !== undefined) out += `${name}Data = ${idv.level}\n`;
                     }
 
-                    if (idv.end > 0) out += `${name}End = ${Dec2RawBE(idv.end)}\n`;
+                    if (idv.end > 0) out += `${name}End = "${Dec2RawBE(idv.end)}"\n`;
                 }
             }
         }

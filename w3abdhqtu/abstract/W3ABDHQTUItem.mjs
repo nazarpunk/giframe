@@ -2,6 +2,11 @@ import {Dec2RawBE} from '../../rawcode/convert.mjs';
 import {W3ABDHQTUItemData} from './W3ABDHQTUItemData.mjs';
 
 export class W3ABDHQTUItem {
+
+    /**
+     * @param {boolean} adq
+     * @param {number} formatVersion
+     */
     constructor(adq, formatVersion) {
         this.#adq = adq;
         this.#formatVersion = formatVersion;

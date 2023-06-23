@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import {MDX} from '../../mdx/MDX.mjs';
-import * as chip from 'child_process';
+import vbindiff from '../../utils/vbindiff.mjs';
 
 const name = [
     'Footman',
@@ -31,13 +31,6 @@ const f2 = `${name}_test.mdx`;
 fs.writeFileSync(f2, '', {flag: 'w+'});
 fs.appendFileSync(f2, Buffer.from(b));
 
-const cwd = process.cwd();
+console.log(JSON.stringify(model).slice(0, 100));
 
-console.log(JSON.stringify(model).slice(0,100));
-
-if (1)
-    chip.exec(
-        `osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
-    do script "vbindiff ${cwd}/${f1} ${cwd}/${f2}"
-end tell'`,
-    );
+if (1) vbindiff(f1, f2);

@@ -4,6 +4,9 @@ import {CDataView} from '../../utils/c-data-view.mjs';
 import {CDataViewFake} from '../../utils/c-data-view-fake.mjs';
 import fromBuffer from '../../utils/bufffer-to-buffer.mjs';
 import {W3ABDHQTUItem} from './W3ABDHQTUItem.mjs';
+import {Raw2Dec} from '../../rawcode/convert.mjs';
+import {W3ABDHQTUItemData} from './W3ABDHQTUItemData.mjs';
+import {W3ABDHQTUItemDataValue} from './W3ABDHQTUItemDataValue.mjs';
 
 export class W3ABDHQTU {
     /**
@@ -13,6 +16,55 @@ export class W3ABDHQTU {
     constructor(buffer, adq) {
         this.#buffer = fromBuffer(buffer);
         this.#adq = adq;
+    }
+
+    /**
+     * @template T
+     * @param {T} self
+     * @param {string} json
+     * @param {boolean} adq
+     * @return {T}
+     */
+    static _fromJSON(self, json, adq) {
+        const o = JSON.parse(json);
+        self.formatVersion = o.formatVersion;
+        for (const i of o.list) {
+            const item = new W3ABDHQTUItem(adq, self.formatVersion);
+            self.list.push(item);
+            item.defaultId = Raw2Dec(String(i.defaultId));
+            item.customId = i.customId === undefined ? 0 : Raw2Dec(String(i.customId));
+            for (const id of i.list) {
+                const itemData = new W3ABDHQTUItemData(adq, self.formatVersion);
+                item.list.push(itemData);
+                itemData.flag = id.flag === undefined ? 0 : Number(id.flag);
+                for (const idv of id.list) {
+                    const itemDataValue = new W3ABDHQTUItemDataValue(adq);
+                    itemData.list.push(itemDataValue);
+                    itemDataValue.id = Raw2Dec(String(idv.id));
+                    if (adq) {
+                        itemDataValue.level = idv.level;
+                        itemDataValue.data = idv.data;
+                    }
+                    switch (idv.type) {
+                        case 'integer':
+                            itemDataValue.type = 0;
+                            break;
+                        case 'real':
+                            itemDataValue.type = 1;
+                            break;
+                        case 'unreal':
+                            itemDataValue.type = 2;
+                            break;
+                        case 'string':
+                            itemDataValue.type = 3;
+                            break;
+                    }
+                    itemDataValue.value = idv.value;
+                    itemDataValue.end = idv.end === undefined ? 0 : Raw2Dec(String(idv.end));
+                }
+            }
+        }
+        return self;
     }
 
     /** @type {ArrayBuffer} */ #buffer;

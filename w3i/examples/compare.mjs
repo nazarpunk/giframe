@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import * as chip from 'child_process';
 import {W3I} from '../W3I.mjs';
+import vbindiff from '../../utils/vbindiff.mjs';
 
 const name = [
     'war3map',
@@ -23,11 +23,5 @@ if (w3i.errors.length) {
     fs.writeFileSync(f2, '', {flag: 'w+'});
     fs.appendFileSync(f2, Buffer.from(b));
 
-    const cwd = process.cwd();
-
-    chip.exec(
-        `osascript -e 'activate application "Terminal"' -e 'tell app "Terminal"
-    do script "vbindiff ${cwd}/${f1} ${cwd}/${f2}"
-end tell'`,
-    );
+    vbindiff(f1, f2);
 }

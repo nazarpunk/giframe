@@ -5,4 +5,20 @@ export class W3A extends W3ABDHQTU {
     constructor(buffer) {
         super(buffer, true);
     }
+
+    /**
+     * @param {string} json
+     * @return {W3A}
+     */
+    static fromJSON(json) {
+        return super._fromJSON(new W3A(new ArrayBuffer(0)), json, false);
+    }
+
+    /**
+     * @param {string} ini
+     * @return {W3A}
+     */
+    static fromTOML(ini) {
+        return super._fromTOML(new W3A(new ArrayBuffer(0)), ini, false);
+    }
 }

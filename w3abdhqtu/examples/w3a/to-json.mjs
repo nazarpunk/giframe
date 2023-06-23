@@ -2,8 +2,8 @@ import fs from 'fs';
 import {W3A} from '../../W3A.mjs';
 
 const name = [
+    'wa.w3a',
     'war3map.w3a',
-    'millenium.w3a',
 ][0];
 
 const w3a = new W3A(fs.readFileSync(name));

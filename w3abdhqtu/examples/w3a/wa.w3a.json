@@ -1,0 +1,602 @@
+{
+  "formatVersion": 3,
+  "list": [
+    {
+      "defaultId": "Sch4",
+      "list": [
+        {
+          "flag": 0,
+          "list": [
+            {
+              "id": "Car1",
+              "type": "integer",
+              "level": 1,
+              "data": 1,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "amsp",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 2,
+              "end": "Sch4"
+            },
+            {
+              "id": "amho",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "abuf",
+              "type": "string",
+              "level": 1,
+              "data": 0,
+              "value": "Bmlc",
+              "end": "Sch4"
+            },
+            {
+              "id": "aare",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 300,
+              "end": "Sch4"
+            },
+            {
+              "id": "aran",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "acas",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "acdn",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "ahdu",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "adur",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "aeff",
+              "type": "string",
+              "level": 1,
+              "data": 0,
+              "value": "Xfos",
+              "end": "Sch4"
+            },
+            {
+              "id": "aite",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "aher",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "amcs",
+              "type": "integer",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "alev",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 2,
+              "end": "Sch4"
+            },
+            {
+              "id": "aran",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "acas",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 3,
+              "end": "Sch4"
+            },
+            {
+              "id": "acdn",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 5,
+              "end": "Sch4"
+            },
+            {
+              "id": "ahdu",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 5,
+              "end": "Sch4"
+            },
+            {
+              "id": "adur",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 5,
+              "end": "Sch4"
+            },
+            {
+              "id": "amcs",
+              "type": "integer",
+              "level": 2,
+              "data": 0,
+              "value": 5,
+              "end": "Sch4"
+            },
+            {
+              "id": "atar",
+              "type": "string",
+              "level": 1,
+              "data": 0,
+              "value": "friend,ground,invulnerable,neutral,vulnerable",
+              "end": "Sch4"
+            },
+            {
+              "id": "aeff",
+              "type": "string",
+              "level": 2,
+              "data": 0,
+              "value": "XNhs",
+              "end": "Sch4"
+            },
+            {
+              "id": "atar",
+              "type": "string",
+              "level": 2,
+              "data": 0,
+              "value": "notself",
+              "end": "Sch4"
+            },
+            {
+              "id": "abuf",
+              "type": "string",
+              "level": 2,
+              "data": 0,
+              "value": "Bplg",
+              "end": "Sch4"
+            },
+            {
+              "id": "apri",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 2,
+              "end": "Sch4"
+            },
+            {
+              "id": "arac",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "demon",
+              "end": "Sch4"
+            },
+            {
+              "id": "achd",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 0,
+              "end": "Sch4"
+            },
+            {
+              "id": "areq",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "hmpr",
+              "end": "Sch4"
+            },
+            {
+              "id": "arqa",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "1",
+              "end": "Sch4"
+            },
+            {
+              "id": "aoro",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "acidbomb",
+              "end": "Sch4"
+            },
+            {
+              "id": "aorf",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "acidbomb",
+              "end": "Sch4"
+            },
+            {
+              "id": "aoru",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "acolyteharvest",
+              "end": "Sch4"
+            },
+            {
+              "id": "aord",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "acolyteharvest",
+              "end": "Sch4"
+            },
+            {
+              "id": "aare",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 8,
+              "end": "Sch4"
+            },
+            {
+              "id": "Car1",
+              "type": "integer",
+              "level": 2,
+              "data": 1,
+              "value": 6,
+              "end": "Sch4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "defaultId": "Sch4",
+      "customId": "S000",
+      "list": [
+        {
+          "flag": 0,
+          "list": [
+            {
+              "id": "Car1",
+              "type": "integer",
+              "level": 1,
+              "data": 1,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "amsp",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 2,
+              "end": "Sch4"
+            },
+            {
+              "id": "amho",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "abuf",
+              "type": "string",
+              "level": 1,
+              "data": 0,
+              "value": "Bmlc",
+              "end": "Sch4"
+            },
+            {
+              "id": "aare",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 300,
+              "end": "Sch4"
+            },
+            {
+              "id": "aran",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "acas",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "acdn",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "ahdu",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "adur",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "aeff",
+              "type": "string",
+              "level": 1,
+              "data": 0,
+              "value": "Xfos",
+              "end": "Sch4"
+            },
+            {
+              "id": "aite",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "aher",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "amcs",
+              "type": "integer",
+              "level": 1,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "alev",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 2,
+              "end": "Sch4"
+            },
+            {
+              "id": "aran",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 1,
+              "end": "Sch4"
+            },
+            {
+              "id": "acas",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 3,
+              "end": "Sch4"
+            },
+            {
+              "id": "acdn",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 5,
+              "end": "Sch4"
+            },
+            {
+              "id": "ahdu",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 5,
+              "end": "Sch4"
+            },
+            {
+              "id": "adur",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 5,
+              "end": "Sch4"
+            },
+            {
+              "id": "amcs",
+              "type": "integer",
+              "level": 2,
+              "data": 0,
+              "value": 5,
+              "end": "Sch4"
+            },
+            {
+              "id": "atar",
+              "type": "string",
+              "level": 1,
+              "data": 0,
+              "value": "friend,ground,invulnerable,neutral,vulnerable",
+              "end": "Sch4"
+            },
+            {
+              "id": "aeff",
+              "type": "string",
+              "level": 2,
+              "data": 0,
+              "value": "XNhs",
+              "end": "Sch4"
+            },
+            {
+              "id": "atar",
+              "type": "string",
+              "level": 2,
+              "data": 0,
+              "value": "notself",
+              "end": "Sch4"
+            },
+            {
+              "id": "abuf",
+              "type": "string",
+              "level": 2,
+              "data": 0,
+              "value": "Bplg",
+              "end": "Sch4"
+            },
+            {
+              "id": "apri",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 2,
+              "end": "Sch4"
+            },
+            {
+              "id": "arac",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "demon",
+              "end": "Sch4"
+            },
+            {
+              "id": "achd",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 0,
+              "end": "Sch4"
+            },
+            {
+              "id": "areq",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "hmpr",
+              "end": "Sch4"
+            },
+            {
+              "id": "arqa",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "1",
+              "end": "Sch4"
+            },
+            {
+              "id": "aoro",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "acidbomb",
+              "end": "Sch4"
+            },
+            {
+              "id": "aorf",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "acidbomb",
+              "end": "Sch4"
+            },
+            {
+              "id": "aoru",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "acolyteharvest",
+              "end": "Sch4"
+            },
+            {
+              "id": "aord",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "acolyteharvest",
+              "end": "Sch4"
+            },
+            {
+              "id": "aare",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 8,
+              "end": "Sch4"
+            },
+            {
+              "id": "Car1",
+              "type": "integer",
+              "level": 2,
+              "data": 1,
+              "value": 6,
+              "end": "Sch4"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,14 +1,15 @@
 {
   "name": "warodel",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": false,
   "keywords": [],
   "author": "nazarpunk",
   "contributors": [],
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "dependencies": {
-    "ini": "^4.1.1"
+    "ini": "^4.1.1",
+    "toml": "^3.0.0"
   },
   "devDependencies": {
     "xlsx": "^0.18.5"

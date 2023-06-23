@@ -3,6 +3,7 @@ import {W3A} from '../../W3A.mjs';
 
 const name = [
     'wa.w3a',
+    'wshit.w3a',
     'war3map.w3a',
 ][0];
 

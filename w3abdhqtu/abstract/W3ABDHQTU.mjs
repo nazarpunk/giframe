@@ -140,23 +140,28 @@ export class W3ABDHQTU {
         return self;
     }
 
-    #type(id, type, value) {
-        const name = `${Dec2RawBE(id)}`;
-        switch (type) {
-            case 0:
-                return `${name} = ${value}\n${name}Type = "integer"\n`;
-            case 1:
-                return `${name} = ${value}\n${name}Type = "real"\n`;
-            case 2:
-                return `${name} = ${value}\n${name}Type = "unreal"\n`;
-            case 3:
-                return `${name} = """${value.replace(/"/g, '\\"')}"""\n${name}Type = "string"\n`;
-            default:
-                throw new Error(`Unknown variable type: ${type}`);
-        }
-    }
-
     toTOML() {
+        /**
+         * @param {string} str
+         * @return {string}
+         */
+        const _string = (str) => `"""${str.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"""`;
+        const _type = (id, type, value) => {
+            const name = `${Dec2RawBE(id)}`;
+            switch (type) {
+                case 0:
+                    return `${name} = ${value}\n${name}Type = "integer"\n`;
+                case 1:
+                    return `${name} = ${value}\n${name}Type = "real"\n`;
+                case 2:
+                    return `${name} = ${value}\n${name}Type = "unreal"\n`;
+                case 3:
+                    return `${name} = ${_string(value)}\n${name}Type = "string"\n`;
+                default:
+                    throw new Error(`Unknown variable type: ${type}`);
+            }
+        };
+
         let out = `[Settings]\n# Binary format version\nversion = ${this.formatVersion}\n`;
         for (const i of this.list) {
             out += i.customId > 0 ? `\n[${Dec2RawBE(i.customId)}]\nparent = "${Dec2RawBE(i.defaultId)}"\n` : `\n[${Dec2RawBE(i.defaultId)}]\n`;
@@ -171,7 +176,7 @@ export class W3ABDHQTU {
                     for (const idv of id.list) {
                         if (idv.level === 0) {
                             out += `# ${Dec2RawBE(idv.id)}\n`;
-                            out += this.#type(idv.id, idv.type, idv.value);
+                            out += _type(idv.id, idv.type, idv.value);
                             continue;
                         }
                         if (!map.has(idv.id)) map.set(idv.id, []);
@@ -188,24 +193,33 @@ export class W3ABDHQTU {
                             value.push(idv.value);
                             data.push(idv.data);
                         }
+
                         switch (idv.type) {
                             case 0:
-                                out += `${name}Type = "integer"\n${name} = [\n${value.join(',\n')}\n]\n`;
+                                out += `${name}Type = "integer"\n${name} = `;
+                                out += value.length > 1 ? `[\n${value.join(',\n')}\n]\n` : `${idv.value}\n`;
                                 break;
                             case 1:
-                                out += `${name}Type = "real"\n${name} = [\n${value.join(',\n')}\n]\n`;
+                                out += `${name}Type = "real"\n${name} = `;
+                                out += value.length > 1 ? `[\n${value.join(',\n')}\n]\n` : `${idv.value}\n`;
                                 break;
                             case 2:
-                                out += `${name}Type = "unreal"\n${name} = [\n${value.join(',\n')}\n]\n`;
+                                out += `${name}Type = "unreal"\n${name} = `;
+                                out += value.length > 1 ? `[\n${value.join(',\n')}\n]\n` : `${idv.value}\n`;
                                 break;
                             case 3:
-                                out += `${name}Type = "string"\n${name} = [\n${value.map((v) => `"""${v.replace(/"/g, '\\"')}"""`).join(',\n')}\n]\n`;
+                                out += `${name}Type = "string"\n${name} = `;
+                                out += value.length > 1 ? `[\n${value.map((v) => `${_string(v)}`).join(',\n')}\n]\n` : `${_string(idv.value)}\n`;
                                 break;
                             default:
                                 throw new Error(`Unknown variable type: ${idv.type}`);
                         }
-                        out += `${name}Data = [\n${data.join(',\n')}\n]\n`;
-                        if (idv.end > 0) out += `${Dec2RawBE(idv.id)}End = "${Dec2RawBE(idv.end)}"\n`;
+                        if (value.length === 1 && idv.level > 0) out += `${name}Level = ${idv.level}\n`;
+
+                        out += `${name}Data = `;
+                        out += data.length > 1 ? `[\n${data.join(',\n')}\n]\n` : `${idv.data}\n`;
+
+                        if (idv.end > 0) out += `${name}End = "${Dec2RawBE(idv.end)}"\n`;
                     });
 
                 }
@@ -213,7 +227,7 @@ export class W3ABDHQTU {
                 for (const id of i.list) {
                     if (this.formatVersion >= 3 && id.flag > 0) out += `flags = ${id.flag}\n`;
                     for (const idv of id.list) {
-                        out += this.#type(idv.id, idv.type, idv.value);
+                        out += _type(idv.id, idv.type, idv.value);
                         if (idv.end > 0) out += `${Dec2RawBE(idv.id)}End = "${Dec2RawBE(idv.end)}"\n`;
                     }
                 }

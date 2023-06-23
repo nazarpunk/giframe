@@ -22,8 +22,7 @@ if (w3i.errors.length) {
     console.log(`🏆 ${ext}: write end`);
 
     const f2 = `${name}.test.${ext}`;
-    fs.writeFileSync(f2, '', {flag: 'w+'});
-    fs.appendFileSync(f2, Buffer.from(b));
+    fs.writeFileSync(f2, Buffer.from(b), {flag: 'w+'});
 
     vbindiff(f1, f2);
 }

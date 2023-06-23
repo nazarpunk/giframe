@@ -11,9 +11,7 @@ const name = [
 const w3u = W3U.fromJSON(fs.readFileSync(`${name}.${ext}.json`, {encoding: 'utf8'}));
 const b = w3u.write();
 
-const f1 = `${name}.${ext}`;
 const f2 = `${name}.test.${ext}`;
-fs.writeFileSync(f2, '', {flag: 'w+'});
-fs.appendFileSync(f2, Buffer.from(b));
+fs.writeFileSync(f2, Buffer.from(b), {flag: 'w+'});
 
-vbindiff(f1, f2);
+vbindiff(`${name}.${ext}`, f2);

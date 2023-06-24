@@ -8,7 +8,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "toml": "^3.0.0"
+    "@ltd/j-toml": "^1.38.0"
   },
   "devDependencies": {
     "xlsx": "^0.18.5"

@@ -7,7 +7,7 @@ import {W3ABDHQTUItem} from './W3ABDHQTUItem.mjs';
 import {Dec2RawBE, Raw2Dec} from '../../rawcode/convert.mjs';
 import {W3ABDHQTUItemData} from './W3ABDHQTUItemData.mjs';
 import {W3ABDHQTUItemDataValue} from './W3ABDHQTUItemDataValue.mjs';
-import * as tomlParser from 'toml';
+import * as TOML from '@ltd/j-toml';
 
 export class W3ABDHQTU {
     /**
@@ -150,7 +150,7 @@ export class W3ABDHQTU {
 
         let out = `[Settings]\n# Binary format version\nversion = ${this.formatVersion}\n`;
         for (const i of this.list) {
-            out += i.customId > 0 ? `\n[${Dec2RawBE(i.customId)}]\nparent = "${Dec2RawBE(i.defaultId)}"\n` : `\n[${Dec2RawBE(i.defaultId)}]\n`;
+            out += i.customId > 0 ? `\n[${Dec2RawBE(i.customId)}] # ${i.customId} 0x${i.customId.toString(16)}\nparent = "${Dec2RawBE(i.defaultId)}"\n` : `\n[${Dec2RawBE(i.defaultId)}]\n`;
 
             if (this.#adq) {
                 for (const id of i.list) {
@@ -233,7 +233,10 @@ export class W3ABDHQTU {
      */
     static _fromTOML(self, toml, adq) {
         /** @type {Object.<string, any>} */
-        const o = tomlParser.parse(toml);
+        const o = TOML.parse(toml, {
+            joiner: '\n',
+            bigint: false,
+        });
         self.formatVersion = Number(o.Settings.version);
         delete o.Settings;
 
@@ -248,10 +251,7 @@ export class W3ABDHQTU {
             }
             delete attrMap.parent;
 
-            if (attrMap.length === 0) {
-                console.log('catch!!');
-                continue;
-            }
+            if (attrMap.length === 0) continue;
 
             const itemData = new W3ABDHQTUItemData(adq, self.formatVersion);
             item.list.push(itemData);

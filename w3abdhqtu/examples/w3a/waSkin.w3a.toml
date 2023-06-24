@@ -1,0 +1,206 @@
+[Settings]
+# Binary format version
+version = 3
+
+[Sch4]
+# aani
+aani = """1"""
+aaniType = "string"
+# aaea
+aaea = """units\\nightelf\\SpiritOfVengeance\\SpiritOfVengeance.mdl"""
+aaeaType = "string"
+# abpx
+abpx = 1
+abpxType = "integer"
+# abpy
+abpy = 2
+abpyType = "integer"
+# aubx
+aubx = 3
+aubxType = "integer"
+# auby
+auby = 1
+aubyType = "integer"
+# acat
+acat = """units\\creeps\\satyrhellcaller\\satyrhellcaller.mdl"""
+acatType = "string"
+# aeat
+aeat = """units\\creeps\\satyrhellcaller\\satyrhellcaller.mdl"""
+aeatType = "string"
+# amat
+amat = """units\\creeps\\satyrhellcaller\\satyrhellcaller.mdl"""
+amatType = "string"
+# asat
+asat = """units\\creeps\\satyrhellcaller\\satyrhellcaller.mdl"""
+asatType = "string"
+# atac
+atac = 2
+atacType = "integer"
+# alig
+alig = """LEAS"""
+aligType = "string"
+# aart
+aart = """ReplaceableTextures\\CommandButtons\\BTNLesserRejuvPotion.blp"""
+aartType = "string"
+# auar
+auar = """ReplaceableTextures\\CommandButtons\\BTNLesserRejuvPotion.blp"""
+auarType = "string"
+# amac
+amac = 1
+amacType = "unreal"
+# acac
+acac = 2
+acacType = "integer"
+# aca1
+aca1 = """2"""
+aca1Type = "string"
+# acap
+acap = """2"""
+acapType = "string"
+# ausk
+ausk = """hgry"""
+auskType = "string"
+# aefs
+aefs = """ManaFlareLoop"""
+aefsType = "string"
+# aefl
+aefl = """AbominationWarcry"""
+aeflType = "string"
+# aspt
+aspt = """р"""
+asptType = "string"
+# atat
+atat = """buildings\\human\\GryphonAviary\\GryphonAviary.mdl"""
+atatType = "string"
+# ata0
+ata0 = """1"""
+ata0Type = "string"
+# ata1
+ata1 = """1"""
+ata1Type = "string"
+# ata2
+ata2 = """1"""
+ata2Type = "string"
+# ata3
+ata3 = """1"""
+ata3Type = "string"
+# ata4
+ata4 = """1"""
+ata4Type = "string"
+# ata5
+ata5 = """1"""
+ata5Type = "string"
+# anam
+anam = """TRIGSTR_003"""
+anamType = "string"
+# ansf
+ansf = """TRIGSTR_004"""
+ansfType = "string"
+# auhk
+auhk = """TRIGSTR_005"""
+auhkType = "string"
+# ahky
+ahky = """TRIGSTR_006"""
+ahkyType = "string"
+
+[S000]
+parent = "Sch4"
+# aani
+aani = """1"""
+aaniType = "string"
+# aaea
+aaea = """units\\nightelf\\SpiritOfVengeance\\SpiritOfVengeance.mdl"""
+aaeaType = "string"
+# abpx
+abpx = 1
+abpxType = "integer"
+# abpy
+abpy = 2
+abpyType = "integer"
+# aubx
+aubx = 3
+aubxType = "integer"
+# auby
+auby = 1
+aubyType = "integer"
+# acat
+acat = """units\\creeps\\satyrhellcaller\\satyrhellcaller.mdl"""
+acatType = "string"
+# aeat
+aeat = """units\\creeps\\satyrhellcaller\\satyrhellcaller.mdl"""
+aeatType = "string"
+# amat
+amat = """units\\creeps\\satyrhellcaller\\satyrhellcaller.mdl"""
+amatType = "string"
+# asat
+asat = """units\\creeps\\satyrhellcaller\\satyrhellcaller.mdl"""
+asatType = "string"
+# atac
+atac = 2
+atacType = "integer"
+# alig
+alig = """LEAS"""
+aligType = "string"
+# aart
+aart = """ReplaceableTextures\\CommandButtons\\BTNLesserRejuvPotion.blp"""
+aartType = "string"
+# auar
+auar = """ReplaceableTextures\\CommandButtons\\BTNLesserRejuvPotion.blp"""
+auarType = "string"
+# amac
+amac = 1
+amacType = "unreal"
+# acac
+acac = 2
+acacType = "integer"
+# aca1
+aca1 = """2"""
+aca1Type = "string"
+# acap
+acap = """2"""
+acapType = "string"
+# ausk
+ausk = """hgry"""
+auskType = "string"
+# aefs
+aefs = """ManaFlareLoop"""
+aefsType = "string"
+# aefl
+aefl = """AbominationWarcry"""
+aeflType = "string"
+# aspt
+aspt = """р"""
+asptType = "string"
+# atat
+atat = """buildings\\human\\GryphonAviary\\GryphonAviary.mdl"""
+atatType = "string"
+# ata0
+ata0 = """1"""
+ata0Type = "string"
+# ata1
+ata1 = """1"""
+ata1Type = "string"
+# ata2
+ata2 = """1"""
+ata2Type = "string"
+# ata3
+ata3 = """1"""
+ata3Type = "string"
+# ata4
+ata4 = """1"""
+ata4Type = "string"
+# ata5
+ata5 = """1"""
+ata5Type = "string"
+# anam
+anam = """TRIGSTR_007"""
+anamType = "string"
+# ansf
+ansf = """TRIGSTR_008"""
+ansfType = "string"
+# auhk
+auhk = """TRIGSTR_009"""
+auhkType = "string"
+# ahky
+ahky = """TRIGSTR_010"""
+ahkyType = "string"

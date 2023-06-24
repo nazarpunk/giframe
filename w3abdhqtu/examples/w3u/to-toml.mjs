@@ -2,6 +2,7 @@ import fs from 'fs';
 import {W3U} from '../../W3U.mjs';
 
 const name = [
+    'wud.w3u',
     'war3map8.w3u',
     'war3map.w3u',
     'wskin.w3u',

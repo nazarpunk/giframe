@@ -35,11 +35,7 @@ export class CDataViewFake {
     }
 
     set string(s) {
-        if (s === undefined){
-            throw new Error();
-        }
-
-        this.cursor += s.length + 1;
+        this.cursor += new TextEncoder().encode(s).length + 1;
     }
 
     getStringFixed(_) {

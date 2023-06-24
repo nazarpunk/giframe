@@ -3,7 +3,6 @@ import {W3U} from '../../W3U.mjs';
 
 const name = [
     'war3map8.w3u',
-    'war3map.w3u',
     'wskin.w3u',
     'wbundle.w3u',
 ][0];

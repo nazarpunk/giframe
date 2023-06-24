@@ -104,14 +104,14 @@ export class W3ABDHQTUItemDataValue {
 
     /**
      * @param {string} rawId
-     * @param {Object.<string, any>} map
+     * @param {Object.<string, any>} attrMap
+     * @param {Object.<string, W3ABDHQTUTOMLMapProperty>} typeMap
      */
-    fromMap(rawId, map) {
+    fromMap(rawId, attrMap, typeMap) {
         this.id = Raw2Dec(String(rawId));
-        this.typeString = map[`${rawId}Type`];
-
-        const end = map[`${rawId}End`];
-        this.end = end === undefined ? 0 : Raw2Dec(String(end));
+        if (typeMap[rawId] === undefined) this.typeString = attrMap[`${rawId}Type`];
+        else this.type = typeMap[rawId].type;
+        this.end = 0;
     }
 
     toJSON() {

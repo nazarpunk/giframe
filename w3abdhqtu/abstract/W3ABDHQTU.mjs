@@ -9,6 +9,15 @@ import {W3ABDHQTUItemData} from './W3ABDHQTUItemData.mjs';
 import {W3ABDHQTUItemDataValue} from './W3ABDHQTUItemDataValue.mjs';
 import * as TOML from '@ltd/j-toml';
 
+/**
+ * @typedef W3ABDHQTUTOMLMapProperty
+ * @type {object}
+ * @property {string} name
+ * @property {number} type
+ * @property {boolean?} level
+ * @property {boolean?} multiline
+ */
+
 export class W3ABDHQTU {
     /**
      * @param {Buffer|ArrayBuffer} buffer
@@ -126,31 +135,84 @@ export class W3ABDHQTU {
         return self;
     }
 
-    toTOML() {
+    /**
+     * @param {Object.<string, W3ABDHQTUTOMLMapProperty>} map
+     * @return {string}
+     */
+    _toTOML(map) {
+        let out = `[Settings]\nversion = ${this.formatVersion} # binary format version\n`;
+
         /**
          * @param {string} str
          * @return {string}
          */
         const _string = (str) => `"""${str.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"""`;
-        const _type = (id, type, value) => {
-            const name = `${Dec2RawBE(id)}`;
-            switch (type) {
+
+        /**
+         * @param {W3ABDHQTUItemDataValue} idv
+         * @param value
+         * @param data
+         */
+        const _write = (idv, value, data) => {
+            const name = `${Dec2RawBE(idv.id)}`;
+            if (!(value instanceof Array)) value = [value];
+            if (!(data instanceof Array)) data = [data];
+
+            if (map[name] === undefined) {
+                switch (idv.type) {
+                    case 0:
+                        out += `${name}Type = "integer"\n`;
+                        break;
+                    case 1:
+                        out += `${name}Type = "real"\n`;
+                        break;
+                    case 2:
+                        out += `${name}Type = "unreal"\n`;
+                        break;
+                    case 3:
+                        out += `${name}Type = "string"\n`;
+                        break;
+                    default:
+                        throw new Error(`Unknown variable type: ${idv.type}`);
+                }
+            } else {
+                out += `# ${map[name].name}\n`;
+            }
+
+            out += `${name} = `;
+            switch (idv.type) {
                 case 0:
-                    return `${name} = ${value}\n${name}Type = "integer"\n`;
                 case 1:
-                    return `${name} = ${value}\n${name}Type = "real"\n`;
                 case 2:
-                    return `${name} = ${value}\n${name}Type = "unreal"\n`;
+                    out += value.length > 1 ? `[\n${value.join(',\n')}\n]\n` : `${idv.value}\n`;
+                    break;
                 case 3:
-                    return `${name} = ${_string(value)}\n${name}Type = "string"\n`;
+                    out += value.length > 1 ? `[\n${value.map((v) => `${_string(v)}`).join(',\n')}\n]\n` : `${_string(idv.value)}\n`;
+                    break;
                 default:
-                    throw new Error(`Unknown variable type: ${type}`);
+                    throw new Error(`Unknown variable type: ${idv.type}`);
+            }
+
+            if (value.length === 1 && idv.level > 0) out += `${name}Level = ${idv.level}\n`;
+
+            if (data.filter((e) => e > 0).length === data.length) {
+                out += `${name}Data = `;
+                out += data.length > 1 ? `[\n${data.join(',\n')}\n]\n` : `${idv.data}\n`;
             }
         };
 
-        let out = `[Settings]\n# Binary format version\nversion = ${this.formatVersion}\n`;
         for (const i of this.list) {
-            out += i.customId > 0 ? `\n[${Dec2RawBE(i.customId)}] # ${i.customId} 0x${i.customId.toString(16)}\nparent = "${Dec2RawBE(i.defaultId)}"\n` : `\n[${Dec2RawBE(i.defaultId)}]\n`;
+            /**
+             * @param {number} id
+             * @return {string}
+             * @private
+             */
+            const _raw = (id) => {
+                return `# ${id} 0x${id.toString(16)}`;
+            };
+            const pId = i.customId > 0 ? i.customId : i.defaultId;
+            out += `\n[${Dec2RawBE(pId)}] ${_raw(pId)}\n`;
+            if (i.customId > 0) out += `parent = "${Dec2RawBE(i.defaultId)}" ${_raw(i.defaultId)}\n`;
 
             if (this.#adq) {
                 for (const id of i.list) {
@@ -160,63 +222,26 @@ export class W3ABDHQTU {
                     const map = new Map();
 
                     for (const idv of id.list) {
-                        if (idv.level === 0) {
-                            out += `# ${Dec2RawBE(idv.id)}\n`;
-                            out += _type(idv.id, idv.type, idv.value);
-                            continue;
-                        }
                         if (!map.has(idv.id)) map.set(idv.id, []);
                         map.get(idv.id).push(idv);
                     }
 
                     map.forEach((list) => {
                         const idv = list[0];
-                        const name = `${Dec2RawBE(idv.id)}`;
-                        out += `# ${name}\n`;
                         const value = [];
                         const data = [];
                         for (const idv of list.sort((a, b) => a.level - b.level)) {
                             value.push(idv.value);
                             data.push(idv.data);
                         }
-
-                        switch (idv.type) {
-                            case 0:
-                                out += `${name}Type = "integer"\n${name} = `;
-                                out += value.length > 1 ? `[\n${value.join(',\n')}\n]\n` : `${idv.value}\n`;
-                                break;
-                            case 1:
-                                out += `${name}Type = "real"\n${name} = `;
-                                out += value.length > 1 ? `[\n${value.join(',\n')}\n]\n` : `${idv.value}\n`;
-                                break;
-                            case 2:
-                                out += `${name}Type = "unreal"\n${name} = `;
-                                out += value.length > 1 ? `[\n${value.join(',\n')}\n]\n` : `${idv.value}\n`;
-                                break;
-                            case 3:
-                                out += `${name}Type = "string"\n${name} = `;
-                                out += value.length > 1 ? `[\n${value.map((v) => `${_string(v)}`).join(',\n')}\n]\n` : `${_string(idv.value)}\n`;
-                                break;
-                            default:
-                                throw new Error(`Unknown variable type: ${idv.type}`);
-                        }
-                        if (value.length === 1 && idv.level > 0) out += `${name}Level = ${idv.level}\n`;
-
-                        if (data.filter((e) => e > 0).length === data.length) {
-                            out += `${name}Data = `;
-                            out += data.length > 1 ? `[\n${data.join(',\n')}\n]\n` : `${idv.data}\n`;
-                        }
-
-                        if (idv.end > 0) out += `${name}End = "${Dec2RawBE(idv.end)}"\n`;
+                        _write(idv, value, data);
                     });
-
                 }
             } else {
                 for (const id of i.list) {
                     if (this.formatVersion >= 3 && id.flag > 0) out += `flags = ${id.flag}\n`;
                     for (const idv of id.list) {
-                        out += _type(idv.id, idv.type, idv.value);
-                        if (idv.end > 0) out += `${Dec2RawBE(idv.id)}End = "${Dec2RawBE(idv.end)}"\n`;
+                        _write(idv, idv.value, idv.data);
                     }
                 }
             }
@@ -229,9 +254,10 @@ export class W3ABDHQTU {
      * @param {T} self
      * @param {string} toml
      * @param {boolean} adq
+     * @param {Object.<string, W3ABDHQTUTOMLMapProperty>} map
      * @return {T}
      */
-    static _fromTOML(self, toml, adq) {
+    static _fromTOML(self, toml, adq, map) {
         /** @type {Object.<string, any>} */
         const o = TOML.parse(toml, {
             joiner: '\n',
@@ -259,12 +285,14 @@ export class W3ABDHQTU {
 
             for (const [attrRawId, attrValue] of Object.entries(attrMap)) {
                 if (attrRawId.length !== 4) continue;
+                if (map[attrRawId]?.level ?? false) {
+                    if (attrValue.length !== attrMap['alev']) throw new Error(`⚠️${itemRawId} : missilng level data for '${attrRawId}'`);
+                }
                 if (attrValue instanceof Array) {
                     for (let i = 0; i < attrValue.length; i++) {
-
                         const itemDataValue = new W3ABDHQTUItemDataValue(adq);
                         itemData.list.push(itemDataValue);
-                        itemDataValue.fromMap(attrRawId, attrMap);
+                        itemDataValue.fromMap(attrRawId, attrMap, map);
                         itemDataValue.value = attrValue[i];
                         if (adq) {
                             itemDataValue.level = i + 1;
@@ -278,7 +306,7 @@ export class W3ABDHQTU {
 
                 const itemDataValue = new W3ABDHQTUItemDataValue(adq);
                 itemData.list.push(itemDataValue);
-                itemDataValue.fromMap(attrRawId, attrMap);
+                itemDataValue.fromMap(attrRawId, attrMap, map);
 
                 itemDataValue.value = attrValue;
                 if (adq) {

@@ -19,6 +19,11 @@ export class W3U extends W3ABDHQTU {
      * @return {W3U}
      */
     static fromTOML(ini) {
-        return super._fromTOML(new W3U(new ArrayBuffer(0)), ini, false);
+        return super._fromTOML(new W3U(new ArrayBuffer(0)), ini, false, {});
+    }
+
+    /** @return {string} */
+    toTOML() {
+        return super._toTOML({});
     }
 }

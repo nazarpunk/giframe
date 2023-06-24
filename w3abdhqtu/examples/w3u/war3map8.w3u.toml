@@ -1,34 +1,33 @@
 [Settings]
-# Binary format version
-version = 3
+version = 3 # binary format version
 
-[hgyr]
-upri = 1
+[hgyr] # 1751611762 0x68677972
 upriType = "integer"
+upri = 1
 upriEnd = "hgyr"
 
-[hpxe]
+[hpxe] # 1752201317 0x68707865
 
-[nwar]
+[nwar] # 1853317490 0x6e776172
 
-[h000]
-parent = "hgyr"
-umpr = 18.18000030517578
+[h000] # 1747988528 0x68303030
+parent = "hgyr" # 1751611762 0x68677972
 umprType = "unreal"
-upoi = 180
+umpr = 18.18000030517578
 upoiType = "integer"
+upoi = 180
+utypType = "string"
 utyp = """ancient,giant"""
-utypType = "string"
+upriType = "integer"
 upri = 3
-upriType = "integer"
 
-[h001]
-parent = "hgyr"
-ulum = 17
+[h001] # 1747988529 0x68303031
+parent = "hgyr" # 1751611762 0x68677972
 ulumType = "integer"
-umpi = 16
+ulum = 17
 umpiType = "integer"
-utyp = """ancient"""
+umpi = 16
 utypType = "string"
-upri = 1
+utyp = """ancient"""
 upriType = "integer"
+upri = 1

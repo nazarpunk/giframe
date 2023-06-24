@@ -4,7 +4,7 @@ import vbindiff from '../../../utils/vbindiff.mjs';
 
 const ext = 'w3u';
 const name = [
-    'war3map',
+    'war3map8',
     'skin',
 ][0];
 

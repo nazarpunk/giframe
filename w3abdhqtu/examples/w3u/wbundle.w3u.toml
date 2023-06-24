@@ -1,0 +1,8 @@
+[Settings]
+# Binary format version
+version = 3
+
+[Udre] # 1432646245 0x55647265
+
+[hfo1] # 1751543601 0x68666f31
+parent = "hfoo" # 1751543663 0x68666f6f

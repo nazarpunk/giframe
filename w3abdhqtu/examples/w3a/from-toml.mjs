@@ -4,6 +4,7 @@ import {W3A} from '../../W3A.mjs';
 
 const ext = 'w3a';
 const name = [
+    'wa.test',
     'wa',
     'war3map',
     'skin',

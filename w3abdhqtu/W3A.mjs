@@ -11,7 +11,7 @@ export class W3A extends W3ABDHQTU {
      * @return {W3A}
      */
     static fromJSON(json) {
-        return super._fromJSON(new W3A(new ArrayBuffer(0)), json, false);
+        return super._fromJSON(new W3A(new ArrayBuffer(0)), json, true);
     }
 
     /**
@@ -19,6 +19,6 @@ export class W3A extends W3ABDHQTU {
      * @return {W3A}
      */
     static fromTOML(ini) {
-        return super._fromTOML(new W3A(new ArrayBuffer(0)), ini, false);
+        return super._fromTOML(new W3A(new ArrayBuffer(0)), ini, true);
     }
 }

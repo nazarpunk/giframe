@@ -1,0 +1,254 @@
+[Settings]
+# Binary format version
+version = 3
+
+[Sch4]
+# amsp
+amsp = 2
+amspType = "integer"
+# amho
+amho = 1
+amhoType = "integer"
+# aite
+aite = 1
+aiteType = "integer"
+# aher
+aher = 1
+aherType = "integer"
+# alev
+alev = 2
+alevType = "integer"
+# apri
+apri = 2
+apriType = "integer"
+# arac
+arac = """demon"""
+aracType = "string"
+# achd
+achd = 0
+achdType = "integer"
+# areq
+areq = """hmpr"""
+areqType = "string"
+# arqa
+arqa = """1"""
+arqaType = "string"
+# aoro
+aoro = """acidbomb"""
+aoroType = "string"
+# aorf
+aorf = """acidbomb"""
+aorfType = "string"
+# aoru
+aoru = """acolyteharvest"""
+aoruType = "string"
+# aord
+aord = """acolyteharvest"""
+aordType = "string"
+# Car1
+Car1Type = "integer"
+Car1 = [
+1,
+6
+]
+Car1Data = [
+1,
+1
+]
+Car1End = "Sch4"
+# abuf
+abufType = "string"
+abuf = [
+"""Bmlc""",
+"""Bplg"""
+]
+abufEnd = "Sch4"
+# aare
+aareType = "unreal"
+aare = [
+300,
+8
+]
+aareEnd = "Sch4"
+# aran
+aranType = "unreal"
+aran = [
+1,
+1
+]
+aranEnd = "Sch4"
+# acas
+acasType = "unreal"
+acas = [
+1,
+3
+]
+acasEnd = "Sch4"
+# acdn
+acdnType = "unreal"
+acdn = [
+1,
+5
+]
+acdnEnd = "Sch4"
+# ahdu
+ahduType = "unreal"
+ahdu = [
+1,
+5
+]
+ahduEnd = "Sch4"
+# adur
+adurType = "unreal"
+adur = [
+1,
+5
+]
+adurEnd = "Sch4"
+# aeff
+aeffType = "string"
+aeff = [
+"""Xfos""",
+"""XNhs"""
+]
+aeffEnd = "Sch4"
+# amcs
+amcsType = "integer"
+amcs = [
+1,
+5
+]
+amcsEnd = "Sch4"
+# atar
+atarType = "string"
+atar = [
+"""friend,ground,invulnerable,neutral,vulnerable""",
+"""notself"""
+]
+atarEnd = "Sch4"
+
+[S000]
+parent = "Sch4"
+# amsp
+amsp = 2
+amspType = "integer"
+# amho
+amho = 1
+amhoType = "integer"
+# aite
+aite = 1
+aiteType = "integer"
+# aher
+aher = 1
+aherType = "integer"
+# alev
+alev = 2
+alevType = "integer"
+# apri
+apri = 2
+apriType = "integer"
+# arac
+arac = """demon"""
+aracType = "string"
+# achd
+achd = 0
+achdType = "integer"
+# areq
+areq = """hmpr"""
+areqType = "string"
+# arqa
+arqa = """1"""
+arqaType = "string"
+# aoro
+aoro = """acidbomb"""
+aoroType = "string"
+# aorf
+aorf = """acidbomb"""
+aorfType = "string"
+# aoru
+aoru = """acolyteharvest"""
+aoruType = "string"
+# aord
+aord = """acolyteharvest"""
+aordType = "string"
+# Car1
+Car1Type = "integer"
+Car1 = [
+1,
+6
+]
+Car1Data = [
+1,
+1
+]
+Car1End = "Sch4"
+# abuf
+abufType = "string"
+abuf = [
+"""Bmlc""",
+"""Bplg"""
+]
+abufEnd = "Sch4"
+# aare
+aareType = "unreal"
+aare = [
+300,
+8
+]
+aareEnd = "Sch4"
+# aran
+aranType = "unreal"
+aran = [
+1,
+1
+]
+aranEnd = "Sch4"
+# acas
+acasType = "unreal"
+acas = [
+1,
+3
+]
+acasEnd = "Sch4"
+# acdn
+acdnType = "unreal"
+acdn = [
+1,
+5
+]
+acdnEnd = "Sch4"
+# ahdu
+ahduType = "unreal"
+ahdu = [
+1,
+5
+]
+ahduEnd = "Sch4"
+# adur
+adurType = "unreal"
+adur = [
+1,
+5
+]
+adurEnd = "Sch4"
+# aeff
+aeffType = "string"
+aeff = [
+"""Xfos""",
+"""XNhs"""
+]
+aeffEnd = "Sch4"
+# amcs
+amcsType = "integer"
+amcs = [
+1,
+5
+]
+amcsEnd = "Sch4"
+# atar
+atarType = "string"
+atar = [
+"""friend,ground,invulnerable,neutral,vulnerable""",
+"""notself"""
+]
+atarEnd = "Sch4"

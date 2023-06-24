@@ -2,7 +2,10 @@ import fs from 'fs';
 import {W3A} from '../../W3A.mjs';
 
 const name = [
+    'wa.test.w3a',
     'wa.w3a',
+    'wm.w3a',
+    'waSkin.w3a',
     'wshit.w3a',
     'war3map.w3a',
 ][0];

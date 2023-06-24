@@ -1,4 +1,4 @@
-import {Dec2RawBE} from '../../rawcode/convert.mjs';
+import {Dec2RawBE, Raw2Dec} from '../../rawcode/convert.mjs';
 
 export class W3ABDHQTUItemDataValue {
 
@@ -12,6 +12,27 @@ export class W3ABDHQTUItemDataValue {
 
     /** @type {('integer'|'real'|'unreal'|'string')}*/
     #type;
+
+    /** @param {('integer'|'real'|'unreal'|'string')} type */
+    set typeString(type) {
+        switch (type) {
+            case 'integer':
+                this.type = 0;
+                break;
+            case 'real':
+                this.type = 1;
+                break;
+            case 'unreal':
+                this.type = 2;
+                break;
+            case 'string':
+                this.type = 3;
+                break;
+            default:
+                throw new Error(`Missing string type: ${type}`);
+        }
+        this.#type = type;
+    }
 
     /** @param {CDataView} view */
     read(view) {
@@ -48,6 +69,14 @@ export class W3ABDHQTUItemDataValue {
 
     /** @param {CDataView} view */
     write(view) {
+        if (this.id === undefined) throw new Error('⚠️id undefined');
+        if (this.type === undefined) throw new Error('⚠️type undefined');
+        if (this.value === undefined) throw new Error('⚠️value undefined');
+        if (this.#adq) {
+            if (this.level === undefined) throw new Error('⚠️level undefined');
+            if (this.data === undefined) throw new Error('⚠️data undefined');
+        }
+
         view.uint32BE = this.id;
         view.uint32 = this.type;
 
@@ -71,6 +100,18 @@ export class W3ABDHQTUItemDataValue {
                 throw new Error(`Unknown variable type: ${this.type}`);
         }
         view.uint32BE = this.end;
+    }
+
+    /**
+     * @param {string} rawId
+     * @param {Object.<string, any>} map
+     */
+    fromMap(rawId, map) {
+        this.id = Raw2Dec(String(rawId));
+        this.typeString = map[`${rawId}Type`];
+
+        const end = map[`${rawId}End`];
+        this.end = end === undefined ? 0 : Raw2Dec(String(end));
     }
 
     toJSON() {

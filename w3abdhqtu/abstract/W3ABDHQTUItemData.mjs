@@ -27,7 +27,10 @@ export class W3ABDHQTUItemData {
 
     /** @param {CDataView} view */
     write(view) {
-        if (this.#formatVersion >= 3) view.uint32 = this.flag;
+        if (this.#formatVersion >= 3) {
+            if (this.flag === undefined) throw new Error('⚠️flag undefined');
+            view.uint32 = this.flag;
+        }
         view.uint32 = this.list.length;
         for (const i of this.list) i.write(view);
     }

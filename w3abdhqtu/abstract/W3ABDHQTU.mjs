@@ -1,4 +1,4 @@
-// https://github.com/stijnherfst/HiveWE/wiki/war3map(skin).w3*-Modifications
+// https://github.com/stijnherfst/HiveWE/wiki/war3map(skin).w3%2A-Modifications
 
 import {CDataView} from '../../utils/c-data-view.mjs';
 import {CDataViewFake} from '../../utils/c-data-view-fake.mjs';
@@ -140,7 +140,7 @@ export class W3ABDHQTU {
      * @param endblock
      * @return {string}
      */
-    _toTOML(map, {endblock = false} = {}) {
+    _toTOML(map, {endblock = true} = {}) {
         let out = `[Settings]\nversion = ${this.formatVersion} # binary format version\n`;
 
         /**
@@ -153,26 +153,29 @@ export class W3ABDHQTU {
         /**
          * @param {W3ABDHQTUItemDataValue} prop
          * @param {string} str
+         * @param {boolean} singleline
          * @return {string}
          */
-        const _stringFormat = (prop, str) => {
-            const brace = map[Dec2RawBE(prop.id)]?.singleline ? '"' : '"""';
+        const _stringFormat = (prop, str, singleline = false) => {
+            const brace = singleline ? '"' : '"""';
             return `${brace}${str.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}${brace}`;
         };
 
         /**
          * @param {W3ABDHQTUItemDataValue} prop
          * @param value
+         * @param {boolean} isString
+         * @param {boolean} singleline
          */
-        const _value = (prop, value) => {
-            const format = prop.type === 3 ? _stringFormat : _numberFormat;
-            const tdef = prop.type === 3 ? 'string' : 'number';
-            if (value.length === 1) return format(prop, prop.value) + '\n';
+        const _value = (prop, value, isString, singleline = false) => {
+            const format = isString ? _stringFormat : _numberFormat;
+            const tdef = isString ? 'string' : 'number';
+            if (prop.level === 0) return format(prop, value[0], singleline) + '\n';
             let out = `[\n`;
             for (let i = 0; i < value.length; i++) {
                 const empty = typeof value[i] !== tdef;
                 const comma = i < value.length - 1 ? ',' : '';
-                out += empty ? `[]${comma} # use default value` : format(prop, value[i]) + comma;
+                out += empty ? `[]${comma} # use default value` : format(prop, value[i], singleline) + comma;
                 out += '\n';
             }
             return `${out}]\n`;
@@ -182,11 +185,22 @@ export class W3ABDHQTU {
          * @param {W3ABDHQTUItemDataValue} prop
          * @param value
          * @param data
+         * @param end
          */
-        const _write = (prop, value, data) => {
+        const _write = (prop, value, data, end) => {
             const name = `${Dec2RawBE(prop.id)}`;
             if (!(value instanceof Array)) value = [value];
             if (!(data instanceof Array)) data = [data];
+            if (!(end instanceof Array)) end = [end];
+            let endLength = 0;
+            for (let i = 0; i < end.length; i++) {
+                if (end[i] === undefined || end[i] === 0) {
+                    end[i] = [];
+                    continue;
+                }
+                endLength++;
+                end[i] = Dec2RawBE(end[i]);
+            }
 
             if (map[name] === undefined) {
                 switch (prop.type) {
@@ -209,15 +223,19 @@ export class W3ABDHQTU {
                 out += `# ${map[name].name}\n`;
             }
 
-            out += `${name} = ${_value(prop, value)}`;
+            out += `${name} = ${_value(prop, value, prop.type === 3, map[name]?.singleline ?? false)}`;
             if (value.length === 1 && prop.level > 0) out += `${name}Level = ${prop.level}\n`;
 
-            if (data.filter((e) => e > 0).length === data.length) {
-                out += `${name}Data = `;
-                out += data.length > 1 ? `[\n${data.join(',\n')}\n]\n` : `${prop.data}\n`;
+            let skip = true;
+            for (const d of data) {
+                if (d !== 0) {
+                    skip = false;
+                    break;
+                }
             }
 
-            if (prop.end > 0 && endblock) out += `${name}End = "${Dec2RawBE(prop.end)}"\n`;
+            if (!skip) out += `${name}Data = ${_value(prop, data, false)}`;
+            if (endblock && endLength > 0) out += `${name}End = ${_value(prop, end, true, true)}`;
         };
 
         for (const item of this.list) {
@@ -247,39 +265,45 @@ export class W3ABDHQTU {
                     }
                     if (level < 0) throw new Error(`Missing property level: ${Dec2RawBE(pId)}`);
 
-
                     /** @type {Map<number, W3ABDHQTUItemDataValue[]>} */
                     const map = new Map();
 
-                    for (const idv of data.list) {
-                        if (!map.has(idv.id)) map.set(idv.id, []);
-                        map.get(idv.id).push(idv);
+                    for (const prop of data.list) {
+                        if (!map.has(prop.id)) map.set(prop.id, []);
+                        map.get(prop.id).push(prop);
                     }
 
                     map.forEach((list) => {
                         const propFirst = list[0];
+                        if (propFirst.level === 0) {
+                            _write(propFirst, propFirst.value, propFirst.data, propFirst.end);
+                            return;
+                        }
                         const value = new Array(level);
                         const data = new Array(level);
+                        const end = new Array(level);
 
                         for (const prop of list) {
                             if (prop.level === 0) {
                                 for (const p of list) {
                                     if (p.level > 0) throw new Error(`${Dec2RawBE(pId)}:${Dec2RawBE(p.id)} - property with 0 level has other levels`);
                                 }
-                                _write(propFirst, propFirst.value, propFirst.data);
+                                _write(propFirst, propFirst.value, propFirst.data, prop.end);
                                 return;
                             }
-                            value[prop.level - 1] = prop.value;
-                            data[prop.level - 1] = prop.data;
+                            const lvl = prop.level - 1;
+                            value[lvl] = prop.value;
+                            data[lvl] = prop.data;
+                            end[lvl] = prop.end;
                         }
-                        _write(propFirst, value, data);
+                        _write(propFirst, value, data, end);
                     });
                 }
             } else {
                 for (const data of item.list) {
                     if (this.formatVersion >= 3 && data.flag > 0) out += `flags = ${data.flag}\n`;
                     for (const prop of data.list) {
-                        _write(prop, prop.value, prop.data);
+                        _write(prop, prop.value, prop.data, prop.end);
                     }
                 }
             }
@@ -324,33 +348,36 @@ export class W3ABDHQTU {
             for (const [attrRawId, attrValue] of Object.entries(propMap)) {
                 if (attrRawId.length !== 4) continue;
                 if (map[attrRawId]?.level ?? false) {
-                    if (attrValue.length !== propMap['alev']) throw new Error(`⚠️${itemRawId} : missilng level data for '${attrRawId}'`);
+                    let level = propMap['alev'];
+                    if (level instanceof Array) level = level[0];
+                    if (attrValue.length !== level) throw new Error(`⚠️${itemRawId} : missilng level data for '${attrRawId}'`);
                 }
+
                 if (attrValue instanceof Array) {
                     for (let i = 0; i < attrValue.length; i++) {
                         if (typeof attrValue[i] === 'object') continue;
                         const itemDataValue = new W3ABDHQTUItemDataValue(adq);
                         itemData.list.push(itemDataValue);
-                        itemDataValue.fromMap(attrRawId, propMap, map);
-                        itemDataValue.value = attrValue[i];
                         if (adq) {
                             itemDataValue.level = i + 1;
                             const data = propMap[`${attrRawId}Data`];
                             if (data === undefined) itemDataValue.data = 0;
                             if (data instanceof Array) itemDataValue.data = data[i];
                         }
+                        itemDataValue.fromMap(attrRawId, propMap, map);
+                        itemDataValue.value = attrValue[i];
                     }
                     continue;
                 }
 
                 const itemDataValue = new W3ABDHQTUItemDataValue(adq);
                 itemData.list.push(itemDataValue);
-                itemDataValue.fromMap(attrRawId, propMap, map);
-                itemDataValue.value = attrValue;
                 if (adq) {
                     itemDataValue.level = propMap[`${attrRawId}Level`] ?? 0;
                     itemDataValue.data = propMap[`${attrRawId}Data`] ?? 0;
                 }
+                itemDataValue.fromMap(attrRawId, propMap, map);
+                itemDataValue.value = attrValue;
             }
         }
 

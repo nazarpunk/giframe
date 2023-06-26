@@ -8,7 +8,7 @@ const name = [
     'wa.test',
 ][0];
 
-const w3a = W3A.fromTOML(fs.readFileSync(`${name}.${ext}.toml`, {encoding: 'utf8'}));
+const w3a = W3A.fromTOML(fs.readFileSync(`${name}.toml`, {encoding: 'utf8'}));
 const b = w3a.write();
 
 const f2 = `${name}.test.${ext}`;

@@ -15,6 +15,5 @@ if (w3a.errors.length) {
     console.log('⚠️', w3a.errors);
 } else {
     console.log('🏆 W3A`: end');
-    const f2 = `${name}.json`;
-    fs.writeFileSync(f2, JSON.stringify(w3a, null, 2), {flag: 'w+'});
+    fs.writeFileSync(`${name}.json`, JSON.stringify(w3a, null, 2), {flag: 'w+'});
 }

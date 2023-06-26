@@ -11,7 +11,7 @@ export class W3ABDHQTUItemDataValue {
     list = [];
 
     /** @type {('integer'|'real'|'unreal'|'string')}*/
-    #type;
+    #typeString;
 
     /** @param {('integer'|'real'|'unreal'|'string')} type */
     set typeString(type) {
@@ -31,7 +31,7 @@ export class W3ABDHQTUItemDataValue {
             default:
                 throw new Error(`Missing string type: ${type}`);
         }
-        this.#type = type;
+        this.#typeString = type;
     }
 
     /** @param {CDataView} view */
@@ -47,18 +47,18 @@ export class W3ABDHQTUItemDataValue {
         switch (this.type) {
             case 0:
                 this.value = view.uint32;
-                this.#type = 'integer';
+                this.#typeString = 'integer';
                 break;
             case 1:
-                this.#type = 'real';
+                this.#typeString = 'real';
                 this.value = view.float32;
                 break;
             case 2:
-                this.#type = 'unreal';
+                this.#typeString = 'unreal';
                 this.value = view.float32;
                 break;
             case 3:
-                this.#type = 'string';
+                this.#typeString = 'string';
                 this.value = view.string;
                 break;
             default:
@@ -112,14 +112,36 @@ export class W3ABDHQTUItemDataValue {
         if (typeMap[rawId] === undefined) this.typeString = attrMap[`${rawId}Type`];
         else this.type = typeMap[rawId].type;
 
-        const end = attrMap[`${rawId}End`];
-        this.end = end === undefined ? 0 : Raw2Dec(String(end));
+        switch (this.type) {
+            case 0:
+                this.#typeString = 'integer';
+                break;
+            case 1:
+                this.#typeString = 'real';
+                break;
+            case 2:
+                this.#typeString = 'unreal';
+                break;
+            case 3:
+                this.#typeString = 'string';
+                break;
+            default:
+                throw new Error(`Unknown variable type: ${this.type}`);
+        }
+
+        let end = attrMap[`${rawId}End`];
+        if (end === undefined) this.end = 0;
+        else {
+            if (this.level === undefined) throw new Error('Missing level data');
+            if (end instanceof Array) end = end[this.level - 1];
+            this.end = typeof end === 'string' ? Raw2Dec(String(end)) : 0;
+        }
     }
 
     toJSON() {
         return {
             id: Dec2RawBE(this.id),
-            type: this.#type,
+            type: this.#typeString,
             level: this.level,
             data: this.data,
             value: this.value,

@@ -140,7 +140,7 @@ export class W3ABDHQTU {
      * @param endblock
      * @return {string}
      */
-    _toTOML(map, {endblock = true} = {}) {
+    _toTOML(map, {endblock = false} = {}) {
         let out = `[Settings]\nversion = ${this.formatVersion} # binary format version\n`;
 
         /**

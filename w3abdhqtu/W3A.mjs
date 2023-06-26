@@ -25,6 +25,6 @@ export class W3A extends W3ABDHQTU {
 
     /** @return {string} */
     toTOML() {
-        return super._toTOML(W3ATOMLMap);
+        return super._toTOML(W3ATOMLMap, {endblock: false});
     }
 }

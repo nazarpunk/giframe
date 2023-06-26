@@ -111,7 +111,9 @@ export class W3ABDHQTUItemDataValue {
         this.id = Raw2Dec(String(rawId));
         if (typeMap[rawId] === undefined) this.typeString = attrMap[`${rawId}Type`];
         else this.type = typeMap[rawId].type;
-        this.end = 0;
+
+        const end = attrMap[`${rawId}End`];
+        this.end = end === undefined ? 0 : Raw2Dec(String(end));
     }
 
     toJSON() {

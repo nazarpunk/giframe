@@ -1,181 +1,156 @@
 [Settings]
 version = 3 # binary format version
 
-[Sch4] # 1399023668 0x53636834
-# CARGO_CAPACITY
-Car1 = [
-1,
-6
-]
-Car1Data = [
-1,
-1
-]
-# MISSILE_SPEED
-amsp = 2
-# HOMING (boolean)
+[ANcl] # 1095656300 0x414e636c
+# HOMING, boolean
 amho = 1
-abufType = "string"
-abuf = [
-"""Bmlc""",
-"""Bplg"""
+# MISSILE_SPEED, integer
+amsp = 2
+# HERO_ABILITY, boolean
+aher = 0
+# ITEM_ABILITY, boolean
+aite = 1
+# LEVELS, integer
+alev = 4
+# PRIORITY, integer
+apri = 1
+# _UNDEFINED, string
+arac = "commoner"
+# CHECK_DEPENDENCIES, boolean
+achd = 0
+# _UNDEFINED, string
+areq = "hpea"
+# _UNDEFINED, string
+arqa = "1"
+# _UNDEFINED, string
+aoro = "absorb"
+# _UNDEFINED, string
+aorf = "acolyteharvest"
+# _UNDEFINED, string
+aoru = "antimagicshell"
+# _UNDEFINED, string
+aord = "corrosivebreath"
+# ART_DURATION, real, multilevel
+Ncl4 = [
+[], # use default value
+0.88,
+0.88,
+0.88
 ]
-# AREA_OF_EFFECT
-aare = [
-300,
-8
+# _UNDEFINED, string, multilevel
+Ncl6 = [
+[], # use default value
+"cloudoffog",
+"cloudoffog",
+"cloudoffog"
 ]
-# CAST_RANGE
-aran = [
+# DISABLE_OTHER_ABILITIES, boolean, multilevel
+Ncl5 = [
+0,
+0,
+0,
+0
+]
+Ncl5Data = [
+5,
+5,
+5,
+5
+]
+# FOLLOW_THROUGH_TIME, real, multilevel
+Ncl1 = [
+[], # use default value
+179.9,
+179.9,
+179.9
+]
+# OPTIONS, integer, multilevel
+Ncl3 = [
+27,
+11,
 1,
 1
 ]
-# CASTING_TIME
-acas = [
-1,
+Ncl3Data = [
+3,
+3,
+3,
 3
 ]
-# COOLDOWN
-acdn = [
+# TARGET_TYPE, integer, multilevel
+Ncl2 = [
+[], # use default value
 1,
-5
-]
-# DURATION_HERO
-ahdu = [
-1,
-5
-]
-# DURATION_NORMAL
-adur = [
-1,
-5
-]
-aeffType = "string"
-aeff = [
-"""Xfos""",
-"""XNhs"""
-]
-# ITEM_ABILITY (boolean)
-aite = 1
-# HERO_ABILITY (boolean)
-aher = 1
-# MANA_COST
-amcs = [
-1,
-5
-]
-# LEVELS
-alev = 2
-# TARGETS_ALLOWED
-atar = [
-"""friend,ground,invulnerable,neutral,vulnerable""",
-"""notself"""
-]
-# PRIORITY
-apri = 2
-aracType = "string"
-arac = """demon"""
-# CHECK_DEPENDENCIES (boolean)
-achd = 0
-areqType = "string"
-areq = """hmpr"""
-arqaType = "string"
-arqa = """1"""
-aoroType = "string"
-aoro = """acidbomb"""
-aorfType = "string"
-aorf = """acidbomb"""
-aoruType = "string"
-aoru = """acolyteharvest"""
-aordType = "string"
-aord = """acolyteharvest"""
-
-[S000] # 1395666992 0x53303030
-parent = "Sch4" # 1399023668 0x53636834
-# CARGO_CAPACITY
-Car1 = [
-1,
-6
-]
-Car1Data = [
 1,
 1
 ]
-# MISSILE_SPEED
-amsp = 2
-# HOMING (boolean)
-amho = 1
-abufType = "string"
-abuf = [
-"""Bmlc""",
-"""Bplg"""
-]
-# AREA_OF_EFFECT
+# AREA_OF_EFFECT, real, multilevel
 aare = [
-300,
-8
+200,
+200,
+200,
+200
 ]
-# CAST_RANGE
+# _UNDEFINED, string, multilevel
+abuf = [
+[], # use default value
+"BUad",
+"BUad",
+"BUad"
+]
+# CAST_RANGE, real, multilevel
 aran = [
-1,
-1
+[], # use default value
+500.1,
+500.1,
+500.1
 ]
-# CASTING_TIME
+# CASTING_TIME, real, multilevel
 acas = [
-1,
+[], # use default value
+3,
+3,
 3
 ]
-# COOLDOWN
+# COOLDOWN, real, multilevel
 acdn = [
-1,
-5
+[], # use default value
+3,
+3,
+3
 ]
-# DURATION_HERO
+# DURATION_HERO, real, multilevel
 ahdu = [
-1,
-5
+[], # use default value
+4,
+4,
+4
 ]
-# DURATION_NORMAL
+# DURATION_NORMAL, real, multilevel
 adur = [
-1,
-5
+[], # use default value
+4,
+4,
+4
 ]
-aeffType = "string"
+# _UNDEFINED, string, multilevel
 aeff = [
-"""Xfos""",
-"""XNhs"""
+[], # use default value
+"Xfom",
+"Xfom",
+"Xfom"
 ]
-# ITEM_ABILITY (boolean)
-aite = 1
-# HERO_ABILITY (boolean)
-aher = 1
-# MANA_COST
+# MANA_COST, integer, multilevel
 amcs = [
-1,
+[], # use default value
+2,
+4,
 5
 ]
-# LEVELS
-alev = 2
-# TARGETS_ALLOWED
+# _UNDEFINED, string, multilevel
 atar = [
-"""friend,ground,invulnerable,neutral,vulnerable""",
-"""notself"""
+[], # use default value
+"air",
+"enemies,friend",
+"structure,sapper,terrain"
 ]
-# PRIORITY
-apri = 2
-aracType = "string"
-arac = """demon"""
-# CHECK_DEPENDENCIES (boolean)
-achd = 0
-areqType = "string"
-areq = """hmpr"""
-arqaType = "string"
-arqa = """1"""
-aoroType = "string"
-aoro = """acidbomb"""
-aorfType = "string"
-aorf = """acidbomb"""
-aoruType = "string"
-aoru = """acolyteharvest"""
-aordType = "string"
-aord = """acolyteharvest"""

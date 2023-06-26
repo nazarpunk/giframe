@@ -1,5 +1,5 @@
 import {W3ABDHQTU} from './abstract/W3ABDHQTU.mjs';
-import W3ATOMLMap from './maps/W3ATOMLMap.mjs';
+import W3ATOMLMap from './maps/w3a/W3ATOMLMap.mjs';
 
 export class W3A extends W3ABDHQTU {
     /** @param {Buffer|ArrayBuffer} buffer */

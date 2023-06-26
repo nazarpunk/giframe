@@ -4,10 +4,6 @@ import {W3A} from '../../W3A.mjs';
 const name = [
     'wa.w3a',
     'wa.test.w3a',
-    'wm.w3a',
-    'waSkin.w3a',
-    'wshit.w3a',
-    'war3map.w3a',
 ][0];
 
 const w3a = new W3A(fs.readFileSync(name));

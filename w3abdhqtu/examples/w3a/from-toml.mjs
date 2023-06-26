@@ -4,10 +4,8 @@ import {W3A} from '../../W3A.mjs';
 
 const ext = 'w3a';
 const name = [
-    'wa.test',
     'wa',
-    'war3map',
-    'skin',
+    'wa.test',
 ][0];
 
 const w3a = W3A.fromTOML(fs.readFileSync(`${name}.${ext}.toml`, {encoding: 'utf8'}));

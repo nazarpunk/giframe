@@ -12,113 +12,104 @@
               "type": "integer",
               "level": 0,
               "data": 0,
-              "value": 1,
-              "end": "ANcl"
+              "value": 1
             },
             {
               "id": "arac",
               "type": "string",
               "level": 0,
               "data": 0,
-              "value": "commoner",
-              "end": "ANcl"
+              "value": "commoner"
             },
             {
               "id": "achd",
               "type": "integer",
               "level": 0,
               "data": 0,
-              "value": 0,
-              "end": "ANcl"
+              "value": 0
             },
             {
               "id": "areq",
               "type": "string",
               "level": 0,
               "data": 0,
-              "value": "hpea",
-              "end": "ANcl"
+              "value": "hpea"
             },
             {
               "id": "arqa",
               "type": "string",
               "level": 0,
               "data": 0,
-              "value": "1",
-              "end": "ANcl"
+              "value": "1"
             },
             {
               "id": "aoro",
               "type": "string",
               "level": 0,
               "data": 0,
-              "value": "absorb",
-              "end": "ANcl"
+              "value": "absorb"
             },
             {
               "id": "aorf",
               "type": "string",
               "level": 0,
               "data": 0,
-              "value": "acolyteharvest",
-              "end": "ANcl"
+              "value": "acolyteharvest"
             },
             {
               "id": "aoru",
               "type": "string",
               "level": 0,
               "data": 0,
-              "value": "antimagicshell",
-              "end": "ANcl"
+              "value": "antimagicshell"
             },
             {
               "id": "aord",
               "type": "string",
               "level": 0,
               "data": 0,
-              "value": "corrosivebreath",
-              "end": "ANcl"
+              "value": "corrosivebreath"
             },
             {
               "id": "Ncl4",
-              "type": "unreal",
+              "type": "real",
               "level": 2,
-              "data": 4,
+              "data": 0,
               "value": 0.8799999952316284
             },
             {
               "id": "Ncl4",
-              "type": "unreal",
+              "type": "real",
               "level": 3,
-              "data": 4,
+              "data": 0,
               "value": 0.8799999952316284
             },
             {
               "id": "Ncl4",
-              "type": "unreal",
+              "type": "real",
               "level": 4,
-              "data": 4,
+              "data": 0,
               "value": 0.8799999952316284
             },
             {
               "id": "Ncl6",
               "type": "string",
               "level": 2,
-              "data": 6,
+              "data": 0,
               "value": "cloudoffog"
             },
             {
               "id": "Ncl6",
               "type": "string",
               "level": 3,
-              "data": 6,
+              "data": 0,
               "value": "cloudoffog"
             },
             {
               "id": "Ncl6",
               "type": "string",
               "level": 4,
-              "data": 6,
+              "data": 0,
               "value": "cloudoffog"
             },
             {
@@ -126,8 +117,7 @@
               "type": "integer",
               "level": 1,
               "data": 5,
-              "value": 0,
-              "end": "ANcl"
+              "value": 0
             },
             {
               "id": "Ncl5",
@@ -152,23 +142,23 @@
             },
             {
               "id": "Ncl1",
-              "type": "unreal",
+              "type": "real",
               "level": 2,
-              "data": 1,
+              "data": 0,
               "value": 179.89999389648438
             },
             {
               "id": "Ncl1",
-              "type": "unreal",
+              "type": "real",
               "level": 3,
-              "data": 1,
+              "data": 0,
               "value": 179.89999389648438
             },
             {
               "id": "Ncl1",
-              "type": "unreal",
+              "type": "real",
               "level": 4,
-              "data": 1,
+              "data": 0,
               "value": 179.89999389648438
             },
             {
@@ -176,82 +166,74 @@
               "type": "integer",
               "level": 1,
               "data": 3,
-              "value": 27,
-              "end": "ANcl"
+              "value": 27
             },
             {
               "id": "Ncl3",
               "type": "integer",
               "level": 2,
               "data": 3,
-              "value": 11,
-              "end": "ANcl"
+              "value": 11
             },
             {
               "id": "Ncl3",
               "type": "integer",
               "level": 3,
               "data": 3,
-              "value": 1,
-              "end": "ANcl"
+              "value": 1
             },
             {
               "id": "Ncl3",
               "type": "integer",
               "level": 4,
               "data": 3,
-              "value": 1,
-              "end": "ANcl"
+              "value": 1
             },
             {
               "id": "Ncl2",
               "type": "integer",
               "level": 2,
-              "data": 2,
-              "value": 1,
-              "end": "ANcl"
+              "data": 0,
+              "value": 1
             },
             {
               "id": "Ncl2",
               "type": "integer",
               "level": 3,
-              "data": 2,
-              "value": 1,
-              "end": "ANcl"
+              "data": 0,
+              "value": 1
             },
             {
               "id": "Ncl2",
               "type": "integer",
               "level": 4,
-              "data": 2,
-              "value": 1,
-              "end": "ANcl"
+              "data": 0,
+              "value": 1
             },
             {
               "id": "aare",
-              "type": "unreal",
+              "type": "real",
               "level": 1,
               "data": 0,
-              "value": 200,
-              "end": "ANcl"
+              "value": 200
             },
             {
               "id": "aare",
-              "type": "unreal",
+              "type": "real",
               "level": 2,
               "data": 0,
               "value": 200
             },
             {
               "id": "aare",
-              "type": "unreal",
+              "type": "real",
               "level": 3,
               "data": 0,
               "value": 200
             },
             {
               "id": "aare",
-              "type": "unreal",
+              "type": "real",
               "level": 4,
               "data": 0,
               "value": 200
@@ -279,110 +261,105 @@
             },
             {
               "id": "aran",
-              "type": "unreal",
+              "type": "real",
               "level": 2,
               "data": 0,
-              "value": 500.1000061035156,
-              "end": "ANcl"
+              "value": 500.1000061035156
             },
             {
               "id": "aran",
-              "type": "unreal",
+              "type": "real",
               "level": 3,
               "data": 0,
               "value": 500.1000061035156
             },
             {
               "id": "aran",
-              "type": "unreal",
+              "type": "real",
               "level": 4,
               "data": 0,
               "value": 500.1000061035156
             },
             {
               "id": "acas",
-              "type": "unreal",
+              "type": "real",
               "level": 2,
-              "data": 0,
-              "value": 3,
-              "end": "ANcl"
-            },
-            {
-              "id": "acas",
-              "type": "unreal",
-              "level": 4,
               "data": 0,
               "value": 3
             },
             {
               "id": "acas",
-              "type": "unreal",
+              "type": "real",
               "level": 3,
               "data": 0,
               "value": 3
             },
             {
+              "id": "acas",
+              "type": "real",
+              "level": 4,
+              "data": 0,
+              "value": 3
+            },
+            {
               "id": "acdn",
-              "type": "unreal",
+              "type": "real",
               "level": 2,
               "data": 0,
-              "value": 3,
-              "end": "ANcl"
+              "value": 3
             },
             {
               "id": "acdn",
-              "type": "unreal",
+              "type": "real",
               "level": 3,
               "data": 0,
               "value": 3
             },
             {
               "id": "acdn",
-              "type": "unreal",
+              "type": "real",
               "level": 4,
               "data": 0,
               "value": 3
             },
             {
               "id": "ahdu",
-              "type": "unreal",
+              "type": "real",
               "level": 2,
               "data": 0,
-              "value": 4,
-              "end": "ANcl"
+              "value": 4
             },
             {
               "id": "ahdu",
-              "type": "unreal",
+              "type": "real",
               "level": 3,
               "data": 0,
               "value": 4
             },
             {
               "id": "ahdu",
-              "type": "unreal",
+              "type": "real",
               "level": 4,
               "data": 0,
               "value": 4
             },
             {
               "id": "adur",
-              "type": "unreal",
+              "type": "real",
               "level": 2,
               "data": 0,
-              "value": 4,
-              "end": "ANcl"
+              "value": 4
             },
             {
               "id": "adur",
-              "type": "unreal",
+              "type": "real",
               "level": 3,
               "data": 0,
               "value": 4
             },
             {
               "id": "adur",
-              "type": "unreal",
+              "type": "real",
               "level": 4,
               "data": 0,
               "value": 4
@@ -392,8 +369,7 @@
               "type": "string",
               "level": 2,
               "data": 0,
-              "value": "Xfom",
-              "end": "ANcl"
+              "value": "Xfom"
             },
             {
               "id": "aeff",
@@ -414,48 +390,42 @@
               "type": "integer",
               "level": 2,
               "data": 0,
-              "value": 2,
-              "end": "ANcl"
+              "value": 2
             },
             {
               "id": "amcs",
               "type": "integer",
               "level": 3,
               "data": 0,
-              "value": 4,
-              "end": "ANcl"
+              "value": 4
             },
             {
               "id": "amcs",
               "type": "integer",
               "level": 4,
               "data": 0,
-              "value": 5,
-              "end": "ANcl"
+              "value": 5
             },
             {
               "id": "atar",
-              "type": "string",
+              "type": "integer",
               "level": 2,
               "data": 0,
-              "value": "air",
-              "end": "ANcl"
+              "value": 0
             },
             {
               "id": "atar",
-              "type": "string",
+              "type": "integer",
               "level": 3,
               "data": 0,
-              "value": "enemies,friend",
-              "end": "ANcl"
+              "value": 0
             },
             {
               "id": "atar",
-              "type": "string",
+              "type": "integer",
               "level": 4,
               "data": 0,
-              "value": "structure,sapper,terrain",
-              "end": "ANcl"
+              "value": 0
             }
           ]
         }

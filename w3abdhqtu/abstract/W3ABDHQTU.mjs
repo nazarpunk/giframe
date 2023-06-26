@@ -228,7 +228,7 @@ export class W3ABDHQTU {
 
             let skip = true;
             for (const d of data) {
-                if (d !== 0) {
+                if (d !== 0 && typeof d === 'number') {
                     skip = false;
                     break;
                 }

@@ -202,28 +202,30 @@ export class W3ABDHQTU {
                 end[i] = Dec2RawBE(end[i]);
             }
 
-            // FIXME
-            if (map[name] === undefined) {
-            } else {
+            let showType = true;
+            if (map[name] !== undefined) {
+                showType = false;
                 out += `# ${map[name].name}\n`;
             }
-            switch (prop.type) {
-                case 0:
-                    out += `${name}Type = "integer"\n`;
-                    break;
-                case 1:
-                    out += `${name}Type = "real"\n`;
-                    break;
-                case 2:
-                    out += `${name}Type = "unreal"\n`;
-                    break;
-                case 3:
-                    out += `${name}Type = "string"\n`;
-                    break;
-                default:
-                    throw new Error(`Unknown variable type: ${prop.type}`);
-            }
 
+            if (showType) {
+                switch (prop.type) {
+                    case 0:
+                        out += `${name}Type = "integer"\n`;
+                        break;
+                    case 1:
+                        out += `${name}Type = "real"\n`;
+                        break;
+                    case 2:
+                        out += `${name}Type = "unreal"\n`;
+                        break;
+                    case 3:
+                        out += `${name}Type = "string"\n`;
+                        break;
+                    default:
+                        throw new Error(`Unknown variable type: ${prop.type}`);
+                }
+            }
 
             out += `${name} = ${_value(prop, value, prop.type === 3, map[name]?.singleline ?? false)}`;
             if (value.length === 1 && prop.level > 0) out += `${name}Level = ${prop.level}\n`;

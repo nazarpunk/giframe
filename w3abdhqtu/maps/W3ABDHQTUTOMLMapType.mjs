@@ -20,16 +20,11 @@ export default (type) => {
             itype = 3;
             singleline = false;
             break;
-        //
-        case 'abilCode':
-        case 'aiBuffer':
-        case 'attackBits':
-        case 'attributeType':
-        case 'armorType':
-        case 'channelType': //
-        case 'channelFlags':
+        case 'attackBits': // unit
+        case 'channelFlags': // ability
+        case 'channelType': // ability
         case 'detectionType':
-        case 'deathType':
+        case 'deathType': // unit
         case 'defenseTypeInt':
         case 'fullFlags':
         case 'int':
@@ -37,50 +32,54 @@ export default (type) => {
         case 'interactionFlags':
         case 'morphFlags':
         case 'pickFlags':
-        case 'regenType':
         case 'stackFlags':
         case 'silenceFlags':
-        case 'unitClass':
+        case 'teamColor': // unit
         case 'unitCode':
         case 'upgradeCode':
+        case 'versionFlags':
             itype = 0;
             break;
-        case 'abilityList':
+        case 'abilCode': // unit
+        case 'abilityList': // unit
         case 'abilitySkinList':
-        case 'attackType':
-        case 'buffList':
+        case 'armorType': // unit
+        case 'attributeType': // unit
+        case 'attackType': // unit
+        case 'aiBuffer': // unit
+        case 'buffList': // ability
         case 'char':
-        case 'combatSound':
-        case 'defenseType': //
-        case 'effectList':
-        case 'heroAbilityList':
+        case 'combatSound': // unit
+        case 'defenseType': // unit
+        case 'effectList': // ability
+        case 'heroAbilityList': // unit
         case 'icon':
-        case 'intList':
-        case 'itemList':
+        case 'intList': // ability, unit
+        case 'itemList': // unit
         case 'lightningList':
         case 'modelList':
         case 'model':
-        case 'moveType':
-        case 'orderString':
+        case 'moveType': // unit
+        case 'orderString': // ability
         case 'pathingListPrevent':
         case 'pathingListRequire':
         case 'pathingTexture':
-        case 'soundLabel': //
+        case 'regenType': // unit
+        case 'soundLabel':
         case 'stringList':
         case 'shadowTexture':
         case 'shadowImage':
-        case 'teamColor':
+        case 'targetList': // ability, unit
+        case 'techList': // ability, unit
+        case 'tilesetList': // unit
         case 'uberSplat':
+        case 'unitClass': // unit
         case 'unitSound':
-        case 'techList':
-        case 'tilesetList':
-        case 'targetList':
-        case 'unitRace':
-        case 'unitList':
-        case 'upgradeList':
+        case 'unitRace': // ability, unit
+        case 'unitList': // unit
+        case 'upgradeList': // unit
         case 'unitSkinList':
-        case 'versionFlags':
-        case 'weaponType':
+        case 'weaponType': // unit
             itype = 3;
             break;
         default:

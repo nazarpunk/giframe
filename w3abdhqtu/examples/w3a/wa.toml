@@ -3,34 +3,49 @@ version = 3 # binary format version
 
 [ANcl] # 1095656300 0x414e636c
 # (bool) MissileHoming : Missile Homing Enabled
+amhoType = "integer"
 amho = 1
 # (int) Missilespeed : Missile Speed
+amspType = "integer"
 amsp = 2
 # (bool) hero : Hero Ability
+aherType = "integer"
 aher = 0
 # (bool) item : Item Ability
+aiteType = "integer"
 aite = 1
 # (int) levels : Levels
+alevType = "integer"
 alev = 4
 # (int) priority : Priority for Spell Steal
+apriType = "integer"
 apri = 1
 # (unitRace) race : Race
+aracType = "string"
 arac = "commoner"
 # (bool) checkDep : Check Dependencies
+achdType = "integer"
 achd = 0
 # (techList) Requires : Requirements
+areqType = "string"
 areq = "hpea"
 # (intList) Requiresamount : Requirements - Levels
+arqaType = "string"
 arqa = "1"
 # (orderString) Orderon : Order String - Activate
+aoroType = "string"
 aoro = "absorb"
 # (orderString) Orderoff : Order String - Deactivate
+aorfType = "string"
 aorf = "acolyteharvest"
 # (orderString) Unorder : Order String - Turn Off
+aoruType = "string"
 aoru = "antimagicshell"
 # (orderString) Order : Order String - Use/Turn On
+aordType = "string"
 aord = "corrosivebreath"
 # (unreal) Data [multilevel]: Art Duration
+Ncl4Type = "unreal"
 Ncl4 = [
 [], # use default value
 0.88,
@@ -44,6 +59,7 @@ Ncl4Data = [
 4
 ]
 # (orderString) Data [multilevel]: Base Order ID
+Ncl6Type = "string"
 Ncl6 = [
 [], # use default value
 "cloudoffog",
@@ -57,6 +73,7 @@ Ncl6Data = [
 6
 ]
 # (bool) Data [multilevel]: Disable Other Abilities
+Ncl5Type = "integer"
 Ncl5 = [
 0,
 0,
@@ -70,6 +87,7 @@ Ncl5Data = [
 5
 ]
 # (unreal) Data [multilevel]: Follow Through Time
+Ncl1Type = "unreal"
 Ncl1 = [
 [], # use default value
 179.9,
@@ -83,6 +101,7 @@ Ncl1Data = [
 1
 ]
 # (channelFlags) Data [multilevel]: Options
+Ncl3Type = "integer"
 Ncl3 = [
 27,
 11,
@@ -96,6 +115,7 @@ Ncl3Data = [
 3
 ]
 # (channelType) Data [multilevel]: Target Type
+Ncl2Type = "integer"
 Ncl2 = [
 [], # use default value
 1,
@@ -109,6 +129,7 @@ Ncl2Data = [
 2
 ]
 # (unreal) Area [multilevel]: Area of Effect
+aareType = "unreal"
 aare = [
 200,
 200,
@@ -116,6 +137,7 @@ aare = [
 200
 ]
 # (buffList) BuffID [multilevel]: Buffs
+abufType = "string"
 abuf = [
 [], # use default value
 "BUad",
@@ -123,6 +145,7 @@ abuf = [
 "BUad"
 ]
 # (unreal) Rng [multilevel]: Cast Range
+aranType = "unreal"
 aran = [
 [], # use default value
 500.1,
@@ -130,6 +153,7 @@ aran = [
 500.1
 ]
 # (unreal) Cast [multilevel]: Casting Time
+acasType = "unreal"
 acas = [
 [], # use default value
 3,
@@ -137,6 +161,7 @@ acas = [
 3
 ]
 # (unreal) Cool [multilevel]: Cooldown
+acdnType = "unreal"
 acdn = [
 [], # use default value
 3,
@@ -144,6 +169,7 @@ acdn = [
 3
 ]
 # (unreal) HeroDur [multilevel]: Duration - Hero
+ahduType = "unreal"
 ahdu = [
 [], # use default value
 4,
@@ -151,6 +177,7 @@ ahdu = [
 4
 ]
 # (unreal) Dur [multilevel]: Duration - Normal
+adurType = "unreal"
 adur = [
 [], # use default value
 4,
@@ -158,6 +185,7 @@ adur = [
 4
 ]
 # (effectList) EfctID [multilevel]: Effects
+aeffType = "string"
 aeff = [
 [], # use default value
 "Xfom",
@@ -165,6 +193,7 @@ aeff = [
 "Xfom"
 ]
 # (int) Cost [multilevel]: Mana Cost
+amcsType = "integer"
 amcs = [
 [], # use default value
 2,
@@ -172,6 +201,7 @@ amcs = [
 5
 ]
 # (targetList) targs [multilevel]: Targets Allowed
+atarType = "string"
 atar = [
 [], # use default value
 "air",

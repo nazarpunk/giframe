@@ -3,6 +3,7 @@ import {W3A} from '../../W3A.mjs';
 
 const ext = 'w3a';
 const name = [
+    'wb',
     'wa',
     'wa.test',
 ][0];

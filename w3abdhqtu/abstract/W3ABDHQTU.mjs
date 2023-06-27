@@ -256,14 +256,13 @@ export class W3ABDHQTU {
                     if (this.formatVersion >= 3 && data.flag > 0) out += `flags = ${data.flag}\n`;
 
                     // check level
-                    let level = -1;
+                    let level = 0;
                     for (const prop of data.list) {
                         if (prop.id === 0x616c6576/*alev*/) {
                             level = prop.value;
                             break;
                         }
                     }
-                    if (level < 0) throw new Error(`Missing property level: ${Dec2RawBE(pId)}`);
 
                     /** @type {Map<number, W3ABDHQTUItemDataValue[]>} */
                     const map = new Map();

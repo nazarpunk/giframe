@@ -1,0 +1,505 @@
+{
+  "formatVersion": 3,
+  "list": [
+    {
+      "defaultId": "ANcl",
+      "list": [
+        {
+          "flag": 0,
+          "list": [
+            {
+              "id": "amho",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 1,
+              "end": "ANcl"
+            },
+            {
+              "id": "amsp",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 2,
+              "end": "ANcl"
+            },
+            {
+              "id": "aher",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 0,
+              "end": "ANcl"
+            },
+            {
+              "id": "aite",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 1,
+              "end": "ANcl"
+            },
+            {
+              "id": "alev",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 4,
+              "end": "ANcl"
+            },
+            {
+              "id": "apri",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 1,
+              "end": "ANcl"
+            },
+            {
+              "id": "arac",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "commoner",
+              "end": "ANcl"
+            },
+            {
+              "id": "achd",
+              "type": "integer",
+              "level": 0,
+              "data": 0,
+              "value": 0,
+              "end": "ANcl"
+            },
+            {
+              "id": "areq",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "hpea",
+              "end": "ANcl"
+            },
+            {
+              "id": "arqa",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "1",
+              "end": "ANcl"
+            },
+            {
+              "id": "aoro",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "absorb",
+              "end": "ANcl"
+            },
+            {
+              "id": "aorf",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "acolyteharvest",
+              "end": "ANcl"
+            },
+            {
+              "id": "aoru",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "antimagicshell",
+              "end": "ANcl"
+            },
+            {
+              "id": "aord",
+              "type": "string",
+              "level": 0,
+              "data": 0,
+              "value": "corrosivebreath",
+              "end": "ANcl"
+            },
+            {
+              "id": "Ncl4",
+              "type": "unreal",
+              "level": 2,
+              "data": 4,
+              "value": 0.8799999952316284
+            },
+            {
+              "id": "Ncl4",
+              "type": "unreal",
+              "level": 3,
+              "data": 4,
+              "value": 0.8799999952316284
+            },
+            {
+              "id": "Ncl4",
+              "type": "unreal",
+              "level": 4,
+              "data": 4,
+              "value": 0.8799999952316284
+            },
+            {
+              "id": "Ncl6",
+              "type": "string",
+              "level": 2,
+              "data": 6,
+              "value": "cloudoffog"
+            },
+            {
+              "id": "Ncl6",
+              "type": "string",
+              "level": 3,
+              "data": 6,
+              "value": "cloudoffog"
+            },
+            {
+              "id": "Ncl6",
+              "type": "string",
+              "level": 4,
+              "data": 6,
+              "value": "cloudoffog"
+            },
+            {
+              "id": "Ncl5",
+              "type": "integer",
+              "level": 1,
+              "data": 5,
+              "value": 0,
+              "end": "ANcl"
+            },
+            {
+              "id": "Ncl5",
+              "type": "integer",
+              "level": 2,
+              "data": 5,
+              "value": 0
+            },
+            {
+              "id": "Ncl5",
+              "type": "integer",
+              "level": 3,
+              "data": 5,
+              "value": 0
+            },
+            {
+              "id": "Ncl5",
+              "type": "integer",
+              "level": 4,
+              "data": 5,
+              "value": 0
+            },
+            {
+              "id": "Ncl1",
+              "type": "unreal",
+              "level": 2,
+              "data": 1,
+              "value": 179.89999389648438
+            },
+            {
+              "id": "Ncl1",
+              "type": "unreal",
+              "level": 3,
+              "data": 1,
+              "value": 179.89999389648438
+            },
+            {
+              "id": "Ncl1",
+              "type": "unreal",
+              "level": 4,
+              "data": 1,
+              "value": 179.89999389648438
+            },
+            {
+              "id": "Ncl3",
+              "type": "integer",
+              "level": 1,
+              "data": 3,
+              "value": 27,
+              "end": "ANcl"
+            },
+            {
+              "id": "Ncl3",
+              "type": "integer",
+              "level": 2,
+              "data": 3,
+              "value": 11,
+              "end": "ANcl"
+            },
+            {
+              "id": "Ncl3",
+              "type": "integer",
+              "level": 3,
+              "data": 3,
+              "value": 1,
+              "end": "ANcl"
+            },
+            {
+              "id": "Ncl3",
+              "type": "integer",
+              "level": 4,
+              "data": 3,
+              "value": 1,
+              "end": "ANcl"
+            },
+            {
+              "id": "Ncl2",
+              "type": "integer",
+              "level": 2,
+              "data": 2,
+              "value": 1,
+              "end": "ANcl"
+            },
+            {
+              "id": "Ncl2",
+              "type": "integer",
+              "level": 3,
+              "data": 2,
+              "value": 1,
+              "end": "ANcl"
+            },
+            {
+              "id": "Ncl2",
+              "type": "integer",
+              "level": 4,
+              "data": 2,
+              "value": 1,
+              "end": "ANcl"
+            },
+            {
+              "id": "aare",
+              "type": "unreal",
+              "level": 1,
+              "data": 0,
+              "value": 200,
+              "end": "ANcl"
+            },
+            {
+              "id": "aare",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 200
+            },
+            {
+              "id": "aare",
+              "type": "unreal",
+              "level": 3,
+              "data": 0,
+              "value": 200
+            },
+            {
+              "id": "aare",
+              "type": "unreal",
+              "level": 4,
+              "data": 0,
+              "value": 200
+            },
+            {
+              "id": "abuf",
+              "type": "string",
+              "level": 2,
+              "data": 0,
+              "value": "BUad"
+            },
+            {
+              "id": "abuf",
+              "type": "string",
+              "level": 3,
+              "data": 0,
+              "value": "BUad"
+            },
+            {
+              "id": "abuf",
+              "type": "string",
+              "level": 4,
+              "data": 0,
+              "value": "BUad"
+            },
+            {
+              "id": "aran",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 500.1000061035156,
+              "end": "ANcl"
+            },
+            {
+              "id": "aran",
+              "type": "unreal",
+              "level": 3,
+              "data": 0,
+              "value": 500.1000061035156
+            },
+            {
+              "id": "aran",
+              "type": "unreal",
+              "level": 4,
+              "data": 0,
+              "value": 500.1000061035156
+            },
+            {
+              "id": "acas",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 3,
+              "end": "ANcl"
+            },
+            {
+              "id": "acas",
+              "type": "unreal",
+              "level": 4,
+              "data": 0,
+              "value": 3
+            },
+            {
+              "id": "acas",
+              "type": "unreal",
+              "level": 3,
+              "data": 0,
+              "value": 3
+            },
+            {
+              "id": "acdn",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 3,
+              "end": "ANcl"
+            },
+            {
+              "id": "acdn",
+              "type": "unreal",
+              "level": 3,
+              "data": 0,
+              "value": 3
+            },
+            {
+              "id": "acdn",
+              "type": "unreal",
+              "level": 4,
+              "data": 0,
+              "value": 3
+            },
+            {
+              "id": "ahdu",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 4,
+              "end": "ANcl"
+            },
+            {
+              "id": "ahdu",
+              "type": "unreal",
+              "level": 3,
+              "data": 0,
+              "value": 4
+            },
+            {
+              "id": "ahdu",
+              "type": "unreal",
+              "level": 4,
+              "data": 0,
+              "value": 4
+            },
+            {
+              "id": "adur",
+              "type": "unreal",
+              "level": 2,
+              "data": 0,
+              "value": 4,
+              "end": "ANcl"
+            },
+            {
+              "id": "adur",
+              "type": "unreal",
+              "level": 3,
+              "data": 0,
+              "value": 4
+            },
+            {
+              "id": "adur",
+              "type": "unreal",
+              "level": 4,
+              "data": 0,
+              "value": 4
+            },
+            {
+              "id": "aeff",
+              "type": "string",
+              "level": 2,
+              "data": 0,
+              "value": "Xfom",
+              "end": "ANcl"
+            },
+            {
+              "id": "aeff",
+              "type": "string",
+              "level": 3,
+              "data": 0,
+              "value": "Xfom"
+            },
+            {
+              "id": "aeff",
+              "type": "string",
+              "level": 4,
+              "data": 0,
+              "value": "Xfom"
+            },
+            {
+              "id": "amcs",
+              "type": "integer",
+              "level": 2,
+              "data": 0,
+              "value": 2,
+              "end": "ANcl"
+            },
+            {
+              "id": "amcs",
+              "type": "integer",
+              "level": 3,
+              "data": 0,
+              "value": 4,
+              "end": "ANcl"
+            },
+            {
+              "id": "amcs",
+              "type": "integer",
+              "level": 4,
+              "data": 0,
+              "value": 5,
+              "end": "ANcl"
+            },
+            {
+              "id": "atar",
+              "type": "string",
+              "level": 2,
+              "data": 0,
+              "value": "air",
+              "end": "ANcl"
+            },
+            {
+              "id": "atar",
+              "type": "string",
+              "level": 3,
+              "data": 0,
+              "value": "enemies,friend",
+              "end": "ANcl"
+            },
+            {
+              "id": "atar",
+              "type": "string",
+              "level": 4,
+              "data": 0,
+              "value": "structure,sapper,terrain",
+              "end": "ANcl"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

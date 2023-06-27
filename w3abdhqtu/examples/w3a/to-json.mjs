@@ -1,12 +1,14 @@
 import fs from 'fs';
 import {W3A} from '../../W3A.mjs';
 
+const ext = 'w3a';
 const name = [
-    'wa.test.w3a',
-    'wa.w3a',
+    'wa',
+    'wb',
+    'wa.test',
 ][0];
 
-const w3a = new W3A(fs.readFileSync(name));
+const w3a = new W3A(fs.readFileSync(`${name}.${ext}`));
 w3a.read();
 
 console.log('🏁 W3A: start');

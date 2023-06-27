@@ -1,4 +1,5 @@
 import {W3ABDHQTU} from './abstract/W3ABDHQTU.mjs';
+import W3UTOMLMap from './maps/w3u/W3UTOMLMap.mjs';
 
 export class W3U extends W3ABDHQTU {
     /** @param {Buffer|ArrayBuffer} buffer */
@@ -19,11 +20,11 @@ export class W3U extends W3ABDHQTU {
      * @return {W3U}
      */
     static fromTOML(ini) {
-        return super._fromTOML(new W3U(new ArrayBuffer(0)), ini, false, {});
+        return super._fromTOML(new W3U(new ArrayBuffer(0)), ini, false, W3UTOMLMap);
     }
 
     /** @return {string} */
     toTOML() {
-        return super._toTOML({});
+        return super._toTOML(W3UTOMLMap);
     }
 }

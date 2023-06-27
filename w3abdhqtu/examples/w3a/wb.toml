@@ -1,0 +1,76 @@
+[Settings]
+version = 3 # binary format version
+
+[ANcl] # 1095656300 0x414e636c
+# (stringList) Animnames : Animation Names
+aani = "spell,channel,gold"
+# (modelList) Areaeffectart : Area Effect
+aaea = "Objects\\Spawnmodels\\Undead\\UCancelDeath\\UCancelDeath.mdl"
+# (int) Buttonpos : Button Position - Normal (X)
+abpx = 1
+# (int) Buttonpos : Button Position - Normal (Y)
+abpy = 1
+# (int) Researchbuttonpos : Button Position - Research (X)
+arpx = 1
+# (int) Researchbuttonpos : Button Position - Research (Y)
+arpy = 1
+# (int) UnButtonpos : Button Position - Turn Off (X)
+aubx = 1
+# (int) UnButtonpos : Button Position - Turn Off (Y)
+auby = 1
+# (modelList) CasterArt : Caster
+acat = "Abilities\\Spells\\Undead\\Graveyard\\GraveMarker.mdl"
+# (stringList) Casterattach : Caster Attachment Point 1
+acap = "chest"
+# (stringList) Casterattach1 : Caster Attachment Point 2
+aca1 = "chest"
+# (int) Casterattachcount : Caster Attachments
+acac = 1
+# (modelList) EffectArt : Effect
+aeat = "Abilities\\Spells\\NightElf\\ManaBurn\\ManaBurnTarget.mdl"
+# (icon) Art : Icon - Normal
+aart = "ReplaceableTextures\\CommandButtons\\BTNRunedBracers.blp"
+# (icon) ResearchArt : Icon - Research
+arar = "ReplaceableTextures\\CommandButtons\\BTNGryphonAviary.blp"
+# (icon) Unart : Icon - Turn Off
+auar = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp"
+# (lightningList) LightningEffect : Lightning Effects
+alig = "DRAL"
+# (unreal) Missilearc : Missile Arc
+amac = 0.2
+# (modelList) Missileart : Missile Art
+amat = "Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl"
+# (modelList) SpecialArt : Special
+asat = "Abilities\\Weapons\\AncestralGuardianMissile\\AncestralGuardianMissile.mdl"
+# (stringList) Specialattach : Special Attachment Point
+aspt = "origin"
+# (modelList) TargetArt : Target
+atat = "Abilities\\Spells\\Other\\CrushingWave\\CrushingWaveMissile.mdl"
+# (stringList) Targetattach : Target Attachment Point 1
+ata0 = "chest"
+# (stringList) Targetattach1 : Target Attachment Point 2
+ata1 = "chest"
+# (stringList) Targetattach2 : Target Attachment Point 3
+ata2 = "chest"
+# (stringList) Targetattach3 : Target Attachment Point 4
+ata3 = "chest"
+# (stringList) Targetattach4 : Target Attachment Point 5
+ata4 = "chest"
+# (stringList) Targetattach5 : Target Attachment Point 6
+ata5 = "chest"
+# (int) Targetattachcount : Target Attachments
+atac = 1
+# (unitSkinList) UnitSkinID : Unit Skin List
+ausk = "hdhw"
+# (soundLabel) Effectsound : Effect Sound
+aefs = "AbominationReady"
+# (soundLabel) Effectsoundlooped : Effect Sound (Looping)
+aefl = "AbominationYesAttack"
+# (string) EditorSuffix : Editor Suffix
+ansf = """TRIGSTR_014"""
+# (char) Hotkey : Hotkey - Normal
+ahky = "TRIGSTR_024"
+# (char) Unhotkey : Hotkey - Turn Off
+auhk = "TRIGSTR_016"
+# (string) Name : Name
+anam = """TRIGSTR_017"""

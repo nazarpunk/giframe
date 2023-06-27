@@ -170,7 +170,7 @@ export class W3ABDHQTU {
         const _value = (prop, value, isString, singleline = false) => {
             const format = isString ? _stringFormat : _numberFormat;
             const tdef = isString ? 'string' : 'number';
-            if (prop.level === 0) return format(prop, value[0], singleline) + '\n';
+            if (prop.level ?? 0 === 0) return format(prop, value[0], singleline) + '\n';
             let out = `[\n`;
             for (let i = 0; i < value.length; i++) {
                 const empty = typeof value[i] !== tdef;

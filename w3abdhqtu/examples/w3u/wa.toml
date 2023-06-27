@@ -1,0 +1,295 @@
+[Settings]
+version = 3 # binary format version
+
+[Udre] # 1432646245 0x55647265
+# (abilCode) auto : Default Active Ability
+udaa = "AOr2"
+# (heroAbilityList) heroAbilList : Hero
+uhab = "AUsl,AUcs,AUin"
+# (abilityList) abilList : Normal
+uabi = "Agyb,AInv"
+# (unreal) castbsw : Animation - Cast Backswing
+ucbs = 1.63
+# (unreal) castpt : Animation - Cast Point
+ucpt = 0.4
+# (real) run : Animation - Run Speed
+urun = 290.1
+# (real) walk : Animation - Walk Speed
+uwal = 290.1
+# (unreal) death : Death Time (seconds)
+udtm = 3.1
+# (unreal) occH : Occluder Height
+uocc = 0.1
+# (int) orientInterp : Orientation Interpolation
+uori = 5
+# (unreal) propWin : Propulsion Window (degrees)
+uprw = 60.1
+# (teamColor) teamColor : Team Color
+utco = 2
+# (bool) fatLOS : Use Extended Line of Sight
+ulos = 1
+# (unreal) acquire : Acquisition Range
+uacq = 499.8
+# (armorType) armor : Armor Type
+uarm = "Ethereal"
+# (unreal) backSw1 : Attack 1 - Animation Backswing Point
+ubs1 = 0.65
+# (unreal) dmgpt1 : Attack 1 - Animation Damage Point
+udp1 = 0.65
+# (int) Farea1 : Attack 1 - Area of Effect (Full Damage)
+ua1f = 1
+# (int) Harea1 : Attack 1 - Area of Effect (Medium Damage)
+ua1h = 1
+# (int) Qarea1 : Attack 1 - Area of Effect (Small Damage)
+ua1q = 1
+# (targetList) splashTargs1 : Attack 1 - Area of Effect Targets
+ua1p = "air,alive"
+# (attackType) atkType1 : Attack 1 - Attack Type
+ua1t = "normal"
+# (unreal) cool1 : Attack 1 - Cooldown Time
+ua1c = 1.9
+# (int) dmgplus1 : Attack 1 - Damage Base
+ua1b = 1
+# (unreal) Hfact1 : Attack 1 - Damage Factor - Medium
+uhd1 = 0.1
+# (unreal) Qfact1 : Attack 1 - Damage Factor - Small
+uqd1 = 0.1
+# (unreal) damageLoss1 : Attack 1 - Damage Loss Factor
+udl1 = 0.1
+# (int) dice1 : Attack 1 - Damage Number of Dice
+ua1d = 3
+# (int) sides1 : Attack 1 - Damage Sides per Die
+ua1s = 7
+# (unreal) spillDist1 : Attack 1 - Damage Spill Distance
+usd1 = 0.1
+# (unreal) spillRadius1 : Attack 1 - Damage Spill Radius
+usr1 = 0.1
+# (int) dmgUp1 : Attack 1 - Damage Upgrade Amount
+udu1 = 1
+# (int) targCount1 : Attack 1 - Maximum Number of Targets
+utc1 = 2
+# (bool) MissileHoming : Attack 1 - Projectile Homing Enabled
+umh1 = 1
+# (int) Missilespeed : Attack 1 - Projectile Speed
+ua1z = 1
+# (int) rangeN1 : Attack 1 - Range
+ua1r = 101
+# (unreal) RngBuff1 : Attack 1 - Range Motion Buffer
+urb1 = 250.1
+# (bool) showUI1 : Attack 1 - Show UI
+uwu1 = 0
+# (targetList) targs1 : Attack 1 - Targets Allowed
+ua1g = "debris,ground,item,structure,sapper,ward"
+# (combatSound) weapType1 : Attack 1 - Weapon Sound
+ucs1 = "MetalHeavyBash"
+# (weaponType) weapTp1 : Attack 1 - Weapon Type
+ua1w = "artillery"
+# (unreal) backSw2 : Attack 2 - Animation Backswing Point
+ubs2 = 0.65
+# (unreal) dmgpt2 : Attack 2 - Animation Damage Point
+udp2 = 0.65
+# (int) Farea2 : Attack 2 - Area of Effect (Full Damage)
+ua2f = 1
+# (int) Harea2 : Attack 2 - Area of Effect (Medium Damage)
+ua2h = 1
+# (int) Qarea2 : Attack 2 - Area of Effect (Small Damage)
+ua2q = 1
+# (targetList) splashTargs2 : Attack 2 - Area of Effect Targets
+ua2p = "nonhero,none"
+# (attackType) atkType2 : Attack 2 - Attack Type
+ua2t = "pierce"
+# (unreal) cool2 : Attack 2 - Cooldown Time
+ua2c = 2.23
+# (int) dmgplus2 : Attack 2 - Damage Base
+ua2b = 1
+# (unreal) Hfact2 : Attack 2 - Damage Factor - Medium
+uhd2 = 0.1
+# (unreal) Qfact2 : Attack 2 - Damage Factor - Small
+uqd2 = 0.1
+# (unreal) damageLoss2 : Attack 2 - Damage Loss Factor
+udl2 = 0.1
+# (int) dice2 : Attack 2 - Damage Number of Dice
+ua2d = 3
+# (int) sides2 : Attack 2 - Damage Sides per Die
+ua2s = 5
+# (unreal) spillDist2 : Attack 2 - Damage Spill Distance
+usd2 = 0.1
+# (unreal) spillRadius2 : Attack 2 - Damage Spill Radius
+usr2 = 0.1
+# (int) dmgUp2 : Attack 2 - Damage Upgrade Amount
+udu2 = 1
+# (int) targCount2 : Attack 2 - Maximum Number of Targets
+utc2 = 2
+# (bool) MissileHoming : Attack 2 - Projectile Homing Enabled
+umh2 = 1
+# (int) Missilespeed : Attack 2 - Projectile Speed
+ua2z = 1
+# (int) rangeN2 : Attack 2 - Range
+ua2r = 501
+# (unreal) RngBuff2 : Attack 2 - Range Motion Buffer
+urb2 = 250.1
+# (bool) showUI2 : Attack 2 - Show UI
+uwu2 = 0
+# (targetList) targs2 : Attack 2 - Targets Allowed
+ua2g = "air,debris,ground,item,none,structure,ward"
+# (combatSound) weapType2 : Attack 2 - Weapon Sound
+ucs2 = "MetalHeavyBash"
+# (weaponType) weapTp2 : Attack 2 - Weapon Type
+ua2w = "instant"
+# (attackBits) weapsOn : Attacks Enabled
+uaen = 2
+# (deathType) deathType : Death Type
+udea = 1
+# (int) def : Defense Base
+udef = 1
+# (defenseType) defType : Defense Type
+udty = "small"
+# (int) defUp : Defense Upgrade Bonus
+udup = 1
+# (int) minRange : Minimum Attack Range
+uamn = 1
+# (targetList) targType : Targeted as
+utar = "ground,terrain"
+# (bool) dropItems : Can Drop Items On Death
+udro = 0
+# (bool) campaign : Categorization - Campaign
+ucam = 1
+# (bool) special : Categorization - Special
+uspe = 1
+# (bool) hostilePal : Display as Neutral Hostile
+uhos = 1
+# (bool) tilesetSpecific : Has Tileset Specific Data
+utss = 1
+# (bool) inEditor : Placeable In Editor
+uine = 0
+# (tilesetList) tilesets : Tilesets
+util = "I,*"
+# (bool) repulse : Group Separation - Enabled
+urpo = 1
+# (int) repulseGroup : Group Separation - Group Number
+urpg = 1
+# (int) repulseParam : Group Separation - Parameter
+urpp = 1
+# (int) repulsePrio : Group Separation - Priority
+urpr = 1
+# (unreal) moveHeight : Height
+umvh = 0.1
+# (unreal) moveFloor : Height Minimum
+umvf = 0.1
+# (int) spd : Speed Base
+umvs = 271
+# (int) maxSpd : Speed Maximum
+umas = 1
+# (int) minSpd : Speed Minimum
+umis = 1
+# (unreal) turnRate : Turn Rate
+umvr = 0.6
+# (moveType) movetp : Type
+umvt = "horse"
+# (unreal) buffRadius : AI Placement Radius
+uabr = 0.1
+# (aiBuffer) buffType : AI Placement Type
+uabt = "buffer"
+# (unreal) collision : Collision Size
+ucol = 32.1
+# (unreal) AGIplus : Agility per Level
+uagp = 1.1
+# (int) bldtm : Build Time
+ubld = 54
+# (bool) canFlee : Can Flee
+ufle = 0
+# (int) fused : Food Cost
+ufoo = 4
+# (int) fmade : Food Produced
+ufma = 1
+# (int) formation : Formation Rank
+ufor = 1
+# (int) bountyplus : Gold Bounty Awarded - Base
+ubba = 31
+# (int) bountydice : Gold Bounty Awarded - Number of Dice
+ubdi = 9
+# (int) bountysides : Gold Bounty Awarded - Sides per Die
+ubsi = 4
+# (int) goldcost : Gold Cost
+ugol = 426
+# (bool) hideHeroDeathMsg : Hero - Hide Hero Death Message
+uhhd = 1
+# (bool) hideHeroBar : Hero - Hide Hero Interface Icon
+uhhb = 1
+# (bool) hideHeroMinimap : Hero - Hide Hero Minimap Display
+uhhm = 1
+# (bool) hideOnMinimap : Hide Minimap Display
+uhom = 1
+# (int) HP : Hit Points Maximum (Base)
+uhpm = 101
+# (unreal) regenHP : Hit Points Regeneration Rate
+uhpr = 2.1
+# (regenType) regenType : Hit Points Regeneration Type
+uhrt = "always"
+# (unreal) INTplus : Intelligence per Level
+uinp = 2.6
+# (bool) isbldg : Is a Building
+ubdg = 1
+# (int) level : Level
+ulev = 6
+# (int) lumberbountyplus : Lumber Bounty Awarded - Base
+ulba = 1
+# (int) lumberbountydice : Lumber Bounty Awarded - Number of Dice
+ulbd = 1
+# (int) lumberbountysides : Lumber Bounty Awarded - Sides per Die
+ulbs = 1
+# (int) lumbercost : Lumber Cost
+ulum = 101
+# (int) mana0 : Mana Initial Amount
+umpi = 101
+# (int) manaN : Mana Maximum
+umpm = 1
+# (unreal) regenMana : Mana Regeneration
+umpr = 0.11
+# (int) points : Point Value
+upoi = 101
+# (attributeType) Primary : Primary Attribute
+upra = "INT"
+# (int) prio : Priority
+upri = 10
+# (unitRace) race : Race
+urac = "critters"
+# (int) goldRep : Repair Gold Cost
+ugor = 426
+# (int) lumberRep : Repair Lumber Cost
+ulur = 101
+# (int) reptm : Repair Time
+urtm = 56
+# (int) sight : Sight Radius (Day)
+usid = 1799
+# (int) nsight : Sight Radius (Night)
+usin = 799
+# (bool) canSleep : Sleeps
+usle = 1
+# (int) stockInitial : Stock Initial After Start Delay
+usit = 2
+# (int) stockMax : Stock Maximum
+usma = 4
+# (int) stockRegen : Stock Replenish Interval
+usrg = 29
+# (int) stockStart : Stock Start Delay
+usst = 1
+# (unitClass) type : Unit Classification
+utyp = "undead,standon"
+# (unitList) DependencyOr : Dependency Equivalents
+udep = "Hpal"
+# (itemList) Sellitems : Items Sold
+usei = "rde4"
+# (techList) Requires : Requirements
+ureq = "hfoo"
+# (intList) Requiresamount : Requirements - Levels
+urqa = "1"
+# (unitList) Sellunits : Units Sold
+useu = "hfoo,hrif"
+# (unitList) Trains : Units Trained
+utra = "hfoo"
+# (upgradeList) upgrades : Upgrades Used
+upgr = "Rhhb"
+
+[hfo1] # 1751543601 0x68666f31
+parent = "hfoo" # 1751543663 0x68666f6f

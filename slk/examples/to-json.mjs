@@ -8,7 +8,7 @@ const name = [
 ][0];
 
 const slk = new SLK(fs.readFileSync(`${name}.${ext}`, {encoding: 'utf8'}));
-slk.read();
+slk.read(true);
 
 if (slk.errors.length) {
     console.log('⚠️', slk.errors);

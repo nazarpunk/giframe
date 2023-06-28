@@ -13,10 +13,10 @@ export class SLK {
     /** @type {Error[]} */ errors = [];
 
     list = [];
+    maps = [];
 
     width = -1;
     height = -1;
-
 
     #read() {
         let y = -1;
@@ -90,22 +90,33 @@ export class SLK {
                     break;
             }
         }
-        this.list.shift();
+        this.header = this.list.shift();
         for (let i = this.list.length - 1; i >= 0; i--) {
             const length = this.list[i].reduce((a, v) => a + (v === def ? 1 : 0), 0);
             if (length === this.list[i].length) this.list.pop();
         }
     }
 
-    read() {
+    /** @param {boolean} map */
+    read(map = false) {
         try {
             this.#read();
         } catch (e) {
             this.errors.push(e);
+            return;
+        }
+
+        if (!map) return;
+        for (const item of this.list) {
+            const m = {};
+            for (let i = 0; i < this.header.length; i++) {
+                m[this.header[i]] = item[i];
+            }
+            this.maps.push(m);
         }
     }
 
     toJSON() {
-        return this.list;
+        return this.maps;
     }
 }

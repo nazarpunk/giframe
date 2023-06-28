@@ -9,9 +9,9 @@ slk.read();
 let out = '';
 
 for (const list of slk.list) {
-    const [raw, name, , , repeat, , , description, , type] = list;
+    const [raw, name, , , repeat, data, , description, , type] = list;
     const [itype, singleline] = W3ABDHQTUTOMLMapType(type);
-    out += `\t${raw}: {type: ${itype}, name: \`(${type}) ${name} ${repeat > 0 ? '[multilevel]' : ''}: ${WESTRING[description]}\`${repeat > 0 ? ', level : true' : ''}${singleline ? ', singleline : true' : ''}},\n`;
+    out += `\t${raw}: {type: ${itype}, data : ${data}, name: \`(${type}) ${name} ${repeat > 0 ? '[multilevel]' : ''}: ${WESTRING[description]}\`${repeat > 0 ? ', level : true' : ''}${singleline ? ', singleline : true' : ''}},\n`;
 }
 
 out = `/** @type {Object.<string, W3ABDHQTUTOMLMapProperty>} */\nconst map = \{\n${out}\n\};\nexport default map;`;

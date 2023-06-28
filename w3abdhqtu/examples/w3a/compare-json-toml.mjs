@@ -4,8 +4,8 @@ import vbindiff from '../../../utils/vbindiff.mjs';
 
 const ext = 'w3a';
 const name = [
-    'wa.test',
     'wa',
+    'wa.test',
 ][0];
 
 const w3a1 = new W3A(fs.readFileSync(`${name}.${ext}`));

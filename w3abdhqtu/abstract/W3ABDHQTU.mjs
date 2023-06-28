@@ -14,6 +14,7 @@ import * as TOML from '@ltd/j-toml';
  * @type {object}
  * @property {string} name
  * @property {number} type
+ * @property {number?} data
  * @property {boolean?} level
  * @property {boolean?} singleline
  */
@@ -193,13 +194,15 @@ export class W3ABDHQTU {
             if (!(data instanceof Array)) data = [data];
             if (!(end instanceof Array)) end = [end];
             let endLength = 0;
-            for (let i = 0; i < end.length; i++) {
-                if (end[i] === undefined || end[i] === 0) {
-                    end[i] = [];
-                    continue;
+            if (endblock) {
+                for (let i = 0; i < end.length; i++) {
+                    if (end[i] === undefined || end[i] === 0) {
+                        end[i] = [];
+                        continue;
+                    }
+                    endLength++;
+                    end[i] = Dec2RawBE(end[i]);
                 }
-                endLength++;
-                end[i] = Dec2RawBE(end[i]);
             }
 
             let showType = true;
@@ -230,15 +233,17 @@ export class W3ABDHQTU {
             out += `${name} = ${_value(prop, value, prop.type === 3, map[name]?.singleline ?? false)}`;
             if (value.length === 1 && prop.level > 0) out += `${name}Level = ${prop.level}\n`;
 
-            let skip = true;
-            for (const d of data) {
-                if (d !== 0 && typeof d === 'number') {
-                    skip = false;
-                    break;
+            if (map[name]?.data === undefined) {
+                let skip = true;
+                for (const d of data) {
+                    if (d !== 0 && typeof d === 'number') {
+                        skip = false;
+                        break;
+                    }
                 }
+                if (!skip) out += `${name}Data = ${_value(prop, data, false)}`;
             }
 
-            if (!skip) out += `${name}Data = ${_value(prop, data, false)}`;
             if (endblock && endLength > 0) out += `${name}End = ${_value(prop, end, true, true)}`;
         };
 
@@ -363,9 +368,13 @@ export class W3ABDHQTU {
                         itemData.list.push(itemDataValue);
                         if (adq) {
                             itemDataValue.level = i + 1;
-                            const data = propMap[`${attrRawId}Data`];
-                            if (data === undefined) itemDataValue.data = 0;
-                            if (data instanceof Array) itemDataValue.data = data[i];
+                            if (map[attrRawId]?.data !== undefined) {
+                                itemDataValue.data = map[attrRawId]?.data;
+                            } else {
+                                const data = propMap[`${attrRawId}Data`];
+                                if (data === undefined) itemDataValue.data = 0;
+                                if (data instanceof Array) itemDataValue.data = data[i];
+                            }
                         }
                         itemDataValue.fromMap(attrRawId, propMap, map);
                         itemDataValue.value = attrValue[i];

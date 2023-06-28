@@ -3,6 +3,8 @@ import {W3U} from '../../W3U.mjs';
 
 const ext = 'w3u';
 const name = [
+    'wbSkin',
+    'wb',
     'wa',
 ][0];
 

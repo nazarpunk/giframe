@@ -4,6 +4,7 @@ import {W3U} from '../../W3U.mjs';
 const ext = 'w3u';
 const name = [
     'wa',
+    'wb',
 ][0];
 
 const w3u = new W3U(fs.readFileSync(`${name}.${ext}`));

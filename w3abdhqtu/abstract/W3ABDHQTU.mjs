@@ -138,10 +138,11 @@ export class W3ABDHQTU {
 
     /**
      * @param {Object.<string, W3ABDHQTUTOMLMapProperty>} map
-     * @param endblock
+     * @param {boolean} endblock
+     * @param {boolean} forceType
      * @return {string}
      */
-    _toTOML(map, {endblock = false} = {}) {
+    _toTOML(map, {endblock = false, forceType = false} = {}) {
         let out = `[Settings]\nversion = ${this.formatVersion} # binary format version\n`;
 
         /**
@@ -211,7 +212,7 @@ export class W3ABDHQTU {
                 out += `# ${map[name].name}\n`;
             }
 
-            if (showType) {
+            if (showType || forceType) {
                 switch (prop.type) {
                     case 0:
                         out += `${name}Type = "integer"\n`;

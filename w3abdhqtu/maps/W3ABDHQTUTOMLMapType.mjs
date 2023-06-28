@@ -27,7 +27,7 @@ export default (type) => {
         case 'deathType': // unit
         case 'defenseTypeInt': // unit
         case 'fullFlags': // unit
-        case 'int':
+        case 'int': // all
         case 'interactionFlags': // unit
         case 'morphFlags': // unit
         case 'pickFlags': // unit
@@ -47,34 +47,36 @@ export default (type) => {
         case 'attackType': // unit
         case 'aiBuffer': // unit
         case 'buffList': // ability
-        case 'char':
+        case 'char': // unit
         case 'combatSound': // unit
         case 'defenseType': // unit
+        case 'destructableCategory': // destructable
         case 'effectList': // ability
         case 'heroAbilityList': // unit
-        case 'icon':
+        case 'icon': // unit
         case 'intList': // ability, unit
         case 'itemClass': // unit
         case 'itemList': // unit
         case 'lightningList':
-        case 'modelList':
-        case 'model':
+        case 'modelList': // unit
+        case 'model': // unit
         case 'moveType': // unit
         case 'orderString': // ability
         case 'pathingListPrevent': // unit
         case 'pathingListRequire': // unit
-        case 'pathingTexture':
+        case 'pathingTexture': // unit
         case 'regenType': // unit
-        case 'soundLabel':
-        case 'stringList':
-        case 'shadowTexture':
+        case 'soundLabel': // unit
+        case 'stringList': // unit
+        case 'shadowTexture': // unit
         case 'shadowImage': // unit
         case 'targetList': // ability, unit
         case 'techList': // ability, unit
+        case 'texture':
         case 'tilesetList': // unit
-        case 'uberSplat':
+        case 'uberSplat': // unit
         case 'unitClass': // unit
-        case 'unitSound':
+        case 'unitSound': // unit
         case 'unitRace': // ability, unit
         case 'unitList': // unit
         case 'upgradeList': // unit

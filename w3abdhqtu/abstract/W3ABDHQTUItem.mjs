@@ -38,7 +38,9 @@ export class W3ABDHQTUItem {
     toJSON() {
         return {
             defaultId: Dec2RawBE(this.defaultId),
+            //defaultIdDec: this.defaultId,
             customId: this.customId > 0 ? Dec2RawBE(this.customId) : undefined,
+            //customIdDec: this.customId > 0 ? this.customId : undefined,
             list: this.list,
         };
     }

@@ -5,7 +5,6 @@ const ext = 'w3a';
 const name = [
     'wa',
     'wb',
-    'wa.test',
 ][0];
 
 const w3a = new W3A(fs.readFileSync(`${name}.${ext}`));

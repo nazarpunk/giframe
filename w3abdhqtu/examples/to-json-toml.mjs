@@ -52,4 +52,4 @@ const convert = (name, dir, json) => {
     }
 };
 
-convert('wa', 'w3t', false);
+convert('wa', 'w3a', false);

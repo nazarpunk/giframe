@@ -43,8 +43,9 @@ const generate = (dir, table) => {
             case 'interactionFlags': // unit
             case 'morphFlags': // unit
             case 'pickFlags': // unit
-            case 'stackFlags': // unit
             case 'silenceFlags': // unit
+            case 'spellDetail': // buff
+            case 'stackFlags': // unit
             case 'teamColor': // unit
             case 'unitCode':
             case 'upgradeCode':
@@ -70,6 +71,7 @@ const generate = (dir, table) => {
             case 'intList': // ability, unit
             case 'itemClass': // unit
             case 'itemList': // unit
+            case 'lightningEffect': // buff
             case 'lightningList':
             case 'modelList': // unit
             case 'model': // unit
@@ -92,6 +94,8 @@ const generate = (dir, table) => {
             case 'unitSound': // unit
             case 'unitRace': // ability, unit
             case 'unitList': // unit
+            case 'upgradeEffect': // upgrade
+            case 'upgradeClass': // upgrade
             case 'upgradeList': // unit
             case 'unitSkinList':
             case 'weaponType': // unit
@@ -119,4 +123,6 @@ const generate = (dir, table) => {
 generate('w3a', 'abilitymetadata.slk');
 generate('w3b', 'destructablemetadata.slk');
 generate('w3d', 'doodadmetadata.slk');
+generate('w3h', 'abilitybuffmetadata.slk');
+generate('w3q', 'upgrademetadata.slk');
 generate('w3u', 'unitmetadata.slk');

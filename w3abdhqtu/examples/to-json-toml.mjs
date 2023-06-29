@@ -4,7 +4,12 @@ import {W3B} from '../W3B.mjs';
 import {W3D} from '../W3D.mjs';
 import {W3U} from '../W3U.mjs';
 
-const convert = (name, dir) => {
+/**
+ * @param {string} name
+ * @param {string} dir
+ * @param {boolean} json
+ */
+const convert = (name, dir, json) => {
     const file = fs.readFileSync(`${dir}/${name}.${dir}`);
 
     /** @type {W3A|W3B|W3D|W3U} */
@@ -30,8 +35,9 @@ const convert = (name, dir) => {
     if (w3.errors.length) {
         console.log('⚠️', w3.errors);
     } else {
-        fs.writeFileSync(`${dir}/${name}.toml`, w3.toTOML(), {flag: 'w+'});
+        if (json) fs.writeFileSync(`${name}.json`, JSON.stringify(w3, null, 2), {flag: 'w+'});
+        else fs.writeFileSync(`${dir}/${name}.toml`, w3.toTOML(), {flag: 'w+'});
     }
 };
 
-convert('wa', 'w3a');
+convert('wa', 'w3a', false);

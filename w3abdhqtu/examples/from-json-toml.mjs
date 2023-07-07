@@ -35,7 +35,6 @@ const convert = (name, dir, json) => {
         default:
             throw new Error(`Missing converter: ${dir}`);
     }
-    w3.read();
 
     const f2 = `${dir}/${name}.test.${dir}`;
     fs.writeFileSync(f2, Buffer.from(w3.write()), {flag: 'w+'});

@@ -116,7 +116,7 @@ button.addEventListener('click', () => {
         writer.number(i, true, true) // Номер области
         writer.number(0, true, true) // Равкод погоды
         writer.string('') // Фоновый звук
-        writer.number(0x11D933FF, true, true) // Цвет argb
+        writer.number(0x11D933FF, false, true) // Цвет rgba
     }
 
     const url = URL.createObjectURL(new Blob(writer.list))

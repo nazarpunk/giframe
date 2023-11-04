@@ -68,71 +68,61 @@ if (location.host.startsWith('localhost')) {
     parse()
 }
 
-// https://xgm.guru/p/wc3/w3-file-format
-button.addEventListener('click', () => {
-    const textDecoder = new TextEncoder('utf-8')
-    // noinspection JSCheckFunctionSignatures
-    const buffer = new ArrayBuffer(0, {maxByteLength: 0xffffffff})
-    const view = new DataView(buffer)
+class BlobWriter {
+    constructor() {
+        this.#view = new DataView(this.#buffer)
+    }
 
-    let cursor = 0
+    /** @type {TextEncoder} */ #encoder = new TextEncoder('utf-8')
+    #buffer = new ArrayBuffer(4)
+    /** @type {DataView} */ #view
+    /** @type {Uint8Array[]} */ list = []
 
     /**
      * @param {number} value
-     * @param {boolean} int
+     * @param {boolean} littleEndian
+     * @param {boolean} integer
      */
-    const number = (value, int) => {
-        const offset = cursor
-        cursor += 4
-        buffer.resize(cursor)
-        if (int) view.setInt32(offset, value, true)
-        else view.setFloat32(offset, value, true)
-    }
-
-    const color = value => {
-        const offset = cursor
-        cursor += 4
-        buffer.resize(cursor)
-        view.setInt32(offset, value, false)
-    }
-
-    const string = value => {
-        const offset = cursor
-        const list = textDecoder.encode(value)
-        cursor += list.length + 1
-        buffer.resize(cursor)
-        for (let i = 0; i < list.length; i++) {
-            view.setUint8(offset + i, list[i])
+    number(value, littleEndian, integer) {
+        if (integer) this.#view.setInt32(0, value, littleEndian)
+        else this.#view.setFloat32(0, value, littleEndian)
+        const list = new Uint8Array(4)
+        for (let i = 0; i < 4; i++) {
+            list[i] = this.#view.getUint8(i)
         }
-        view.setUint8(offset + list.length, 0)
+        this.list.push(list)
     }
 
-    number(5, true) // Версия формата
-    number(rects.length, true) // Количество областей
+    string(value) {
+        this.list.push(this.#encoder.encode(value))
+        this.list.push(new Uint8Array([0]))
+    }
+}
+
+// https://xgm.guru/p/wc3/w3-file-format
+button.addEventListener('click', () => {
+    const writer = new BlobWriter()
+
+    writer.number(5, true, true) // Версия формата
+    writer.number(rects.length, true, true) // Количество областей
 
     for (let i = 0; i < rects.length; i++) {
         const rect = rects[i]
-        number(rect.minx, false) // Влево
-        number(rect.miny, false) // Вниз
-        number(rect.maxx, false) // Вправо
-        number(rect.maxy, false) // Вверх
-        string(rect.name) // Название
-        number(i, true) // Номер области
-        number(0, true) // Равкод погоды
-        string('') // Фоновый звук
-        color(0x11D933FF)
+        writer.number(rect.minx, true, false) // Влево
+        writer.number(rect.miny, true, false) // Вниз
+        writer.number(rect.maxx, true, false) // Вправо
+        writer.number(rect.maxy, true, false) // Вверх
+        writer.string(rect.name) // Название
+        writer.number(i, true, true) // Номер области
+        writer.number(0, true, true) // Равкод погоды
+        writer.string('') // Фоновый звук
+        writer.number(0x11D933FF, true, true) // Цвет argb
     }
 
-    const list = new Uint8Array(buffer.byteLength)
-    for (let i = 0; i < list.length; i++) {
-        list[i] = view.getUint8(i)
-    }
-
-    const url = URL.createObjectURL(new Blob([list]))
+    const url = URL.createObjectURL(new Blob(writer.list))
     button.target = '_blank'
     button.href = url
     button.download = 'war3map.w3r'
-
 })
 
 export {}

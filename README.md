@@ -18,6 +18,3 @@ https://github.com/4eb0da/war3-model
 ```shell
 open -a Google\ Chrome --args --disable-web-security --user-data-dir=~/Desktop/chromedata/ 
 ```
-
-
-<p color="red">Хуй</p>
